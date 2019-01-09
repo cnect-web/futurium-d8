@@ -1,8 +1,9 @@
-uuid: c70ef48f-7bab-4341-a5f7-5c6711261deb
+uuid: b139501b-70dc-4e18-8171-514151d03f99
 langcode: en
 status: true
 dependencies:
   config:
+    - field.field.taxonomy_term.tags.field_tag_type
     - taxonomy.vocabulary.tags
   module:
     - text
@@ -18,4 +19,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  field_tag_type:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
 hidden: {  }

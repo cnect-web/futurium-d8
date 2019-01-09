@@ -1,4 +1,0 @@
-user_profile_location:
-  version: 1.x
-  js:
-    js/location.js: {}

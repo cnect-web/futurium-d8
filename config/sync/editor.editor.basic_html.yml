@@ -19,11 +19,6 @@ settings:
           items:
             - Bold
             - Italic
-            - Underline
-            - JustifyLeft
-            - JustifyCenter
-            - JustifyRight
-            - JustifyBlock
         -
           name: Linking
           items:
@@ -35,9 +30,19 @@ settings:
             - BulletedList
             - NumberedList
         -
+          name: Media
+          items:
+            - Blockquote
+            - media_browser
+            - DrupalImage
+        -
           name: 'Block Formatting'
           items:
             - Format
+        -
+          name: Tools
+          items:
+            - Source
   plugins:
     stylescombo:
       styles: ''

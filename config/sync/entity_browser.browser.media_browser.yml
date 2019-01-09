@@ -27,16 +27,5 @@ widgets:
       auto_select: false
     uuid: 3cd0420c-0d93-4190-8475-ba9587a85635
     weight: 1
-    label: Files
+    label: view
     id: view
-  06f90a95-be60-4a7f-a807-50491f10d8a2:
-    settings:
-      extensions: 'jpg jpeg png gif'
-      media_type: image
-      upload_location: 'public://'
-      multiple: '1'
-      submit_text: Upload
-    uuid: 06f90a95-be60-4a7f-a807-50491f10d8a2
-    weight: 2
-    label: Upload
-    id: media_image_upload

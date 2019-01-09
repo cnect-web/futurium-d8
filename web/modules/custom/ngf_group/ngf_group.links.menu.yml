@@ -1,7 +1,0 @@
-ngf_group.link.discover:
-  title: 'Discover'
-  description: 'Discovery page'
-  parent: main
-  menu_name: main
-  route_name: ngf_group.page.discover
-  weight: 20

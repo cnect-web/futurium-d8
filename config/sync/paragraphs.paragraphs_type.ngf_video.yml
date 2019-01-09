@@ -1,9 +1,0 @@
-uuid: 742fbfb8-97a8-479d-abf3-64f35439dde2
-langcode: en
-status: true
-dependencies: {  }
-id: ngf_video
-label: Video
-icon_uuid: null
-description: ''
-behavior_plugins: {  }

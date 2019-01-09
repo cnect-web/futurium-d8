@@ -1,15 +1,8 @@
-uuid: f618a5c1-aa07-4f47-82ed-2a8ac81889de
+uuid: 485a7bee-ea14-463b-b1a9-7e9b3809108a
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.user.user.field_ngf_biography
-    - field.field.user.user.field_ngf_city
-    - field.field.user.user.field_ngf_country
-    - field.field.user.user.field_ngf_first_name
-    - field.field.user.user.field_ngf_interests
-    - field.field.user.user.field_ngf_last_name
-    - field.field.user.user.field_ngf_region
     - field.field.user.user.user_picture
     - image.style.thumbnail
   module:
@@ -22,19 +15,10 @@ targetEntityType: user
 bundle: user
 mode: default
 content:
-  action_panel:
-    weight: 100
+  member_for:
+    weight: 5
     region: content
-    settings: {  }
-    third_party_settings: {  }
-  extra_text:
-    label: hidden
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-    type: text_default
-  field_user_picture:
+  user_picture:
     type: image
     weight: 0
     region: content
@@ -43,46 +27,4 @@ content:
       image_link: content
     third_party_settings: {  }
     label: hidden
-  flag_ngf_follow_user:
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  followers_panel:
-    weight: 100
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  full_name:
-    label: hidden
-    weight: 1
-    region: content
-    settings:
-      link_to_entity: false
-    third_party_settings: {  }
-    type: string
-  location_info:
-    weight: 2
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  user_picture:
-    type: image
-    weight: 0
-    region: content
-    label: hidden
-    settings:
-      image_style: thumbnail
-      image_link: ''
-    third_party_settings: {  }
-hidden:
-  field_ngf_biography: true
-  field_ngf_city: true
-  field_ngf_country: true
-  field_ngf_first_name: true
-  field_ngf_interests: true
-  field_ngf_last_name: true
-  field_ngf_region: true
-  groups_view: true
-  member_for: true
-  ngf_extra_text: true
+hidden: {  }

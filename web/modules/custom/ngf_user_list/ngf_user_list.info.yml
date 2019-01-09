@@ -1,8 +1,0 @@
-name: 'User list'
-type: module
-description: 'NGF User list'
-core: 8.x
-package: 'NGF'
-dependencies:
-  - ngf_user_profile
-  - user

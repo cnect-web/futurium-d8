@@ -1,4 +1,4 @@
-uuid: 589d8a35-705c-4da1-a853-ad9b2afbcc7d
+uuid: 8175ac30-e570-4faa-a3a9-f983d8be0414
 langcode: en
 status: true
 dependencies:
@@ -10,9 +10,7 @@ dependencies:
     - image.style.thumbnail
     - node.type.article
   module:
-    - allowed_formats
     - comment
-    - content_moderation
     - image
     - path
     - text
@@ -29,12 +27,9 @@ content:
     region: content
     settings:
       rows: 9
-      placeholder: ''
       summary_rows: 3
-    third_party_settings:
-      allowed_formats:
-        hide_help: '0'
-        hide_guidelines: '0'
+      placeholder: ''
+    third_party_settings: {  }
   comment:
     type: comment_default
     weight: 20
@@ -58,14 +53,6 @@ content:
   field_tags:
     type: entity_reference_autocomplete_tags
     weight: 3
-    region: content
-    settings:
-      match_operator: CONTAINS
-      size: 60
-      placeholder: ''
-    third_party_settings: {  }
-  flag:
-    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -122,6 +109,4 @@ content:
   url_redirects:
     weight: 50
     region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden: {  }

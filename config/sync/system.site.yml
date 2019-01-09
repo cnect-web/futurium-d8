@@ -1,15 +1,14 @@
 uuid: 41a6a743-a88e-4dcf-b822-a8224f7b4c3c
-name: FuturiumLab
-mail: site@futuriumlab.eu
+name: IOT
+mail: info@iot.eu
 slogan: ''
 page:
   403: ''
   404: ''
-  front: /front
+  front: /node
 admin_compact_mode: false
 weight_select_max: 100
 langcode: en
 default_langcode: en
 _core:
   default_config_hash: yXadRE77Va-G6dxhd2kPYapAvbnSvTF6hO4oXiOEynI
-mail_notification: ''

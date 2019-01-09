@@ -1,9 +1,0 @@
-uuid: c013653f-a22d-4865-a7ac-e1eb1dc4330c
-langcode: en
-status: true
-dependencies: {  }
-id: ngf_image
-label: Image
-icon_uuid: null
-description: ''
-behavior_plugins: {  }

@@ -1,6 +1,0 @@
-user_register.link:
-  title: 'Join'
-  description: 'User registration page'
-  parent: account
-  menu_name: account
-  route_name: user.register

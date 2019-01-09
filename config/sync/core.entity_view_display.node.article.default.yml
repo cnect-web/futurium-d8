@@ -1,4 +1,4 @@
-uuid: 616e44b6-90aa-4a3d-b93b-f3d60de1b8b0
+uuid: 162462b8-2fe8-492c-8c9e-0b59000009b5
 langcode: en
 status: true
 dependencies:
@@ -55,9 +55,6 @@ content:
     settings:
       link: true
     third_party_settings: {  }
-  flag_ngf_follow_content:
-    weight: 10
-    region: content
   links:
     weight: 100
     region: content

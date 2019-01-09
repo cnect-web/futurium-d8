@@ -38,6 +38,8 @@ settings:
           name: Media
           items:
             - Blockquote
+            - media_browser
+            - DrupalImage
             - Table
             - HorizontalRule
         -
@@ -48,6 +50,7 @@ settings:
           name: Tools
           items:
             - ShowBlocks
+            - Source
   plugins:
     stylescombo:
       styles: ''

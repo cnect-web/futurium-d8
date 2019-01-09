@@ -1,4 +1,4 @@
-uuid: fbcb9754-4743-4c25-9c4e-2de26034a205
+uuid: e3b5447f-77e9-42aa-989c-292254469859
 langcode: en
 status: true
 dependencies:
@@ -18,9 +18,6 @@ targetEntityType: node
 bundle: article
 mode: rss
 content:
-  flag_ngf_follow_content:
-    weight: 10
-    region: content
   links:
     weight: 100
     region: content

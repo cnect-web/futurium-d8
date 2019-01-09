@@ -1,8 +1,0 @@
-uuid: 79a7b2d9-1ffb-4fdd-87d0-0bbc2d220dbe
-langcode: en
-status: true
-dependencies: {  }
-id: refinement
-label: Refinement
-description: 'Menu for search and filter options'
-locked: false

@@ -1,8 +1,0 @@
-uuid: 76ba54de-4014-4e10-bc9a-1711a868f6db
-langcode: en
-status: true
-dependencies: {  }
-id: ngf_day_month_year
-label: ngf_day_month_year
-locked: false
-pattern: d.m.Y
