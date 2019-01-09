@@ -1,0 +1,12 @@
+uuid: 5d0525c7-751a-4ad5-a81b-605fb3268c0a
+langcode: en
+status: true
+dependencies:
+  module:
+    - ngf_core
+id: ngf_related_content_group
+label: 'Related group'
+icon_uuid: null
+description: 'The group related to a discussion'
+behavior_plugins:
+  metatag: {  }

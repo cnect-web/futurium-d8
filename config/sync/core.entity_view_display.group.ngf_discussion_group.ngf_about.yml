@@ -1,0 +1,51 @@
+uuid: 9c4939ca-fe88-42b2-9054-f31b24e7db5c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.group.ngf_about
+    - field.field.group.ngf_discussion_group.field_ngf_comments
+    - field.field.group.ngf_discussion_group.field_ngf_cover_image
+    - field.field.group.ngf_discussion_group.field_ngf_description
+    - field.field.group.ngf_discussion_group.field_ngf_group_visibility
+    - field.field.group.ngf_discussion_group.field_ngf_interests
+    - field.field.group.ngf_discussion_group.field_ngf_introtext
+    - group.type.ngf_discussion_group
+  module:
+    - entity_reference_revisions
+id: group.ngf_discussion_group.ngf_about
+targetEntityType: group
+bundle: ngf_discussion_group
+mode: ngf_about
+content:
+  field_ngf_description:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+  field_ngf_interests:
+    type: entity_reference_label
+    weight: 1
+    region: content
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+hidden:
+  changed: true
+  created: true
+  field_ngf_comments: true
+  field_ngf_cover_image: true
+  field_ngf_group_visibility: true
+  field_ngf_introtext: true
+  group_content_view: true
+  group_tabs: true
+  join_and_follow: true
+  label: true
+  members_and_followers: true
+  show_more: true
+  uid: true

@@ -1,0 +1,28 @@
+uuid: f3ab62cd-8790-4e09-87c8-7580859384e4
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_ngf_creator
+    - taxonomy.vocabulary.ngf_interests
+id: taxonomy_term.ngf_interests.field_ngf_creator
+field_name: field_ngf_creator
+entity_type: taxonomy_term
+bundle: ngf_interests
+label: Creator
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: false
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

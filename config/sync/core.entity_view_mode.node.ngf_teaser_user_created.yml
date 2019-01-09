@@ -1,0 +1,10 @@
+uuid: 87c78796-467c-4f27-a95c-b2add27c30d2
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.ngf_teaser_user_created
+label: 'Teaser : User created'
+targetEntityType: node
+cache: true

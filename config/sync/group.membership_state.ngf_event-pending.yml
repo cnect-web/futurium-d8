@@ -1,0 +1,12 @@
+uuid: 345e5165-38a4-4b9d-8d4a-358692942159
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.ngf_event
+id: ngf_event-pending
+label: Pending
+weight: -101
+internal: true
+state: pending
+group_type: ngf_event

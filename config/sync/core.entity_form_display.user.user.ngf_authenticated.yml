@@ -1,0 +1,65 @@
+uuid: ae4e2e7a-e536-4b9c-85c0-f542126f9150
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.user.ngf_authenticated
+    - field.field.user.user.field_ngf_biography
+    - field.field.user.user.field_ngf_city
+    - field.field.user.user.field_ngf_country
+    - field.field.user.user.field_ngf_first_name
+    - field.field.user.user.field_ngf_interests
+    - field.field.user.user.field_ngf_last_name
+    - field.field.user.user.field_ngf_region
+    - field.field.user.user.user_picture
+    - image.style.thumbnail
+  module:
+    - image
+    - user
+_core:
+  default_config_hash: K-1rBM8mTIkFp9RqOC2tMRUukOQ1xbRCfSKK8dEddnA
+id: user.user.ngf_authenticated
+targetEntityType: user
+bundle: user
+mode: ngf_authenticated
+content:
+  account:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_ngf_first_name:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  field_ngf_last_name:
+    weight: 1
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  user_picture:
+    type: image_image
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    weight: 3
+    region: content
+hidden:
+  contact: true
+  field_ngf_biography: true
+  field_ngf_city: true
+  field_ngf_country: true
+  field_ngf_interests: true
+  field_ngf_region: true
+  flag: true
+  language: true
+  path: true
+  timezone: true

@@ -1,0 +1,6 @@
+# User list in the admin menu
+ngf_user_list.admin.structure.settings:
+  title: 'User list settings'
+  description: 'Configure User list entities'
+  route_name: ngf_user_list.settings
+  parent: system.admin_structure

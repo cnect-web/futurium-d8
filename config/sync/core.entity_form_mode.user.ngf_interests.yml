@@ -1,0 +1,10 @@
+uuid: f7410957-21f3-4d81-ba6d-5f8ba617d85a
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.ngf_interests
+label: Interests
+targetEntityType: user
+cache: true

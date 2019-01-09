@@ -1,0 +1,17 @@
+uuid: cecf7748-d282-4ae9-b122-99d353d663d6
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.ngf_event
+  enforced:
+    config:
+      - user.role.administrator
+id: ngf_event-a416e6833
+label: Administrator
+weight: 2
+internal: true
+audience: outsider
+group_type: ngf_event
+permissions_ui: false
+permissions: {  }

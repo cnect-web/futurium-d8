@@ -1,0 +1,8 @@
+uuid: 88d54b11-bde9-41ab-ae74-d8733044b377
+langcode: en
+status: true
+dependencies: {  }
+id: ngf_day
+label: ngf_day
+locked: false
+pattern: d

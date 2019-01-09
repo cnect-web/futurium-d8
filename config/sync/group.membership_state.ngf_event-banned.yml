@@ -1,0 +1,12 @@
+uuid: 2e817877-5aad-4d02-96b4-f7238f900c46
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.ngf_event
+id: ngf_event-banned
+label: Banned
+weight: -100
+internal: true
+state: active
+group_type: ngf_event

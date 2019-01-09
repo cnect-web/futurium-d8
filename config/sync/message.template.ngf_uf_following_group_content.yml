@@ -1,0 +1,17 @@
+uuid: baba2ecb-8b58-4a06-8f3e-43eeea901f54
+langcode: en
+status: true
+dependencies: {  }
+template: ngf_uf_following_group_content
+label: 'User feed : In following group a content has been created'
+description: 'In following group a content has been created'
+text:
+  -
+    value: "<p>posted [time] ago in [group]</p>\r\n"
+    format: basic_html
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

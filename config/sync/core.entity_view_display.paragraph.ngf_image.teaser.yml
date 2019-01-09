@@ -1,0 +1,23 @@
+uuid: 00bcdb17-f5c4-429b-8841-156afac6306d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.paragraph.teaser
+    - field.field.paragraph.ngf_image.field_ngf_image
+    - paragraphs.paragraphs_type.ngf_image
+id: paragraph.ngf_image.teaser
+targetEntityType: paragraph
+bundle: ngf_image
+mode: teaser
+content:
+  field_ngf_image:
+    type: entity_reference_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden: {  }

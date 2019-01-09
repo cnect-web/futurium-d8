@@ -1,0 +1,28 @@
+uuid: 029bce08-1d6d-4c68-b21e-ffa657ed170a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_ngf_file
+    - media.type.file
+    - paragraphs.paragraphs_type.ngf_file
+id: paragraph.ngf_file.field_ngf_file
+field_name: field_ngf_file
+entity_type: paragraph
+bundle: ngf_file
+label: File
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      file: file
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

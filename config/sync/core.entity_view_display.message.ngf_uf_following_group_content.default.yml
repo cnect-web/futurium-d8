@@ -1,0 +1,27 @@
+uuid: 6254f8bf-fd7c-4079-bc90-8dca50e7610b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.ngf_uf_following_group_content.field_ngf_created_content
+    - field.field.message.ngf_uf_following_group_content.field_ngf_following_group
+    - field.field.message.ngf_uf_following_group_content.field_ngf_users
+    - message.template.ngf_uf_following_group_content
+id: message.ngf_uf_following_group_content.default
+targetEntityType: message
+bundle: ngf_uf_following_group_content
+mode: default
+content:
+  field_ngf_created_content:
+    type: entity_reference_entity_view
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      view_mode: teaser
+      link: false
+    third_party_settings: {  }
+hidden:
+  field_ngf_following_group: true
+  field_ngf_users: true
+  partial_0: true

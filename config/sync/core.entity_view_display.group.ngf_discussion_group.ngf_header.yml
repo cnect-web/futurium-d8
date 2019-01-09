@@ -1,0 +1,71 @@
+uuid: db0c0fb8-cfb1-4e0d-9c19-ed12c4946f52
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.group.ngf_header
+    - field.field.group.ngf_discussion_group.field_ngf_comments
+    - field.field.group.ngf_discussion_group.field_ngf_cover_image
+    - field.field.group.ngf_discussion_group.field_ngf_description
+    - field.field.group.ngf_discussion_group.field_ngf_group_visibility
+    - field.field.group.ngf_discussion_group.field_ngf_interests
+    - field.field.group.ngf_discussion_group.field_ngf_introtext
+    - group.type.ngf_discussion_group
+    - image.style.media_large
+  module:
+    - media
+    - options
+id: group.ngf_discussion_group.ngf_header
+targetEntityType: group
+bundle: ngf_discussion_group
+mode: ngf_header
+content:
+  field_ngf_cover_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: media_large
+      image_link: ''
+    third_party_settings: {  }
+    type: media_thumbnail
+    region: content
+  field_ngf_group_visibility:
+    type: list_default
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  group_tabs:
+    weight: 5
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  join_and_follow:
+    weight: 4
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  label:
+    label: hidden
+    type: string
+    weight: 1
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+  members_and_followers:
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  changed: true
+  created: true
+  field_ngf_comments: true
+  field_ngf_description: true
+  field_ngf_interests: true
+  field_ngf_introtext: true
+  group_content_view: true
+  show_more: true
+  uid: true

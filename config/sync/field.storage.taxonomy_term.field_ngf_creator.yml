@@ -1,0 +1,20 @@
+uuid: 2824abcc-40f8-4cf6-8413-281d23f23028
+langcode: en
+status: true
+dependencies:
+  module:
+    - taxonomy
+    - user
+id: taxonomy_term.field_ngf_creator
+field_name: field_ngf_creator
+entity_type: taxonomy_term
+type: entity_reference
+settings:
+  target_type: user
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

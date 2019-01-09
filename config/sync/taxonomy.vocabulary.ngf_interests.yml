@@ -1,0 +1,9 @@
+uuid: 32c4f390-5801-4733-bd1c-85789b3f2657
+langcode: en
+status: true
+dependencies: {  }
+name: Interests
+vid: ngf_interests
+description: ''
+hierarchy: 0
+weight: 0

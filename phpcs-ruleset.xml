@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<!-- PHP_CodeSniffer ruleset. -->
+<!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
+<ruleset name="NGF">
+    <description>Drupal coding standard for NextEuropa subsites</description>
+
+    <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal" />
+    <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice" />
+</ruleset>

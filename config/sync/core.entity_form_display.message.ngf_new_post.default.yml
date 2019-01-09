@@ -1,0 +1,32 @@
+uuid: 88b4573c-aadf-40a1-9005-11aade5aa337
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.ngf_new_post.field_ngf_author
+    - field.field.message.ngf_new_post.field_ngf_created_content
+    - message.template.ngf_new_post
+id: message.ngf_new_post.default
+targetEntityType: message
+bundle: ngf_new_post
+mode: default
+content:
+  field_ngf_author:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_ngf_created_content:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden: {  }

@@ -1,0 +1,43 @@
+uuid: bb912cac-6b5a-4b0d-b287-9c6d59b559e8
+langcode: en
+status: true
+dependencies:
+  enforced:
+    module:
+      - ngf_geo
+_core:
+  default_config_hash: umoZHt1CHqBWZWBhpb1Xea9NeG8xbAYpb025mVsCQok
+id: ngf_regions
+class: null
+field_plugin_method: null
+cck_plugin_method: null
+migration_tags: null
+migration_group: ngf
+label: 'Import of EU regions'
+source:
+  plugin: csv
+  path: /data/regions.csv
+  delimiter: ','
+  enclosure: '"'
+  header_row_count: 1
+  keys:
+    - name
+  column_names:
+    -
+      iso: Iso
+    -
+      name: Name
+process:
+  vid:
+    plugin: default_value
+    default_value: ngf_regions
+  name: name
+  field_ngf_country:
+    plugin: migration_lookup
+    migration: ngf_countries
+    source: iso
+destination:
+  plugin: 'entity:taxonomy_term'
+migration_dependencies:
+  required:
+    - ngf_countries

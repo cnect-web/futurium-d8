@@ -1,0 +1,22 @@
+uuid: 8e9776f1-b72b-4372-89c5-effe8dc8b80d
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.ngf_discussion
+id: node.ngf_discussion.status
+field_name: status
+entity_type: node
+bundle: ngf_discussion
+label: Published
+description: ''
+required: false
+translatable: true
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

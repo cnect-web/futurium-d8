@@ -1,0 +1,19 @@
+uuid: 20fd1ed9-62c1-49a7-b019-fbb0bc634ee2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_ngf_introtext
+    - group.type.ngf_event
+id: group.ngf_event.field_ngf_introtext
+field_name: field_ngf_introtext
+entity_type: group
+bundle: ngf_event
+label: Introtext
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

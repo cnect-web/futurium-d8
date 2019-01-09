@@ -1,0 +1,13 @@
+name: Next Generation Futurium Core
+type: module
+description: Next Generation Futurium Core Functionality
+core: 8.x
+package: NGF
+
+dependencies:
+  - social_auth
+  - social_auth_facebook
+  - social_auth_google
+  - social_auth_linkedin
+  - social_auth_twitter
+  - pathauto

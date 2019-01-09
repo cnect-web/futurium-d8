@@ -1,0 +1,19 @@
+uuid: 7107a375-1932-4db9-97f9-650b796bb0f4
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group_content.group_membership_state
+field_name: group_membership_state
+entity_type: group_content
+type: entity_reference
+settings:
+  target_type: group_membership_state
+module: core
+locked: true
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: true
+custom_storage: false

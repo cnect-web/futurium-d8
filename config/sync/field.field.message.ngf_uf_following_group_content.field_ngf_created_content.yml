@@ -1,0 +1,28 @@
+uuid: e064b5c5-a742-4b81-bf63-442aaa3c9f2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_ngf_created_content
+    - message.template.ngf_uf_following_group_content
+    - node.type.ngf_discussion
+id: message.ngf_uf_following_group_content.field_ngf_created_content
+field_name: field_ngf_created_content
+entity_type: message
+bundle: ngf_uf_following_group_content
+label: 'Created content'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      ngf_discussion: ngf_discussion
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

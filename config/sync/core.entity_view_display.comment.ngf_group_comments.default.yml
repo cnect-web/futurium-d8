@@ -1,0 +1,25 @@
+uuid: f3302810-b352-4379-a21b-4d07bf13f05f
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.ngf_group_comments
+    - field.field.comment.ngf_group_comments.comment_body
+  module:
+    - text
+id: comment.ngf_group_comments.default
+targetEntityType: comment
+bundle: ngf_group_comments
+mode: default
+content:
+  comment_body:
+    label: hidden
+    type: text_default
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    region: content
+hidden: {  }

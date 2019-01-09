@@ -1,0 +1,30 @@
+uuid: 3d1b6bde-ebf5-4a22-8463-93aa304707a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.media_only
+    - field.field.media.ngf_cover_image.field_media_image
+    - image.style.media_large
+    - media.type.ngf_cover_image
+  module:
+    - image
+id: media.ngf_cover_image.media_only
+targetEntityType: media
+bundle: ngf_cover_image
+mode: media_only
+content:
+  field_media_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: media_large
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+hidden:
+  created: true
+  name: true
+  thumbnail: true
+  uid: true

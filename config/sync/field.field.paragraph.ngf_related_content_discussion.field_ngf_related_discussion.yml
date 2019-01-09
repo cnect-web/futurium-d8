@@ -1,0 +1,28 @@
+uuid: d9d9641a-8e34-4209-b190-466ba308fe82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_ngf_related_discussion
+    - node.type.ngf_discussion
+    - paragraphs.paragraphs_type.ngf_related_content_discussion
+id: paragraph.ngf_related_content_discussion.field_ngf_related_discussion
+field_name: field_ngf_related_discussion
+entity_type: paragraph
+bundle: ngf_related_content_discussion
+label: 'Related discussion'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:node'
+  handler_settings:
+    target_bundles:
+      ngf_discussion: ngf_discussion
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

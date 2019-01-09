@@ -1,0 +1,20 @@
+uuid: 7258ba55-2736-4147-b88f-b96333959ab3
+langcode: en
+status: true
+dependencies:
+  module:
+    - comment
+    - message
+id: message.field_ngf_created_comment
+field_name: field_ngf_created_comment
+entity_type: message
+type: entity_reference
+settings:
+  target_type: comment
+module: core
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

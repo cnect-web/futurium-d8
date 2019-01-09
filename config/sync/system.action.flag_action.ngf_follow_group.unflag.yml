@@ -1,0 +1,13 @@
+uuid: 4a796c16-3e80-4194-b9bf-7025b2626e1b
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag
+id: flag_action.ngf_follow_group.unflag
+label: 'Unfollow flag'
+type: group
+plugin: 'flag_action:ngf_follow_group.unflag'
+configuration:
+  flag_id: ngf_follow_group
+  flag_action: unflag

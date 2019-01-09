@@ -1,0 +1,29 @@
+uuid: 3d245eb1-09f6-4884-a379-4dbc04a625ab
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.audio
+    - media.type.file
+    - media.type.image
+    - media.type.video
+  content:
+    - 'file:file:256ea170-ac44-495c-8910-ac49be47d6ea'
+  module:
+    - entity_embed
+    - media
+label: 'Media browser'
+id: media_browser
+type_id: entity
+type_settings:
+  entity_type: media
+  bundles:
+    - audio
+    - file
+    - image
+    - video
+  display_plugins: {  }
+  entity_browser: media_browser
+  entity_browser_settings:
+    display_review: false
+icon_uuid: 256ea170-ac44-495c-8910-ac49be47d6ea

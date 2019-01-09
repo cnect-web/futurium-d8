@@ -1,0 +1,19 @@
+uuid: b7945a23-95cd-4c56-ac04-be9ab5b51603
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ngf_introtext
+    - node.type.ngf_discussion
+id: node.ngf_discussion.field_ngf_introtext
+field_name: field_ngf_introtext
+entity_type: node
+bundle: ngf_discussion
+label: Introtext
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

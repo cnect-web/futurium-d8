@@ -1,0 +1,10 @@
+uuid: 94afc01b-880e-4298-8a87-1a1ce72ba31b
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.ngf_teaser_user_commented
+label: 'Teaser : User commented'
+targetEntityType: node
+cache: true

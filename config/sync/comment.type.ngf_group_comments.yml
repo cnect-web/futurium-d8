@@ -1,0 +1,8 @@
+uuid: 0ef5cc1a-6c5e-4f16-9be5-3dc90c464724
+langcode: en
+status: true
+dependencies: {  }
+id: ngf_group_comments
+label: 'Group comments'
+target_entity_type_id: group
+description: 'Allows commenting on a group'

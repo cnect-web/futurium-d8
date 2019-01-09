@@ -1,0 +1,266 @@
+# Any user profile pages
+ngf_user_profile.profile:
+  path: '/profile/view/{username}'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfileController::profile'
+    _title: 'User profile'
+  requirements:
+    _permission: 'access content'
+    username: '^[a-zA-Z0-9_]+'
+
+# Handlers
+ngf_user_profile.follow:
+  path: '/profile/follow/{username}'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfileController::follow'
+    _title: 'Follow user'
+  requirements:
+    _permission: 'access content'
+    username: '^[a-zA-Z0-9_]+'
+
+ngf_user_profile.unfollow:
+  path: '/profile/unfollow/{username}'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfileController::unfollow'
+    _title: 'Unfollow user'
+  requirements:
+    _permission: 'access content'
+    username: '^[a-zA-Z0-9_]+'
+
+ngf_user_profile.add_user_list_item:
+  path: '/profile/user-list-item/add/{list_id}/{username}'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfileController::addUserListItem'
+    _title: 'Add user list item'
+  requirements:
+    _permission: 'access content'
+    list_id: '^[0-9]+'
+    username: '^[a-zA-Z0-9_]+'
+
+ngf_user_profile.mark_as_read_notification:
+  path: '/profile/notification/markasread/{message_id}'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfileController::markAsRead'
+    _title: 'Mark a notification as read'
+  requirements:
+    _permission: 'access content'
+    message_id: '^[0-9]+'
+
+ngf_user_profile.remove_notification:
+  path: '/profile/notification/remove/{message_id}'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfileController::removeNotification'
+    _title: 'Mark a notification as read'
+  requirements:
+    _permission: 'access content'
+    message_id: '^[0-9]+'
+
+# Current user profile pages
+ngf_user_profile.user_notifications:
+  path: '/profile/notifications'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfileController::notifications'
+    _title: 'User notifications'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.publications:
+  path: '/profile/publications'
+  defaults:
+    _title: 'My publications'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::publications'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.events:
+  path: '/profile/events'
+  defaults:
+    _title: 'My events'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::events'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.groups:
+  path: '/profile/groups'
+  defaults:
+    _title: 'My events'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::groups'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.followers:
+  path: '/profile/followers'
+  defaults:
+    _title: 'Followers'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::followers'
+    _description: 'Users following me'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.following:
+  path: '/profile/following'
+  defaults:
+    _title: 'Following'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::following'
+    _description: 'Users I follow'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.feed:
+  path: '/profile/feed'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::feed'
+    _title: 'User feed'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.profile:
+  path: '/profile'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::feed'
+    _title: 'User feed'
+  requirements:
+    _permission: 'access content'
+
+# User settings pages
+ngf_user_profile.page.general_settings:
+  path: '/profile/general-settings'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::generalSettings'
+    _title: 'General settings'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.interests_settings:
+  path: '/profile/interests-settings'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::interestsSettings'
+    _title: 'Interests settings'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.location_settings:
+  path: '/profile/location-settings'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::locationSettings'
+    _title: 'Location settings'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_profile.page.private_settings:
+  path: '/profile/private-settings'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::privateSettings'
+    _title: 'Private settings'
+  requirements:
+    _permission: 'access content'
+
+
+# Any user profile page
+ngf_user_profile.page.user_profile:
+  path: '/profile/{user}'
+  defaults:
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::publications'
+    _title: 'User profile'
+  requirements:
+    _permission: 'access content'
+  options:
+      parameters:
+        user:
+          type: 'entity:user'
+
+ngf_user_profile.page.user_publications:
+  path: '/profile/{user}/publications'
+  defaults:
+    _title: 'Publications'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::publications'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
+ngf_user_profile.page.user_publications:
+  path: '/profile/{user}/publications'
+  defaults:
+    _title: 'Publications'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::publications'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
+ngf_user_profile.page.user_events:
+  path: '/profile/{user}/events'
+  defaults:
+    _title: 'Events'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::events'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
+ngf_user_profile.page.user_groups:
+  path: '/profile/{user}/groups'
+  defaults:
+    _title: 'Events'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::groups'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
+ngf_user_profile.page.user_followers:
+  path: '/profile/{user}/followers'
+  defaults:
+    _title: 'Followers'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::followers'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
+ngf_user_profile.page.user_following:
+  path: '/profile/{user}/following'
+  defaults:
+    _title: 'Following'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::following'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
+ngf_user_profile.page.user_contact:
+  path: '/profile/{user}/contact'
+  defaults:
+    _title: 'Following'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::contact'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'
+
+ngf_user_profile.page.user_about:
+  path: '/profile/{user}/about'
+  defaults:
+    _title: 'About'
+    _controller: '\Drupal\ngf_user_profile\Controller\UserProfilePageController::about'
+  requirements:
+    _permission: 'access content'
+  options:
+    parameters:
+      user:
+        type: 'entity:user'

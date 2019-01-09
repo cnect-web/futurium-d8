@@ -1,0 +1,20 @@
+uuid: a6c27a9c-2995-4e25-b465-a046ba99a0ab
+langcode: en
+status: false
+dependencies: {  }
+id: prod_config
+label: 'Prod Config'
+folder: ../config/prod_config
+module:
+  cdn: 0
+  cdn_ui: 0
+  config_readonly: 0
+theme: {  }
+blacklist: {  }
+graylist:
+  - system.logging
+  - system.performance
+  - views.settings
+graylist_dependents: true
+graylist_skip_equal: true
+weight: 2

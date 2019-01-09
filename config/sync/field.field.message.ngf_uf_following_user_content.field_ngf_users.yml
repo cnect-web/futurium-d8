@@ -1,0 +1,28 @@
+uuid: 11756e89-9de9-41ef-be26-2c3d9581ce02
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.message.field_ngf_users
+    - message.template.ngf_uf_following_user_content
+id: message.ngf_uf_following_user_content.field_ngf_users
+field_name: field_ngf_users
+entity_type: message
+bundle: ngf_uf_following_user_content
+label: Users
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:user'
+  handler_settings:
+    include_anonymous: true
+    filter:
+      type: _none
+    target_bundles: null
+    sort:
+      field: _none
+    auto_create: false
+field_type: entity_reference

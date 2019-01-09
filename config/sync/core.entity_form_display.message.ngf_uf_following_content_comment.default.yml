@@ -1,0 +1,42 @@
+uuid: 711841bd-7a70-41ec-8305-e9021ded4ff1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.message.ngf_uf_following_content_comment.field_ngf_created_comment
+    - field.field.message.ngf_uf_following_content_comment.field_ngf_following_content
+    - field.field.message.ngf_uf_following_content_comment.field_ngf_users
+    - message.template.ngf_uf_following_content_comment
+id: message.ngf_uf_following_content_comment.default
+targetEntityType: message
+bundle: ngf_uf_following_content_comment
+mode: default
+content:
+  field_ngf_created_comment:
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_ngf_following_content:
+    weight: 0
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_ngf_users:
+    weight: 1
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+hidden: {  }

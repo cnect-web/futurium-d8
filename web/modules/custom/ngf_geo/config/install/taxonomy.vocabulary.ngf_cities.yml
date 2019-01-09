@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Cities
+vid: ngf_cities
+description: ''
+hierarchy: 0
+weight: 0

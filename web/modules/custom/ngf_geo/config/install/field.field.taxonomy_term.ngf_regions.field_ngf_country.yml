@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_ngf_country
+    - taxonomy.vocabulary.ngf_countries
+    - taxonomy.vocabulary.ngf_regions
+id: taxonomy_term.ngf_regions.field_ngf_country
+field_name: field_ngf_country
+entity_type: taxonomy_term
+bundle: ngf_regions
+label: Country
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      ngf_countries: ngf_countries
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

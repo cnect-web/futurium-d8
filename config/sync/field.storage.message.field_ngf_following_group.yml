@@ -1,0 +1,20 @@
+uuid: 2ee0fcad-a036-4a00-9959-2ff3b01fc6e9
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - message
+id: message.field_ngf_following_group
+field_name: field_ngf_following_group
+entity_type: message
+type: entity_reference
+settings:
+  target_type: group
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

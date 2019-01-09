@@ -1,0 +1,16 @@
+services:
+  ngf_user_profile.user_manager:
+    class: Drupal\ngf_user_profile\Manager\UserManager
+    arguments: ['@current_user', '@messenger', '@user.data', '@flag']
+
+  ngf_user_profile.user_settings_manager:
+    class: Drupal\ngf_user_profile\Manager\UserSettingsManager
+    arguments: ['@current_user', '@user.data']
+
+  ngf_user_profile.notification_manager:
+    class: Drupal\ngf_user_profile\Manager\NotificationManager
+    arguments: ['@messenger', '@flag']
+
+  ngf_user_profile.user_feed_manager:
+      class: Drupal\ngf_user_profile\Manager\UserFeedManager
+      arguments: ['@current_user', '@flag']

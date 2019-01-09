@@ -1,0 +1,22 @@
+ngf_user_registration:
+  path: '/join'
+  defaults:
+    _form: '\Drupal\ngf_user_registration\Form\UserRegistrationForm'
+    _title: 'Join'
+  requirements:
+    _access_user_register: 'TRUE'
+
+ngf_user_registration.redirect_join:
+  path: '/user/register'
+  defaults:
+    _controller: 'Drupal\ngf_user_registration\Controller\UserRegistrationController::redirectJoin'
+  requirements:
+    _permission: 'access content'
+
+ngf_user_registration.city_autocomplete:
+  path: 'city_autocomplete/{country_id}'
+  defaults:
+    _controller: 'Drupal\ngf_user_registration\Controller\UserRegistrationController::citiesAutocomplete'
+    _format: json
+  requirements:
+    _permission: 'access content'

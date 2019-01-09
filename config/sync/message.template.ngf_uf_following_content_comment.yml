@@ -1,0 +1,17 @@
+uuid: 4c97725b-b050-4f14-bc8d-d6becba19759
+langcode: en
+status: true
+dependencies: {  }
+template: ngf_uf_following_content_comment
+label: 'User feed : A new comment in following content'
+description: 'A new comment in following content'
+text:
+  -
+    value: "<p>commented in a post</p>\r\n"
+    format: basic_html
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

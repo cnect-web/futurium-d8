@@ -1,0 +1,92 @@
+uuid: ede1fa9b-3e34-44d6-b741-3aa964d618dd
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group.ngf_discussion_group.field_ngf_comments
+    - field.field.group.ngf_discussion_group.field_ngf_cover_image
+    - field.field.group.ngf_discussion_group.field_ngf_description
+    - field.field.group.ngf_discussion_group.field_ngf_group_visibility
+    - field.field.group.ngf_discussion_group.field_ngf_interests
+    - field.field.group.ngf_discussion_group.field_ngf_introtext
+    - group.type.ngf_discussion_group
+  module:
+    - comment
+    - inline_entity_form
+    - paragraphs
+    - textfield_counter
+id: group.ngf_discussion_group.default
+targetEntityType: group
+bundle: ngf_discussion_group
+mode: default
+content:
+  field_ngf_comments:
+    weight: 6
+    settings: {  }
+    third_party_settings: {  }
+    type: comment_default
+    region: content
+  field_ngf_cover_image:
+    weight: 5
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      match_operator: CONTAINS
+      override_labels: false
+      allow_existing: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  field_ngf_description:
+    type: entity_reference_paragraphs
+    weight: 3
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
+    third_party_settings: {  }
+    region: content
+  field_ngf_group_visibility:
+    type: options_select
+    weight: 1
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_ngf_interests:
+    weight: 4
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete
+    region: content
+  field_ngf_introtext:
+    weight: 2
+    settings:
+      rows: '5'
+      placeholder: ''
+      maxlength: '300'
+      counter_position: after
+    third_party_settings: {  }
+    type: string_textarea_with_counter
+    region: content
+  label:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  path: true
+  uid: true

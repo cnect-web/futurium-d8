@@ -1,0 +1,30 @@
+uuid: aef3edb5-b7e4-472e-a727-6e797c4a304b
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: ngf_follow_user
+label: 'Follow user'
+bundles: {  }
+entity_type: user
+global: false
+weight: 0
+flag_short: 'Follow user'
+flag_long: ''
+flag_message: 'You now follow the user'
+unflag_short: Unfollow
+unflag_long: ''
+unflag_message: 'You don''t follow the user anymore'
+unflag_denied_text: ''
+flag_type: 'entity:user'
+link_type: ajax_link
+flagTypeConfig:
+  show_in_links: {  }
+  show_as_field: true
+  show_on_form: true
+  show_contextual_link: false
+  extra_permissions:
+    owner: '0'
+  show_on_profile: true
+linkTypeConfig: {  }

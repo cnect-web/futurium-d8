@@ -1,0 +1,13 @@
+uuid: 0c47ad87-cc2c-4be2-a674-412cb51c2b38
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag
+id: flag_action.ngf_list_item.flag
+label: 'Add a user to the list'
+type: ngf_user_list
+plugin: 'flag_action:ngf_list_item.flag'
+configuration:
+  flag_id: ngf_list_item
+  flag_action: flag

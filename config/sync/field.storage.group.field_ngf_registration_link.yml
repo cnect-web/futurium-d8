@@ -1,0 +1,19 @@
+uuid: 4f47534a-36a5-4443-aac8-e3a2aa1b4e5f
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - link
+id: group.field_ngf_registration_link
+field_name: field_ngf_registration_link
+entity_type: group
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

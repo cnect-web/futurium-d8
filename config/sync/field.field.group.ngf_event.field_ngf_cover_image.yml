@@ -1,0 +1,28 @@
+uuid: 35c110e0-605d-43dd-be6f-336cfbdd176c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_ngf_cover_image
+    - group.type.ngf_event
+    - media.type.ngf_cover_image
+id: group.ngf_event.field_ngf_cover_image
+field_name: field_ngf_cover_image
+entity_type: group
+bundle: ngf_event
+label: 'Cover image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      ngf_cover_image: ngf_cover_image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ngf_cover_image
+field_type: entity_reference

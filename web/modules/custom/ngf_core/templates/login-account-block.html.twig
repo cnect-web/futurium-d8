@@ -1,0 +1,22 @@
+<div class="account-info  account-info--menu-only">
+  <a href="#" class="account-info__wrapper">
+    {{ user_picture }}
+    <div class="account-info__username no-display--sm">{{ user_name }}</div>
+    <div class="account-info__trigger-icon">
+      <span class="no-display--sm">
+        <i class="fas fa-sort-down"></i>
+      </span>
+      <span class="no-display--md">
+        <i class="fas fa-ellipsis-v"></i>
+      </span>
+    </div>
+  </a>
+
+  <div class="account-info__menu account-info__dropdown">
+    <ul>
+      <li><a href="{{ user_profile_link }}"><i class="fas fa-edit"></i> Profile</a></li>
+      <li><a href="{{ user_manage_network_link }}"><i class="far fa-address-book"></i> User feed</a></li>
+      <li><a href="{{ user_logout_link }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+    </ul>
+  </div>
+</div>

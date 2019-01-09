@@ -1,0 +1,19 @@
+uuid: b5fd9619-b4f4-40c7-b7ea-76d4aa517e9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_ngf_author
+    - media.type.image
+id: media.image.field_ngf_author
+field_name: field_ngf_author
+entity_type: media
+bundle: image
+label: Author
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

@@ -1,0 +1,19 @@
+uuid: 8ec460ff-b567-4a41-880a-8d7d3556fb9f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_ngf_introtext
+    - group.type.ngf_discussion_group
+id: group.ngf_discussion_group.field_ngf_introtext
+field_name: field_ngf_introtext
+entity_type: group
+bundle: ngf_discussion_group
+label: 'About this group'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

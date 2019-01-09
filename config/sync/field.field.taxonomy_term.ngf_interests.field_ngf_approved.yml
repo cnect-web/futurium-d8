@@ -1,0 +1,23 @@
+uuid: 65564491-945f-48cc-8b53-566898b6f3e6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_ngf_approved
+    - taxonomy.vocabulary.ngf_interests
+id: taxonomy_term.ngf_interests.field_ngf_approved
+field_name: field_ngf_approved
+entity_type: taxonomy_term
+bundle: ngf_interests
+label: Approved
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Is approved'
+  off_label: 'Is not approved'
+field_type: boolean

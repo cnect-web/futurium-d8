@@ -1,0 +1,39 @@
+uuid: 3d936efb-3b3a-4fe6-a71d-a5bb4a7e9e64
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: dJ0L2DNSj5q6XVZAGsuVDpJTh5UeYkIPwKrUOOpr8YI
+id: authenticated
+label: 'Authenticated user'
+weight: 1
+is_admin: false
+permissions:
+  - 'access comments'
+  - 'access content'
+  - 'access shortcuts'
+  - 'access site-wide contact form'
+  - 'access user profiles'
+  - 'create file media'
+  - 'create image media'
+  - 'create ngf_cover_image media'
+  - 'create ngf_discussion content'
+  - 'create ngf_discussion_group group'
+  - 'create ngf_event group'
+  - 'create video media'
+  - 'edit own file media'
+  - 'edit own image media'
+  - 'edit own ngf_cover_image media'
+  - 'edit own ngf_discussion content'
+  - 'edit own video media'
+  - 'flag ngf_follow_group'
+  - 'flag ngf_follow_user'
+  - 'flag ngf_list_item'
+  - 'post comments'
+  - 'search content'
+  - 'skip comment approval'
+  - 'unflag ngf_follow_group'
+  - 'unflag ngf_follow_user'
+  - 'unflag ngf_list_item'
+  - 'use text format basic_html'
+  - 'view media'

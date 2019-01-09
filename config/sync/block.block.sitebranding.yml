@@ -1,0 +1,23 @@
+uuid: e705971f-60c7-43bf-9998-45813ed1a2c5
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - funkywave
+id: sitebranding
+theme: funkywave
+region: logo_area
+weight: 0
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: Logo
+  provider: system
+  label_display: '0'
+  use_site_logo: false
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

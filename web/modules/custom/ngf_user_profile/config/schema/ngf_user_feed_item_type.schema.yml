@@ -1,0 +1,12 @@
+ngf_user_profile.ngf_user_feed_item_type.*:
+  type: config_entity
+  label: 'User feed item type config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string

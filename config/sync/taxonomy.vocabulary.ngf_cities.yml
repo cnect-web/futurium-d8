@@ -1,0 +1,11 @@
+uuid: d6c16421-138e-47c1-87be-905d683ccb35
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: MS1bXfCBebKJb1Yo2n8-G3tf9ia6s2o61_YaG09jemw
+name: Cities
+vid: ngf_cities
+description: ''
+hierarchy: 0
+weight: 0

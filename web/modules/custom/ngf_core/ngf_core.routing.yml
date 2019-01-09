@@ -1,0 +1,7 @@
+ngf_core.front:
+  path: '/front'
+  defaults:
+    _controller: '\Drupal\ngf_core\Controller\FrontPageController::content'
+    _title: 'Front page'
+  requirements:
+    _access: 'TRUE'

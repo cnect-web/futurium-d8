@@ -1,0 +1,8 @@
+name: 'NGF Search'
+type: module
+description: 'NGF Search functionality'
+core: 8.x
+package: 'NGF'
+dependencies:
+  - ngf_group
+  - group

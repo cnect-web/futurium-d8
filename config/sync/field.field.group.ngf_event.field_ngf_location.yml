@@ -1,0 +1,39 @@
+uuid: f31e3f41-0040-4e97-b076-78bcf65246c2
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.field_ngf_location
+    - group.type.ngf_event
+  module:
+    - geocoder_field
+    - geofield
+third_party_settings:
+  geocoder_field:
+    method: source
+    weight: 0
+    geocode_field: field_ngf_address
+    reverse_geocode_field: {  }
+    hidden: true
+    disabled: false
+    plugins:
+      - mapquest
+    dumper: wkt
+    delta_handling: default
+    failure:
+      handling: preserve
+      status_message: true
+      log: true
+id: group.ngf_event.field_ngf_location
+field_name: field_ngf_location
+entity_type: group
+bundle: ngf_event
+label: Location
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  backend: geofield_backend_default
+field_type: geofield

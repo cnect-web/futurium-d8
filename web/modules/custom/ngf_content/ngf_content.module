@@ -1,0 +1,61 @@
+<?php
+
+use Drupal\Core\Link;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\views\ViewExecutable;
+use Drupal\views\Views;
+
+/**
+* Implements hook_entity_extra_field_info().
+*/
+function ngf_content_entity_extra_field_info() {
+  $extra = [];
+
+  $extra['node']['ngf_discussion']['display']['show_more'] = [
+    'label' => t('Show more'),
+    'description' => t('Displays link show more items'),
+    'weight' => 100,
+    'visible' => TRUE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function ngf_content_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  if ($entity->bundle() == 'ngf_discussion' ) {
+    // Show more link.
+    if ($display->getComponent('show_more')) {
+      $build['show_more'] = [
+        '#type' => 'link',
+        '#url' => $entity->toUrl(),
+        '#title' => t('More')
+      ];
+    }
+  }
+}
+
+function ngf_content_form_node_ngf_discussion_form_alter(&$form, &$form_state, $form_id) {
+  $form['field_ngf_cover_image']['widget']['actions']['ief_add']['#value'] = t('Add cover image');
+  $form['#attached']['library'][] = 'seven/global-styling';
+}
+
+
+/**
+ * Implements hook_inline_entity_form_reference_form_alter().
+ */
+function ngf_content_inline_entity_form_reference_form_alter(
+  &$reference_form,
+  &$form_state
+) {
+//  var_dump($reference_form);
+//  exit();
+}
+
+function ngf_content_inline_entity_form_entity_form_alter(&$entity_form, &$form_state) {
+//  var_dump($entity_form['#ief_labels']);
+//  exit();
+}

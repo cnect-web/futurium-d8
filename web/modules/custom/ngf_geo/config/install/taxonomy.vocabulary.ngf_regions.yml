@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+name: Regions
+vid: ngf_regions
+description: ''
+hierarchy: 0
+weight: 0

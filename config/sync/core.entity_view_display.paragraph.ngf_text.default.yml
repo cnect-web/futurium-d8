@@ -1,0 +1,22 @@
+uuid: 87d5ddc3-abb7-4066-b938-2ceeb9bd1656
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ngf_text.field_ngf_text
+    - paragraphs.paragraphs_type.ngf_text
+  module:
+    - text
+id: paragraph.ngf_text.default
+targetEntityType: paragraph
+bundle: ngf_text
+mode: default
+content:
+  field_ngf_text:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }

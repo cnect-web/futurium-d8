@@ -1,0 +1,46 @@
+uuid: 5dd80ea9-2b0f-468f-b4e4-d68e95d93810
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ngf_description
+    - node.type.ngf_discussion
+    - paragraphs.paragraphs_type.ngf_file
+    - paragraphs.paragraphs_type.ngf_image
+    - paragraphs.paragraphs_type.ngf_text
+    - paragraphs.paragraphs_type.ngf_video
+  module:
+    - entity_reference_revisions
+id: node.ngf_discussion.field_ngf_description
+field_name: field_ngf_description
+entity_type: node
+bundle: ngf_discussion
+label: Description
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      ngf_text: ngf_text
+      ngf_file: ngf_file
+      ngf_video: ngf_video
+      ngf_image: ngf_image
+    target_bundles_drag_drop:
+      ngf_text:
+        enabled: true
+        weight: -5
+      ngf_file:
+        enabled: true
+        weight: 4
+      ngf_video:
+        enabled: true
+        weight: 5
+      ngf_image:
+        enabled: true
+        weight: 5
+field_type: entity_reference_revisions

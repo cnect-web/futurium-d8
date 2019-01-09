@@ -1,0 +1,10 @@
+uuid: 929bff9d-c591-45c0-bd6c-b4964403169d
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.ngf_authenticated
+label: Authenticated
+targetEntityType: user
+cache: true

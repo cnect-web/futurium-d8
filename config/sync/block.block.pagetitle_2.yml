@@ -1,0 +1,18 @@
+uuid: c47161a4-387c-4e73-82cc-4b72043a92b0
+langcode: en
+status: true
+dependencies:
+  theme:
+    - funkywave
+id: pagetitle_2
+theme: funkywave
+region: content
+weight: -1
+provider: null
+plugin: page_title_block
+settings:
+  id: page_title_block
+  label: 'Page title'
+  provider: core
+  label_display: '0'
+visibility: {  }

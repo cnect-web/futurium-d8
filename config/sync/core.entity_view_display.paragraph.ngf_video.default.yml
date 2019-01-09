@@ -1,0 +1,25 @@
+uuid: 9fabed73-fc15-44c7-aefe-c0176ce5847c
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ngf_video.field_ngf_video
+    - paragraphs.paragraphs_type.ngf_video
+  module:
+    - video
+id: paragraph.ngf_video.default
+targetEntityType: paragraph
+bundle: ngf_video
+mode: default
+content:
+  field_ngf_video:
+    weight: 0
+    label: hidden
+    settings:
+      width: '854'
+      height: '480'
+      autoplay: true
+    third_party_settings: {  }
+    type: video_embed_player
+    region: content
+hidden: {  }

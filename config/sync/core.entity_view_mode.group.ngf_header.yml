@@ -1,0 +1,10 @@
+uuid: a2389f2d-65ac-4c35-9425-bb0051f99d85
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.ngf_header
+label: Header
+targetEntityType: group
+cache: true

@@ -1,0 +1,22 @@
+uuid: 56b99a67-22a1-4860-8e6c-0c3c7087de5a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.ngf_file.field_ngf_file
+    - paragraphs.paragraphs_type.ngf_file
+id: paragraph.ngf_file.default
+targetEntityType: paragraph
+bundle: ngf_file
+mode: default
+content:
+  field_ngf_file:
+    type: entity_reference_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden: {  }

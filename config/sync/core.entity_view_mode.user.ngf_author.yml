@@ -1,0 +1,10 @@
+uuid: fff22e2e-1049-4637-9cc0-749578929477
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.ngf_author
+label: Author
+targetEntityType: user
+cache: true

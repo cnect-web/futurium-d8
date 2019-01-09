@@ -1,0 +1,153 @@
+# Content tabs
+ngf_user_profile.link.profile:
+  title: 'Content'
+  description: 'Your content'
+  route_name: ngf_user_profile.page.profile
+  base_route: ngf_user_profile.page.profile
+
+ngf_user_profile.link.feed:
+  title: 'Feed'
+  description: 'Your feed'
+  route_name: ngf_user_profile.page.profile
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profile
+
+ngf_user_profile.link.publications:
+  title: 'Publications'
+  description: 'Your Publications'
+  route_name: ngf_user_profile.page.publications
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profile
+
+ngf_user_profile.link.events:
+  title: 'Events'
+  description: 'Your Events'
+  route_name: ngf_user_profile.page.events
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profile
+
+ngf_user_profile.link.groups:
+  title: 'Groups'
+  description: 'Your Groups'
+  route_name: ngf_user_profile.page.groups
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profile
+
+ngf_user_profile.link.followers:
+  title: 'Followers'
+  description: 'Your Followers'
+  route_name: ngf_user_profile.page.followers
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profile
+
+ngf_user_profile.link.following:
+  title: 'Following users'
+  description: 'Your following users'
+  route_name: ngf_user_profile.page.following
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profile
+
+# Settings tabs
+ngf_user_profile.link.settings:
+  title: 'Settings'
+  description: 'Your settings'
+  route_name: ngf_user_profile.page.general_settings
+  base_route: ngf_user_profile.page.profile
+
+ngf_user_profile.link.general_settings:
+  title: 'General settings'
+  description: 'Your settings'
+  route_name: ngf_user_profile.page.general_settings
+  base_route: ngf_user_profile.page.general_settings
+  parent_id: ngf_user_profile.link.settings
+
+ngf_user_profile.link.interest_settings:
+  title: 'Interests'
+  description: 'Your interests'
+  route_name: ngf_user_profile.page.interests_settings
+  base_route: ngf_user_profile.page.general_settings
+  parent_id: ngf_user_profile.link.settings
+
+ngf_user_profile.link.location_settings:
+  title: 'Location'
+  description: 'Your location'
+  route_name: ngf_user_profile.page.location_settings
+  base_route: ngf_user_profile.page.general_settings
+  parent_id: ngf_user_profile.link.settings
+
+ngf_user_profile.link.private_settings:
+  title: 'Private settings'
+  description: 'Your private settings'
+  route_name: ngf_user_profile.page.private_settings
+  base_route: ngf_user_profile.page.general_settings
+  parent_id: ngf_user_profile.link.settings
+
+ngf_user_profile.link.user_lists:
+  title: 'User lists'
+  description: 'User lists'
+  route_name: ngf_user_list.user_lists
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profile
+
+#ngf_user_profile.link.user_lists:
+#  title: 'User lists items'
+#  description: 'User lists items'
+#  route_name: ngf_user_profile.user_list_items
+#  base_route: ngf_user_profile.page.profile
+#  parent_id: ngf_user_profile.link.profile
+
+ngf_user_profile.link.add_list:
+  title: 'Add list'
+  description: 'Add list'
+  route_name: ngf_user_list.add_user_list
+  base_route: ngf_user_profile.page.profile
+  parent_id: ngf_user_profile.link.profil
+
+# Any user tabs
+ngf_user_profile.link.user_profile:
+  title: 'User content'
+  description: 'User content'
+  route_name: ngf_user_profile.page.user_profile
+  base_route: ngf_user_profile.page.user_profile
+
+ngf_user_profile.link.user_publications:
+  title: 'Publications'
+  description: 'User publications'
+  route_name: ngf_user_profile.page.user_publications
+  base_route: ngf_user_profile.page.user_publications
+  parent_id: ngf_user_profile.link.user_profile
+
+ngf_user_profile.link.user_events:
+  title: 'Events'
+  description: 'User events'
+  route_name: ngf_user_profile.page.user_events
+  base_route: ngf_user_profile.page.user_publications
+  parent_id: ngf_user_profile.link.user_profile
+
+ngf_user_profile.link.user_groups:
+  title: 'Groups'
+  description: 'User groups'
+  route_name: ngf_user_profile.page.user_groups
+  base_route: ngf_user_profile.page.user_publications
+  parent_id: ngf_user_profile.link.user_profile
+
+ngf_user_profile.link.user_contact:
+  title: 'Contact'
+  description: 'Contact user'
+  route_name: ngf_user_profile.page.user_contact
+  base_route: ngf_user_profile.page.user_publications
+  parent_id: ngf_user_profile.link.user_profile
+
+ngf_user_profile.link.user_about:
+  title: 'About'
+  description: 'About'
+  route_name: ngf_user_profile.page.user_about
+  base_route: ngf_user_profile.page.user_publications
+  parent_id: ngf_user_profile.link.user_profile
+
+
+# User list settings page
+ngf_user_list.settings_tab:
+  route_name: ngf_user_list.settings
+  title: 'Settings'
+  base_route: ngf_user_list.settings

@@ -1,0 +1,23 @@
+uuid: 1cc64393-2ee1-4c46-b65a-d7b5a5c526db
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.field_ngf_ec
+    - taxonomy.vocabulary.ngf_interests
+id: taxonomy_term.ngf_interests.field_ngf_ec
+field_name: field_ngf_ec
+entity_type: taxonomy_term
+bundle: ngf_interests
+label: EC
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'Is ec?'
+  off_label: 'Is not ec?'
+field_type: boolean

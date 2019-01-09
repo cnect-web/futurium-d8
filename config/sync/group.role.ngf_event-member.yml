@@ -1,0 +1,18 @@
+uuid: 0b89464d-83f7-441c-9572-a7c750704238
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.ngf_event
+id: ngf_event-member
+label: Member
+weight: -100
+internal: true
+audience: member
+group_type: ngf_event
+permissions_ui: true
+permissions:
+  - 'view group'
+  - 'leave group'
+  - 'create group_node:ngf_discussion entity'
+  - 'view group_node:ngf_discussion entity'

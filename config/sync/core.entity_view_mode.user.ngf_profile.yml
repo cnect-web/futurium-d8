@@ -1,0 +1,10 @@
+uuid: 4ee30a22-8640-40e1-a527-12e6cf4cc33c
+langcode: en
+status: true
+dependencies:
+  module:
+    - user
+id: user.ngf_profile
+label: Profile
+targetEntityType: user
+cache: true

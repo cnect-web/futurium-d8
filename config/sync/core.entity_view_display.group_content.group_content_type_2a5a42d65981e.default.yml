@@ -1,0 +1,32 @@
+uuid: 73e7e85d-3a61-45af-bbce-61fd29f9a022
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.group_content_type_2a5a42d65981e.group_membership_state
+    - field.field.group_content.group_content_type_2a5a42d65981e.group_roles
+    - group.content_type.group_content_type_2a5a42d65981e
+id: group_content.group_content_type_2a5a42d65981e.default
+targetEntityType: group_content
+bundle: group_content_type_2a5a42d65981e
+mode: default
+content:
+  group_membership_state:
+    label: above
+    type: entity_reference_label
+    settings:
+      link: false
+    weight: -3
+    third_party_settings: {  }
+    region: content
+  group_roles:
+    label: above
+    type: entity_reference_label
+    settings:
+      link: false
+    weight: -4
+    third_party_settings: {  }
+    region: content
+hidden:
+  entity_id: true
+  uid: true

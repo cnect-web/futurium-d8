@@ -1,0 +1,28 @@
+uuid: 1d7fc89a-8ab8-4f29-86af-659fa1aaf5a2
+langcode: en
+status: true
+dependencies:
+  config:
+    - comment.type.comment
+    - field.storage.message.field_ngf_created_comment
+    - message.template.ngf_post_new_comment
+id: message.ngf_post_new_comment.field_ngf_created_comment
+field_name: field_ngf_created_comment
+entity_type: message
+bundle: ngf_post_new_comment
+label: 'Created comment'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:comment'
+  handler_settings:
+    target_bundles:
+      comment: comment
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

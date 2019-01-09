@@ -1,0 +1,27 @@
+uuid: 797e2835-e9a4-41e2-8c7c-433ae8d897a5
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.ngf_discussion_group
+id: ngf_discussion_group-admin
+label: Admin
+weight: 100
+internal: false
+audience: member
+group_type: ngf_discussion_group
+permissions_ui: true
+permissions:
+  0: 'access content overview'
+  1: 'administer group'
+  2: 'edit group'
+  3: 'view group'
+  4: 'administer members'
+  5: 'update own group_membership content'
+  6: 'leave group'
+  7: 'view group_membership content'
+  8: 'access group_node overview'
+  9: 'access subgroup overview'
+  10: 'view group_node:ngf_discussion entity'
+  11: 'create group_node:ngf_discussion entity'
+  24: 'create subgroup:ngf_event entity'

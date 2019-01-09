@@ -1,0 +1,28 @@
+uuid: ec2a27e0-6d0e-4473-8de1-8a75c8c1c5d5
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_ngf_related_group
+    - group.type.ngf_discussion_group
+    - paragraphs.paragraphs_type.ngf_related_content_group
+id: paragraph.ngf_related_content_group.field_ngf_related_group
+field_name: field_ngf_related_group
+entity_type: paragraph
+bundle: ngf_related_content_group
+label: 'Related group'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:group'
+  handler_settings:
+    target_bundles:
+      ngf_discussion_group: ngf_discussion_group
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

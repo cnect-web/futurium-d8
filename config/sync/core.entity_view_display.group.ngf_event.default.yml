@@ -1,0 +1,169 @@
+uuid: e19876e6-07dd-427c-be77-16f2cf344a16
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_display.comment.ngf_group_comments.default
+    - field.field.group.ngf_event.field_ngf_address
+    - field.field.group.ngf_event.field_ngf_comments
+    - field.field.group.ngf_event.field_ngf_cover_image
+    - field.field.group.ngf_event.field_ngf_description
+    - field.field.group.ngf_event.field_ngf_event_end_date
+    - field.field.group.ngf_event.field_ngf_event_start_date
+    - field.field.group.ngf_event.field_ngf_group_visibility
+    - field.field.group.ngf_event.field_ngf_interests
+    - field.field.group.ngf_event.field_ngf_introtext
+    - field.field.group.ngf_event.field_ngf_location
+    - field.field.group.ngf_event.field_ngf_registration_link
+    - field.field.group.ngf_event.field_ngf_venue
+    - group.type.ngf_event
+    - image.style.media_large
+  module:
+    - address
+    - comment
+    - datetime
+    - entity_reference_revisions
+    - leaflet
+    - link
+    - media
+    - options
+id: group.ngf_event.default
+targetEntityType: group
+bundle: ngf_event
+mode: default
+content:
+  field_ngf_address:
+    weight: 1
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  field_ngf_comments:
+    weight: 10
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: content
+  field_ngf_cover_image:
+    type: media_thumbnail
+    weight: 2
+    label: hidden
+    settings:
+      image_style: media_large
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+  field_ngf_description:
+    weight: 3
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
+    region: content
+  field_ngf_event_end_date:
+    weight: 4
+    label: hidden
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_ngf_event_start_date:
+    weight: 5
+    label: hidden
+    settings:
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: datetime_default
+    region: content
+  field_ngf_group_visibility:
+    weight: 11
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+  field_ngf_interests:
+    weight: 8
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+  field_ngf_location:
+    weight: 6
+    label: hidden
+    settings:
+      multiple_map: 0
+      leaflet_map: 'OSM Mapnik'
+      height: 400
+      popup: false
+      map_position:
+        force: 0
+        center:
+          lat: 0
+          lon: 0
+        zoom: 12
+        minZoom: 1
+        maxZoom: 18
+      icon:
+        iconUrl: ''
+        shadowUrl: ''
+        iconSize:
+          x: null
+          'y': null
+        iconAnchor:
+          x: null
+          'y': null
+        shadowAnchor:
+          x: null
+          'y': null
+        popupAnchor:
+          x: null
+          'y': null
+    third_party_settings: {  }
+    type: leaflet_formatter_default
+    region: content
+  field_ngf_registration_link:
+    weight: 7
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  field_ngf_venue:
+    weight: 9
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  label:
+    label: hidden
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  changed: true
+  created: true
+  field_ngf_introtext: true
+  show_more: true
+  uid: true

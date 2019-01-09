@@ -1,0 +1,13 @@
+uuid: 1f576fd7-1cb6-4130-881f-f7dda64575e3
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag
+id: flag_action.ngf_follow_content.flag
+label: 'Follow content'
+type: node
+plugin: 'flag_action:ngf_follow_content.flag'
+configuration:
+  flag_id: ngf_follow_content
+  flag_action: flag

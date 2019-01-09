@@ -1,0 +1,17 @@
+uuid: 7e4d7c1e-fa92-4d89-8dbb-e329ca5a7490
+langcode: en
+status: true
+dependencies: {  }
+template: ngf_post_new_comment
+label: 'New comment in a post'
+description: ''
+text:
+  -
+    value: "<p>User has posted a new comment in the publication&nbsp;</p>\r\n"
+    format: basic_html
+settings:
+  'token options':
+    clear: false
+    'token replace': true
+  purge_override: false
+  purge_methods: {  }

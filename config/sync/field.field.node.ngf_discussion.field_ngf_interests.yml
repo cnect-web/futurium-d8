@@ -1,0 +1,34 @@
+uuid: 0e949f93-b537-4275-a90f-01b484694367
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ngf_interests
+    - node.type.ngf_discussion
+    - taxonomy.vocabulary.ngf_interests
+  module:
+    - entity_reference_validators
+third_party_settings:
+  entity_reference_validators:
+    duplicate_reference: true
+id: node.ngf_discussion.field_ngf_interests
+field_name: field_ngf_interests
+entity_type: node
+bundle: ngf_discussion
+label: Topics
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      ngf_interests: ngf_interests
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

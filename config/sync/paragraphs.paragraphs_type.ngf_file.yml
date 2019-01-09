@@ -1,0 +1,9 @@
+uuid: cd25b366-e6cf-4510-a68f-3750b3aeb0c9
+langcode: en
+status: true
+dependencies: {  }
+id: ngf_file
+label: File
+icon_uuid: null
+description: ''
+behavior_plugins: {  }

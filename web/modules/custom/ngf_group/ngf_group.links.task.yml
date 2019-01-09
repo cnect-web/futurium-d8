@@ -1,0 +1,60 @@
+entity.group.canonical:
+  route_name: entity.group.canonical
+  base_route: entity.group.canonical
+  title: 'View'
+
+ngf_group.link.group_publications:
+  route_name: entity.group.canonical
+  title: 'Publications'
+  description: 'Group Publications'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical
+
+ngf_group.link.group_events:
+  route_name: ngf_group.page.events
+  title: 'Events'
+  description: 'Group Events'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical
+
+ngf_group.link.group_library:
+  route_name: ngf_group.page.library
+  title: 'Library'
+  description: 'Group Library'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical
+
+ngf_group.link.group_subgroups:
+  route_name: ngf_group.page.subgroups
+  title: 'Subgroups'
+  description: 'Group Subgroups'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical
+
+ngf_group.link.group_info:
+  route_name: ngf_group.page.info
+  title: 'Group Info'
+  description: 'Group Shared Content'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical
+
+ngf_group.link.group_shared:
+  route_name: ngf_group.page.shared
+  title: 'Shared Content'
+  description: 'Group Shared Content'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical
+
+ngf_group.link.group_members:
+  route_name: ngf_group.page.members
+  title: 'Members'
+  description: 'Group Members'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical
+
+ngf_group.link.group_followers:
+  route_name: ngf_group.page.followers
+  title: 'Followers'
+  description: 'Group Followers'
+  base_route: entity.group.canonical
+  parent_id: entity.group.canonical

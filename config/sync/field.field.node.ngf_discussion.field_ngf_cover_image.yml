@@ -1,0 +1,28 @@
+uuid: f7ea0ac8-bb4c-4541-b9ee-fbcf49327fa7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_ngf_cover_image
+    - media.type.ngf_cover_image
+    - node.type.ngf_discussion
+id: node.ngf_discussion.field_ngf_cover_image
+field_name: field_ngf_cover_image
+entity_type: node
+bundle: ngf_discussion
+label: 'Cover image'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      ngf_cover_image: ngf_cover_image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ngf_cover_image
+field_type: entity_reference

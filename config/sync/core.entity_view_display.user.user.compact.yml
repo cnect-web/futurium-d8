@@ -1,0 +1,70 @@
+uuid: 00e7ed7e-e176-4a37-9787-5fe71b0511fa
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.user.compact
+    - field.field.user.user.field_ngf_biography
+    - field.field.user.user.field_ngf_city
+    - field.field.user.user.field_ngf_country
+    - field.field.user.user.field_ngf_first_name
+    - field.field.user.user.field_ngf_interests
+    - field.field.user.user.field_ngf_last_name
+    - field.field.user.user.field_ngf_region
+    - field.field.user.user.user_picture
+    - image.style.thumbnail
+  module:
+    - image
+    - ngf_user_profile
+    - user
+_core:
+  default_config_hash: '-cLsS3M3JycipXQt9rEb81_HxKneReoGuRh8ijcOPXs'
+id: user.user.compact
+targetEntityType: user
+bundle: user
+mode: compact
+content:
+  field_ngf_city:
+    type: ngf_location_info_field_formatter
+    weight: 2
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+  full_name:
+    label: hidden
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+  user_picture:
+    type: image
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      image_style: thumbnail
+      image_link: ''
+    third_party_settings: {  }
+hidden:
+  action_panel: true
+  field_ngf_action_contact: true
+  field_ngf_action_invite_to_event: true
+  field_ngf_action_invite_to_group: true
+  field_ngf_biography: true
+  field_ngf_country: true
+  field_ngf_first_name: true
+  field_ngf_interests: true
+  field_ngf_last_name: true
+  field_ngf_region: true
+  field_ngf_search_email: true
+  field_ngf_search_interests: true
+  field_ngf_search_location: true
+  field_ngf_search_name: true
+  field_ngf_search_position: true
+  flag_ngf_follow_user: true
+  followers_panel: true
+  groups_view: true
+  member_for: true

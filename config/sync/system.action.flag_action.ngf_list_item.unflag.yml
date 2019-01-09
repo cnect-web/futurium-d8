@@ -1,0 +1,13 @@
+uuid: 8983d27d-0bde-441d-9de6-e96a374b7910
+langcode: en
+status: true
+dependencies:
+  module:
+    - flag
+id: flag_action.ngf_list_item.unflag
+label: 'Remove a user from the list '
+type: ngf_user_list
+plugin: 'flag_action:ngf_list_item.unflag'
+configuration:
+  flag_id: ngf_list_item
+  flag_action: unflag

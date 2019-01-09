@@ -1,0 +1,20 @@
+uuid: 9854c4f5-1253-4885-8711-9a971ba57bb2
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - paragraphs
+id: paragraph.field_ngf_related_event
+field_name: field_ngf_related_event
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: group
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

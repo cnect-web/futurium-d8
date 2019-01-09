@@ -1,0 +1,19 @@
+uuid: a4beb5eb-b3a9-4f33-b1fa-72b20cc9d17d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.field_ngf_copyrights
+    - media.type.image
+id: media.image.field_ngf_copyrights
+field_name: field_ngf_copyrights
+entity_type: media
+bundle: image
+label: Copyrights
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
