@@ -1,0 +1,7 @@
+ngf_group.link.groups:
+  title: 'Groups'
+  description: 'Groups'
+  parent: main
+  menu_name: main
+  route_name: ngf_group.page.site_groups
+  weight: 20

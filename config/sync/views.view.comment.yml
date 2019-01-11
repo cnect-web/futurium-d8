@@ -1,4 +1,4 @@
-uuid: 087ddb0d-4924-4c32-a700-f96159cf92b5
+uuid: 05983d13-ad3a-425e-bf9c-08a4f7d6b009
 langcode: en
 status: true
 dependencies:
@@ -693,7 +693,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -734,7 +733,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -968,7 +966,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            placeholder: ''
           is_grouped: false
           group_info:
             label: ''
@@ -1009,7 +1006,6 @@ display:
               authenticated: authenticated
               anonymous: '0'
               administrator: '0'
-            placeholder: ''
           is_grouped: false
           group_info:
             label: ''

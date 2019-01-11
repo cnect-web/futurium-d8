@@ -1,4 +1,4 @@
-uuid: 1daca5be-514e-4ef6-ad32-9cee063d6c9f
+uuid: 494c9d98-f80a-45cf-9e34-889b11cfe315
 langcode: en
 status: true
 dependencies:
@@ -29,12 +29,6 @@ content:
     weight: 10
     region: content
     settings: {  }
-    third_party_settings: {  }
-  moderation_state:
-    type: moderation_state_default
-    weight: 100
-    settings: {  }
-    region: content
     third_party_settings: {  }
   path:
     type: path
@@ -80,7 +74,4 @@ content:
       size: 60
       placeholder: ''
     third_party_settings: {  }
-  url_redirects:
-    weight: 50
-    region: content
 hidden: {  }

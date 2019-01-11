@@ -1,0 +1,19 @@
+view ngf user list entities:
+  title: 'View ngf user list'
+  description: 'View user list.'
+  restrict access: true
+
+edit ngf user list entities:
+  title: 'Edit ngf user list'
+  description: 'Edit user list.'
+  restrict access: true
+
+delete ngf user list entities:
+  title: 'Delete ngf user list'
+  description: 'Delete user list.'
+  restrict access: true
+
+add ngf user list entities:
+  title: 'Add ngf user list'
+  description: 'Add user list.'
+  restrict access: true

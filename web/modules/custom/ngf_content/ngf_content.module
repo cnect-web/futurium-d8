@@ -1,0 +1,91 @@
+<?php
+
+use Drupal\Core\Link;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+use Drupal\Core\Url;
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function ngf_content_entity_extra_field_info() {
+  $extra = [];
+
+  $extra['node']['ngf_discussion']['display']['show_more'] = [
+    'label' => t('Show more'),
+    'description' => t('Displays link show more items'),
+    'weight' => 100,
+    'visible' => TRUE,
+  ];
+
+  $extra['node']['ngf_discussion']['display']['voters'] = [
+    'label' => t('Voters'),
+    'description' => t('List of voters'),
+    'weight' => 100,
+    'visible' => TRUE,
+  ];
+
+  return $extra;
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_view().
+ */
+function ngf_content_node_view(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+
+  if ($entity->bundle() == 'ngf_discussion') {
+
+    // Show more link.
+    if ($display->getComponent('show_more')) {
+      $build['show_more'] = [
+        '#type' => 'link',
+        '#url' => $entity->toUrl(),
+        '#title' => t('More'),
+      ];
+    }
+    elseif ($display->getComponent('voters')) { // Show voters link.
+      $build['voters'] = [
+        '#type' => 'link',
+        '#url' => new Url('ngf_content.voters-block', [
+          'node' => $entity->id(),
+        ]),
+        '#title' => t('Voters'),
+        '#attributes' => [
+          'data-dialog-options' => '{"width":400,"height":300}',
+          'class' => [
+            'use-ajax',
+            'button',
+            'create-new',
+          ],
+          'data-dialog-type' => 'modal',
+        ],
+      ];
+    }
+  }
+
+}
+
+function ngf_content_form_node_ngf_discussion_form_alter(&$form, &$form_state, $form_id) {
+  unset($form['actions']['preview']);
+  $form['field_ngf_cover_image']['widget']['actions']['ief_add']['#value'] = t('Add cover image');
+  $form['#attached']['library'][] = 'seven/global-styling';
+}
+
+function ngf_content_form_node_ngf_discussion_edit_form_alter(&$form, &$form_state, $form_id) {
+  unset($form['revision']);
+  unset($form['revision_log']);
+  unset($form['revision_information']);
+}
+
+function ngf_content_theme($existing, $type, $theme, $path) {
+  return [
+    'ngf_tabs' => [
+      'variables' => [
+        'tabs' => [],
+        'container_class' => NULL,
+        'links_container_class' => NULL,
+      ],
+      'path' => drupal_get_path('module', 'ngf_content') . '/templates',
+    ],
+  ];
+}

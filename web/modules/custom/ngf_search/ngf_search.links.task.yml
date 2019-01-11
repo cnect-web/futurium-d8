@@ -1,0 +1,26 @@
+ngf_search.link.search_content:
+  title: 'Publications'
+  description: 'Search publications'
+  route_name: view.ngf_publications_search.publication_search
+  base_route: view.ngf_publications_search.publication_search
+
+ngf_search.link.search_user:
+  title: 'Users'
+  description: 'Search users'
+  route_name: view.ngf_users_search.user_search
+  base_route: view.ngf_publications_search.publication_search
+
+ngf_search.link.search_event:
+  title: 'Events'
+  description: 'Search events'
+  route_name: view.ngf_groups_search.event_search
+  base_route: view.ngf_publications_search.publication_search
+
+ngf_search.link.search_group:
+  title: 'Groups'
+  description: 'Search groups'
+  route_name: view.ngf_groups_search.group_search
+  base_route: view.ngf_publications_search.publication_search
+
+
+

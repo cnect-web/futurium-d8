@@ -1,0 +1,7 @@
+ngf_search.add_to_list:
+  path: '/search/users/add-to-list'
+  defaults:
+    _form: '\Drupal\ngf_search\Form\AddToListForm'
+    _title: 'Users search'
+  requirements:
+    _permission: 'access content'

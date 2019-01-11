@@ -1,4 +1,4 @@
-uuid: 17087b40-d736-4a35-be6a-7bcca21df914
+uuid: 8fd52ec7-5acf-4ed7-bcb6-ceaf75fa630f
 langcode: en
 status: true
 dependencies: {  }
@@ -7,7 +7,7 @@ _core:
 id: feedback
 label: 'Website feedback'
 recipients:
-  - info@iot.eu
+  - email@example.com
 reply: ''
 weight: 0
 message: 'Your message has been sent.'

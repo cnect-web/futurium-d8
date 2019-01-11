@@ -6,7 +6,7 @@ project:
 
 # Site information.
 site:
-  name: Site name
+  name: Futurium
   mail: email@example.com
   profile: standard
   update: false

@@ -1,15 +1,19 @@
-uuid: a6c27a9c-2995-4e25-b465-a046ba99a0ab
+uuid: 35af104d-89f4-4f2a-afe7-65bd793c28a6
 langcode: en
 status: false
 dependencies: {  }
 id: prod_config
 label: 'Prod Config'
+description: ''
 folder: ../config/prod_config
 module:
   config_readonly: 0
 theme: {  }
 blacklist: {  }
-graylist: {  }
+graylist:
+  - system.logging
+  - system.performance
+  - views.settings
 graylist_dependents: true
 graylist_skip_equal: true
-weight: 2
+weight: 0

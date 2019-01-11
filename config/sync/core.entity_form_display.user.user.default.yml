@@ -1,4 +1,4 @@
-uuid: 07d139d5-658f-433e-af81-69a18628fd3a
+uuid: 3eca9f09-d4f1-4fe3-b6ae-3183d6574443
 langcode: en
 status: true
 dependencies:
@@ -24,12 +24,6 @@ content:
   language:
     weight: 0
     region: content
-  path:
-    type: path
-    weight: 30
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   timezone:
     weight: 6
     region: content

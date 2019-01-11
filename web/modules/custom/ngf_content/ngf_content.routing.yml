@@ -1,0 +1,20 @@
+ngf_content.voters-block:
+  path: '/voters-block/{node}'
+  defaults:
+    _controller: '\Drupal\ngf_content\Controller\ContentController::voters'
+    _title: 'Voters'
+  requirements:
+    _access: 'TRUE'
+  options:
+      parameters:
+        node:
+          type: 'entity:node'
+
+#ngf_core.create_group_content:
+#  path: '/create/{context}'
+#  defaults:
+#    _controller: '\Drupal\ngf_core\Controller\CreateContentController::createContent'
+#    context: 'global'
+#  requirements:
+#    _permission: 'create ngf_discussion_group group+create ngf_event group+create ngf_session group+create ngf_discussion content'
+

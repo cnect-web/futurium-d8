@@ -1,0 +1,7 @@
+name: Next Generation Futurium Groups
+type: module
+description: 'NGF Group'
+core: 8.x
+package: 'NGF'
+dependencies:
+  - group

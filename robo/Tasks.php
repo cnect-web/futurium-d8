@@ -99,18 +99,6 @@ class Tasks extends RoboTasks {
     // Change folder permissions.
     // @todo: get folder from config.
     $this->setupFilesFolder();
-
-    // Get rid of the permissions rebuild
-    $this->nodeAccessRebuild();
-
-    if ($opts['run-importers']) {
-      if ($this->taskDrushStack($this->config('bin.drush'))->arg('-r', 'web/')->exec("mim ngf_countries")->exec("mim ngf_cities")->exec("mim ngf_regions")->run()->wasSuccessful()) {
-        $this->say('Importers run successfuly.');
-      }
-      else {
-        $this->say("There was a problem running the importers.");
-      }
-    }
   }
 
   /**
@@ -160,21 +148,6 @@ class Tasks extends RoboTasks {
     }
   }
 
-  /**
-   * Node access rebuild.
-   *
-   * @command project:node-access-rebuild
-   * @aliases nar
-   */
-  public function nodeAccessRebuild() {
-    if ($this->taskDrushStack($this->config('bin.drush'))
-      ->arg('-r', 'web/')
-      ->exec("php-eval 'node_access_rebuild();'")
-      ->run()
-      ->wasSuccessful()) {
-        $this->say('Node access permissions rebuilt.');
-    }
-  }
 
   /**
    * Set up custom config.

@@ -1,15 +1,19 @@
-uuid: f4313818-bf43-4d61-84d2-0073e4da8852
+uuid: 92e45a45-31bc-4798-8af2-f985966e8000
 langcode: en
 status: false
 dependencies: {  }
 id: staging_config
 label: 'Staging Config'
+description: ''
 folder: ../config/staging_config
 module:
   stage_file_proxy: 0
 theme: {  }
 blacklist: {  }
-graylist: {  }
+graylist:
+  - system.logging
+  - system.performance
+  - views.settings
 graylist_dependents: true
 graylist_skip_equal: true
-weight: 1
+weight: 0

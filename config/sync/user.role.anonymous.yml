@@ -1,4 +1,4 @@
-uuid: 89e64be9-8699-4016-aba2-af41b3c3f2a8
+uuid: 66ed3f34-a020-4788-abb8-64ebe6d6a334
 langcode: en
 status: true
 dependencies: {  }
@@ -14,4 +14,3 @@ permissions:
   - 'access site-wide contact form'
   - 'search content'
   - 'use text format restricted_html'
-  - 'view media'

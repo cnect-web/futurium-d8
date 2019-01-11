@@ -1,0 +1,22 @@
+ngf_core.link.news-feed:
+  title: 'News feed'
+  description: 'News feed'
+  parent: main
+  menu_name: main
+  route_name: ngf_core.public_feed
+  weight: 10
+
+user_register.link:
+  title: 'Join'
+  description: 'User registration page'
+  parent: account
+  menu_name: account
+  route_name: user.register
+
+create_content.link:
+  class: Drupal\ngf_core\Plugin\Menu\CreateContent
+  title: 'Create new'
+  description: 'Click here to add content'
+  parent: main
+  weight: 1000
+  menu_name: main

@@ -1,4 +1,4 @@
-uuid: 7e8fe3b6-8f7c-4f59-b914-380e20411403
+uuid: 07c3463a-41e6-45fe-9781-7614657d563a
 langcode: en
 status: true
 dependencies:
@@ -33,7 +33,6 @@ settings:
           name: Media
           items:
             - Blockquote
-            - media_browser
             - DrupalImage
         -
           name: 'Block Formatting'
@@ -46,13 +45,11 @@ settings:
   plugins:
     stylescombo:
       styles: ''
-    language:
-      language_list: un
 image_upload:
   status: true
   scheme: public
   directory: inline-images
   max_size: ''
   max_dimensions:
-    width: null
-    height: null
+    width: 0
+    height: 0

@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  module:
+    - ngf_search
+id: ngf_search_add_to_list_action
+label: 'Add user to the user list'
+type: user
+plugin: ngf_search_add_to_list_action
+configuration: {  }
