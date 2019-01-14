@@ -1,0 +1,11 @@
+uuid: 0a308aff-9c2d-4027-ac0c-e9ed21145fbb
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: Y3Q6k8cgCqtlLz5p8_G8JqjQEcwFaifRjDS6RdPvCR0
+id: oe_content_row
+label: 'Content row'
+icon_uuid: null
+description: 'Allows to group multiple paragraphs together. An in-page navigation can be shown optionally.'
+behavior_plugins: {  }

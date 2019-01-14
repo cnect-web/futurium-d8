@@ -262,14 +262,9 @@ class Tasks extends RoboTasks {
    * NPM install oe_theme.
    */
   protected function npm() {
-    $oe_theme_path = $this->config('project.oe_theme');
-    // $this->taskNpmInstall($this->config('project.oe_theme'))
-    //  ->noDev()
-    //  ->run();
-
     $this->taskExecStack()
      ->stopOnFail()
-     ->dir($oe_theme_path)
+     ->dir($this->root() . '/web/themes/contrib/oe_theme')
      ->exec('npm install')
      ->exec('npm run build')
      ->run();

@@ -1,0 +1,21 @@
+uuid: 47cb22ff-fdee-48b1-9d40-b76c912424a1
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_title
+    - paragraphs.paragraphs_type.oe_rich_text
+_core:
+  default_config_hash: VStH1WY_5fzU6JTPT9sZPO4B9vamTMp08YG-UFOxrn8
+id: paragraph.oe_rich_text.field_oe_title
+field_name: field_oe_title
+entity_type: paragraph
+bundle: oe_rich_text
+label: Title
+description: 'An optional title to show above the text.'
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

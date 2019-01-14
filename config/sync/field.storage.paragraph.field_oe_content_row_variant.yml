@@ -1,0 +1,29 @@
+uuid: f37f5425-651d-4655-9457-d671d7048b7d
+langcode: en
+status: true
+dependencies:
+  module:
+    - options
+    - paragraphs
+_core:
+  default_config_hash: wKwleTGppDK46au6TJrbJKlEhiQrj1XL8GTtsHqoXZI
+id: paragraph.field_oe_content_row_variant
+field_name: field_oe_content_row_variant
+entity_type: paragraph
+type: list_string
+settings:
+  allowed_values:
+    -
+      value: standard
+      label: Standard
+    -
+      value: inpage
+      label: 'With inpage navigation'
+  allowed_values_function: ''
+module: options
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

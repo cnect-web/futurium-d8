@@ -1,0 +1,21 @@
+uuid: 14ed7832-e7a1-45cc-8d58-14cec9e4c37a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_text
+    - paragraphs.paragraphs_type.oe_accordion_item
+_core:
+  default_config_hash: k1f4w77X1-eDiMnviWGSkzkNnvbROGlW5GUFu_XLvMw
+id: paragraph.oe_accordion_item.field_oe_text
+field_name: field_oe_text
+entity_type: paragraph
+bundle: oe_accordion_item
+label: Title
+description: 'Accordion title.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
