@@ -1,9 +1,0 @@
-uuid: 4b2f0556-8e58-41de-95b3-be9353a8519a
-langcode: en
-status: true
-dependencies: {  }
-name: Countries
-vid: ngf_countries
-description: ''
-hierarchy: 0
-weight: 0

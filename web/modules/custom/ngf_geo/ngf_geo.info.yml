@@ -1,9 +1,0 @@
-name: 'NGF geo'
-type: module
-description: 'Module provides functionality related to countries, regions and cities.'
-core: 8.x
-package: 'NGF'
-dependencies:
-  - migrate_plus
-  - migrate_tools
-  - migrate_source_csv

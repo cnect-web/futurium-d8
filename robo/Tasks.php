@@ -74,6 +74,7 @@ class Tasks extends RoboTasks {
    * @aliases pi
    */
   public function projectInstall() {
+    $this->npm();
     $this->projectGenerateEnv();
     $this->getInstallTask()
       ->siteInstall($this->config('site.profile'))
@@ -89,6 +90,7 @@ class Tasks extends RoboTasks {
    * @option $run-importers Run the importers after installation.
    */
   public function projectInstallConfig(array $opts = ['run-importers|i' => FALSE]) {
+    $this->npm();
     $this->projectGenerateEnv();
 
     $this->getInstallTask()
@@ -254,6 +256,23 @@ class Tasks extends RoboTasks {
    */
   protected function root() {
     return getcwd();
+  }
+
+  /**
+   * NPM install oe_theme.
+   */
+  protected function npm() {
+    $oe_theme_path = $this->config('project.oe_theme');
+    // $this->taskNpmInstall($this->config('project.oe_theme'))
+    //  ->noDev()
+    //  ->run();
+
+    $this->taskExecStack()
+     ->stopOnFail()
+     ->dir($oe_theme_path)
+     ->exec('npm install')
+     ->exec('npm run build')
+     ->run();
   }
 
 }

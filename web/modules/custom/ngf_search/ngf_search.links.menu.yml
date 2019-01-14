@@ -1,7 +1,0 @@
-ngf_search.link.search:
-  title: 'Search'
-  description: 'Search'
-  parent: main
-  menu_name: main
-  route_name: view.ngf_publications_search.publication_search
-  weight: 25

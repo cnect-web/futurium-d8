@@ -1,4 +1,0 @@
-services:
-  ngf_user_list.user_list:
-    class: Drupal\ngf_user_list\Manager\UserListManager
-    arguments: ['@current_user', '@messenger', '@user.data', '@flag']

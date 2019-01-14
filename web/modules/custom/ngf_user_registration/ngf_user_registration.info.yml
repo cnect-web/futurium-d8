@@ -1,9 +1,0 @@
-name: NGF User registration
-type: module
-description: 'NGF User registration.'
-core: 8.x
-package: NGF
-
-dependencies:
-  - user
-  - ngf_user_profile
