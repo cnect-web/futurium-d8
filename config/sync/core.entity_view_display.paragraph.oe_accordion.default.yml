@@ -1,0 +1,26 @@
+uuid: 0545f5f7-e465-4bb6-9b47-1a09b9fe3986
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.oe_accordion.field_oe_paragraphs
+    - paragraphs.paragraphs_type.oe_accordion
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: 3OeW72-p3LpjBz3c07oU3exzKG5OgqqA074G-8uPRP8
+id: paragraph.oe_accordion.default
+targetEntityType: paragraph
+bundle: oe_accordion
+mode: default
+content:
+  field_oe_paragraphs:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+hidden: {  }

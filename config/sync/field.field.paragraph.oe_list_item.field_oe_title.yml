@@ -1,0 +1,21 @@
+uuid: 5aafd756-1958-4b7f-b815-f1180edceffc
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_title
+    - paragraphs.paragraphs_type.oe_list_item
+_core:
+  default_config_hash: uo_J5-oFXXqz3nUs8CJlTZgEZmgdCraWk-PU5icmKZw
+id: paragraph.oe_list_item.field_oe_title
+field_name: field_oe_title
+entity_type: paragraph
+bundle: oe_list_item
+label: Title
+description: 'Link item title. Used on all variants.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

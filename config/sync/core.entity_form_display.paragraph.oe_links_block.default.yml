@@ -1,0 +1,42 @@
+uuid: 2c7a1f1d-a499-4905-8ed2-d61b80b50e94
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.oe_links_block.field_oe_links
+    - field.field.paragraph.oe_links_block.field_oe_text
+    - paragraphs.paragraphs_type.oe_links_block
+  module:
+    - link
+_core:
+  default_config_hash: _Vgr9imidIeQ6LWaHQ8lxeoXEOIhGe8CT00ebIp2zrI
+id: paragraph.oe_links_block.default
+targetEntityType: paragraph
+bundle: oe_links_block
+mode: default
+content:
+  field_oe_links:
+    weight: 1
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  field_oe_text:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  translation:
+    weight: 10
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  created: true
+  status: true
+  uid: true

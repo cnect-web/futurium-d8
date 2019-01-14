@@ -1,0 +1,64 @@
+uuid: 5a0cdda6-fda6-485b-a006-ee91bad4c5b3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_paragraphs
+    - paragraphs.paragraphs_type.oe_accordion
+    - paragraphs.paragraphs_type.oe_content_row
+    - paragraphs.paragraphs_type.oe_links_block
+    - paragraphs.paragraphs_type.oe_list_item
+    - paragraphs.paragraphs_type.oe_list_item_block
+    - paragraphs.paragraphs_type.oe_quote
+    - paragraphs.paragraphs_type.oe_rich_text
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: twD9SLMlc8srdUyHQVtRJjH8Uw5ALjnyMrwSAvZNAR8
+id: paragraph.oe_content_row.field_oe_paragraphs
+field_name: field_oe_paragraphs
+entity_type: paragraph
+bundle: oe_content_row
+label: Paragraphs
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      oe_accordion: oe_accordion
+      oe_links_block: oe_links_block
+      oe_list_item: oe_list_item
+      oe_list_item_block: oe_list_item_block
+      oe_quote: oe_quote
+      oe_rich_text: oe_rich_text
+    target_bundles_drag_drop:
+      oe_accordion:
+        enabled: true
+        weight: 9
+      oe_accordion_item:
+        weight: 10
+        enabled: false
+      oe_content_row:
+        weight: 11
+        enabled: false
+      oe_links_block:
+        enabled: true
+        weight: 12
+      oe_list_item:
+        enabled: true
+        weight: 13
+      oe_list_item_block:
+        enabled: true
+        weight: 14
+      oe_quote:
+        enabled: true
+        weight: 15
+      oe_rich_text:
+        enabled: true
+        weight: 16
+field_type: entity_reference_revisions
