@@ -47,6 +47,7 @@ module:
   search: 0
   stage_file_proxy: 0
   system: 0
+  shortcut: 0
   taxonomy: 0
   text: 0
   token: 0
@@ -61,13 +62,13 @@ module:
   content_translation: 10
   views: 10
   paragraphs: 11
-  standard: 1000
+  minimal: 1000
 theme:
   stable: 0
   classy: 0
   bartik: 0
   seven: 0
   oe_theme: 0
-profile: standard
+profile: minimal
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc

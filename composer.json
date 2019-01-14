@@ -147,7 +147,8 @@
         "patches": {
             "enable-patching" : true,
             "drupal/core": {
-                "Add events for matching entity hooks": "https://www.drupal.org/files/issues/2551893-52.patch"
+                "Add events for matching entity hooks": "https://www.drupal.org/files/issues/2551893-52.patch",
+                "LanguageNegotiator::updateConfiguration() is passed a NULL": "https://www.drupal.org/files/issues/language-2718657-3.patch"
             },
             "drupal/adminimal_theme": {
                 "Colors in horizontal and vertical toolbar need fixing": "https://www.drupal.org/files/issues/adminimal_theme-fix-toolbar-colors-28226369.patch"

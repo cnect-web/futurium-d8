@@ -8,7 +8,7 @@ project:
 site:
   name: Futurium
   mail: email@example.com
-  profile: standard
+  profile: minimal
   update: false
   locale: en
 
