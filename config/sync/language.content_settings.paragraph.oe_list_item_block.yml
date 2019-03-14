@@ -1,0 +1,20 @@
+uuid: dc39cb2d-1bf5-422c-973b-000ae8fae853
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.oe_list_item_block
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+    bundle_settings:
+      untranslatable_fields_hide: '0'
+_core:
+  default_config_hash: PmwEivrRZZksbQvD5VOo-4UAEpTY1AS3-E4U8bUfSvo
+id: paragraph.oe_list_item_block
+target_entity_type_id: paragraph
+target_bundle: oe_list_item_block
+default_langcode: site_default
+language_alterable: true

@@ -1,0 +1,11 @@
+uuid: 19c85fe7-af7f-4f11-b860-03efd30e48ac
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: I9TGQnCf0xiCESRyDHmHonbnEGmAIcVHlJMmFAPspiQ
+id: oe_accordion_item
+label: 'Accordion item'
+icon_uuid: null
+description: 'Single accordion, to be used exclusively in conjunction with the "Accordion" paragraph type.'
+behavior_plugins: {  }

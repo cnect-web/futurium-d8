@@ -1,0 +1,23 @@
+uuid: 5ab4b63f-b33a-4d67-a95a-0eafd6627175
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_list_item_block_variant
+    - paragraphs.paragraphs_type.oe_list_item_block
+  module:
+    - options
+_core:
+  default_config_hash: 5B71bIJidZs5t2_CwqoZYSbwVNPC1hAcUBvbfWsM3p4
+id: paragraph.oe_list_item_block.field_oe_list_item_block_variant
+field_name: field_oe_list_item_block_variant
+entity_type: paragraph
+bundle: oe_list_item_block
+label: Variant
+description: 'Choose in how many columns the list items should be organised.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string

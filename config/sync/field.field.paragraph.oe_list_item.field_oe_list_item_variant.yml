@@ -1,0 +1,23 @@
+uuid: a3949635-b093-493b-b450-abce922948d3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_oe_list_item_variant
+    - paragraphs.paragraphs_type.oe_list_item
+  module:
+    - options
+_core:
+  default_config_hash: 8UohDnsBMEj49cb2p_ekaVADVqM0XGBV9LjaXg5d3IM
+id: paragraph.oe_list_item.field_oe_list_item_variant
+field_name: field_oe_list_item_variant
+entity_type: paragraph
+bundle: oe_list_item
+label: Variant
+description: 'Choose how the list item should be displayed.'
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
