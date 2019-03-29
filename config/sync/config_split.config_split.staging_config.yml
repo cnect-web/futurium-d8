@@ -1,7 +1,9 @@
-uuid: 92e45a45-31bc-4798-8af2-f985966e8000
+uuid: f4313818-bf43-4d61-84d2-0073e4da8852
 langcode: en
 status: false
 dependencies: {  }
+_core:
+  default_config_hash: xYxm2WI7Uud-YjRi6ymBv-70wbiFYYrvPRXGJJMHYJE
 id: staging_config
 label: 'Staging Config'
 description: ''
@@ -16,4 +18,4 @@ graylist:
   - views.settings
 graylist_dependents: true
 graylist_skip_equal: true
-weight: 0
+weight: 1

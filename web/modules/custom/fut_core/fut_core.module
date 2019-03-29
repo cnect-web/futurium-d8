@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Contains fut_core.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function fut_core_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fut_core module.
+    case 'help.page.fut_core':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Futurium core module contains main dependencies and generic configuration') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_install()
+ */
+function fut_core_install() {
+  // Change field prefix for all fields fut_.
+  \Drupal::configFactory()->getEditable('field_ui.settings')
+    ->set('field_prefix', 'fut_')
+    ->save();
+}
+
+/**
+ * Implements hook_uninstall()
+ */
+function fut_core_uninstall() {
+  // Revert field prefix for all fields fut_.
+  \Drupal::configFactory()->getEditable('field_ui.settings')
+    ->set('field_prefix', 'field_')
+    ->save();
+}

@@ -1,0 +1,58 @@
+name: 'Futurium core'
+type: module
+description: 'Futurium core module contains main dependencies and generic configuration'
+core: 8.x
+package: 'Futurium'
+version: 0.1
+dependencies:
+# Standard profile - Core modules
+  - node
+  - block
+  - breakpoint
+  - ckeditor
+  - color
+  - config
+  - comment
+  - contextual
+  - contact
+  - menu_link_content
+  - datetime
+  - block_content
+  - quickedit
+  - editor
+  - image
+  - menu_ui
+  - options
+  - path
+  - page_cache
+  - dynamic_page_cache
+  - big_pipe
+  - taxonomy
+  - dblog
+  - search
+  - toolbar
+  - field_ui
+  - file
+  - rdf
+  - views
+  - views_ui
+  - automated_cron
+# Other core modules
+  - content_translation
+  - config_translation
+  - language
+  - locale
+# Contributed modules
+  - admin_toolbar
+  - chosen
+  - coffee
+  - config_readonly
+  - config_split
+  - entity_reference_revisions
+  - paragraphs
+  - pathauto
+  - permissions_filter
+  - redirect
+  - token
+themes:
+  - adminimal_theme
