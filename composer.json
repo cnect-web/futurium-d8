@@ -53,6 +53,9 @@
         "openeuropa/oe_paragraphs": "dev-master",
         "openeuropa/oe_theme": "dev-master",
         "twig/extensions": "^1.5",
+
+        "twig/twig": "1.37.1",
+
         "vlucas/phpdotenv": "^2.4",
         "webflo/drupal-finder": "^1.0.0",
         "webmozart/path-util": "^2.3"
