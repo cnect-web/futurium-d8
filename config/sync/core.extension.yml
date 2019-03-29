@@ -54,7 +54,7 @@ module:
   content_translation: 10
   views: 10
   paragraphs: 11
-  standard: 1000
+  minimal: 1000
   views_ui: 0
   coffee: 0
 theme:
