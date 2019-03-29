@@ -55,11 +55,13 @@ module:
   views: 10
   paragraphs: 11
   standard: 1000
+  views_ui: 0
+  coffee: 0
 theme:
   stable: 0
   classy: 0
   bartik: 0
   seven: 0
-profile: standard
+profile: minimal
 _core:
   default_config_hash: R4IF-ClDHXxblLcG0L7MgsLvfBIMAvi_skumNFQwkDc
