@@ -1,6 +1,6 @@
 uuid: 5bcd423f-b8a7-4ceb-9ab5-8d3a056c12c9
 langcode: en
-status: true
+status: false
 dependencies:
   module:
     - editor
