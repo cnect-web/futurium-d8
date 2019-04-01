@@ -1,9 +1,0 @@
-uuid: a5783c24-b806-4b7c-bd77-9df5dded84fd
-langcode: en
-status: true
-dependencies: {  }
-id: pt
-label: Portuguese
-direction: ltr
-weight: 12
-locked: false

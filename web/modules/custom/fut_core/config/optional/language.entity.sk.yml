@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: sk
-label: Slovak
-direction: ltr
-weight: 14
-locked: false

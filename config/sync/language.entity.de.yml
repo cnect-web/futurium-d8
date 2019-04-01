@@ -1,9 +1,0 @@
-uuid: cc252dd9-ed34-4d82-b4c7-567c76c26020
-langcode: en
-status: true
-dependencies: {  }
-id: de
-label: German
-direction: ltr
-weight: -3
-locked: false
