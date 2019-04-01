@@ -24,7 +24,6 @@ module:
   editor: 0
   entity_reference_revisions: 0
   field: 0
-  field_ui: 0
   file: 0
   filter: 0
   fut_core: 0
@@ -32,7 +31,6 @@ module:
   language: 0
   link: 0
   locale: 0
-  menu_ui: 0
   node: 0
   options: 0
   page_cache: 0

@@ -1,8 +1,11 @@
+uuid: f4313818-bf43-4d61-84d2-0073e4da8852
 langcode: en
 status: false
 dependencies: {  }
+_core:
+  default_config_hash: xYxm2WI7Uud-YjRi6ymBv-70wbiFYYrvPRXGJJMHYJE
 id: staging_config
-label: 'Staging configuration'
+label: 'Staging Config'
 description: ''
 folder: ../config/staging_config
 module:
