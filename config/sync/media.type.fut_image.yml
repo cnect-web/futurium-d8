@@ -1,0 +1,16 @@
+uuid: ee2a66d9-42fc-4070-af02-6f3faa39c203
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: WW-OMhn83JZcsu77MEZTRLeH0AeUotmWvWt7wyLIWxo
+id: fut_image
+label: Image
+description: 'Add a reusable Image.'
+source: image
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_image
+field_map:
+  name: name
