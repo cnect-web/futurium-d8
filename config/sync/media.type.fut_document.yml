@@ -1,0 +1,16 @@
+uuid: ae8b60e5-466e-4ae8-b6d5-b02329790cf7
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 74YWaE0LdPCBfYWMwknnjRTjexZa4Fg4B0CM-3fjVv8
+id: fut_document
+label: Document
+description: 'Add a reusable Document.'
+source: file
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  source_field: field_media_file
+field_map:
+  name: name

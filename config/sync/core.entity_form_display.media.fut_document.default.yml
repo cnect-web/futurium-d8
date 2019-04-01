@@ -1,22 +1,18 @@
-uuid: 8e97a23f-72e2-41c0-b99f-fec6f9f45460
+uuid: 75ffeaae-5b1c-4e35-bb7f-18239ec29e9e
 langcode: en
 status: true
 dependencies:
   config:
-    - field.field.media.fut_image.field_media_image
-    - image.style.fut_default_thumbnail
-    - media.type.fut_image
-  enforced:
-    module:
-      - fut_core
+    - field.field.media.fut_document.field_media_file
+    - media.type.fut_document
   module:
-    - image
+    - file
     - path
 _core:
-  default_config_hash: R8cIoA0F_diBxe4kwbQqfK4sHbnf-B3Cnp8eStlPg-o
-id: media.fut_image.default
+  default_config_hash: A6hodis2LJbp4_Q1l1Z5LCKYtQqD1HiU4qzwOY-Zh4c
+id: media.fut_document.default
 targetEntityType: media
-bundle: fut_image
+bundle: fut_document
 mode: default
 content:
   created:
@@ -25,13 +21,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-  field_media_image:
+  field_media_file:
     weight: 0
     settings:
-      preview_image_style: fut_default_thumbnail
       progress_indicator: throbber
     third_party_settings: {  }
-    type: image_image
+    type: file_generic
     region: content
   langcode:
     type: language_select
