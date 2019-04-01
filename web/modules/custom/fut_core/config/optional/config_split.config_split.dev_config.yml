@@ -1,15 +1,20 @@
+uuid: 8004d6c8-f753-4911-9a01-13780101d592
 langcode: en
 status: false
 dependencies: {  }
+_core:
+  default_config_hash: B9vvqT3pfZjcRsry9d1eZw1UhsRLDivVPIc1D3Qxl1s
 id: dev_config
-label: 'Development configuration'
+label: 'Dev Config'
 description: ''
 folder: ../config/dev_config
 module:
   coffee: 0
   config_devel: 0
   devel: 0
+  field_ui: 0
   kint: 0
+  menu_ui: 0
   simpletest: 0
   views_ui: 0
 theme: {  }

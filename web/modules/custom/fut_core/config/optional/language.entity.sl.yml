@@ -1,8 +1,0 @@
-langcode: en
-status: true
-dependencies: {  }
-id: sl
-label: Slovenian
-direction: ltr
-weight: 15
-locked: false
