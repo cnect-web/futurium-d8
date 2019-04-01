@@ -3,7 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.media.fut_image.field_media_image
-    - image.style.fut_thumbnail
+    - image.style.fut_default_thumbnail
     - media.type.fut_image
   enforced:
     module:
@@ -25,7 +25,7 @@ content:
   field_media_image:
     weight: 0
     settings:
-      preview_image_style: fut_thumbnail
+      preview_image_style: fut_default_thumbnail
       progress_indicator: throbber
     third_party_settings: {  }
     type: image_image

@@ -1,0 +1,15 @@
+uuid: 37c653df-3995-4ad9-b1f2-f63b3ebf5331
+langcode: en
+status: true
+dependencies: {  }
+name: fut_image_medium
+label: 'Futurium Image Medium'
+effects:
+  2a31ec87-f76e-46ac-8fd8-589418eae995:
+    uuid: 2a31ec87-f76e-46ac-8fd8-589418eae995
+    id: image_scale
+    weight: 1
+    data:
+      width: 800
+      height: null
+      upscale: false

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.media.fut_image.field_media_image
+    - image.style.fut_image_medium
     - media.type.fut_image
   module:
     - image
@@ -15,7 +16,7 @@ content:
     weight: 0
     label: hidden
     settings:
-      image_style: ''
+      image_style: fut_image_medium
       image_link: ''
     third_party_settings: {  }
     type: image
