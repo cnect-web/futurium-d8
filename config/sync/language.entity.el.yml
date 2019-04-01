@@ -1,9 +1,0 @@
-uuid: 7d8bc33f-aada-4bb0-90ef-2d93ad65e577
-langcode: en
-status: true
-dependencies: {  }
-id: el
-label: Greek
-direction: ltr
-weight: -1
-locked: false

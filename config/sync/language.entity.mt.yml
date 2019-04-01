@@ -1,9 +1,0 @@
-uuid: 672cece9-e22e-42ac-82f7-8ce572938e20
-langcode: en
-status: true
-dependencies: {  }
-id: mt
-label: Maltese
-direction: ltr
-weight: 9
-locked: false
