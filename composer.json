@@ -127,7 +127,9 @@
                 "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
                 "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-03-01/group_membership_duplication-3016197-7.patch",
                 "Get a token of a node's parent group to create a pathauto pattern" : "https://www.drupal.org/files/issues/group_add-node-group-tokens-2774827-24.patch",
-                "Media enabler" : "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch"
+                "Media enabler" : "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch",
+                "Group language settings are missing" : "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
+                "Can't translate group roles" : "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch"
             },
             "drupal/inline_entity_form": {
                 "Remove revision log messages from other entities than nodes": "https://www.drupal.org/files/issues/2018-03-23/remove_revision_log_message-2927884-2.patch"
