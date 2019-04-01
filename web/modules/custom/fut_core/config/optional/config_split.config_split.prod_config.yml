@@ -1,8 +1,11 @@
+uuid: a6c27a9c-2995-4e25-b465-a046ba99a0ab
 langcode: en
 status: false
 dependencies: {  }
+_core:
+  default_config_hash: WZvDoNpAwYbt96Jw1tuuu5EMTurHVLpYyMUlihLKBb4
 id: prod_config
-label: 'Production configuration'
+label: 'Prod Config'
 description: ''
 folder: ../config/prod_config
 module:

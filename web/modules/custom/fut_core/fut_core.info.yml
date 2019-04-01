@@ -6,37 +6,33 @@ package: 'Futurium'
 version: 0.1
 dependencies:
 # Standard profile - Core modules
-  - node
+  - automated_cron
+  - big_pipe
   - block
+  - block_content
   - breakpoint
   - ckeditor
-  - color
   - config
   - comment
   - contextual
   - contact
-  - menu_link_content
+  - dblog
+  - dynamic_page_cache
   - datetime
-  - block_content
-  - quickedit
   - editor
+  - file
   - image
-  - menu_ui
+  - menu_link_content
+  - node
   - options
   - path
   - page_cache
-  - dynamic_page_cache
-  - big_pipe
-  - taxonomy
-  - dblog
-  - search
-  - toolbar
-  - field_ui
-  - file
+  - quickedit
   - rdf
+  - search
+  - taxonomy
+  - toolbar
   - views
-  - views_ui
-  - automated_cron
 # Other core modules
   - content_translation
   - config_translation
@@ -45,10 +41,8 @@ dependencies:
 # Contributed modules
   - admin_toolbar
   - chosen
-  - coffee
   - config_readonly
   - config_split
-  - entity_reference_revisions
   - paragraphs
   - pathauto
   - permissions_filter
