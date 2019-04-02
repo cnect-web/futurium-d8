@@ -1,0 +1,30 @@
+uuid: 24e5600f-7ab2-4655-87a1-f0f6ccd8c2cb
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_video
+    - media.type.fut_video
+    - paragraphs.paragraphs_type.fut_video
+_core:
+  default_config_hash: UHRu_rDDaylljdl72zyFxbIAlpDTWAnIs7Q4lLBOwtI
+id: paragraph.fut_video.fut_video
+field_name: fut_video
+entity_type: paragraph
+bundle: fut_video
+label: Video
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      fut_video: fut_video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

@@ -1,0 +1,35 @@
+uuid: 78632cfb-9d2f-49ab-8e99-d247feb46291
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_image.fut_image
+    - paragraphs.paragraphs_type.fut_image
+  module:
+    - inline_entity_form
+_core:
+  default_config_hash: YxbuihMAWp6ELzj9k_YDK6dNFp5resTiXeIWV_-sCHo
+id: paragraph.fut_image.default
+targetEntityType: paragraph
+bundle: fut_image
+mode: default
+content:
+  fut_image:
+    weight: 0
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+hidden:
+  created: true
+  status: true

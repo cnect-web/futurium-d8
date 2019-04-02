@@ -1,0 +1,22 @@
+uuid: bb3d3a2e-1dea-4f4e-89ef-8287d8a22593
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - paragraphs
+_core:
+  default_config_hash: MiPBUOStRgriDVb-_SkK6HSgF4OfegjvbGg0q7npdIE
+id: paragraph.fut_document
+field_name: fut_document
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
