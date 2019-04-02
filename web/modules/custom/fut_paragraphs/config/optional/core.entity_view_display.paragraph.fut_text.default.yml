@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_text.fut_text
+    - paragraphs.paragraphs_type.fut_text
+  module:
+    - text
+id: paragraph.fut_text.default
+targetEntityType: paragraph
+bundle: fut_text
+mode: default
+content:
+  fut_text:
+    weight: 0
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }

@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fut_image
+label: Image
+icon_uuid: null
+description: 'Upload or use already uploaded image.'
+behavior_plugins: {  }
