@@ -1,0 +1,23 @@
+uuid: 2d33e17f-1567-4488-bb24-3f6bae25e901
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_text
+    - paragraphs.paragraphs_type.fut_text
+  module:
+    - text
+_core:
+  default_config_hash: '-7Ou0sLDH-uEXrxUeaRRZFIG4kwNPR5q-UaqUIbr248'
+id: paragraph.fut_text.fut_text
+field_name: fut_text
+entity_type: paragraph
+bundle: fut_text
+label: Text
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long

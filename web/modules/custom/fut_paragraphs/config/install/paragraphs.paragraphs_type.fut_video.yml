@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fut_video
+label: Video
+icon_uuid: null
+description: 'Add or reuse embed video. '
+behavior_plugins: {  }

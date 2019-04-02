@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_document.fut_document
+    - paragraphs.paragraphs_type.fut_document
+  module:
+    - inline_entity_form
+id: paragraph.fut_document.default
+targetEntityType: paragraph
+bundle: fut_document
+mode: default
+content:
+  fut_document:
+    weight: 0
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+hidden:
+  created: true
+  status: true

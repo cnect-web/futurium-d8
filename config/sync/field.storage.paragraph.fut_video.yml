@@ -1,0 +1,22 @@
+uuid: eab9cc1f-5422-4641-9624-83f2cbb2e7ef
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+    - paragraphs
+_core:
+  default_config_hash: ykCAppvTm2pFK2QyMVX9K0iMyTcsDCcvWHpLmGnKVDg
+id: paragraph.fut_video
+field_name: fut_video
+entity_type: paragraph
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

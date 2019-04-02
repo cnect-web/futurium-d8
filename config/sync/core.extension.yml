@@ -28,7 +28,9 @@ module:
   filter: 0
   fut_core: 0
   fut_media: 0
+  fut_paragraphs: 0
   image: 0
+  inline_entity_form: 0
   language: 0
   link: 0
   locale: 0

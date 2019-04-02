@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fut_document
+label: Document
+icon_uuid: null
+description: 'Upload or use already uploaded documents.'
+behavior_plugins: {  }

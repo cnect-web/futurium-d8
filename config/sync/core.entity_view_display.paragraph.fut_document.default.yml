@@ -1,0 +1,24 @@
+uuid: e9620301-6ccc-43d2-932e-4c6f150f8943
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_document.fut_document
+    - paragraphs.paragraphs_type.fut_document
+_core:
+  default_config_hash: JN5ZDjEttWwdxnYM88_rNV9HUv6Et5pnWlTvndnUEvE
+id: paragraph.fut_document.default
+targetEntityType: paragraph
+bundle: fut_document
+mode: default
+content:
+  fut_document:
+    type: entity_reference_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden: {  }

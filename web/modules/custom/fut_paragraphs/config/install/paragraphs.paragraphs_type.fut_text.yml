@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fut_text
+label: Text
+icon_uuid: null
+description: 'Add formatted text using the editor.'
+behavior_plugins: {  }

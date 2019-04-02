@@ -1,0 +1,21 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_document.fut_document
+    - paragraphs.paragraphs_type.fut_document
+id: paragraph.fut_document.default
+targetEntityType: paragraph
+bundle: fut_document
+mode: default
+content:
+  fut_document:
+    type: entity_reference_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden: {  }

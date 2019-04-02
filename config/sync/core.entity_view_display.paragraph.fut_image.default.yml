@@ -1,0 +1,24 @@
+uuid: 6bf4c737-f3d9-437b-9d89-f29bc0833b6b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_image.fut_image
+    - paragraphs.paragraphs_type.fut_image
+_core:
+  default_config_hash: KL1LFO4U0LgcLznFQK2l2s_aYVaUDNdKJwRBZ5P13Vw
+id: paragraph.fut_image.default
+targetEntityType: paragraph
+bundle: fut_image
+mode: default
+content:
+  fut_image:
+    type: entity_reference_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+hidden: {  }

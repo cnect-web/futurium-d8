@@ -1,0 +1,30 @@
+uuid: 80c6ac93-8c20-42b7-976d-08b87990cb30
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_document
+    - media.type.fut_document
+    - paragraphs.paragraphs_type.fut_document
+_core:
+  default_config_hash: LiwqwiodTy9S-lla1iy5khunvfhVqNr2AYzGhHmh32k
+id: paragraph.fut_document.fut_document
+field_name: fut_document
+entity_type: paragraph
+bundle: fut_document
+label: Document
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      fut_document: fut_document
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference
