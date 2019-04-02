@@ -1,0 +1,16 @@
+uuid: 80f089d8-9e75-4f25-ac3a-7fa1eb19cfe3
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.fut_video
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+id: media.fut_video
+target_entity_type_id: media
+target_bundle: fut_video
+default_langcode: site_default
+language_alterable: true
