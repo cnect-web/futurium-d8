@@ -15,8 +15,8 @@ mode: default
 content:
   fut_content:
     type: entity_reference_revisions_entity_view
-    weight: 103
-    label: above
+    weight: 1
+    label: hidden
     settings:
       view_mode: default
       link: ''
@@ -24,17 +24,17 @@ content:
     region: content
   fut_post_image:
     type: entity_reference_entity_view
-    weight: 102
-    label: above
-    settings:
-      view_mode: default
-      link: false
-    third_party_settings: {  }
+    weight: 0
     region: content
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
   links:
-    weight: 100
+    weight: 2
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
   langcode: true
