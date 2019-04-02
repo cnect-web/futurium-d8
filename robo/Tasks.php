@@ -98,6 +98,8 @@ class Tasks extends RoboTasks {
       ->siteInstall('minimal')
       ->run();
 
+    // Run config import in order to apply config split settings.
+    $this->importConfig();
     // Change folder permissions.
     // @todo: get folder from config.
     $this->setupFilesFolder();
@@ -246,6 +248,18 @@ class Tasks extends RoboTasks {
         $this->config('database.host'),
         $this->config('database.port'),
         $this->config('database.name')));
+  }
+
+  /**
+   * Run configuration import task.
+   *
+   * @return \Boedah\Robo\Task\Drush\DrushStack
+   *   Drush configuration import task.
+   */
+  protected function getRunConfigImport() {
+    return $this->taskDrushStack($this->config('bin.drush'))
+      ->arg("--root={$this->root()}/web")
+      ->drush("cim");
   }
 
   /**
