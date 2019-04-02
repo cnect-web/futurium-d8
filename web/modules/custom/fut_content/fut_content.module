@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains fut_content.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function fut_content_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fut_content module.
+    case 'help.page.fut_content':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Futurium Content module contains content related configurations.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

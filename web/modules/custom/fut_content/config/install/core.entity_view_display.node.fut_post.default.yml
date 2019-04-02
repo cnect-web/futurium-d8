@@ -1,0 +1,40 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fut_post.fut_content
+    - field.field.node.fut_post.fut_post_image
+    - node.type.fut_post
+  module:
+    - entity_reference_revisions
+    - user
+id: node.fut_post.default
+targetEntityType: node
+bundle: fut_post
+mode: default
+content:
+  fut_content:
+    type: entity_reference_revisions_entity_view
+    weight: 103
+    label: above
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  fut_post_image:
+    type: entity_reference_entity_view
+    weight: 102
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true
