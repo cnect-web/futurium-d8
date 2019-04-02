@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "330ffd3e8b924256391f2a8feca02e42",
+    "content-hash": "b2fa2ebeefac64daa356d255bb49ca06",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -164,16 +164,16 @@
         },
         {
             "name": "boedah/robo-drush",
-            "version": "3.1.1",
+            "version": "4.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/boedah/robo-drush.git",
-                "reference": "90d505c064ec0ea8e4ef2094b5081747be87da6f"
+                "reference": "1ce48694a5bd794bdc6fa006ee32e0a9bf693d52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/boedah/robo-drush/zipball/90d505c064ec0ea8e4ef2094b5081747be87da6f",
-                "reference": "90d505c064ec0ea8e4ef2094b5081747be87da6f",
+                "url": "https://api.github.com/repos/boedah/robo-drush/zipball/1ce48694a5bd794bdc6fa006ee32e0a9bf693d52",
+                "reference": "1ce48694a5bd794bdc6fa006ee32e0a9bf693d52",
                 "shasum": ""
             },
             "require": {
@@ -181,7 +181,7 @@
                 "php": ">=5.5.0"
             },
             "require-dev": {
-                "drush/drush": "8.1.12",
+                "drush/drush": "^8.0 | ^9.0",
                 "phpunit/phpunit": "~4.4"
             },
             "suggest": {
@@ -204,7 +204,7 @@
                 }
             ],
             "description": "Drush CommandStack for Robo Task Runner",
-            "time": "2017-08-21T10:12:57+00:00"
+            "time": "2018-12-11T14:42:40+00:00"
         },
         {
             "name": "chi-teck/drupal-code-generator",
@@ -2689,52 +2689,6 @@
             }
         },
         {
-            "name": "drupal/config_installer",
-            "version": "1.8.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/config_installer.git",
-                "reference": "8.x-1.8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/config_installer-8.x-1.8.zip",
-                "reference": "8.x-1.8",
-                "shasum": "43d7af76a3f00d074161e242ddf94d942d256250"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-profile",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.8",
-                    "datestamp": "1524572284",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "alexpott",
-                    "homepage": "https://www.drupal.org/user/157725"
-                }
-            ],
-            "homepage": "https://www.drupal.org/project/config_installer",
-            "support": {
-                "source": "http://cgit.drupalcode.org/config_installer"
-            }
-        },
-        {
             "name": "drupal/config_readonly",
             "version": "1.0.0-beta3",
             "source": {
@@ -3947,8 +3901,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-rc2+34-dev",
-                    "datestamp": "1552663984",
+                    "version": "8.x-1.0-rc2+36-dev",
+                    "datestamp": "1552902485",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -3960,7 +3914,9 @@
                     "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
                     "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-03-01/group_membership_duplication-3016197-7.patch",
                     "Get a token of a node's parent group to create a pathauto pattern": "https://www.drupal.org/files/issues/group_add-node-group-tokens-2774827-24.patch",
-                    "Media enabler": "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch"
+                    "Media enabler": "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch",
+                    "Group language settings are missing": "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
+                    "Can't translate group roles": "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -3984,7 +3940,8 @@
             "support": {
                 "source": "https://cgit.drupalcode.org/group",
                 "issues": "https://drupal.org/project/issues/group"
-            }
+            },
+            "time": "2019-03-18T09:48:44+00:00"
         },
         {
             "name": "drupal/honeypot",
@@ -6447,12 +6404,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/openeuropa/oe_theme.git",
-                "reference": "0ca6790494b5c225c352ab869492acae4c2b7870"
+                "reference": "69d23c12cc500ca3173b122ba6ffe4668efeaf90"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/openeuropa/oe_theme/zipball/0ca6790494b5c225c352ab869492acae4c2b7870",
-                "reference": "0ca6790494b5c225c352ab869492acae4c2b7870",
+                "url": "https://api.github.com/repos/openeuropa/oe_theme/zipball/69d23c12cc500ca3173b122ba6ffe4668efeaf90",
+                "reference": "69d23c12cc500ca3173b122ba6ffe4668efeaf90",
                 "shasum": ""
             },
             "require": {
@@ -6510,7 +6467,7 @@
                 "EUPL-1.2"
             ],
             "description": "OpenEuropa base theme.",
-            "time": "2019-03-19T11:18:05+00:00"
+            "time": "2019-04-01T12:58:54+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -9688,7 +9645,7 @@
             "version": "1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/config_devel",
+                "url": "https://git.drupalcode.org/project/config_devel.git",
                 "reference": "8.x-1.2"
             },
             "dist": {
@@ -9756,35 +9713,32 @@
         },
         {
             "name": "drupal/devel",
-            "version": "1.2.0",
+            "version": "dev-2.x",
             "source": {
                 "type": "git",
-                "url": "https://git.drupal.org/project/devel",
-                "reference": "8.x-1.2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/devel-8.x-1.2.zip",
-                "reference": "8.x-1.2",
-                "shasum": "01f3349ef75f6e21fceef24be9d3d6506ca29647"
+                "url": "https://git.drupalcode.org/project/devel.git",
+                "reference": "00fa2de6f9f70ee4b4c32ee0c8021a0596dd565e"
             },
             "require": {
-                "drupal/core": "~8.0"
-            },
-            "suggest": {
-                "symfony/var-dumper": "Pretty print complex values better with var-dumper available"
+                "drupal/core": "~8.0",
+                "symfony/var-dumper": "~2.7|^3|^4"
             },
             "type": "drupal-module",
             "extra": {
                 "branch-alias": {
-                    "dev-1.x": "1.x-dev"
+                    "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1507197844",
+                    "version": "8.x-2.0+8-dev",
+                    "datestamp": "1553621880",
                     "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
+                        "status": "not-covered",
+                        "message": "Dev releases are not covered by Drupal security advisories."
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9"
                     }
                 }
             },
@@ -9834,67 +9788,6 @@
                 "source": "http://cgit.drupalcode.org/devel",
                 "issues": "http://drupal.org/project/devel",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            }
-        },
-        {
-            "name": "drupal/kint",
-            "version": "1.2.0",
-            "require": {
-                "drupal/core": "~8.0",
-                "drupal/devel": "self.version"
-            },
-            "type": "metapackage",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.2",
-                    "datestamp": "1507197844",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "catch",
-                    "homepage": "https://www.drupal.org/user/35733"
-                },
-                {
-                    "name": "juampynr",
-                    "homepage": "https://www.drupal.org/user/682736"
-                },
-                {
-                    "name": "lussoluca",
-                    "homepage": "https://www.drupal.org/user/138068"
-                },
-                {
-                    "name": "moshe weitzman",
-                    "homepage": "https://www.drupal.org/user/23"
-                },
-                {
-                    "name": "pcambra",
-                    "homepage": "https://www.drupal.org/user/122101"
-                },
-                {
-                    "name": "salvis",
-                    "homepage": "https://www.drupal.org/user/82964"
-                },
-                {
-                    "name": "willzyx",
-                    "homepage": "https://www.drupal.org/user/1043862"
-                }
-            ],
-            "description": "Wrapper for Kint debugging tool",
-            "homepage": "https://www.drupal.org/project/devel",
-            "support": {
-                "source": "http://cgit.drupalcode.org/devel"
             }
         },
         {
@@ -11745,9 +11638,7 @@
     "stability-flags": {
         "cnect-web/blellow": 20,
         "drupal/console": 20,
-        "drupal/geocoder": 10,
         "drupal/group": 20,
-        "drupal/leaflet": 10,
         "openeuropa/oe_paragraphs": 20,
         "openeuropa/oe_theme": 20
     },

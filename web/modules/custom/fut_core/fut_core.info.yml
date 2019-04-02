@@ -48,5 +48,3 @@ dependencies:
   - permissions_filter
   - redirect
   - token
-themes:
-  - adminimal_theme
