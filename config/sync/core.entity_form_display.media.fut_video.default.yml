@@ -1,0 +1,62 @@
+uuid: 9fde543d-aeaf-49d0-af0a-478cf9b52507
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.fut_video.field_media_oembed_video
+    - media.type.fut_video
+  module:
+    - media
+    - path
+_core:
+  default_config_hash: juloJjkCdF9phNzszeRu8Cpue4MjF3vj7D9OMr9aJ4c
+id: media.fut_video.default
+targetEntityType: media
+bundle: fut_video
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 10
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  field_media_oembed_video:
+    type: oembed_textfield
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 30
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 100
+    region: content
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 5
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+hidden:
+  name: true

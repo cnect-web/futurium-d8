@@ -1,0 +1,20 @@
+uuid: 968ac66f-ce85-4708-bd89-19b84e28d97e
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: 3cNYgv90Qi5EqlS0emUpR6e-q0Cdv9j-r6juDJhCBng
+id: fut_video
+label: Video
+description: 'Add a reusable Video from Youtube or Vimeo.'
+source: 'oembed:video'
+queue_thumbnail_downloads: false
+new_revision: false
+source_configuration:
+  thumbnails_directory: 'public://oembed_thumbnails'
+  providers:
+    - YouTube
+    - Vimeo
+  source_field: field_media_oembed_video
+field_map:
+  title: name

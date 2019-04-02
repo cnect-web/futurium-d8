@@ -94,8 +94,8 @@ class Tasks extends RoboTasks {
     $this->projectGenerateEnv();
 
     $this->getInstallTask()
-      ->arg('config_installer_sync_configure_form.sync_directory=' . $this->config('settings.config_directories.sync'))
-      ->siteInstall('config_installer')
+      ->arg('--existing-config')
+      ->siteInstall('minimal')
       ->run();
 
     // Run config import in order to apply config split settings.
@@ -112,7 +112,7 @@ class Tasks extends RoboTasks {
    * @aliases pse
    */
   public function projectGenerateEnv(array $opts = ['force' => FALSE]) {
-    $file = $this->root() . '/.env';
+    $file = "{$this->root()}/.env";
     if (!file_exists($file) || $opts['force']) {
       $content = '';
       $settings = [
@@ -125,10 +125,10 @@ class Tasks extends RoboTasks {
         'DATABASE_PREFIX' => 'database.prefix',
       ];
       foreach ($settings as $key => $setting) {
-        $content .= "$key=" . $this->config($setting) ."\n";
+        $content .= "$key={$this->config($setting)}\n";
       }
       if (!empty($content)) {
-        $this->taskWriteToFile($this->root() . '/.env')->text($content)->run();
+        $this->taskWriteToFile($file)->text($content)->run();
       }
     }
     else {
@@ -143,12 +143,12 @@ class Tasks extends RoboTasks {
    * @aliases sff
    */
   public function setupFilesFolder($folder = "web/sites/default/files") {
-    if ($this->taskExec("rm -rf {$folder}/*")->run()->wasSuccessful()) {
-      $this->say("Cleared up files folder.");
+    if ($this->taskExec("rm -rf $folder/*")->run()->wasSuccessful()) {
+      $this->say('Cleared up files folder.');
     }
 
-    if ($this->taskExec("chmod -R 0777 {$folder}")->run()->wasSuccessful()) {
-      $this->say("Files folder permissions set.");
+    if ($this->taskExec("chmod -R 0777 $folder")->run()->wasSuccessful()) {
+      $this->say('Files folder permissions set.');
     }
   }
 
@@ -163,8 +163,8 @@ class Tasks extends RoboTasks {
     $settings = $this->config('environment.settings');
     if (!empty($settings)) {
 
-      $settings_folder = $this->root() . "/web/sites/default";
-      $settings_file = "{$settings_folder}/settings.local.php";
+      $settings_folder = "{$this->root()}/web/sites/default";
+      $settings_file = "$settings_folder/settings.local.php";
 
       $this->changeFilePerms($settings_folder, '0777');
       $this->changeFilePerms($settings_file, '0777');
@@ -178,7 +178,7 @@ class Tasks extends RoboTasks {
       $this->changeFilePerms($settings_file, '0555');
     }
     else {
-      $this->say("No custom settings to add.");
+      $this->say('No custom settings to add.');
     }
   }
 
@@ -199,7 +199,7 @@ class Tasks extends RoboTasks {
     }
     else {
       foreach ($varval as $key => $val) {
-        $this->recursive_print ($varname . "['" . $key . "']", $val);
+        $this->recursive_print ("$varname ['$key']", $val);
       }
     }
   }

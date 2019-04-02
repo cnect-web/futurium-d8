@@ -1,0 +1,32 @@
+uuid: f7b14f88-fe76-466e-9423-8d90b9c10c4d
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.media.fut_image.field_media_image
+    - image.style.fut_image_medium
+    - media.type.fut_image
+  module:
+    - image
+_core:
+  default_config_hash: 6Oe6780OKIT8L5jFStSNYgaNSVwSTkHENPwNNPX6xyE
+id: media.fut_image.default
+targetEntityType: media
+bundle: fut_image
+mode: default
+content:
+  field_media_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: fut_image_medium
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true
