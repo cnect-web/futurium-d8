@@ -5,6 +5,8 @@ build:
   stage: build
   script: 
     - composer install
-    - tar -zxvf --exclude-vcs --exclude="" tar-archive-name.tar.gz
+    - cd ..
+    - tar -zxvf --exclude-vcs --exclude="" ${CI_PROJECT_NAME}-{CI_COMMIT_TAG}.tar.gz
+    - cp ${CI_PROJECT_NAME}-{CI_COMMIT_TAG}.tgz ${CI_PROJECT_NAME}
   only:
     - ci
