@@ -1,0 +1,19 @@
+uuid: 4454ea1d-4591-4c8b-befe-380a1edbb290
+langcode: en
+status: true
+dependencies:
+  module:
+    - menu_ui
+third_party_settings:
+  menu_ui:
+    available_menus: {  }
+    parent: ''
+_core:
+  default_config_hash: WenLISf80BgAJvs6nK-hcYVwbI-oM_VNAyztKZYbrwI
+name: Post
+type: fut_post
+description: 'Add a post.'
+help: ''
+new_revision: true
+preview_mode: 1
+display_submitted: true

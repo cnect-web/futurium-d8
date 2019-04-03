@@ -1,0 +1,43 @@
+uuid: b4cf928a-a174-4293-bf67-c364536edde3
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fut_post.fut_content
+    - field.field.node.fut_post.fut_post_image
+    - node.type.fut_post
+  module:
+    - entity_reference_revisions
+    - user
+_core:
+  default_config_hash: 3CxEx_9lG4q8FnnDUym8ZnvYwVq0mU-rqtHw_DUNeMQ
+id: node.fut_post.default
+targetEntityType: node
+bundle: fut_post
+mode: default
+content:
+  fut_content:
+    type: entity_reference_revisions_entity_view
+    weight: 1
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+  fut_post_image:
+    type: entity_reference_entity_view
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link: true
+      view_mode: default
+    third_party_settings: {  }
+  links:
+    weight: 2
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true

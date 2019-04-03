@@ -14,7 +14,6 @@ module:
   devel: 0
   field_ui: 0
   kint: 0
-  menu_ui: 0
   simpletest: 0
   views_ui: 0
 theme: {  }
