@@ -1,0 +1,17 @@
+uuid: 4bdee258-d16b-4dbc-aa38-d0ad6a49146a
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+  enforced:
+    config:
+      - user.role.administrator
+id: fut_open-a416e6833
+label: Administrator
+weight: 2
+internal: true
+audience: outsider
+group_type: fut_open
+permissions_ui: false
+permissions: {  }

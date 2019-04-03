@@ -22,14 +22,18 @@ module:
   dblog: 0
   dynamic_page_cache: 0
   editor: 0
+  entity: 0
   entity_reference_revisions: 0
   field: 0
   file: 0
   filter: 0
   fut_content: 0
   fut_core: 0
+  fut_group: 0
   fut_media: 0
   fut_paragraphs: 0
+  gnode: 0
+  group: 0
   image: 0
   inline_entity_form: 0
   language: 0

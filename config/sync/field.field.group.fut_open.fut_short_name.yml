@@ -1,0 +1,21 @@
+uuid: ee4a50f4-ecb8-478c-9751-2b036d7d02a0
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.fut_short_name
+    - group.type.fut_open
+_core:
+  default_config_hash: IgQdj1f8LNLy1tEO8Toy-x2Skb18NoL9crnEO0Bg_eA
+id: group.fut_open.fut_short_name
+field_name: fut_short_name
+entity_type: group
+bundle: fut_open
+label: 'Short Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

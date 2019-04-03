@@ -1,0 +1,22 @@
+uuid: 1693fcf3-6451-4e38-9594-6a36db92daef
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+    - media
+_core:
+  default_config_hash: CDMGbx78HK07wCvSrDJQ70QpQ5Lumi9Jo6CEGqAgNrk
+id: group.fut_visual_identity
+field_name: fut_visual_identity
+entity_type: group
+type: entity_reference
+settings:
+  target_type: media
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
