@@ -4,6 +4,7 @@ stages:
 build:
   stage: build
   script: 
-    - pwd
+    - composer install
+    - tar -zxvf --exclude-vcs --exclude="" tar-archive-name.tar.gz
   only:
     - ci
