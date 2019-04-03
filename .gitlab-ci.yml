@@ -2,8 +2,8 @@ stages:
   - build
 
 build:
-  stage : build
+  stage: build
   script: 
     - pwd
-  when:
+  only:
     - ci
