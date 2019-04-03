@@ -5,6 +5,10 @@ dependencies:
   config:
     - field.storage.node.fut_content
     - node.type.fut_post
+    - paragraphs.paragraphs_type.fut_document
+    - paragraphs.paragraphs_type.fut_image
+    - paragraphs.paragraphs_type.fut_text
+    - paragraphs.paragraphs_type.fut_video
   module:
     - entity_reference_revisions
 _core:
@@ -22,19 +26,23 @@ default_value_callback: ''
 settings:
   handler: 'default:paragraph'
   handler_settings:
-    negate: 1
-    target_bundles: null
+    negate: 0
+    target_bundles:
+      fut_document: fut_document
+      fut_image: fut_image
+      fut_text: fut_text
+      fut_video: fut_video
     target_bundles_drag_drop:
       fut_document:
+        enabled: true
         weight: 5
-        enabled: false
       fut_image:
+        enabled: true
         weight: 6
-        enabled: false
       fut_text:
+        enabled: true
         weight: 7
-        enabled: false
       fut_video:
+        enabled: true
         weight: 8
-        enabled: false
 field_type: entity_reference_revisions
