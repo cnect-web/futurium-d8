@@ -1,0 +1,21 @@
+uuid: 74e39152-dcd8-4164-b5cf-38034067b669
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.fut_short_name
+field_name: fut_short_name
+entity_type: group
+type: string
+settings:
+  max_length: 25
+  is_ascii: false
+  case_sensitive: false
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

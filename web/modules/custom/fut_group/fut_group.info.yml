@@ -1,0 +1,9 @@
+name: 'Futurium Group'
+type: module
+description: 'Futurium Group module contains group related configurations.'
+core: 8.x
+package: 'Futurium'
+dependencies:
+  - fut_content
+  - group
+  - gnode

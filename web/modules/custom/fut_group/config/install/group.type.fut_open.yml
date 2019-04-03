@@ -1,0 +1,9 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fut_open
+label: Open
+description: "Who can join? - Anyone <br>\r\nWho can see the group name and who’s in it? - Anyone <br>\r\nWho can see posts in the group? - Anyone <br>\r\nWho can find the group (in search) - Anyone"
+creator_membership: false
+creator_wizard: false
+creator_roles: {  }

@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+id: fut_open-outsider
+label: Outsider
+weight: -101
+internal: true
+audience: outsider
+group_type: fut_open
+permissions_ui: true
+permissions:
+  - 'join group'
+  - 'request group membership'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_node:fut_post entity'
