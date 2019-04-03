@@ -1,0 +1,18 @@
+uuid: ab1665a7-8677-48a4-97ea-22948e6aa1e5
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.fut_post
+  module:
+    - content_translation
+third_party_settings:
+  content_translation:
+    enabled: true
+_core:
+  default_config_hash: miT2bt51AGN_f9WtEDf0D6dmY2LYAH7I9UIlPv_74DU
+id: node.fut_post
+target_entity_type_id: node
+target_bundle: fut_post
+default_langcode: site_default
+language_alterable: false

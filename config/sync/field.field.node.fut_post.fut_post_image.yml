@@ -1,0 +1,30 @@
+uuid: 73fd39fb-5c83-48de-be7f-2af476a05df6
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.fut_post_image
+    - media.type.fut_image
+    - node.type.fut_post
+_core:
+  default_config_hash: 1qpSzi0AVGQYlyEMELUcgmW0iN-0h6H1zKTezFDOsXk
+id: node.fut_post.fut_post_image
+field_name: fut_post_image
+entity_type: node
+bundle: fut_post
+label: 'Post Image'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      fut_image: fut_image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

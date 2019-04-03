@@ -26,6 +26,7 @@ module:
   field: 0
   file: 0
   filter: 0
+  fut_content: 0
   fut_core: 0
   fut_media: 0
   fut_paragraphs: 0
@@ -35,6 +36,7 @@ module:
   link: 0
   locale: 0
   media: 0
+  menu_ui: 0
   node: 0
   options: 0
   page_cache: 0
