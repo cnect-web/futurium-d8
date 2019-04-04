@@ -11,4 +11,8 @@ build:
     - tar -zcf ${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tgz ${CI_PROJECT_NAME} --exclude-vcs --exclude="scripts"
     - cp ${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tgz ${CI_PROJECT_NAME}
   only:
-    - ci
+    - tags
+  artifacts:
+    paths:
+    - ${CI_PROJECT_NAME}-${CI_COMMIT_TAG}.tgz
+    expire_in: 1 day
