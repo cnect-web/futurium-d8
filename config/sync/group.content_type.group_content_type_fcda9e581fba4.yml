@@ -1,0 +1,19 @@
+uuid: 4eafc432-5faf-4fb5-8ea5-9b1473b32eaf
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+  module:
+    - user
+_core:
+  default_config_hash: mzGr6T6sPq2aBIjgT2474s-JT76UsPub3323ELZd5uY
+id: group_content_type_fcda9e581fba4
+label: 'Open: Group membership request'
+description: 'Adds users as requesters for the group.'
+group_type: fut_open
+content_plugin: group_membership_request
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 0
+  use_creation_wizard: false

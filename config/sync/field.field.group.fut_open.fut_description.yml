@@ -1,0 +1,48 @@
+uuid: 2be8e0ae-9654-4891-af01-7ef27a3ca5be
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.fut_description
+    - group.type.fut_open
+    - paragraphs.paragraphs_type.fut_document
+    - paragraphs.paragraphs_type.fut_image
+    - paragraphs.paragraphs_type.fut_text
+    - paragraphs.paragraphs_type.fut_video
+  module:
+    - entity_reference_revisions
+_core:
+  default_config_hash: hQHuDcHj-dsdYmRomw3GM7a5GzEbC6JJOWYXq0jm_Lk
+id: group.fut_open.fut_description
+field_name: fut_description
+entity_type: group
+bundle: fut_open
+label: Description
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      fut_document: fut_document
+      fut_image: fut_image
+      fut_text: fut_text
+      fut_video: fut_video
+    target_bundles_drag_drop:
+      fut_document:
+        enabled: true
+        weight: 5
+      fut_image:
+        enabled: true
+        weight: 6
+      fut_text:
+        enabled: true
+        weight: 7
+      fut_video:
+        enabled: true
+        weight: 8
+field_type: entity_reference_revisions

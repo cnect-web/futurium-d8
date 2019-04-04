@@ -1,0 +1,12 @@
+uuid: 1ebd7577-6b66-4c99-a245-4927b46e7a99
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: bthNpRmHsV_lwGxB1VJ8TBQShFTsLs7ikja9R01pJkk
+id: fut_open
+label: Open
+description: "Who can join? - Anyone <br>\r\nWho can see the group name and who’s in it? - Anyone <br>\r\nWho can see posts in the group? - Anyone <br>\r\nWho can find the group (in search) - Anyone"
+creator_membership: false
+creator_wizard: false
+creator_roles: {  }

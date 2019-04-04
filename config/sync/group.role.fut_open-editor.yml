@@ -1,0 +1,22 @@
+uuid: 2b8ab29d-3f0a-4058-8a61-e061d5eac98c
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+_core:
+  default_config_hash: Ixv0Uz_gRXFp652CwIFp2lWgf5f7axlYqifIsuTyQVM
+id: fut_open-editor
+label: Editor
+weight: -10
+internal: false
+audience: member
+group_type: fut_open
+permissions_ui: true
+permissions:
+  - 'create group_node:fut_post entity'
+  - 'leave group'
+  - 'update own group_node:fut_post entity'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_node:fut_post entity'

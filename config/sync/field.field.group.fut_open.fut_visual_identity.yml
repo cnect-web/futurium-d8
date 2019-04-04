@@ -1,0 +1,30 @@
+uuid: 4a1ba890-9420-4554-86c6-4fa0005fd416
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.fut_visual_identity
+    - group.type.fut_open
+    - media.type.fut_image
+_core:
+  default_config_hash: _IKdDhLNNuTAAbpH6aG55_w2oUViB_cVSEiWE_ZVfro
+id: group.fut_open.fut_visual_identity
+field_name: fut_visual_identity
+entity_type: group
+bundle: fut_open
+label: 'Visual identity'
+description: 'Visual identity / Logo of group.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      fut_image: fut_image
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

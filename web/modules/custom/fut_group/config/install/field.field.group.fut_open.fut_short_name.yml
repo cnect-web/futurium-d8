@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.fut_short_name
+    - group.type.fut_open
+id: group.fut_open.fut_short_name
+field_name: fut_short_name
+entity_type: group
+bundle: fut_open
+label: 'Short Name'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

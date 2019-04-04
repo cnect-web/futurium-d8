@@ -1,0 +1,28 @@
+uuid: a99df438-7d05-4854-a523-19dfc9956dd6
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+_core:
+  default_config_hash: DDfKUYbJXKr0gwTlzf7THdPI78mW5X2RF4YFha4cZfA
+id: fut_open-moderator
+label: Moderator
+weight: -9
+internal: false
+audience: member
+group_type: fut_open
+permissions_ui: true
+permissions:
+  - 'access group_node overview'
+  - 'administer members'
+  - 'create group_node:fut_post entity'
+  - 'delete any group_node:fut_post entity'
+  - 'delete own group_node:fut_post entity'
+  - 'edit group'
+  - 'update any group_node:fut_post entity'
+  - 'update own group_node:fut_post entity'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_node:fut_post entity'
+  - 'view unpublished group_node:fut_post entity'

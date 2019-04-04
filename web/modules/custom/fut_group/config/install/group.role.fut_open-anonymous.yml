@@ -1,0 +1,15 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+id: fut_open-anonymous
+label: Anonymous
+weight: -102
+internal: true
+audience: anonymous
+group_type: fut_open
+permissions_ui: true
+permissions:
+  - 'view group'
+  - 'view group_node:fut_post entity'

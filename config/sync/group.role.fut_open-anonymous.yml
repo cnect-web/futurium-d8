@@ -1,0 +1,18 @@
+uuid: fdceca9f-71b3-42b6-8ca5-b71e53aed21f
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+_core:
+  default_config_hash: 2lRUqLbay3vJ061T1D6WMYxAc5ckK2S9RHsZHxWyB3E
+id: fut_open-anonymous
+label: Anonymous
+weight: -102
+internal: true
+audience: anonymous
+group_type: fut_open
+permissions_ui: true
+permissions:
+  - 'view group'
+  - 'view group_node:fut_post entity'
