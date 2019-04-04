@@ -10,8 +10,8 @@ use NGF\Robo\Tasks as NGFTasks;
  */
 class RoboFile extends NGFTasks {
 
-  private $defaultOp = "cs,unit";
-  private $defaultPaths = "web/modules/custom,web/themes/contrib/funkywave";
+  private $defaultOp = 'cs,unit';
+  private $defaultPaths = 'web/modules/custom,web/themes/contrib/funkywave';
 
   /**
    * Build project.
@@ -29,8 +29,8 @@ class RoboFile extends NGFTasks {
       ->run();
 
     // Checkout any local changes on settings.php
-    if ($this->taskExec("git checkout -- web/sites/default/settings.php")->run()->wasSuccessful()) {
-      $this->say("Cleared up settings.php changes.");
+    if ($this->taskExec('git checkout -- web/sites/default/settings.php')->run()->wasSuccessful()) {
+      $this->say('Cleared up settings.php changes.');
     }
 
     // Install website.
@@ -91,7 +91,7 @@ class RoboFile extends NGFTasks {
    * qa -p web/modules/custom -z cs
    * qa -p path1,path2 -z cs,unit
    */
-  public function qa(array $options = ['path|p' => "", 'op|z' => ""]) {
+  public function qa(array $options = ['path|p' => '', 'op|z' => '']) {
 
     if (empty($options['path'])) {
       $options['path'] = $this->defaultPaths;
@@ -105,11 +105,11 @@ class RoboFile extends NGFTasks {
     $paths = explode(',', $options['path']);
 
     if (in_array('cs', $op)) {
-      $this->say("Running code sniffer...");
+      $this->say('Running code sniffer...');
       $this->cs($paths);
     }
     if (in_array('unit', $op)) {
-      $this->say("Running unit tests...");
+      $this->say('Running unit tests...');
       $this->put($paths);
     }
   }
@@ -134,11 +134,11 @@ class RoboFile extends NGFTasks {
    */
   public function cs(array $paths) {
     if ($this
-      ->taskExec("bin/phpcs --standard=phpcs-ruleset.xml " . implode(' ', $paths))
+      ->taskExec('bin/phpcs --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
       ->run()
       ->wasSuccessful()
     ) {
-      $this->say("Code sniffer finished.");
+      $this->say('Code sniffer finished.');
     };
   }
 
