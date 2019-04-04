@@ -6,6 +6,8 @@ build:
   script: 
     - composer install
     - cd ..
+    - echo ${CI_PROJECT_NAME}
+    - echo ${CI_COMMIT_TAG}
     - tar -zxvf --exclude-vcs --exclude="scripts" ${CI_PROJECT_NAME}-{CI_COMMIT_TAG}.tar.gz ${CI_PROJECT_NAME}
     - cp ${CI_PROJECT_NAME}-{CI_COMMIT_TAG}.tgz ${CI_PROJECT_NAME}
   only:
