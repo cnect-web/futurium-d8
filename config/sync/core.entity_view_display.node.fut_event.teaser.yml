@@ -1,0 +1,31 @@
+uuid: 52178803-6e79-413e-8e20-c8e4e91a9564
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.fut_event.body
+    - node.type.fut_event
+  module:
+    - text
+    - user
+id: node.fut_event.teaser
+targetEntityType: node
+bundle: fut_event
+mode: teaser
+content:
+  body:
+    label: hidden
+    type: text_summary_or_trimmed
+    weight: 101
+    settings:
+      trim_length: 600
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true

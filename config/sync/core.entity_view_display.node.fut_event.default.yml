@@ -1,0 +1,29 @@
+uuid: 0d5427ca-7460-4fb7-a1b8-17ffc4049d6f
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fut_event.body
+    - node.type.fut_event
+  module:
+    - text
+    - user
+id: node.fut_event.default
+targetEntityType: node
+bundle: fut_event
+mode: default
+content:
+  body:
+    label: hidden
+    type: text_default
+    weight: 101
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  langcode: true
