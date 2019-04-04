@@ -1,6 +1,0 @@
-stages:
-  - build
-
-build:
-  stage : build
-  script: 
