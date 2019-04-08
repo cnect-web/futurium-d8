@@ -9,5 +9,5 @@ _core:
 id: node.fut_post
 target_entity_type_id: node
 target_bundle: fut_post
-default_langcode: site_default
-language_alterable: true
+default_langcode: und
+language_alterable: false
