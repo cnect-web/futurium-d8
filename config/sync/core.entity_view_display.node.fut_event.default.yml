@@ -4,8 +4,17 @@ status: true
 dependencies:
   config:
     - field.field.node.fut_event.body
+    - field.field.node.fut_event.fut_event_address
+    - field.field.node.fut_event.fut_event_coordinates
+    - field.field.node.fut_event.fut_event_date
+    - field.field.node.fut_event.fut_event_registration_url
+    - field.field.node.fut_event.fut_event_visual_identity
     - node.type.fut_event
   module:
+    - address
+    - datetime_range
+    - geofield
+    - link
     - text
     - user
 id: node.fut_event.default
@@ -18,6 +27,53 @@ content:
     type: text_default
     weight: 101
     settings: {  }
+    third_party_settings: {  }
+    region: content
+  fut_event_address:
+    weight: 104
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  fut_event_coordinates:
+    weight: 108
+    label: above
+    settings:
+      output_format: wkt
+      output_escape: true
+    third_party_settings: {  }
+    type: geofield_default
+    region: content
+  fut_event_date:
+    weight: 102
+    label: above
+    settings:
+      separator: '-'
+      format_type: medium
+      timezone_override: ''
+    third_party_settings: {  }
+    type: daterange_default
+    region: content
+  fut_event_registration_url:
+    weight: 107
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  fut_event_visual_identity:
+    type: entity_reference_entity_view
+    weight: 105
+    label: above
+    settings:
+      view_mode: default
+      link: false
     third_party_settings: {  }
     region: content
   links:
