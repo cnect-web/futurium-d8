@@ -1,4 +1,4 @@
-uuid: 6f99ae34-9092-4afa-8abe-cb3815f0cd34
+uuid: 398768d7-0782-4cea-b88a-579f177e36d3
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,7 @@ dependencies:
     - group
     - paragraphs
 _core:
-  default_config_hash: kN7SDi9lPA-aavhmAvJbWfObEHhlp5My9FWj03nbc5Q
+  default_config_hash: B-_Weq48ysjNQAInVqxzVnKR6W3-0bRG3L2pSFtnIoA
 id: group.fut_description
 field_name: fut_description
 entity_type: group
@@ -17,7 +17,7 @@ settings:
 module: entity_reference_revisions
 locked: false
 cardinality: -1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

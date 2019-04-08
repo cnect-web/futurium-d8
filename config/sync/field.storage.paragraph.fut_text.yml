@@ -1,4 +1,4 @@
-uuid: ded3d5a0-f2eb-4510-88a2-171f69a3ecdc
+uuid: a6d04eb2-8f9b-48a6-ae3f-e9da245325ff
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - paragraphs
     - text
 _core:
-  default_config_hash: vSNgJJY4fUgIcphAL29nXwmzFe3vzQwHd2Cez-iQ7QA
+  default_config_hash: oyVF4CwF3td7tuGXfSFLhHekNahO5k5pGTOmkGzTKwE
 id: paragraph.fut_text
 field_name: fut_text
 entity_type: paragraph
@@ -15,7 +15,7 @@ settings: {  }
 module: text
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

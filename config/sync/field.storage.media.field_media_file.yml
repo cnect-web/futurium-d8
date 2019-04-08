@@ -1,4 +1,4 @@
-uuid: 14a3a98f-30b2-4e64-891b-3fe43047dd82
+uuid: 4370d49a-754b-462c-a9b4-4b072b09214a
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - file
     - media
 _core:
-  default_config_hash: NheQkxpHL9Sd8Fk-UGbQCGuJLIgmCLs1NAlj3mmOKXI
+  default_config_hash: zv6WEkJLhWDPG6rPsO98zvuGcWaQLNsK6WyP_eNzlr4
 id: media.field_media_file
 field_name: field_media_file
 entity_type: media
@@ -19,7 +19,7 @@ settings:
 module: file
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

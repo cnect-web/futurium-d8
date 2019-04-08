@@ -1,0 +1,11 @@
+uuid: bc5bff67-0e4b-4a56-909a-02f8930fc3c6
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.content_type.fut_open-group_node-fut_post
+id: group_content.fut_open-group_node-fut_post
+target_entity_type_id: group_content
+target_bundle: fut_open-group_node-fut_post
+default_langcode: und
+language_alterable: false
