@@ -1,4 +1,3 @@
-uuid: ded3d5a0-f2eb-4510-88a2-171f69a3ecdc
 langcode: en
 status: true
 dependencies:
@@ -13,7 +12,7 @@ settings: {  }
 module: text
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

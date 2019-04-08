@@ -1,11 +1,10 @@
-uuid: 041d5cbd-39d4-4b23-895c-6f32a1c4b48f
 langcode: en
 status: true
 dependencies:
   config:
-    - media.type.fut_image
-id: media.fut_image
-target_entity_type_id: media
+    - paragraphs.paragraphs_type.fut_image
+id: paragraph.fut_image
+target_entity_type_id: paragraph
 target_bundle: fut_image
 default_langcode: site_default
 language_alterable: false

@@ -1,0 +1,11 @@
+uuid: 91ec13ee-fcfc-4084-8c25-5c6e35f24852
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.fut_video
+id: paragraph.fut_video
+target_entity_type_id: paragraph
+target_bundle: fut_video
+default_langcode: site_default
+language_alterable: false

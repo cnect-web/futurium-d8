@@ -5,8 +5,6 @@ dependencies:
   config:
     - field.storage.media.field_media_oembed_video
     - media.type.fut_video
-_core:
-  default_config_hash: 8JgeRKsfoQjPp0LNaAzJrwBGOBkWj5FSMO9vShwUMQ0
 id: media.fut_video.field_media_oembed_video
 field_name: field_media_oembed_video
 entity_type: media
@@ -14,7 +12,7 @@ bundle: fut_video
 label: 'Remote video URL'
 description: ''
 required: true
-translatable: true
+translatable: false
 default_value: {  }
 default_value_callback: ''
 settings: {  }
