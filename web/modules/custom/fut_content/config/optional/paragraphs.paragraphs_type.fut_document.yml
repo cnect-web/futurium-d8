@@ -1,0 +1,11 @@
+uuid: c4adc876-2b98-44f9-b9cc-c3a2975eca4f
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: XhXHJJ67j579tzw22ksClpBMLUFWoL3crnnTMnidtV0
+id: fut_document
+label: Document
+icon_uuid: null
+description: 'Upload or use already uploaded documents.'
+behavior_plugins: {  }

@@ -1,0 +1,11 @@
+uuid: dc6d2595-d07e-4495-91d1-9f6a0d7c909b
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: J8VMBjkfjogHbGkCBuCBX2PLb_aoh4ckk_qIQBlGNkk
+id: fut_text
+label: Text
+icon_uuid: null
+description: 'Add formatted text using the editor.'
+behavior_plugins: {  }

@@ -1,0 +1,142 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.node.fut_event.fut_content
+    - field.field.node.fut_event.fut_event_address
+    - field.field.node.fut_event.fut_event_coordinates
+    - field.field.node.fut_event.fut_event_date
+    - field.field.node.fut_event.fut_event_registration_url
+    - field.field.node.fut_event.fut_event_visual_identity
+    - node.type.fut_event
+  module:
+    - address
+    - datetime_range
+    - geofield
+    - inline_entity_form
+    - link
+    - paragraphs
+    - path
+id: node.fut_event.default
+targetEntityType: node
+bundle: fut_event
+mode: default
+content:
+  created:
+    type: datetime_timestamp
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  fut_content:
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: fut_text
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
+  fut_event_address:
+    weight: 11
+    settings: {  }
+    third_party_settings: {  }
+    type: address_default
+    region: content
+  fut_event_coordinates:
+    weight: 13
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
+    type: geofield_latlon
+    region: content
+  fut_event_date:
+    weight: 12
+    settings: {  }
+    third_party_settings: {  }
+    type: daterange_default
+    region: content
+  fut_event_registration_url:
+    weight: 10
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  fut_event_visual_identity:
+    weight: 9
+    settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
+      match_operator: CONTAINS
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  langcode:
+    type: language_select
+    weight: 1
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+  path:
+    type: path
+    weight: 6
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  promote:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 4
+    region: content
+    third_party_settings: {  }
+  status:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 8
+    region: content
+    third_party_settings: {  }
+  sticky:
+    type: boolean_checkbox
+    settings:
+      display_label: true
+    weight: 5
+    region: content
+    third_party_settings: {  }
+  title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+  uid:
+    type: entity_reference_autocomplete
+    weight: 2
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    region: content
+    third_party_settings: {  }
+  url_redirects:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden: {  }
