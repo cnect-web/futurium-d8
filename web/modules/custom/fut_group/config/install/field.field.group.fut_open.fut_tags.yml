@@ -1,0 +1,28 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.fut_tags
+    - group.type.fut_open
+    - taxonomy.vocabulary.fut_tags
+id: group.fut_open.fut_tags
+field_name: fut_tags
+entity_type: group
+bundle: fut_open
+label: Tags
+description: 'Create or add existing tags to classify the current group.<br>To add more than one value use comma (,)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      fut_tags: fut_tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

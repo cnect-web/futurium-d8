@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
+    - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
     - entity_reference_revisions
@@ -34,6 +35,14 @@ content:
       link: true
       view_mode: default
     third_party_settings: {  }
+  fut_tags:
+    weight: 3
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
   links:
     weight: 2
     region: content

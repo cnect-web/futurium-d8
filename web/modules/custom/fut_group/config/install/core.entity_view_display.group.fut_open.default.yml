@@ -4,6 +4,7 @@ dependencies:
   config:
     - field.field.group.fut_open.fut_description
     - field.field.group.fut_open.fut_short_name
+    - field.field.group.fut_open.fut_tags
     - field.field.group.fut_open.fut_visual_identity
     - group.type.fut_open
     - image.style.fut_default_thumbnail
@@ -31,6 +32,14 @@ content:
       link_to_entity: false
     third_party_settings: {  }
     type: string
+    region: content
+  fut_tags:
+    weight: 4
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
     region: content
   fut_visual_identity:
     type: media_thumbnail
