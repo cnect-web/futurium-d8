@@ -1,0 +1,17 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+id: fut_open-member
+label: Member
+weight: -100
+internal: true
+audience: member
+group_type: fut_open
+permissions_ui: true
+permissions:
+  - 'leave group'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_node:fut_post entity'

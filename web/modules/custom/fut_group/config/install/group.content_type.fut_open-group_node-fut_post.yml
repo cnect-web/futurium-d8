@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+    - node.type.fut_post
+  module:
+    - gnode
+    - node
+id: fut_open-group_node-fut_post
+label: 'Open: Group node (Post)'
+description: 'Adds <em class="placeholder">Post</em> content to groups both publicly and privately.'
+group_type: fut_open
+content_plugin: 'group_node:fut_post'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+id: fut_open-editor
+label: Editor
+weight: -10
+internal: false
+audience: member
+group_type: fut_open
+permissions_ui: true
+permissions:
+  - 'create group_node:fut_post entity'
+  - 'leave group'
+  - 'update own group_node:fut_post entity'
+  - 'view group'
+  - 'view group_membership content'
+  - 'view group_node:fut_post entity'

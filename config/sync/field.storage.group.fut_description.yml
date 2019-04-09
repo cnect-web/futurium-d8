@@ -1,0 +1,23 @@
+uuid: 6f99ae34-9092-4afa-8abe-cb3815f0cd34
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - group
+    - paragraphs
+_core:
+  default_config_hash: kN7SDi9lPA-aavhmAvJbWfObEHhlp5My9FWj03nbc5Q
+id: group.fut_description
+field_name: fut_description
+entity_type: group
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: -1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
