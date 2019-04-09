@@ -49,8 +49,7 @@
         "harvesthq/chosen": "^1.8",
         "henrikbjorn/lurker": "^1.2",
         "nuvoleweb/robo-config": "^0.2",
-        "openeuropa/oe_paragraphs": "dev-master",
-        "openeuropa/oe_theme": "dev-master",
+        "openeuropa/ecl-twig-loader": "~0.1",
         "twig/extensions": "^1.5",
 
         "twig/twig": "1.37.1",
