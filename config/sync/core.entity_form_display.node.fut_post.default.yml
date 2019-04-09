@@ -1,4 +1,4 @@
-uuid: 4f2423f4-2283-47b7-9691-e2ec8ff52a13
+uuid: 979998f6-a2ef-43ad-867c-62f448c4abdb
 langcode: en
 status: true
 dependencies:
@@ -92,11 +92,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  translation:
-    weight: 10
-    region: content
-    settings: {  }
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete

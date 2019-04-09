@@ -1,4 +1,4 @@
-uuid: 5f28dbf1-ce7b-44d5-b7f4-85d79920a6c7
+uuid: d020082a-816b-4923-8311-5b799031bada
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - media
     - paragraphs
 _core:
-  default_config_hash: KDKCh6oIhm3MuOUmcAvCEZyIu7OADKh13A5Fk66YRZc
+  default_config_hash: WZxZwIeOc0ITS4I-L2EebOZ6SfDhp2t-sGOaENPlHec
 id: paragraph.fut_image
 field_name: fut_image
 entity_type: paragraph
@@ -16,7 +16,7 @@ settings:
 module: core
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

@@ -1,4 +1,3 @@
-uuid: c14042d8-b932-4a47-9685-03020a11ba8e
 langcode: en
 status: true
 dependencies:
@@ -6,8 +5,6 @@ dependencies:
     - file
     - image
     - media
-_core:
-  default_config_hash: qu5-SHn5qjynF6Vh2ezvHyOD3c6JD3oQfAa0TLivFeE
 id: media.field_media_image
 field_name: field_media_image
 entity_type: media
@@ -26,7 +23,7 @@ settings:
 module: image
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

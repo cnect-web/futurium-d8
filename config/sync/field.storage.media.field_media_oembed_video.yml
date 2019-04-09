@@ -1,11 +1,11 @@
-uuid: b700e194-5623-4461-bb48-babee675adc9
+uuid: 44b7eba5-b77b-4e2c-b758-81bcf1a92b51
 langcode: en
 status: true
 dependencies:
   module:
     - media
 _core:
-  default_config_hash: hQ5gh5W3coCi7QxdzsZjzg1VoU3ZXbEQdH31-M2-JM0
+  default_config_hash: Gpq3oH2zTk6pIv7cY5wv0cRiAbKWpxlIjb37ftOIbus
 id: media.field_media_oembed_video
 field_name: field_media_oembed_video
 entity_type: media
@@ -17,7 +17,7 @@ settings:
 module: core
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

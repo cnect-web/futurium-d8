@@ -1,4 +1,4 @@
-uuid: eab9cc1f-5422-4641-9624-83f2cbb2e7ef
+uuid: 0c19185d-5657-4041-80d0-63dcc4965a0b
 langcode: en
 status: true
 dependencies:
@@ -6,7 +6,7 @@ dependencies:
     - media
     - paragraphs
 _core:
-  default_config_hash: ykCAppvTm2pFK2QyMVX9K0iMyTcsDCcvWHpLmGnKVDg
+  default_config_hash: EV0eJfHQvA6M05-XhlHXR6DnkAACITm5pzSFUUQxxmI
 id: paragraph.fut_video
 field_name: fut_video
 entity_type: paragraph
@@ -16,7 +16,7 @@ settings:
 module: core
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

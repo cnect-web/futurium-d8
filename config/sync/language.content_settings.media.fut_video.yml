@@ -4,13 +4,8 @@ status: true
 dependencies:
   config:
     - media.type.fut_video
-  module:
-    - content_translation
-third_party_settings:
-  content_translation:
-    enabled: true
 id: media.fut_video
 target_entity_type_id: media
 target_bundle: fut_video
-default_langcode: site_default
-language_alterable: true
+default_langcode: und
+language_alterable: false

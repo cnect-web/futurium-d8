@@ -1,11 +1,10 @@
-uuid: 130a048f-2b52-4b17-9094-5834aa6ca91e
 langcode: en
 status: true
 dependencies:
   config:
-    - media.type.fut_document
-id: media.fut_document
+    - media.type.fut_video
+id: media.fut_video
 target_entity_type_id: media
-target_bundle: fut_document
+target_bundle: fut_video
 default_langcode: und
 language_alterable: false
