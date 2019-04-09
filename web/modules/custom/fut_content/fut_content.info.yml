@@ -1,7 +1,9 @@
-name: 'Futurium Content'
+name: 'Futurium content'
 type: module
-description: 'Futurium Content module contains content related configurations.'
+description: 'Futurium content module contains content related configurations.'
 core: 8.x
 package: 'Futurium'
 dependencies:
   - fut_paragraphs
+  - node
+  - taxonomy
