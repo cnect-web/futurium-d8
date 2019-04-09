@@ -6,6 +6,8 @@ dependencies:
     - entity_reference_revisions
     - node
     - paragraphs
+_core:
+  default_config_hash: OkZ9sLAETCmWdRgjykCKdVYjBVk9mDOoAoMW10OseGo
 id: node.fut_content
 field_name: fut_content
 entity_type: node

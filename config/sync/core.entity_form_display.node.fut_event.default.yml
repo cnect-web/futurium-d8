@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.fut_event.body
+    - field.field.node.fut_event.fut_content
     - field.field.node.fut_event.fut_event_address
     - field.field.node.fut_event.fut_event_coordinates
     - field.field.node.fut_event.fut_event_date
@@ -14,29 +14,33 @@ dependencies:
     - address
     - datetime_range
     - geofield
+    - inline_entity_form
     - link
+    - paragraphs
     - path
-    - text
 id: node.fut_event.default
 targetEntityType: node
 bundle: fut_event
 mode: default
 content:
-  body:
-    type: text_textarea_with_summary
-    weight: 14
-    settings:
-      rows: 9
-      summary_rows: 3
-      placeholder: ''
-    third_party_settings: {  }
-    region: content
   created:
     type: datetime_timestamp
     weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
+  fut_content:
+    weight: 26
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: fut_text
+    third_party_settings: {  }
+    type: entity_reference_paragraphs
+    region: content
   fut_event_address:
     weight: 11
     settings: {  }
@@ -67,11 +71,18 @@ content:
   fut_event_visual_identity:
     weight: 9
     settings:
+      form_mode: default
+      label_singular: ''
+      label_plural: ''
+      allow_new: true
+      allow_existing: true
       match_operator: CONTAINS
-      size: 60
-      placeholder: ''
+      override_labels: false
+      collapsible: false
+      collapsed: false
+      allow_duplicate: false
     third_party_settings: {  }
-    type: entity_reference_autocomplete
+    type: inline_entity_form_complex
     region: content
   langcode:
     type: language_select

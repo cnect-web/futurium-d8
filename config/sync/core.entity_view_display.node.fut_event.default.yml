@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - field.field.node.fut_event.body
+    - field.field.node.fut_event.fut_content
     - field.field.node.fut_event.fut_event_address
     - field.field.node.fut_event.fut_event_coordinates
     - field.field.node.fut_event.fut_event_date
@@ -13,21 +13,23 @@ dependencies:
   module:
     - address
     - datetime_range
+    - entity_reference_revisions
     - geofield
     - link
-    - text
     - user
 id: node.fut_event.default
 targetEntityType: node
 bundle: fut_event
 mode: default
 content:
-  body:
-    label: hidden
-    type: text_default
-    weight: 101
-    settings: {  }
+  fut_content:
+    weight: 109
+    label: above
+    settings:
+      view_mode: default
+      link: ''
     third_party_settings: {  }
+    type: entity_reference_revisions_entity_view
     region: content
   fut_event_address:
     weight: 104
