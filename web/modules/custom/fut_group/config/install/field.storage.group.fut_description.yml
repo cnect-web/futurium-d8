@@ -1,3 +1,4 @@
+uuid: 398768d7-0782-4cea-b88a-579f177e36d3
 langcode: en
 status: true
 dependencies:
@@ -5,6 +6,8 @@ dependencies:
     - entity_reference_revisions
     - group
     - paragraphs
+_core:
+  default_config_hash: B-_Weq48ysjNQAInVqxzVnKR6W3-0bRG3L2pSFtnIoA
 id: group.fut_description
 field_name: fut_description
 entity_type: group

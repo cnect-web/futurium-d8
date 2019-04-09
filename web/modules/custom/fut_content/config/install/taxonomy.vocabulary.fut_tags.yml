@@ -1,0 +1,9 @@
+uuid: ab21c9f5-78c5-40ac-b8c9-e85783b08a4a
+langcode: und
+status: true
+dependencies: {  }
+name: Tags
+vid: fut_tags
+description: ''
+hierarchy: 0
+weight: 0

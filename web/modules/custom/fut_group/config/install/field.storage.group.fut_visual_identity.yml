@@ -1,9 +1,12 @@
+uuid: 4aaec563-06b0-44e3-897e-d94753417ffc
 langcode: en
 status: true
 dependencies:
   module:
     - group
     - media
+_core:
+  default_config_hash: 24FDqXF1ft7XaTfdynSv4ush3l9fStFdTOKAxvJI1I4
 id: group.fut_visual_identity
 field_name: fut_visual_identity
 entity_type: group
