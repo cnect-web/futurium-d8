@@ -1,0 +1,29 @@
+uuid: b0cd2d6f-f36d-43bf-8cdd-dabbcd54ae28
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.fut_tags
+    - node.type.fut_post
+    - taxonomy.vocabulary.fut_tags
+id: node.fut_post.fut_tags
+field_name: fut_tags
+entity_type: node
+bundle: fut_post
+label: Tags
+description: 'Create or add existing tags to classify the current post.<br>To add more than one value use comma (,)'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      fut_tags: fut_tags
+    sort:
+      field: name
+      direction: asc
+    auto_create: true
+    auto_create_bundle: ''
+field_type: entity_reference

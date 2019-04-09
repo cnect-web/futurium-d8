@@ -5,6 +5,7 @@ dependencies:
   config:
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
+    - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
     - inline_entity_form
@@ -50,6 +51,15 @@ content:
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
+  fut_tags:
+    weight: 124
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
     region: content
   langcode:
     type: language_select
