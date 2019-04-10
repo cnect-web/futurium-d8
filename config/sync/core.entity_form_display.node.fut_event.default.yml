@@ -9,15 +9,16 @@ dependencies:
     - field.field.node.fut_event.fut_event_date
     - field.field.node.fut_event.fut_event_registration_url
     - field.field.node.fut_event.fut_event_visual_identity
+    - field.field.node.fut_event.fut_test
     - node.type.fut_event
   module:
     - address
-    - datetime_range
     - geofield
     - inline_entity_form
     - link
     - paragraphs
     - path
+    - single_datetime
 id: node.fut_event.default
 targetEntityType: node
 bundle: fut_event
@@ -56,9 +57,21 @@ content:
     region: content
   fut_event_date:
     weight: 12
-    settings: {  }
+    settings:
+      hour_format: 24h
+      allow_times: '15'
+      allowed_hours: ''
+      disable_days: {  }
+      exclude_date: ''
+      inline: false
+      mask: false
+      datetimepicker_theme: default
+      min_date: ''
+      max_date: ''
+      year_start: ''
+      year_end: ''
     third_party_settings: {  }
-    type: daterange_default
+    type: single_date_time_range_widget
     region: content
   fut_event_registration_url:
     weight: 10
@@ -83,6 +96,13 @@ content:
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
+    region: content
+  fut_test:
+    weight: 27
+    settings:
+      html5_geolocation: false
+    third_party_settings: {  }
+    type: geofield_latlon
     region: content
   langcode:
     type: language_select

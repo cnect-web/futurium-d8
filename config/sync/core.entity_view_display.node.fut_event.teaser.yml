@@ -23,6 +23,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  fut_content: true
   fut_event_address: true
   fut_event_coordinates: true
   fut_event_date: true
