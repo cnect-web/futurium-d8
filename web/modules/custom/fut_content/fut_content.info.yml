@@ -6,4 +6,5 @@ package: 'Futurium'
 dependencies:
   - fut_paragraphs
   - node
+  - single_datetime
   - taxonomy

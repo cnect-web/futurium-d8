@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "303b32552be079af83899789a4cb3c3f",
+    "content-hash": "6c32e85c63bf020a935c5a468ceab1fb",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -307,6 +307,65 @@
             ],
             "description": "Institutional Look and Feel for D8",
             "time": "2019-04-09T09:42:17+00:00"
+        },
+        {
+            "name": "commerceguys/addressing",
+            "version": "v1.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/commerceguys/addressing.git",
+                "reference": "10bf70355e76188d4e195ace1c7c9dc44dc66d6f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/commerceguys/addressing/zipball/10bf70355e76188d4e195ace1c7c9dc44dc66d6f",
+                "reference": "10bf70355e76188d4e195ace1c7c9dc44dc66d6f",
+                "shasum": ""
+            },
+            "require": {
+                "doctrine/collections": "~1.0",
+                "php": ">=5.5.0"
+            },
+            "require-dev": {
+                "mikey179/vfsstream": "1.*",
+                "phpunit/phpunit": "~4.0",
+                "squizlabs/php_codesniffer": "2.*",
+                "symfony/validator": ">=3.2"
+            },
+            "suggest": {
+                "symfony/validator": "to validate addresses"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "CommerceGuys\\Addressing\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bojan Zivanovic"
+                },
+                {
+                    "name": "Damien Tournoud"
+                }
+            ],
+            "description": "Addressing library powered by CLDR and Google's address data.",
+            "keywords": [
+                "address",
+                "internationalization",
+                "localization",
+                "postal"
+            ],
+            "time": "2019-03-31T19:45:09+00:00"
         },
         {
             "name": "composer/installers",
@@ -2195,6 +2254,69 @@
             ],
             "description": "Composer Plugin for updating the Drupal scaffold files when using drupal/core",
             "time": "2019-03-30T10:41:38+00:00"
+        },
+        {
+            "name": "drupal/address",
+            "version": "1.6.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/address.git",
+                "reference": "8.x-1.6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/address-8.x-1.6.zip",
+                "reference": "8.x-1.6",
+                "shasum": "e27d2f8dac799a166b8ee040ceb608f2eff57cee"
+            },
+            "require": {
+                "commerceguys/addressing": "^1.0.0",
+                "drupal/core": "^8.6"
+            },
+            "require-dev": {
+                "drupal/token": "^1.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.6",
+                    "datestamp": "1554334685",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "bojanz",
+                    "homepage": "https://www.drupal.org/user/86106"
+                },
+                {
+                    "name": "dww",
+                    "homepage": "https://www.drupal.org/user/46549"
+                },
+                {
+                    "name": "googletorp",
+                    "homepage": "https://www.drupal.org/user/386230"
+                },
+                {
+                    "name": "rszrama",
+                    "homepage": "https://www.drupal.org/user/49344"
+                }
+            ],
+            "description": "Provides functionality for storing, validating and displaying international postal addresses.",
+            "homepage": "http://drupal.org/project/address",
+            "support": {
+                "source": "https://git.drupalcode.org/project/address"
+            }
         },
         {
             "name": "drupal/admin_toolbar",
@@ -4110,17 +4232,17 @@
         },
         {
             "name": "drupal/leaflet",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/leaflet.git",
-                "reference": "8.x-1.4"
+                "reference": "8.x-1.5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/leaflet-8.x-1.4.zip",
-                "reference": "8.x-1.4",
-                "shasum": "70ae22535b67a2f0370ec1ad0d7285a4c0528650"
+                "url": "https://ftp.drupal.org/files/projects/leaflet-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "08f7b02b0b76744028839149c5881d47362caca6"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -4132,8 +4254,8 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.4",
-                    "datestamp": "1551757985",
+                    "version": "8.x-1.5",
+                    "datestamp": "1554885181",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4179,7 +4301,7 @@
             "description": "Integration with the Leaflet map scripting library.",
             "homepage": "https://www.drupal.org/project/leaflet",
             "support": {
-                "source": "http://cgit.drupalcode.org/leaflet",
+                "source": "https://git.drupalcode.org/project/leaflet",
                 "issues": "https://www.drupal.org/project/issues/leaflet"
             }
         },
@@ -9507,7 +9629,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/devel.git",
-                "reference": "fd89e690803ae7efc3c7052452e496430709c695"
+                "reference": "2e8cc0068f8b8c3f9d8bf9fe75bdb31e45f93be3"
             },
             "require": {
                 "drupal/core": "~8.0",
@@ -9519,8 +9641,8 @@
                     "dev-2.x": "2.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-2.0+22-dev",
-                    "datestamp": "1554760081",
+                    "version": "8.x-2.0+26-dev",
+                    "datestamp": "1554853081",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
@@ -9578,8 +9700,7 @@
                 "source": "http://cgit.drupalcode.org/devel",
                 "issues": "http://drupal.org/project/devel",
                 "irc": "irc://irc.freenode.org/drupal-contribute"
-            },
-            "time": "2019-04-09T06:47:37+00:00"
+            }
         },
         {
             "name": "fabpot/goutte",

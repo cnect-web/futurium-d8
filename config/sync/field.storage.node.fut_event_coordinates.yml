@@ -1,0 +1,20 @@
+uuid: 67bf5fc1-5567-4a34-8863-bd4a679e14fc
+langcode: en
+status: true
+dependencies:
+  module:
+    - geofield
+    - node
+id: node.fut_event_coordinates
+field_name: fut_event_coordinates
+entity_type: node
+type: geofield
+settings:
+  backend: geofield_backend_default
+module: geofield
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

@@ -1,0 +1,31 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.node.teaser
+    - field.field.node.fut_event.fut_event_address
+    - field.field.node.fut_event.fut_event_coordinates
+    - field.field.node.fut_event.fut_event_date
+    - field.field.node.fut_event.fut_event_registration_url
+    - field.field.node.fut_event.fut_event_visual_identity
+    - node.type.fut_event
+  module:
+    - user
+id: node.fut_event.teaser
+targetEntityType: node
+bundle: fut_event
+mode: teaser
+content:
+  links:
+    weight: 100
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+hidden:
+  fut_content: true
+  fut_event_address: true
+  fut_event_coordinates: true
+  fut_event_date: true
+  fut_event_registration_url: true
+  fut_event_visual_identity: true
+  langcode: true
