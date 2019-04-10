@@ -1,0 +1,11 @@
+uuid: 4d020c1a-bae9-40cc-92d4-93ea2c9d8168
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.fut_tags
+id: taxonomy_term.fut_tags
+target_entity_type_id: taxonomy_term
+target_bundle: fut_tags
+default_langcode: und
+language_alterable: false

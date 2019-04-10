@@ -1,4 +1,4 @@
-uuid: 8e97a23f-72e2-41c0-b99f-fec6f9f45460
+uuid: c5f3d6f1-b08d-43ea-bfcd-7c560b26552f
 langcode: en
 status: true
 dependencies:
@@ -61,11 +61,6 @@ content:
     weight: 100
     region: content
     third_party_settings: {  }
-  translation:
-    weight: 10
-    settings: {  }
-    third_party_settings: {  }
-    region: content
   uid:
     type: entity_reference_autocomplete
     weight: 5

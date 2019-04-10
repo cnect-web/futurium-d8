@@ -1,10 +1,12 @@
-uuid: 940f413f-9790-4c24-ad04-402652976d2c
+uuid: 46720c26-afb0-482c-9c5e-3ef450cb9ee6
 langcode: en
 status: true
 dependencies:
   module:
     - media
     - node
+_core:
+  default_config_hash: oWbgBsBE4JkHosZgU42cjZ3xx1AfoFzaQ9dbGwxywLU
 id: node.fut_post_image
 field_name: fut_post_image
 entity_type: node
@@ -14,7 +16,7 @@ settings:
 module: core
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

@@ -1,0 +1,11 @@
+uuid: f47ff16c-def9-4ba5-893f-7b841ca0bdb3
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.fut_document
+id: paragraph.fut_document
+target_entity_type_id: paragraph
+target_bundle: fut_document
+default_langcode: site_default
+language_alterable: false

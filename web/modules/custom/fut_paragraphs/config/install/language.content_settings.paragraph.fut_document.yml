@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - paragraphs.paragraphs_type.fut_document
+id: paragraph.fut_document
+target_entity_type_id: paragraph
+target_bundle: fut_document
+default_langcode: site_default
+language_alterable: false

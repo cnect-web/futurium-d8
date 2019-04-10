@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+id: group.fut_open
+target_entity_type_id: group
+target_bundle: fut_open
+default_langcode: und
+language_alterable: false

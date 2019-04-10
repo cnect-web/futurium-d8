@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - node.type.fut_event
+id: node.fut_event
+target_entity_type_id: node
+target_bundle: fut_event
+default_langcode: und
+language_alterable: false

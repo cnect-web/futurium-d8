@@ -21,4 +21,5 @@ content:
 hidden:
   fut_content: true
   fut_post_image: true
+  fut_tags: true
   langcode: true

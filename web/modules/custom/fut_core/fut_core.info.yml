@@ -34,7 +34,6 @@ dependencies:
   - toolbar
   - views
 # Other core modules
-  - content_translation
   - config_translation
   - language
   - locale

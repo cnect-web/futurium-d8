@@ -1,10 +1,11 @@
-uuid: 4f2423f4-2283-47b7-9691-e2ec8ff52a13
+uuid: 979998f6-a2ef-43ad-867c-62f448c4abdb
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
+    - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
     - inline_entity_form
@@ -51,6 +52,15 @@ content:
     third_party_settings: {  }
     type: inline_entity_form_complex
     region: content
+  fut_tags:
+    weight: 124
+    settings:
+      match_operator: CONTAINS
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: entity_reference_autocomplete_tags
+    region: content
   langcode:
     type: language_select
     weight: 2
@@ -92,11 +102,6 @@ content:
     settings:
       size: 60
       placeholder: ''
-    third_party_settings: {  }
-  translation:
-    weight: 10
-    region: content
-    settings: {  }
     third_party_settings: {  }
   uid:
     type: entity_reference_autocomplete

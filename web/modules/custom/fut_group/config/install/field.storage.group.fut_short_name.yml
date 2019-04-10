@@ -1,9 +1,11 @@
-uuid: 74e39152-dcd8-4164-b5cf-38034067b669
+uuid: 653c6966-c530-404b-a6be-f612401ee63a
 langcode: en
 status: true
 dependencies:
   module:
     - group
+_core:
+  default_config_hash: 28W9ja-m3qbwtrhwXuka2i6cQtKJkGoDLPXOLfI9Pqk
 id: group.fut_short_name
 field_name: fut_short_name
 entity_type: group
@@ -15,7 +17,7 @@ settings:
 module: core
 locked: false
 cardinality: 1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

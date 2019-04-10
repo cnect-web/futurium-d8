@@ -1,4 +1,4 @@
-uuid: 8bf09d7c-1a6c-4102-a452-cee3211a5774
+uuid: 52c59a9a-6b7d-4bfa-a82d-810dcc621a15
 langcode: en
 status: true
 dependencies:
@@ -7,7 +7,7 @@ dependencies:
     - node
     - paragraphs
 _core:
-  default_config_hash: OkZ9sLAETCmWdRgjykCKdVYjBVk9mDOoAoMW10OseGo
+  default_config_hash: KHUJ-dwH2DGGbNbJtDBddLBgzsRdDuGtn9yXoeavq3o
 id: node.fut_content
 field_name: fut_content
 entity_type: node
@@ -17,7 +17,7 @@ settings:
 module: entity_reference_revisions
 locked: false
 cardinality: -1
-translatable: true
+translatable: false
 indexes: {  }
 persist_with_no_fields: false
 custom_storage: false

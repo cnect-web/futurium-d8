@@ -1,0 +1,10 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - media.type.fut_image
+id: media.fut_image
+target_entity_type_id: media
+target_bundle: fut_image
+default_langcode: und
+language_alterable: false
