@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.fut_event.fut_event_date
     - field.field.node.fut_event.fut_event_registration_url
     - field.field.node.fut_event.fut_event_visual_identity
-    - field.field.node.fut_event.fut_test
     - node.type.fut_event
   module:
     - address
@@ -96,13 +95,6 @@ content:
       allow_duplicate: false
     third_party_settings: {  }
     type: inline_entity_form_complex
-    region: content
-  fut_test:
-    weight: 27
-    settings:
-      html5_geolocation: false
-    third_party_settings: {  }
-    type: geofield_latlon
     region: content
   langcode:
     type: language_select

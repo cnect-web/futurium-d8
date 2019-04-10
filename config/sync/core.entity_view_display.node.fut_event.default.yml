@@ -9,7 +9,6 @@ dependencies:
     - field.field.node.fut_event.fut_event_date
     - field.field.node.fut_event.fut_event_registration_url
     - field.field.node.fut_event.fut_event_visual_identity
-    - field.field.node.fut_event.fut_test
     - node.type.fut_event
   module:
     - address
@@ -78,15 +77,6 @@ content:
       view_mode: default
       link: false
     third_party_settings: {  }
-    region: content
-  fut_test:
-    weight: 110
-    label: above
-    settings:
-      output_format: wkt
-      output_escape: true
-    third_party_settings: {  }
-    type: geofield_default
     region: content
   links:
     weight: 100

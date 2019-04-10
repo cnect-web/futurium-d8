@@ -29,4 +29,5 @@ hidden:
   fut_event_date: true
   fut_event_registration_url: true
   fut_event_visual_identity: true
+  fut_test: true
   langcode: true
