@@ -1,0 +1,20 @@
+uuid: ab8b8f2d-bd10-483c-b9a4-924b2e42d41f
+langcode: en
+status: true
+dependencies:
+  module:
+    - datetime_range
+    - node
+id: node.fut_event_date
+field_name: fut_event_date
+entity_type: node
+type: daterange
+settings:
+  datetime_type: datetime
+module: datetime_range
+locked: false
+cardinality: 1
+translatable: false
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

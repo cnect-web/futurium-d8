@@ -12,7 +12,7 @@ group_type: fut_open
 permissions_ui: true
 permissions:
   - 'join group'
-  - 'request group membership'
   - 'view group'
   - 'view group_membership content'
+  - 'view group_node:fut_event entity'
   - 'view group_node:fut_post entity'

@@ -1,0 +1,26 @@
+uuid: aa7da8fa-e342-49b1-8217-451d018f38e9
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.fut_event_date
+    - node.type.fut_event
+  module:
+    - datetime_range
+id: node.fut_event.fut_event_date
+field_name: fut_event_date
+entity_type: node
+bundle: fut_event
+label: 'Event date'
+description: ''
+required: true
+translatable: false
+default_value:
+  -
+    default_date_type: now
+    default_date: now
+    default_end_date_type: ''
+    default_end_date: ''
+default_value_callback: ''
+settings: {  }
+field_type: daterange

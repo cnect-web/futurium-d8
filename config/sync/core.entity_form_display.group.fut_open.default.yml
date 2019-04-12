@@ -1,4 +1,3 @@
-uuid: 0c93c5e3-4b5d-43a4-9749-737647f0e33b
 langcode: en
 status: true
 dependencies:
@@ -12,8 +11,6 @@ dependencies:
     - inline_entity_form
     - paragraphs
     - path
-_core:
-  default_config_hash: P2MVBkawqhtLA0_jDgJ5Rk5uDtdn7aTCe5vfjKTf7-g
 id: group.fut_open.default
 targetEntityType: group
 bundle: fut_open

@@ -1,11 +1,8 @@
-uuid: 19e6b330-c958-40ac-b611-e45040aa288d
 langcode: en
 status: true
 dependencies:
   config:
     - group.type.fut_open
-_core:
-  default_config_hash: B4p4Bvbxfck6DGDG3ODJVQbTQ4-DTLdlejaK8FpB4-E
 id: group.fut_open
 target_entity_type_id: group
 target_bundle: fut_open
