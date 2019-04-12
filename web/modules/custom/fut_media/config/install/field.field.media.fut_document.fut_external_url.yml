@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.fut_external_url
+    - media.type.fut_document
+  module:
+    - link
+id: media.fut_document.fut_external_url
+field_name: fut_external_url
+entity_type: media
+bundle: fut_document
+label: 'External URL'
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 1
+field_type: link

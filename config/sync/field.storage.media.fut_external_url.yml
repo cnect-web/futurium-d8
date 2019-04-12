@@ -1,0 +1,19 @@
+uuid: e1d597f8-96ff-4125-b0f5-d2d9c63f6a16
+langcode: en
+status: true
+dependencies:
+  module:
+    - link
+    - media
+id: media.fut_external_url
+field_name: fut_external_url
+entity_type: media
+type: link
+settings: {  }
+module: link
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false

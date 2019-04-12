@@ -1,12 +1,9 @@
-uuid: e3d867c2-f765-4c21-aa64-5959558a1551
 langcode: en
 status: true
 dependencies:
   config:
     - field.storage.group_content.group_roles
     - group.content_type.fut_open-group_membership
-_core:
-  default_config_hash: NXE9ED_1XQcZbied4sgbcf8Pt0I4qMRV8oTGCbKFNmw
 id: group_content.fut_open-group_membership.group_roles
 field_name: group_roles
 entity_type: group_content

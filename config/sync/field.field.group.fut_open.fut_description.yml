@@ -1,4 +1,3 @@
-uuid: 2be8e0ae-9654-4891-af01-7ef27a3ca5be
 langcode: en
 status: true
 dependencies:
@@ -11,8 +10,6 @@ dependencies:
     - paragraphs.paragraphs_type.fut_video
   module:
     - entity_reference_revisions
-_core:
-  default_config_hash: hQHuDcHj-dsdYmRomw3GM7a5GzEbC6JJOWYXq0jm_Lk
 id: group.fut_open.fut_description
 field_name: fut_description
 entity_type: group

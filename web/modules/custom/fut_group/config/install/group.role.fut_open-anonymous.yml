@@ -12,4 +12,5 @@ group_type: fut_open
 permissions_ui: true
 permissions:
   - 'view group'
+  - 'view group_node:fut_event entity'
   - 'view group_node:fut_post entity'

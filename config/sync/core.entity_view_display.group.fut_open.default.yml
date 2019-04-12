@@ -1,4 +1,3 @@
-uuid: 8500bf00-6e2b-4335-aa60-933fa4239c8b
 langcode: en
 status: true
 dependencies:
@@ -12,8 +11,6 @@ dependencies:
   module:
     - entity_reference_revisions
     - media
-_core:
-  default_config_hash: a3Xd-co5xuSsx3Ubr-v7TjeRCPp6Fe9sddodNqUSes0
 id: group.fut_open.default
 targetEntityType: group
 bundle: fut_open
