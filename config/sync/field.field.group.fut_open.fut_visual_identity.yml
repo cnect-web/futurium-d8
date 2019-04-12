@@ -14,7 +14,7 @@ entity_type: group
 bundle: fut_open
 label: 'Visual identity'
 description: 'Visual identity / Logo of group.'
-required: true
+required: false
 translatable: false
 default_value: {  }
 default_value_callback: ''

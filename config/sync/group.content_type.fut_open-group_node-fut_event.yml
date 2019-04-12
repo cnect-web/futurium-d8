@@ -1,0 +1,19 @@
+uuid: 4108ad77-1a4b-4270-8ba0-0069da130f97
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+    - node.type.fut_event
+  module:
+    - gnode
+    - node
+id: fut_open-group_node-fut_event
+label: 'Open: Group node (Event)'
+description: 'Adds <em class="placeholder">Event</em> content to groups both publicly and privately.'
+group_type: fut_open
+content_plugin: 'group_node:fut_event'
+plugin_config:
+  group_cardinality: 1
+  entity_cardinality: 1
+  use_creation_wizard: false

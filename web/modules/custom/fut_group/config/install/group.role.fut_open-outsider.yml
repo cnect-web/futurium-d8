@@ -15,4 +15,5 @@ permissions:
   - 'request group membership'
   - 'view group'
   - 'view group_membership content'
+  - 'view group_node:fut_event entity'
   - 'view group_node:fut_post entity'

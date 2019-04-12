@@ -1,0 +1,19 @@
+uuid: dc3d11e1-6206-4ff4-88f4-a47f152d6f17
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.media.fut_author
+    - media.type.fut_document
+id: media.fut_document.fut_author
+field_name: fut_author
+entity_type: media
+bundle: fut_document
+label: Author
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string
