@@ -28,29 +28,11 @@ function fut_core_help($route_name, RouteMatchInterface $route_match) {
  */
 function fut_core_install() {
   $config_factory = \Drupal::configFactory();
-  $theme_installer = \Drupal::service('theme_installer');
 
   // Change field prefix for all fields fut_.
   $config_factory->getEditable('field_ui.settings')
     ->set('field_prefix', 'fut_')
     ->save();
-
-  // Install themes.
-  $theme_installer->install(['bartik']);
-  $theme_installer->install(['adminimal_theme']);
-
-  // Set default theme.
-  $config_factory
-    ->getEditable('system.theme')
-    ->set('admin', 'adminimal_theme')
-    ->save();
-
-  // Set admin default theme.
-  $config_factory
-    ->getEditable('system.theme')
-    ->set('default', 'bartik')
-    ->save();
-
 }
 
 /**

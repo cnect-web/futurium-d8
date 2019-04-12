@@ -3,11 +3,13 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.fut_post.fut_comments
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
     - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
+    - comment
     - inline_entity_form
     - paragraphs
     - path
@@ -24,6 +26,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  fut_comments:
+    weight: 125
+    settings: {  }
+    third_party_settings: {  }
+    type: comment_default
+    region: content
   fut_content:
     type: entity_reference_paragraphs
     weight: 123

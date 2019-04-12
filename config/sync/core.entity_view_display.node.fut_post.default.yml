@@ -3,11 +3,14 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_display.comment.comment.default
+    - field.field.node.fut_post.fut_comments
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
     - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
+    - comment
     - entity_reference_revisions
     - user
 _core:
@@ -17,6 +20,15 @@ targetEntityType: node
 bundle: fut_post
 mode: default
 content:
+  fut_comments:
+    weight: 4
+    label: above
+    settings:
+      view_mode: default
+      pager_id: 0
+    third_party_settings: {  }
+    type: comment_default
+    region: content
   fut_content:
     type: entity_reference_revisions_entity_view
     weight: 1
