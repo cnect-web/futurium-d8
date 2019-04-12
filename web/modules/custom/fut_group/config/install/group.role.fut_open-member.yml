@@ -13,6 +13,5 @@ permissions_ui: true
 permissions:
   - 'leave group'
   - 'view group'
-  - 'view group_membership content'
   - 'view group_node:fut_event entity'
   - 'view group_node:fut_post entity'

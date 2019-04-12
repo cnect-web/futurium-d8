@@ -1,12 +1,9 @@
-uuid: 0d7c063b-672c-4111-bf43-6449c8c03f8d
 langcode: en
 status: true
 dependencies:
   config:
     - field.field.group_content.fut_open-group_membership.group_roles
     - group.content_type.fut_open-group_membership
-_core:
-  default_config_hash: rzJAk4MS9ay1sC5d5Nufgbz9tuoo7f3px510auHLk9o
 id: group_content.fut_open-group_membership.default
 targetEntityType: group_content
 bundle: fut_open-group_membership

@@ -1,4 +1,3 @@
-uuid: 875a9175-c72d-4589-ad86-bde1267b94de
 langcode: en
 status: true
 dependencies:
@@ -8,8 +7,6 @@ dependencies:
   module:
     - gnode
     - node
-_core:
-  default_config_hash: 8ZuSSvUOuaFPJJi4MQ0j_AZOvgn5lGm-oo6nIxKrZjM
 id: fut_open-group_node-fut_post
 label: 'Open: Group node (Post)'
 description: 'Adds <em class="placeholder">Post</em> content to groups both publicly and privately.'
