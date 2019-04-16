@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_link
+    - paragraphs.paragraphs_type.fut_navigation_link
+  module:
+    - link
+id: paragraph.fut_navigation_link.fut_link
+field_name: fut_link
+entity_type: paragraph
+bundle: fut_navigation_link
+label: Link
+description: ''
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  link_type: 17
+  title: 2
+field_type: link
