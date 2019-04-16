@@ -1,0 +1,47 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.fut_navigation_menu
+    - group.type.fut_open
+    - paragraphs.paragraphs_type.fut_functional_navigation_link
+    - paragraphs.paragraphs_type.fut_navigation_link
+  module:
+    - entity_reference_revisions
+id: group.fut_open.fut_navigation_menu
+field_name: fut_navigation_menu
+entity_type: group
+bundle: fut_open
+label: 'Navigation Menu'
+description: 'Create group navigation menu.'
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      fut_functional_navigation_link: fut_functional_navigation_link
+      fut_navigation_link: fut_navigation_link
+    target_bundles_drag_drop:
+      fut_document:
+        weight: 7
+        enabled: false
+      fut_functional_navigation_link:
+        enabled: true
+        weight: 8
+      fut_image:
+        weight: 9
+        enabled: false
+      fut_navigation_link:
+        enabled: true
+        weight: 10
+      fut_text:
+        weight: 11
+        enabled: false
+      fut_video:
+        weight: 12
+        enabled: false
+field_type: entity_reference_revisions
