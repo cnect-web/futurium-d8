@@ -1,0 +1,23 @@
+uuid: df32be25-6aed-44af-b591-8343c3eda552
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_predefined_link
+    - paragraphs.paragraphs_type.fut_functional_navigation_link
+  module:
+    - options
+_core:
+  default_config_hash: 3z9ppHE_-dgGyK0GFU2KOMnooyM8ya07LX1B-nB6oK8
+id: paragraph.fut_functional_navigation_link.fut_predefined_link
+field_name: fut_predefined_link
+entity_type: paragraph
+bundle: fut_functional_navigation_link
+label: Link
+description: 'Select one of the available links, these predefined links will link to a listing / page of what you choose. '
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: list_string
