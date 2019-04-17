@@ -1,0 +1,21 @@
+uuid: 9b9c4634-e3e7-4c92-bcba-0fa0576aea61
+langcode: en
+status: true
+dependencies:
+  module:
+    - entity_reference_revisions
+    - group
+    - paragraphs
+id: group.fut_navigation_menu
+field_name: fut_navigation_menu
+entity_type: group
+type: entity_reference_revisions
+settings:
+  target_type: paragraph
+module: entity_reference_revisions
+locked: false
+cardinality: 7
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
