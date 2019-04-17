@@ -2,42 +2,15 @@
 
 namespace Drupal\fut_group\Controller;
 
-use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\Core\Entity\EntityInterface;
-use Drupal\views\Views;
+use Drupal\group\Entity\Group;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\group\Cache\Context\GroupCacheContext;
-use Drupal\Core\Entity\EntityTypeManager;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Discover page controller.
  */
 class GroupPageController extends ControllerBase {
-
-  /**
-   * The current group.
-   *
-   * @var \Drupal\Core\Entity\EntityInterface
-   */
-  protected $currentGroup;
-
-  /**
-   * The current group decorator.
-   *
-   * @var \Drupal\ngf_group\Entity\Decorator\NGFGroup
-   */
-  protected $gd;
-
-  /**
-   * {@inheritdoc}
-   */
-  public function __construct(
-    GroupCacheContext $group
-  ) {
-    $this->currentGroup = $group->getBestCandidate();
-    $this->gd = new NGFGroup($this->currentGroup);
-  }
 
   /**
    * {@inheritdoc}
@@ -48,12 +21,22 @@ class GroupPageController extends ControllerBase {
     );
   }
 
-  public function manageNavigation($group) {
-    $user = \Drupal::entityTypeManager()
-      ->getStorage('user')
-      ->load($this->currentUser()->id());
-
-    return $this->entityFormBuilder()->getForm($group, 'ngf_interests');
+  /**
+   * Manages navigation of the group.
+   *
+   * @param Group $group
+   *   Group item.
+   *
+   * @return mixed
+   *   Form.
+   */
+  public function manageNavigation(Group $group) {
+    if ($group->hasPermission('manage group navigation', \Drupal::currentUser())) {
+      return \Drupal::service('entity.form_builder')->getForm($group, 'fut_navigation');
+    }
+    else {
+      throw new AccessDeniedHttpException();
+    }
   }
 
 

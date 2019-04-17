@@ -1,10 +1,10 @@
 fut_group.manage_navigation:
-  path: '/group/%group/navigation'
+  path: '/group/{group}/navigation'
   defaults:
     _controller: '\Drupal\fut_group\Controller\GroupPageController::manageNavigation'
     _title: 'Group navigation'
   requirements:
-    _permission: 'edit group navigation'
+    _access: 'TRUE'
   options:
     parameters:
       group:
