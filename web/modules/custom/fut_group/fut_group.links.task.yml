@@ -1,0 +1,6 @@
+fut_group.link.group_navigation:
+  route_name: 'fut_group.manage_navigation'
+  title: 'Group navigation'
+  description: 'Group navigation'
+  base_route: 'entity.group.canonical'
+  weight: 10

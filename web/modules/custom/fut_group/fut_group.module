@@ -22,3 +22,18 @@ function fut_group_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * Implements hook_entity_type_build().
+ */
+function fut_group_entity_type_build(array &$entity_types) {
+  // We set fut_navigation form view mode. So, we can load as a separate form
+  // in the custom page.
+  $view_modes = ['fut_navigation'];
+  $group = $entity_types['group'];
+
+  foreach ($view_modes as $view_mode) {
+    $default_handler_class = $group->getHandlerClasses()['form']['add'];
+    $group->setFormClass($view_mode, $default_handler_class);
+  }
+}
