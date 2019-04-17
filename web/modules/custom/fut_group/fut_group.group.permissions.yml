@@ -1,0 +1,4 @@
+manage group navigation:
+  title: 'Manage group navigation'
+  description: 'Allows to manage group navigation without accessing group edit form.'
+  restrict access: TRUE
