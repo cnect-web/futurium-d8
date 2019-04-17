@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - field.field.group.fut_open.fut_description
+    - field.field.group.fut_open.fut_navigation_menu
     - field.field.group.fut_open.fut_short_name
     - field.field.group.fut_open.fut_tags
     - field.field.group.fut_open.fut_visual_identity
@@ -26,6 +27,18 @@ content:
       add_mode: button
       form_display_mode: default
       default_paragraph_type: fut_text
+    third_party_settings: {  }
+    region: content
+  fut_navigation_menu:
+    type: entity_reference_paragraphs
+    weight: 35
+    settings:
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      add_mode: button
+      form_display_mode: default
+      default_paragraph_type: _none
     third_party_settings: {  }
     region: content
   fut_short_name:
