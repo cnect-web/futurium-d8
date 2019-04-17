@@ -1,0 +1,23 @@
+uuid: 74c05599-b933-41f6-af3a-2fa7b797a1d8
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_functional_navigation_link.fut_predefined_link
+    - paragraphs.paragraphs_type.fut_functional_navigation_link
+_core:
+  default_config_hash: F8vSLEj3TzCqTUO9Lo68wzHv0seK0aSKmfNz4hYgQ_k
+id: paragraph.fut_functional_navigation_link.default
+targetEntityType: paragraph
+bundle: fut_functional_navigation_link
+mode: default
+content:
+  fut_predefined_link:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,11 @@
+uuid: 4cc56b5f-e70a-4e52-9f88-023b3e1dc2f6
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: VUeCh5k5nYLCeLZkaJ4HRK-WhlgSdNnGt8-jTDIJHDw
+id: fut_functional_navigation_link
+label: 'Functional Navigation Link'
+icon_uuid: null
+description: 'Create a navigation link to predefined listings/pages.'
+behavior_plugins: {  }
