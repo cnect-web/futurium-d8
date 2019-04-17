@@ -1,0 +1,32 @@
+uuid: c754a3fe-0159-4d2f-a1d5-a0e74c1bcc9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_form_mode.group.fut_navigation
+    - field.field.group.fut_open.fut_description
+    - field.field.group.fut_open.fut_short_name
+    - field.field.group.fut_open.fut_tags
+    - field.field.group.fut_open.fut_visual_identity
+    - group.type.fut_open
+id: group.fut_open.fut_navigation
+targetEntityType: group
+bundle: fut_open
+mode: fut_navigation
+content:
+  label:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  fut_description: true
+  fut_short_name: true
+  fut_tags: true
+  fut_visual_identity: true
+  langcode: true
+  path: true
+  uid: true

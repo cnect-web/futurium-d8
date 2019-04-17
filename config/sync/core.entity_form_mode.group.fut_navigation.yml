@@ -1,0 +1,10 @@
+uuid: c1918a56-8660-4921-a5ea-ab691ae610c8
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.fut_navigation
+label: Navigation
+targetEntityType: group
+cache: true
