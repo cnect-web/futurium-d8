@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.fut_post.fut_comments
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
+    - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
     - user
@@ -22,6 +24,7 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
+  fut_comments: true
   fut_content: true
   fut_post_image: true
   fut_tags: true
