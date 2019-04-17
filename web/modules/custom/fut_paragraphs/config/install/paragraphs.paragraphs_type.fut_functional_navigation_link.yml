@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: fut_functional_navigation_link
+label: 'Functional Navigation Link'
+icon_uuid: null
+description: 'Create a navigation link to predefined listings/pages.'
+behavior_plugins: {  }

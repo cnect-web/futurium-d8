@@ -1,0 +1,24 @@
+uuid: 7633914d-fc3e-4c37-a119-a2447dee4358
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_functional_navigation_link.fut_predefined_link
+    - paragraphs.paragraphs_type.fut_functional_navigation_link
+  module:
+    - options
+_core:
+  default_config_hash: YvNdgtyDpn7NASrjXl9NTUwa7nHTk87_9m0Aa1spVYs
+id: paragraph.fut_functional_navigation_link.default
+targetEntityType: paragraph
+bundle: fut_functional_navigation_link
+mode: default
+content:
+  fut_predefined_link:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: list_default
+    region: content
+hidden: {  }

@@ -1,0 +1,11 @@
+uuid: e422b303-7cac-44a6-8319-67cdd9a8c820
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: sYyEPqF5iPrfMF-GlNAjmVE-FpDODkUCBod5u03Y1Dw
+id: fut_navigation_link
+label: 'Navigation Link'
+icon_uuid: null
+description: 'Create a navigation link to existing content.'
+behavior_plugins: {  }
