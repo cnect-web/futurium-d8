@@ -4,8 +4,10 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.teaser
+    - field.field.node.fut_post.fut_comments
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
+    - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
     - user
