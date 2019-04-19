@@ -182,7 +182,7 @@ display:
           relationship: group_content
           group_type: group
           admin_label: ''
-          default_action: ignore
+          default_action: empty
           exception:
             value: all
             title_enable: false

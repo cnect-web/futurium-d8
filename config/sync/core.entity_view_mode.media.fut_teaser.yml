@@ -1,0 +1,10 @@
+uuid: 9fbc0268-3033-41ed-ba6b-69f4e594e416
+langcode: en
+status: true
+dependencies:
+  module:
+    - media
+id: media.fut_teaser
+label: Teaser
+targetEntityType: media
+cache: true

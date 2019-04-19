@@ -1,0 +1,54 @@
+uuid: d40b32c8-c968-462a-af3e-f557c5ac2c52
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.fut_teaser
+    - field.field.media.fut_document.field_media_file
+    - field.field.media.fut_document.fut_author
+    - field.field.media.fut_document.fut_external_url
+    - media.type.fut_document
+  module:
+    - file
+    - link
+_core:
+  default_config_hash: yWdQ26qpP50ttxQGe3r-LGi2mmA45B4For_jE4UnLME
+id: media.fut_document.fut_teaser
+targetEntityType: media
+bundle: fut_document
+mode: fut_teaser
+content:
+  field_media_file:
+    weight: 0
+    label: hidden
+    settings:
+      use_description_as_link_text: true
+    third_party_settings: {  }
+    type: file_default
+    region: content
+  fut_author:
+    weight: 1
+    label: above
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  fut_external_url:
+    weight: 2
+    label: above
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true
