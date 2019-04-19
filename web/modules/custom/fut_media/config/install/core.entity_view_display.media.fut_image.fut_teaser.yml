@@ -1,0 +1,32 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.media.fut_teaser
+    - field.field.media.fut_image.field_media_image
+    - image.style.fut_image_medium
+    - media.type.fut_image
+  module:
+    - image
+_core:
+  default_config_hash: 6Oe6780OKIT8L5jFStSNYgaNSVwSTkHENPwNNPX6xyE
+id: media.fut_image.fut_teaser
+targetEntityType: media
+bundle: fut_image
+mode: fut_teaser
+content:
+  field_media_image:
+    weight: 0
+    label: hidden
+    settings:
+      image_style: fut_image_medium
+      image_link: ''
+    third_party_settings: {  }
+    type: image
+    region: content
+hidden:
+  created: true
+  langcode: true
+  name: true
+  thumbnail: true
+  uid: true
