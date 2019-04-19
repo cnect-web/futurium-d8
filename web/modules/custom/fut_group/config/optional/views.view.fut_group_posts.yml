@@ -7,7 +7,7 @@ dependencies:
     - group
     - node
 id: fut_group_posts
-label: 'Group Posts'
+label: 'Group posts'
 module: views
 description: 'View to list group posts'
 tag: ''
