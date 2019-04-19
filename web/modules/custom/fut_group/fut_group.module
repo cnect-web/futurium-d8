@@ -37,3 +37,17 @@ function fut_group_entity_type_build(array &$entity_types) {
     $group->setFormClass($view_mode, $default_handler_class);
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function fut_group_theme($existing, $type, $theme, $path) {
+  return [
+    'group_navigation' => [
+      'variables' => [
+        'links' => [],
+        'class' => NULL,
+      ],
+    ],
+  ];
+}

@@ -1,0 +1,11 @@
+==
+{% if links %}
+    <ul class="{{ list_class }}">
+    {% for link in links %}
+        <li>
+            <a class="{{ link.class }}" href="{{ link.url }}">{{ link.title }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% endif %}
+==
