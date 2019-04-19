@@ -2,14 +2,19 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - field.storage.node.fut_content
+    - paragraphs.paragraphs_type.fut_document
+    - paragraphs.paragraphs_type.fut_image
+    - paragraphs.paragraphs_type.fut_video
   module:
+    - entity_reference_revisions
     - group
     - node
-id: fut_group_posts
-label: 'Group Posts'
+    - paragraphs
+id: fut_group_library
+label: 'Group library'
 module: views
-description: 'View to list group posts'
+description: 'Display media items of the group'
 tag: ''
 base_table: node_field_data
 base_field: nid
@@ -24,7 +29,7 @@ display:
       access:
         type: group_permission
         options:
-          group_permission: 'view group_node:fut_post entity'
+          group_permission: 'view group'
       cache:
         type: tag
         options: {  }
@@ -66,16 +71,13 @@ display:
             next: ››
       style:
         type: default
-        options:
-          grouping: {  }
-          row_class: ''
-          default_row_class: true
-          uses_fields: false
       row:
-        type: 'entity:node'
+        type: fields
         options:
-          relationship: none
-          view_mode: teaser
+          default_field_elements: false
+          inline: {  }
+          separator: ''
+          hide_empty: false
       fields:
         title:
           id: title
@@ -124,6 +126,69 @@ display:
           multi_type: separator
           separator: ', '
           field_api_classes: false
+        fut_content:
+          id: fut_content
+          table: node__fut_content
+          field: fut_content
+          relationship: none
+          group_type: group
+          admin_label: ''
+          label: ''
+          exclude: false
+          alter:
+            alter_text: false
+            text: ''
+            make_link: false
+            path: ''
+            absolute: false
+            external: false
+            replace_spaces: false
+            path_case: none
+            trim_whitespace: false
+            alt: ''
+            rel: ''
+            link_class: ''
+            prefix: ''
+            suffix: ''
+            target: ''
+            nl2br: false
+            max_length: 0
+            word_boundary: true
+            ellipsis: true
+            more_link: false
+            more_link_text: ''
+            more_link_path: ''
+            strip_tags: false
+            trim: false
+            preserve_tags: ''
+            html: false
+          element_type: ''
+          element_class: ''
+          element_label_type: ''
+          element_label_class: ''
+          element_label_colon: false
+          element_wrapper_type: ''
+          element_wrapper_class: ''
+          element_default_classes: true
+          empty: ''
+          hide_empty: false
+          empty_zero: false
+          hide_alter_empty: true
+          click_sort_column: target_id
+          type: entity_reference_revisions_entity_view
+          settings:
+            view_mode: default
+          group_column: ''
+          group_columns: {  }
+          group_rows: true
+          delta_limit: 0
+          delta_offset: 0
+          delta_reversed: false
+          delta_first_last: false
+          multi_type: separator
+          separator: ', '
+          field_api_classes: false
+          plugin_id: field
       filters:
         status:
           value: '1'
@@ -136,6 +201,48 @@ display:
           expose:
             operator: ''
           group: 1
+        type:
+          id: type
+          table: paragraphs_item_field_data
+          field: type
+          relationship: fut_content
+          group_type: group
+          admin_label: ''
+          operator: in
+          value:
+            fut_document: fut_document
+            fut_image: fut_image
+            fut_video: fut_video
+          group: 1
+          exposed: false
+          expose:
+            operator_id: ''
+            label: ''
+            description: ''
+            use_operator: false
+            operator: ''
+            identifier: ''
+            required: false
+            remember: false
+            multiple: false
+            remember_roles:
+              authenticated: authenticated
+            reduce: false
+          is_grouped: false
+          group_info:
+            label: ''
+            description: ''
+            identifier: ''
+            optional: true
+            widget: select
+            multiple: false
+            remember: false
+            default_group: All
+            default_group_multiple: {  }
+            group_items: {  }
+          entity_type: paragraph
+          entity_field: type
+          plugin_id: bundle
       sorts:
         created:
           id: created
@@ -152,6 +259,7 @@ display:
           expose:
             label: ''
           granularity: second
+      title: Library
       header: {  }
       footer: {  }
       empty: {  }
@@ -165,9 +273,19 @@ display:
           admin_label: 'Content group content'
           required: true
           group_content_plugins:
-            'group_node:fut_post': '0'
+            'group_node:fut_event': 'group_node:fut_event'
+            'group_node:fut_post': 'group_node:fut_post'
           entity_type: node
           plugin_id: group_content_to_entity_reverse
+        fut_content:
+          id: fut_content
+          table: node__fut_content
+          field: fut_content
+          relationship: none
+          group_type: group
+          admin_label: 'fut_content: Paragraph'
+          required: false
+          plugin_id: standard
       arguments:
         gid:
           id: gid
@@ -182,7 +300,7 @@ display:
             title_enable: false
             title: All
           title_enable: true
-          title: '{{ arguments.gid|placeholder }} Posts'
+          title: '{{ arguments.gid|placeholder }} Library'
           default_argument_type: fixed
           default_argument_options:
             argument: ''
@@ -217,33 +335,25 @@ display:
         - url.query_args
         - user.group_permissions
         - 'user.node_grants:view'
-      tags: {  }
-  block_group_posts:
-    display_plugin: block
-    id: block_group_posts
-    display_title: Block
-    position: 1
-    display_options:
-      display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - route.group
-        - url
-        - url.query_args
-        - user.group_permissions
-        - 'user.node_grants:view'
-      tags: {  }
-  page_group_posts:
+      tags:
+        - 'config:field.storage.node.fut_content'
+  page_1:
     display_plugin: page
-    id: page_group_posts
+    id: page_1
     display_title: Page
     position: 1
     display_options:
       display_extenders: {  }
-      path: group/%group/posts
+      path: group/%group/library
+      menu:
+        type: none
+        title: Library
+        description: ''
+        expanded: false
+        parent: ''
+        weight: 0
+        context: '0'
+        menu_name: main
     cache_metadata:
       max-age: -1
       contexts:
@@ -254,4 +364,5 @@ display:
         - url.query_args
         - user.group_permissions
         - 'user.node_grants:view'
-      tags: {  }
+      tags:
+        - 'config:field.storage.node.fut_content'

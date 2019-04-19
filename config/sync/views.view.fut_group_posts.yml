@@ -177,7 +177,7 @@ display:
           relationship: group_content
           group_type: group
           admin_label: ''
-          default_action: 'access denied'
+          default_action: empty
           exception:
             value: all
             title_enable: false
