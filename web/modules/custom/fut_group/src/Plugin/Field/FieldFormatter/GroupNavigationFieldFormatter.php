@@ -58,21 +58,20 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
 
-//    var_dump($items);
     $links = [];
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       if ($entity->bundle() == 'fut_functional_navigation_link') {
         $type = $entity->fut_predefined_link->value;
         $group_id = $entity->getParentEntity()->id();
         switch ($type) {
-          case 'posts':
+          case 'events':
             $links[] = $this->getLink($this->t('Events'), Url::fromRoute('view.fut_group_posts.page_group_posts', [
               'group' => $group_id
             ])->toString());
             break;
 
-          case 'events':
-            $links[] = $this->getLink($this->t('Posts'), Url::fromRoute('view.fut_group_events.page_group_events', [
+          case 'posts':
+            $links[] = $this->getLink($this->t('Posts'), Url::fromRoute('view.fut_group_events.page_group_posts', [
               'group' => $group_id
             ])->toString());
             break;
