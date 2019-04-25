@@ -1,0 +1,23 @@
+uuid: ee46f455-51a2-431f-ae25-8caffc97c128
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: fut_group_nodes
+label: 'Group nodes'
+type: 'canonical_entities:node'
+pattern: '[node:group:title]/[node:title]'
+selection_criteria:
+  db5f6f5c-0258-4f4e-ba26-afa2204974d7:
+    id: node_type
+    bundles:
+      fut_event: fut_event
+      fut_post: fut_post
+    negate: false
+    context_mapping:
+      node: node
+    uuid: db5f6f5c-0258-4f4e-ba26-afa2204974d7
+selection_logic: and
+weight: -5
+relationships: {  }

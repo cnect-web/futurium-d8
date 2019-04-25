@@ -65,13 +65,13 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
         $group_id = $entity->getParentEntity()->id();
         switch ($type) {
           case 'events':
-            $links[] = $this->getLink($this->t('Events'), Url::fromRoute('view.fut_group_posts.page_group_posts', [
+            $links[] = $this->getLink($this->t('Events'), Url::fromRoute('view.fut_group_events.page_group_events', [
               'group' => $group_id
             ])->toString());
             break;
 
           case 'posts':
-            $links[] = $this->getLink($this->t('Posts'), Url::fromRoute('view.fut_group_events.page_group_posts', [
+            $links[] = $this->getLink($this->t('Posts'), Url::fromRoute('view.fut_group_posts.page_group_posts', [
               'group' => $group_id
             ])->toString());
             break;

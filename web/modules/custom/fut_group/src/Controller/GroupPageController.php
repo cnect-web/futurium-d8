@@ -31,13 +31,7 @@ class GroupPageController extends ControllerBase {
    *   Form.
    */
   public function manageNavigation(Group $group) {
-    if ($group->hasPermission('manage group navigation', \Drupal::currentUser())) {
-      return \Drupal::service('entity.form_builder')->getForm($group, 'fut_navigation');
-    }
-    else {
-      throw new AccessDeniedHttpException();
-    }
+    return \Drupal::service('entity.form_builder')->getForm($group, 'fut_navigation');
   }
-
 
 }

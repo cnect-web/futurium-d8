@@ -4,7 +4,7 @@ fut_group.manage_navigation:
     _controller: '\Drupal\fut_group\Controller\GroupPageController::manageNavigation'
     _title: 'Group navigation'
   requirements:
-    _access: 'TRUE'
+    _group_permission: 'manage group navigation'
   options:
     parameters:
       group:

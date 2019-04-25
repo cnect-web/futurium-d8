@@ -1,0 +1,6 @@
+services:
+  fut_group.breadcrumb:
+    class: Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder
+
+    tags:
+      - { name: breadcrumb_builder, priority: 100 }
