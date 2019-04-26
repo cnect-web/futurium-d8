@@ -22,3 +22,45 @@ function fut_content_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+
+/**
+ * Implements hook_preprocess_node().
+ */
+function fut_content_preprocess_node(array &$variables) {
+
+  // Set custom logic for date.
+  $created = $variables['node']->created->value;
+  $changed = $variables['node']->changed->value;
+
+  $output = [];
+  $output[] = [
+    '#theme' => 'markup',
+    '#markup' => \Drupal::service('date.formatter')->format($created, 'custom', 'j F Y'),
+  ];
+
+  if (!empty($changed) && ($changed <> $created)) {
+    $delay = \Drupal::service('date.formatter')->formatInterval(time() - $changed, 1);
+    $delay = t('@space- updated @delay ago', [
+      '@delay' => $delay,
+      '@space' => ' ',
+    ]);
+    if ($changed > strtotime('-1 hour')) {
+      $delay = t('@space updated last hour', [
+        '@space' => ' ',
+      ]);
+    }
+    $label = t('updated');
+    $delay_item = [
+      '#type' => 'html_tag',
+      '#tag' => 'span',
+      '#attributes' => [
+        'class' => "text-muted last-$label",
+      ],
+      '#value' => $delay,
+    ];
+    $output[] = $delay_item;
+    $variables['date'] = render($output);
+  }
+
+}
