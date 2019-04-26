@@ -24,7 +24,8 @@ class GroupBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     ];
     if (
       !empty($parameters['view_id']) && in_array($parameters['view_id'], $views)  ||
-      !empty($parameters['node']) && !empty($parameters['node'])
+      !empty($parameters['node']) && !empty($parameters['node']) ||
+      !empty($parameters['group_content']) && !empty($parameters['group_content'])
     ) {
       return TRUE;
     }
@@ -48,14 +49,20 @@ class GroupBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       ]));
     }
 
-    // Get the node for the current page
+    $group_content = $route_match->getParameter('group_content');
+    if (!empty($group_content)) {
+      $breadcrumb->addLink(Link::createFromRoute($group_content->getEntity()->label(), "entity.{$group_content->getContentPlugin()->getEntityTypeId()}.canonical", [
+        $group_content->getContentPlugin()->getEntityTypeId() => $group_content->getEntity()->id()
+      ]));
+    }
+
     $node = $route_match->getParameter('node');
     if (!empty($node)) {
-      $groups = GroupContent::loadByEntity($node);
-      if (!empty($groups)) {
-        $group = reset($groups);
-        $breadcrumb->addLink(Link::createFromRoute($group->label(), 'entity.group.canonical', [
-          'group' => $group->id()
+      $group_content_items = GroupContent::loadByEntity($node);
+      if (!empty($group_content_items)) {
+        $group_content = reset($group_content_items);
+        $breadcrumb->addLink(Link::createFromRoute($group_content->getGroup()->label(), 'entity.group.canonical', [
+          'group' => $group_content->getGroup()->id()
         ]));
       }
 
