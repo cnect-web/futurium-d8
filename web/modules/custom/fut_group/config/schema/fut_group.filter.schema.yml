@@ -1,0 +1,3 @@
+views.filter.fut_group_accessible_groups:
+  type: views.filter.standard
+  label: 'Accessible Groups'
