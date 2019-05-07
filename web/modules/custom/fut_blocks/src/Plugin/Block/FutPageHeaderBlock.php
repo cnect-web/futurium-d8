@@ -131,8 +131,8 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
   /**
    * Constructs array with src path for image and alt text.
    *
-   * @param \Drupal\media\MediaInterface $media_entity
-   *   Media Entity holding group visual identity.
+   * @param \Drupal\group\Entity\GroupInterface $group
+   *   Group Entity.
    *
    * @return array
    *   Array with src and alt.
@@ -142,7 +142,7 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
       return NULL;
     }
 
-    $media_entity = $this->getVisualIdentity($group->fut_visual_identity->first()->entity);
+    $media_entity = $group->fut_visual_identity->first()->entity;
     if ($img_entity_list = $media_entity->get('field_media_image')) {
       if ($img_entity = $img_entity_list->first()) {
         if ($file_entity = $img_entity->get('entity')->getTarget()) {
