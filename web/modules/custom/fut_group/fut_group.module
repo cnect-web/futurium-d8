@@ -56,7 +56,7 @@ function fut_group_theme($existing, $type, $theme, $path) {
  * Implements hook_views_data_alter().
  */
 function fut_group_views_data_alter(array &$data) {
-  $data["groups_field_data"]['accessible_groups'] = [
+  $data['groups_field_data']['accessible_groups'] = [
     'title' => t('Accessible Groups'),
     'filter' => [
       'title' => t('Accessible Groups'),

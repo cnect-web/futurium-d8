@@ -77,7 +77,7 @@ class AccessibleGroups extends FilterPluginBase {
 
     // Add condition (Group IDs where current user is member).
     if (!empty($account_group_ids)) {
-      $this->view->query->addWhere($this->options['group'], "$this->tableAlias.$this->realField", $account_group_ids, 'IN');
+      $this->view->query->addWhere($this->options['group'], "{$this->tableAlias}.{$this->realField}", $account_group_ids, 'IN');
     }
   }
 
