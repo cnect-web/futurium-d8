@@ -1,0 +1,44 @@
+<?php
+
+/**
+ * @file
+ * Contains fut_blocks.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function fut_blocks_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fut_blocks module.
+    case 'help.page.fut_blocks':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module that provides Futurium custom blocks') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fut_blocks_theme() {
+  return [
+    'page_header_block' => [
+      'variables' => [
+        'breadcrumb' => NULL,
+        'identity' => NULL,
+        'title' => NULL,
+        'visual_identity' => NULL,
+        'group_operations' => NULL,
+        'group_url' => NULL,
+        'group' => NULL,
+        'node' => NULL,
+      ],
+    ],
+  ];
+}
