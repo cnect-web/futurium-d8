@@ -104,16 +104,12 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
     $parameters = $this->getRouteParameters();
 
     if (isset($parameters['group'])) {
+
       $group = $parameters['group'];
       $node = $parameters['node'] ?? '';
       $title = $group->label();
-
-      if (!empty($group->fut_visual_identity->first()->entity)) {
-        $visual_identity = $this->getVisualIdentity($group->fut_visual_identity->first()->entity);
-      }
-
+      $visual_identity = $this->getVisualIdentity($group);
       $breadcrumb = $this->breadcrumbBuilder->build($this->routeMatch);
-
       $group_operations = $this->getGroupOperations($group);
 
       $build = [
@@ -141,7 +137,12 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
    * @return array
    *   Array with src and alt.
    */
-  protected function getVisualIdentity(MediaInterface $media_entity) {
+  protected function getVisualIdentity(GroupInterface $group) {
+    if (empty($group->fut_visual_identity->first()->entity)) {
+      return NULL;
+    }
+
+    $media_entity = $this->getVisualIdentity($group->fut_visual_identity->first()->entity);
     if ($img_entity_list = $media_entity->get('field_media_image')) {
       if ($img_entity = $img_entity_list->first()) {
         if ($file_entity = $img_entity->get('entity')->getTarget()) {
@@ -180,7 +181,8 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
         $parameters[$parameter->getEntityType()->id()] = $parameter;
         if ($parameter->getEntityType()->id() == 'node') {
           $group_contents = GroupContent::loadByEntity($parameter);
-          foreach ($group_contents as $group_content) {
+          if ($group_contents) {
+            $group_content = reset($group_contents);
             $parameters['group'] = $group_content->getGroup();
           }
         }

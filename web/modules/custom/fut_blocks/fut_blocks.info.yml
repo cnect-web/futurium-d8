@@ -1,5 +1,5 @@
-name: 'Futurium Blocks'
+name: 'Futurium blocks'
 type: module
-description: 'Module that provides Futurium custom blocks'
+description: 'Module provides Futurium custom blocks'
 core: 8.x
 package: 'Futurium'

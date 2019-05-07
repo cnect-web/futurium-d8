@@ -7,9 +7,6 @@
 {% set _group = group|default('') %}
 {% set _node = node|default('') %}
 
-{#{{ kint(_node.created.value) }}#}
-
-
 {% if _breadcrumb is not empty  %}
     {% include 'breadcrumb.html.twig' with {
         'breadcrumb': _breadcrumb,
