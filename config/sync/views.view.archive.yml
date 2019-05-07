@@ -3,7 +3,7 @@ langcode: en
 status: false
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.fut_teaser
   module:
     - node
     - user
@@ -166,7 +166,7 @@ display:
       row:
         type: 'entity:node'
         options:
-          view_mode: teaser
+          view_mode: fut_teaser
       header: {  }
       footer: {  }
       empty: {  }

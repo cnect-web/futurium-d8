@@ -4,7 +4,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.rss
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.fut_teaser
   module:
     - node
     - user
@@ -195,7 +195,7 @@ display:
       row:
         type: 'entity:node'
         options:
-          view_mode: teaser
+          view_mode: fut_teaser
       sorts:
         sticky:
           admin_label: ''

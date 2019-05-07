@@ -1,9 +1,8 @@
-uuid: 3421ad7d-4dd3-4ede-b8e7-b03e1732eee8
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.fut_teaser
     - node.type.fut_event
   module:
     - group
@@ -58,7 +57,7 @@ display:
       row:
         type: 'entity:node'
         options:
-          view_mode: teaser
+          view_mode: fut_teaser
       fields:
         title:
           id: title

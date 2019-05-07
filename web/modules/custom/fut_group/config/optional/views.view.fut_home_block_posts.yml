@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.fut_teaser
     - node.type.fut_post
   module:
     - group
@@ -57,7 +57,7 @@ display:
       row:
         type: 'entity:node'
         options:
-          view_mode: teaser
+          view_mode: fut_teaser
       fields:
         title:
           id: title

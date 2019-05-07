@@ -1,22 +1,17 @@
-uuid: 3bb453a0-2f92-4c26-9ca6-5ed996fb62f2
 langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
-    - field.field.node.fut_post.fut_comments
+    - core.entity_view_mode.node.fut_teaser
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
-    - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
     - user
-_core:
-  default_config_hash: toGf980zDt8-NZAnPOiW8OyBM_wJOxfDNuoIKDm586c
-id: node.fut_post.teaser
+id: node.fut_post.fut_teaser
 targetEntityType: node
 bundle: fut_post
-mode: teaser
+mode: fut_teaser
 content:
   links:
     weight: 100
@@ -24,7 +19,6 @@ content:
     third_party_settings: {  }
     region: content
 hidden:
-  fut_comments: true
   fut_content: true
   fut_post_image: true
   fut_tags: true

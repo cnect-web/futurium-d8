@@ -11,6 +11,7 @@ dependencies:
     - image.style.fut_default_thumbnail
   module:
     - entity_reference_revisions
+    - fut_group
     - media
 id: group.fut_open.default
 targetEntityType: group
@@ -27,12 +28,10 @@ content:
     third_party_settings: {  }
     region: content
   fut_navigation_menu:
-    type: entity_reference_revisions_entity_view
+    type: fut_group_navigation_field_formatter
     weight: 5
     label: above
-    settings:
-      view_mode: default
-      link: ''
+    settings: {  }
     third_party_settings: {  }
     region: content
   fut_short_name:
