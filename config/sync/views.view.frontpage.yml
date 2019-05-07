@@ -3,8 +3,8 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.rss
     - core.entity_view_mode.node.fut_teaser
+    - core.entity_view_mode.node.rss
   module:
     - node
     - user

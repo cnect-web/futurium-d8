@@ -2,6 +2,8 @@ uuid: 4203d696-5bdc-4cf1-a7eb-12c3991f465e
 langcode: en
 status: true
 dependencies:
+  config:
+    - image.style.thumbnail
   module:
     - image
     - media
