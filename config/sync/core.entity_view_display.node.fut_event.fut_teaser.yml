@@ -13,7 +13,7 @@ dependencies:
     - node.type.fut_event
   module:
     - user
-id: node.fut_event.teaser
+id: node.fut_event.fut_teaser
 targetEntityType: node
 bundle: fut_event
 mode: fut_teaser
