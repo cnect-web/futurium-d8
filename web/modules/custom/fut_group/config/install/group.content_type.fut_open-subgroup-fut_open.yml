@@ -1,0 +1,30 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+id: fut_open-subgroup-fut_open
+label: 'Open: Subgroup (Open)'
+description: 'Adds <em class="placeholder">Open</em> groups to groups both publicly and privately.'
+group_type: fut_open
+content_plugin: 'subgroup:fut_open'
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 1
+  use_creation_wizard: false
+  parent_role_mapping:
+    fut_open-a416e6833: fut_open-a416e6833
+    fut_open-anonymous: fut_open-anonymous
+    fut_open-editor: fut_open-member
+    fut_open-manager: fut_open-member
+    fut_open-member: fut_open-member
+    fut_open-moderator: fut_open-member
+    fut_open-outsider: fut_open-outsider
+  child_role_mapping:
+    fut_open-a416e6833: fut_open-a416e6833
+    fut_open-anonymous: fut_open-anonymous
+    fut_open-editor: ''
+    fut_open-manager: ''
+    fut_open-member: ''
+    fut_open-moderator: ''
+    fut_open-outsider: fut_open-outsider
