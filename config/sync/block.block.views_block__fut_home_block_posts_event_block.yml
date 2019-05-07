@@ -1,0 +1,30 @@
+uuid: fbd03888-6fae-47f7-a049-eacac917ea54
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.fut_home_block_posts
+  module:
+    - system
+    - views
+  theme:
+    - bartik
+id: views_block__fut_home_block_posts_event_block
+theme: bartik
+region: content
+weight: 0
+provider: null
+plugin: 'views_block:fut_home_block_posts-event_block'
+settings:
+  id: 'views_block:fut_home_block_posts-event_block'
+  label: ''
+  provider: views
+  label_display: visible
+  views_label: ''
+  items_per_page: none
+visibility:
+  request_path:
+    id: request_path
+    pages: '<front>'
+    negate: false
+    context_mapping: {  }

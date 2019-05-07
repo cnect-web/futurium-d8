@@ -1,0 +1,46 @@
+uuid: 1ded688b-0cf9-4d41-b394-fe31ced34b2e
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.group.fut_teaser
+    - field.field.group.fut_open.fut_description
+    - field.field.group.fut_open.fut_navigation_menu
+    - field.field.group.fut_open.fut_short_name
+    - field.field.group.fut_open.fut_tags
+    - field.field.group.fut_open.fut_visual_identity
+    - group.type.fut_open
+    - image.style.fut_default_thumbnail
+  module:
+    - media
+id: group.fut_open.fut_teaser
+targetEntityType: group
+bundle: fut_open
+mode: fut_teaser
+content:
+  fut_visual_identity:
+    type: media_thumbnail
+    weight: 1
+    label: above
+    settings:
+      image_style: fut_default_thumbnail
+      image_link: ''
+    third_party_settings: {  }
+    region: content
+  label:
+    label: hidden
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+hidden:
+  changed: true
+  created: true
+  fut_description: true
+  fut_navigation_menu: true
+  fut_short_name: true
+  fut_tags: true
+  langcode: true
+  uid: true

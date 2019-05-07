@@ -1,0 +1,10 @@
+uuid: 506da43e-d987-4f5d-bfad-fb1be4a7b045
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.fut_teaser
+label: Teaser
+targetEntityType: group
+cache: true
