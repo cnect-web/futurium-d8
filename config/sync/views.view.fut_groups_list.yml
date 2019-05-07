@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.group.teaser
+    - core.entity_view_mode.group.fut_teaser
     - field.storage.group.fut_description
     - group.type.fut_open
   module:
@@ -73,7 +73,7 @@ display:
         type: 'entity:group'
         options:
           relationship: none
-          view_mode: teaser
+          view_mode: fut_teaser
       fields:
         label:
           table: groups_field_data

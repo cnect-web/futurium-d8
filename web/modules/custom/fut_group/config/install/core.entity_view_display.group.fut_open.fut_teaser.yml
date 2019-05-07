@@ -1,4 +1,3 @@
-uuid: 9dd978b5-cf3e-4fe2-9eef-2ff6a75eec77
 langcode: en
 status: true
 dependencies:
@@ -13,10 +12,10 @@ dependencies:
     - image.style.fut_default_thumbnail
   module:
     - media
-id: group.fut_open.teaser
+id: group.fut_open.fut_teaser
 targetEntityType: group
 bundle: fut_open
-mode: teaser
+mode: fut_teaser
 content:
   fut_visual_identity:
     type: media_thumbnail

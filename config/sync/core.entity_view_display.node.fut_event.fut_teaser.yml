@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.teaser
+    - core.entity_view_mode.node.fut_teaser
     - field.field.node.fut_event.fut_content
     - field.field.node.fut_event.fut_event_address
     - field.field.node.fut_event.fut_event_coordinates
@@ -16,7 +16,7 @@ dependencies:
 id: node.fut_event.teaser
 targetEntityType: node
 bundle: fut_event
-mode: teaser
+mode: fut_teaser
 content:
   links:
     weight: 100
