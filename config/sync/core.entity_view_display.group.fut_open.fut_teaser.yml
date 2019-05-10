@@ -12,12 +12,24 @@ dependencies:
     - group.type.fut_open
     - image.style.fut_default_thumbnail
   module:
+    - fut_paragraphs
     - media
 id: group.fut_open.fut_teaser
 targetEntityType: group
 bundle: fut_open
 mode: fut_teaser
 content:
+  fut_description:
+    type: fut_summary_field_formatter
+    weight: 2
+    region: content
+    label: above
+    settings:
+      paragraph_types: fut_text
+      char_count: '150'
+      wordsafe: '1'
+      ellipsis: '1'
+    third_party_settings: {  }
   fut_visual_identity:
     type: media_thumbnail
     weight: 1
@@ -38,7 +50,6 @@ content:
 hidden:
   changed: true
   created: true
-  fut_description: true
   fut_navigation_menu: true
   fut_short_name: true
   fut_tags: true

@@ -3,6 +3,7 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.fut_teaser
+    - field.field.node.fut_event.fut_content
     - field.field.node.fut_event.fut_event_address
     - field.field.node.fut_event.fut_event_coordinates
     - field.field.node.fut_event.fut_event_date
@@ -10,19 +11,30 @@ dependencies:
     - field.field.node.fut_event.fut_event_visual_identity
     - node.type.fut_event
   module:
+    - fut_paragraphs
     - user
 id: node.fut_event.fut_teaser
 targetEntityType: node
 bundle: fut_event
 mode: fut_teaser
 content:
+  fut_content:
+    type: fut_summary_field_formatter
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      paragraph_types: fut_text
+      char_count: '150'
+      wordsafe: '1'
+      ellipsis: '1'
+    third_party_settings: {  }
   links:
-    weight: 100
+    weight: 0
+    region: content
     settings: {  }
     third_party_settings: {  }
-    region: content
 hidden:
-  fut_content: true
   fut_event_address: true
   fut_event_coordinates: true
   fut_event_date: true
