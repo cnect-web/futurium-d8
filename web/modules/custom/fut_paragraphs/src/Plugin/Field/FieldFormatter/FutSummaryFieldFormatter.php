@@ -210,7 +210,7 @@ class FutSummaryFieldFormatter extends EntityReferenceFormatterBase implements C
 
     $ellipsis_setting = $this->getSetting('ellipsis');
     if (!empty($ellipsis_setting)) {
-      $summary[] = $this->t('Word safe: @ellipsis',
+      $summary[] = $this->t('Ellipsis: @ellipsis',
         ['@ellipsis' => ($ellipsis_setting) ? 'Yes' : 'No']);
     }
 

@@ -1,0 +1,16 @@
+field.formatter.settings.fut_summary_field_formatter:
+  type: mapping
+  label: 'Futurium summary format settings'
+  mapping:
+    paragraph_types:
+      type: string
+      label: 'The paragraph type to extract summary'
+    char_count:
+      type: integer
+      label: 'Number of characters'
+    wordsafe:
+      type: boolean
+      label: 'Truncate on a word boundary'
+    ellipsis:
+      type: boolean
+      label: 'Add ellipsis'
