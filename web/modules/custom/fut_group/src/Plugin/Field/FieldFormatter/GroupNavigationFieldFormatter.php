@@ -77,7 +77,7 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
             break;
 
           case 'library':
-            $links[] = $this->getLink($this->t('Library'), Url::fromRoute('view.fut_group_events.page_group_library', [
+            $links[] = $this->getLink($this->t('Library'), Url::fromRoute('view.fut_group_library.page_group_library', [
               'group' => $group_id
             ])->toString());
             break;
