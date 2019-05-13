@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.group.teaser
+    - core.entity_view_mode.group.fut_teaser
     - field.field.group.fut_open.fut_description
     - field.field.group.fut_open.fut_navigation_menu
     - field.field.group.fut_open.fut_short_name
@@ -11,12 +11,24 @@ dependencies:
     - group.type.fut_open
     - image.style.fut_default_thumbnail
   module:
+    - fut_paragraphs
     - media
 id: group.fut_open.fut_teaser
 targetEntityType: group
 bundle: fut_open
 mode: fut_teaser
 content:
+  fut_description:
+    type: fut_summary_field_formatter
+    weight: 2
+    region: content
+    label: hidden
+    settings:
+      paragraph_types: fut_text
+      char_count: 150
+      wordsafe: true
+      ellipsis: true
+    third_party_settings: {  }
   fut_visual_identity:
     type: media_thumbnail
     weight: 0
@@ -26,13 +38,19 @@ content:
       image_link: ''
     third_party_settings: {  }
     region: content
+  label:
+    label: hidden
+    type: string
+    weight: 0
+    region: content
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
   changed: true
   created: true
-  fut_description: true
   fut_navigation_menu: true
   fut_short_name: true
   fut_tags: true
-  label: true
   langcode: true
   uid: true
