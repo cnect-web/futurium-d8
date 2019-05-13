@@ -23,12 +23,12 @@ content:
     type: fut_summary_field_formatter
     weight: 2
     region: content
-    label: above
+    label: hidden
     settings:
       paragraph_types: fut_text
-      char_count: '150'
-      wordsafe: '1'
-      ellipsis: '1'
+      char_count: 150
+      wordsafe: true
+      ellipsis: true
     third_party_settings: {  }
   fut_visual_identity:
     type: media_thumbnail
