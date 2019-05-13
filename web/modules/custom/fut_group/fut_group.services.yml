@@ -1,6 +1,9 @@
 services:
   fut_group.breadcrumb:
     class: Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder
-
     tags:
       - { name: breadcrumb_builder, priority: 100 }
+
+  fut_group.request_entity_extractor:
+    class: Drupal\fut_group\RequestEntityExtractor
+    arguments: ['@current_route_match']

@@ -5,15 +5,12 @@ namespace Drupal\fut_blocks\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\group\Entity\GroupContent;
 use Drupal\group\Entity\GroupInterface;
-use Drupal\media\MediaInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Entity\EntityInterface;
 use Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\image\Entity\ImageStyle;
+use Drupal\fut_group\RequestEntityExtractor;
 
 /**
  * Provides a 'FutPageHeaderBlock' block.
@@ -26,11 +23,11 @@ use Drupal\image\Entity\ImageStyle;
 class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInterface {
 
   /**
-   * The route match.
+   * The request entity extractor.
    *
-   * @var \Drupal\Core\Routing\RouteMatchInterface
+   * @var \Drupal\fut_group\RequestEntityExtractor
    */
-  protected $routeMatch;
+  protected $requestEntityExtractor;
 
   /**
    * The breadcrumb builder.
@@ -62,8 +59,8 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
    *   The plugin_id for the plugin instance.
    * @param string $plugin_definition
    *   The plugin implementation definition.
-   * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
-   *   The route match.
+   * @param \Drupal\fut_group\RequestEntityExtractor $request_entity_extractor
+   *   The request entity extractor.
    * @param \Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder $breadcrumb_builder
    *   The breadcrumb builder service.
    * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
@@ -71,10 +68,10 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RouteMatchInterface $route_match, GroupBreadcrumbBuilder $breadcrumb_builder, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RequestEntityExtractor $request_entity_extractor, GroupBreadcrumbBuilder $breadcrumb_builder, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
-    $this->routeMatch = $route_match;
+    $this->requestEntityExtractor = $request_entity_extractor;
     $this->breadcrumbBuilder = $breadcrumb_builder;
     $this->configFactory = $config_factory;
     $this->moduleHandler = $module_handler;
@@ -89,7 +86,7 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
       $configuration,
       $plugin_id,
       $plugin_definition,
-      $container->get('current_route_match'),
+      $container->get('fut_group.request_entity_extractor'),
       $container->get('fut_group.breadcrumb'),
       $container->get('module_handler'),
       $container->get('config.factory')
@@ -101,27 +98,26 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
    */
   public function build() {
 
-    $parameters = $this->getRouteParameters();
+    $group = $this->requestEntityExtractor->getGroup();
 
-    if (isset($parameters['group'])) {
+    if (!empty($group)) {
 
-      $group = $parameters['group'];
-      $node = $parameters['node'] ?? '';
+      $node = $this->requestEntityExtractor->getNode() ?? '';
       $title = $group->label();
       $visual_identity = $this->getVisualIdentity($group);
-      $breadcrumb = $this->breadcrumbBuilder->build($this->routeMatch);
+      $breadcrumb = $this->breadcrumbBuilder->build($this->requestEntityExtractor->getRouteMatch());
       $group_operations = $this->getGroupOperations($group);
 
       $build = [
         '#theme' => 'page_header_block',
-        '#breadcrumb' => $breadcrumb->getLinks() ?? '',
+        '#breadcrumb' => $breadcrumb->getLinks(),
         '#identity' => $this->configFactory->get('system.site')->get('name'),
-        '#title' => $title ?? '',
-        '#visual_identity' => $visual_identity ?? '',
-        '#group_operations' => $group_operations ?? '',
-        '#group_url' => $group->toUrl() ?? '',
-        '#group' => $group ?? '',
-        '#node' => $node ?? '',
+        '#title' => $title,
+        '#visual_identity' => $visual_identity,
+        '#group_operations' => $group_operations,
+        '#group_url' => $group->toUrl(),
+        '#group' => $group,
+        '#node' => $node,
       ];
 
       return $build;
@@ -139,7 +135,7 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
    */
   protected function getVisualIdentity(GroupInterface $group) {
     if (empty($group->fut_visual_identity->first()->entity)) {
-      return NULL;
+      return '';
     }
 
     $media_entity = $group->fut_visual_identity->first()->entity;
@@ -164,33 +160,7 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
         }
       }
     }
-    return NULL;
-  }
-
-  /**
-   * Returns the route parameters needed (group and node if available).
-   *
-   * @return array
-   *   An array of parameter names and values.
-   */
-  protected function getRouteParameters() {
-    $parameters = [];
-
-    foreach ($this->routeMatch->getParameters() as $parameter) {
-      if ($parameter instanceof EntityInterface) {
-        $parameters[$parameter->getEntityType()->id()] = $parameter;
-        if ($parameter->getEntityType()->id() == 'node') {
-          $group_contents = GroupContent::loadByEntity($parameter);
-          if ($group_contents) {
-            $group_content = reset($group_contents);
-            $parameters['group'] = $group_content->getGroup();
-          }
-        }
-      }
-    }
-
-    return $parameters;
-
+    return '';
   }
 
   /**
