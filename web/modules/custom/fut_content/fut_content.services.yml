@@ -1,0 +1,4 @@
+services:
+  fut_content.media_extractor:
+    class: Drupal\fut_content\MediaExtractor
+    arguments: []
