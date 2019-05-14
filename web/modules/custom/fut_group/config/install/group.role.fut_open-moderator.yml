@@ -19,7 +19,6 @@ permissions:
   - 'delete any group_node:fut_post entity'
   - 'delete own group_node:fut_event entity'
   - 'delete own group_node:fut_post entity'
-  - 'edit group'
   - 'update any group_node:fut_event entity'
   - 'update any group_node:fut_post entity'
   - 'update own group_node:fut_event entity'
