@@ -5,11 +5,11 @@ namespace Drupal\fut_blocks\Plugin\Block;
 use Drupal\Core\Block\BlockBase;
 use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
+use Drupal\fut_content\MediaExtractor;
 use Drupal\group\Entity\GroupInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\image\Entity\ImageStyle;
 use Drupal\fut_group\RequestEntityExtractor;
 
 /**
@@ -51,6 +51,13 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
   protected $moduleHandler;
 
   /**
+   * Media extractor service.
+   *
+   * @var \Drupal\fut_content\MediaExtractor
+   */
+  protected $mediaExtractor;
+
+  /**
    * Constructs a new FutPageHeaderBlock object.
    *
    * @param array $configuration
@@ -68,13 +75,14 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
    * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
    *   The factory for configuration objects.
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, RequestEntityExtractor $request_entity_extractor, GroupBreadcrumbBuilder $breadcrumb_builder, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, RequestEntityExtractor $request_entity_extractor, GroupBreadcrumbBuilder $breadcrumb_builder, ModuleHandlerInterface $module_handler, ConfigFactoryInterface $config_factory, MediaExtractor $media_extractor) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
 
     $this->requestEntityExtractor = $request_entity_extractor;
     $this->breadcrumbBuilder = $breadcrumb_builder;
     $this->configFactory = $config_factory;
     $this->moduleHandler = $module_handler;
+    $this->mediaExtractor = $media_extractor;
 
   }
 
@@ -89,7 +97,8 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
       $container->get('fut_group.request_entity_extractor'),
       $container->get('fut_group.breadcrumb'),
       $container->get('module_handler'),
-      $container->get('config.factory')
+      $container->get('config.factory'),
+      $container->get('fut_content.media_extractor')
     );
   }
 
@@ -139,28 +148,7 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
     }
 
     $media_entity = $group->fut_visual_identity->first()->entity;
-    if ($img_entity_list = $media_entity->get('field_media_image')) {
-      if ($img_entity = $img_entity_list->first()) {
-        if ($file_entity = $img_entity->get('entity')->getTarget()) {
-
-          $image_style_name = 'fut_default_thumbnail';
-          $visual_identity_image = ImageStyle::load($image_style_name)
-            ->buildUrl($file_entity
-              ->get('uri')
-              ->first()
-              ->getString());
-          $visual_identity_alt = $img_entity->get('alt')->getString();
-
-          $visual_identity = [
-            'src' => $visual_identity_image,
-            'alt' => $visual_identity_alt,
-          ];
-
-          return $visual_identity;
-        }
-      }
-    }
-    return '';
+    return $this->mediaExtractor->getImageFromMedia($media_entity,'fut_default_thumbnail');
   }
 
   /**

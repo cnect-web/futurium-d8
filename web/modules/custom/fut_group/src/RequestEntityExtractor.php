@@ -4,6 +4,7 @@ namespace Drupal\fut_group;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\group\Entity\GroupContent;
 
 /**
  * Request entity extractor class.
@@ -134,9 +135,10 @@ class RequestEntityExtractor {
             $group_contents = GroupContent::loadByEntity($parameter);
             if ($group_contents) {
               $group_content = NULL;
-              if (!empty($this->getGroupContent())) {
+              if (empty($this->getGroupContent())) {
                 $group_content = reset($group_contents);
                 $this->setGroupContent($group_content);
+                $this->setGroup($group_content->getGroup());
               }
 
               // Set Group if it exists.
