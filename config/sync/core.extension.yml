@@ -3,6 +3,7 @@ module:
   admin_toolbar: 0
   automated_cron: 0
   big_pipe: 0
+  blellow_helper: 0
   block: 0
   block_content: 0
   breakpoint: 0
@@ -31,6 +32,7 @@ module:
   field_group: 0
   file: 0
   filter: 0
+  fut_blocks: 0
   fut_content: 0
   fut_core: 0
   fut_group: 0
