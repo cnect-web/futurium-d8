@@ -21,7 +21,7 @@ mode: fut_teaser
 content:
   fut_content:
     type: fut_summary_field_formatter
-    weight: 1
+    weight: 0
     region: content
     label: hidden
     settings:
@@ -30,13 +30,9 @@ content:
       wordsafe: true
       ellipsis: true
     third_party_settings: {  }
-  links:
-    weight: 0
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
   fut_comments: true
   fut_post_image: true
   fut_tags: true
   langcode: true
+  links: true
