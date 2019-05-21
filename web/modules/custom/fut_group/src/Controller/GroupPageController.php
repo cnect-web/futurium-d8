@@ -31,7 +31,25 @@ class GroupPageController extends ControllerBase {
    *   Form.
    */
   public function manageNavigation(Group $group) {
-    return \Drupal::service('entity.form_builder')->getForm($group, 'fut_navigation');
+    return $this->entityFormBuilder()->getForm($group, 'fut_navigation');
+  }
+
+  /**
+   * Manages navigation of the group.
+   *
+   * @param Group $group
+   *   Group item.
+   *
+   * @return mixed
+   *   Form.
+   */
+  public function about(Group $group) {
+    $view_builder = $this->entityTypeManager()->getViewBuilder('group');
+    return $view_builder->view($group, 'fut_about');
+  }
+
+  public function aboutTitle(Group $group) {
+    return $group->label();
   }
 
 }

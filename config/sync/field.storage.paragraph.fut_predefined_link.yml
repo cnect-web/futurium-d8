@@ -14,6 +14,9 @@ type: list_string
 settings:
   allowed_values:
     -
+      value: about
+      label: About
+    -
       value: posts
       label: Posts
     -

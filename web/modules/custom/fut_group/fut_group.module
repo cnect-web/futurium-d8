@@ -6,6 +6,8 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\group\Entity\Group;
+use Drupal\paragraphs\Entity\Paragraph;
 
 /**
  * Implements hook_help().
@@ -65,4 +67,25 @@ function fut_group_views_data_alter(array &$data) {
       'id' => 'fut_group_accessible_groups',
     ],
   ];
+}
+
+/**
+ * Implements hook_group_insert().
+ */
+function fut_group_group_insert(Group $group) {
+  // Add default about navigation item
+  // @see #61
+  $paragraph = Paragraph::create([
+    'type' => 'fut_functional_navigation_link',
+    'fut_predefined_link' => 'about',
+  ]);
+  $paragraph->save();
+
+  $group->fut_navigation_menu = [
+    [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ]
+  ];
+  $group->save();
 }

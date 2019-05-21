@@ -9,3 +9,15 @@ fut_group.manage_navigation:
     parameters:
       group:
         type: 'entity:group'
+
+fut_group.about:
+  path: '/group/{group}/about'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::about'
+    _title_callback: '\Drupal\fut_group\Controller\GroupPageController::aboutTitle'
+  requirements:
+    _group_permission: 'view group'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
