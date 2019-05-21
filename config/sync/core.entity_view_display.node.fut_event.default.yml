@@ -14,39 +14,17 @@ dependencies:
     - address
     - datetime_range
     - entity_reference_revisions
-    - field_group
     - geofield
     - link
     - user
-third_party_settings:
-  field_group:
-    group_meta_data:
-      children:
-        - fut_event_registration_url
-        - fut_event_address
-        - fut_event_coordinates
-      parent_name: ''
-      weight: 1
-      format_type: html_element
-      format_settings:
-        id: cnect-event-meta
-        classes: cnect-event-meta
-        element: div
-        show_label: false
-        label_element: h3
-        attributes: ''
-        effect: none
-        speed: fast
-      label: 'Meta Data'
-      region: content
 id: node.fut_event.default
 targetEntityType: node
 bundle: fut_event
 mode: default
 content:
   fut_content:
-    weight: 2
-    label: hidden
+    weight: 109
+    label: above
     settings:
       view_mode: default
       link: ''
@@ -54,14 +32,14 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   fut_event_address:
-    weight: 6
+    weight: 104
     label: above
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
   fut_event_coordinates:
-    weight: 7
+    weight: 108
     label: above
     settings:
       output_format: wkt
@@ -70,7 +48,7 @@ content:
     type: geofield_default
     region: content
   fut_event_date:
-    weight: 0
+    weight: 102
     label: above
     settings:
       separator: '-'
@@ -80,7 +58,7 @@ content:
     type: daterange_default
     region: content
   fut_event_registration_url:
-    weight: 5
+    weight: 107
     label: above
     settings:
       trim_length: 80
@@ -91,11 +69,19 @@ content:
     third_party_settings: {  }
     type: link
     region: content
-  links:
-    weight: 3
+  fut_event_visual_identity:
+    type: entity_reference_entity_view
+    weight: 105
+    label: above
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
     region: content
+  links:
+    weight: 100
     settings: {  }
     third_party_settings: {  }
+    region: content
 hidden:
-  fut_event_visual_identity: true
   langcode: true
