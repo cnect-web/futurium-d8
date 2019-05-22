@@ -1,0 +1,13 @@
+{%
+  set classes = [
+    'extra-field',
+    'extra-field--event-map',
+  ]
+%}
+{% block event_map_wrapper %}
+    <div{{ attributes.addClass(classes) }}>
+        {% block content %}
+            {{ content }}
+        {% endblock %}
+    </div>
+{% endblock event_map_wrapper %}

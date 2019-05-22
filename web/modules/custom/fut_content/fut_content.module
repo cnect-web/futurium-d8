@@ -5,6 +5,7 @@
  * Contains fut_content.module.
  */
 
+use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -22,7 +23,6 @@ function fut_content_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
-
 
 /**
  * Implements hook_preprocess_node().
@@ -63,4 +63,32 @@ function fut_content_preprocess_node(array &$variables) {
     $variables['date'] = render($output);
   }
 
+}
+
+/**
+ * Implements hook_theme().
+ */
+function fut_content_theme($existing, $type, $theme, $path) {
+  return [
+    'event_map' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for event_map_wrapper templates.
+ *
+ * Template: event-map.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An array of elements to display.
+ */
+function template_preprocess_event_map(array &$variables) {
+  // Helpful $content variable for templates.
+  $variables += ['content' => []];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
 }

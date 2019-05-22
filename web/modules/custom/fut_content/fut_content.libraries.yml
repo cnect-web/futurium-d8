@@ -1,0 +1,10 @@
+webtools-smart-loader:
+  js:
+    //europa.eu/webtools/load.js: { type: external , attributes: { defer: true } }
+fut_map:
+  js:
+    js/fut_map.js: {}
+  dependencies:
+    - core/drupal
+    - core/jquery
+    - core/drupalSettings
