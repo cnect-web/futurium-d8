@@ -9,3 +9,4 @@ dependencies:
   - node
   - single_datetime
   - taxonomy
+  - extra_field
