@@ -167,10 +167,10 @@ class EventMap extends ExtraFieldDisplayBase implements ContainerFactoryPluginIn
    *   Return TRUE if event has Location / Coordinates.
    */
   private function eventHasLocation(ContentEntityInterface $entity) {
-    if ($entity->get('fut_event_address')->isEmpty() && $entity->get('fut_event_coordinates')->isEmpty()) {
-      return FALSE;
+    if (!$entity->get('fut_event_address')->isEmpty() && !$entity->get('fut_event_coordinates')->isEmpty()) {
+      return TRUE;
     }
-    return TRUE;
+    return FALSE;
   }
 
   /**
