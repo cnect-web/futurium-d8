@@ -24,6 +24,7 @@
         "drupal/core": "^8.7",
         "drupal/ctools": "^3.0",
         "drupal/entity_reference_revisions": "^1.0",
+        "drupal/extra_field": "^1.0",
         "drupal/field_group": "^3.0",
         "drupal/fontawesome": "^2.1",
         "drupal/fontawesome_menu_icons": "^1.2",
