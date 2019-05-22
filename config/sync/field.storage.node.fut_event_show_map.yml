@@ -1,0 +1,18 @@
+uuid: 3718dc87-28fb-489f-8b7a-45f98259e858
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.fut_event_show_map
+field_name: fut_event_show_map
+entity_type: node
+type: boolean
+settings: {  }
+module: core
+locked: false
+cardinality: 1
+translatable: true
+indexes: {  }
+persist_with_no_fields: false
+custom_storage: false
