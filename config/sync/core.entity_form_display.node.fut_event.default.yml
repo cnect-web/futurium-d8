@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.fut_event.fut_collection
     - field.field.node.fut_event.fut_content
     - field.field.node.fut_event.fut_event_address
     - field.field.node.fut_event.fut_event_coordinates
@@ -29,6 +30,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  fut_collection:
+    weight: 27
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   fut_content:
     weight: 26
     settings:

@@ -1,0 +1,20 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.taxonomy_term.fut_related_group
+    - taxonomy.vocabulary.fut_collections
+id: taxonomy_term.fut_collections.fut_related_group
+field_name: fut_related_group
+entity_type: taxonomy_term
+bundle: fut_collections
+label: 'Related group'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:group'
+  handler_settings: {  }
+field_type: entity_reference

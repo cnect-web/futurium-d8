@@ -1,0 +1,31 @@
+uuid: 7e74f6f4-6501-468d-a2c9-a14a75c8f872
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.fut_collections.fut_related_group
+    - taxonomy.vocabulary.fut_collections
+  module:
+    - text
+id: taxonomy_term.fut_collections.default
+targetEntityType: taxonomy_term
+bundle: fut_collections
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+  fut_related_group:
+    weight: 1
+    label: above
+    settings:
+      link: true
+    third_party_settings: {  }
+    type: entity_reference_label
+    region: content
+hidden:
+  langcode: true

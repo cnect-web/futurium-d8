@@ -4,3 +4,10 @@ fut_group.link.group_navigation:
   description: 'Group navigation'
   base_route: 'entity.group.canonical'
   weight: 10
+
+fut_group.link.group_collections:
+  route_name: 'view.fut_collections.page'
+  title: 'Collections'
+  description: 'Group collections'
+  base_route: 'entity.group.canonical'
+  weight: 20

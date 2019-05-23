@@ -1,0 +1,7 @@
+name: 'Futurim collection'
+type: module
+description: 'Futurium collections'
+core: 8.x
+package: 'Futurium'
+dependencies:
+  - taxonomy
