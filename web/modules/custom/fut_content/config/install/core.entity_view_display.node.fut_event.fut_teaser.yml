@@ -25,9 +25,9 @@ content:
     label: hidden
     settings:
       paragraph_types: fut_text
-      char_count: '150'
-      wordsafe: '1'
-      ellipsis: '1'
+      char_count: 150
+      wordsafe: true
+      ellipsis: true
     third_party_settings: {  }
   links:
     weight: 0
@@ -35,9 +35,11 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  extra_field_event_map: true
   fut_event_address: true
   fut_event_coordinates: true
   fut_event_date: true
   fut_event_registration_url: true
+  fut_event_show_map: true
   fut_event_visual_identity: true
   langcode: true
