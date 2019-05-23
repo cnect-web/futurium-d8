@@ -3,9 +3,9 @@ langcode: en
 status: true
 dependencies:
   theme:
-    - blellow
+    - bartik
 id: page_title
-theme: blellow
+theme: bartik
 region: content
 weight: 0
 provider: null
