@@ -6,6 +6,12 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Url;
+use Drupal\group\Entity\Group;
+use Drupal\group\Entity\GroupContent;
+use Drupal\taxonomy\Entity\Term;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\Core\Form\FormState;
 
 /**
  * Implements hook_help().
@@ -65,4 +71,136 @@ function fut_group_views_data_alter(array &$data) {
       'id' => 'fut_group_accessible_groups',
     ],
   ];
+}
+
+/**
+ * Implements hook_group_insert().
+ */
+function fut_group_group_insert(Group $group) {
+  // Add default about navigation item
+  // @see #61
+  $paragraph = Paragraph::create([
+    'type' => 'fut_functional_navigation_link',
+    'fut_predefined_link' => 'about',
+  ]);
+  $paragraph->save();
+
+  $group->fut_navigation_menu = [
+    [
+      'target_id' => $paragraph->id(),
+      'target_revision_id' => $paragraph->getRevisionId(),
+    ]
+  ];
+  $group->save();
+}
+
+
+
+/**
+ * Implements hook_field_widget_form_alter().
+ */
+function fut_group_field_widget_form_alter(
+  &$element,
+  \Drupal\Core\Form\FormStateInterface $form_state,
+  $context
+) {
+  $field_definition = $context['items']->getFieldDefinition();
+
+  if (!empty($field_definition) && $field_definition->getName() == 'fut_collection_item' && $field_definition->id() == 'paragraph.fut_functional_navigation_link.fut_collection_item') {
+    $element['#options'] = _fut_group_get_group_options();
+    $element['#states'] = [
+      'invisible' => [
+        'select[name="fut_navigation_menu[' . $context['form']['#parents'][1] . '][subform][fut_predefined_link]"]' => ['value' => 'about'],
+      ],
+    ];
+  }
+
+  if (!empty($field_definition) && $field_definition->getName() == 'fut_collection') {
+    $element['#options'] = _fut_group_get_group_options();
+  }
+}
+
+function _fut_group_get_group_options() {
+  $options = [];
+  $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
+  $group = $request_extractor->getGroup();
+  if (empty($group)) {
+    // Load group from node.
+    $node = $request_extractor->getNode();
+    if ($node) {
+      $group_content_items = GroupContent::loadByEntity($node);
+      if (!empty($group_content_items)) {
+        $group_content = reset($group_content_items);
+        $group = $group_content->getGroup()->id();
+      }
+    }
+  }
+
+  if (!empty($group)) {
+    $query = \Drupal::entityQuery('taxonomy_term');
+    $query->condition('vid', 'fut_collections');
+    $query->condition('fut_related_group', $group->id());
+    $collection_items = Term::loadMultiple($query->execute());
+    if ($collection_items) {
+      $options['0'] = t('- None -');
+      foreach ($collection_items as $collection_item) {
+        $options[$collection_item->id()] = $collection_item->getName();
+      }
+    }
+  }
+
+  return $options;
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function fut_group_form_taxonomy_term_fut_collections_delete_form_alter(
+  &$form,
+  \Drupal\Core\Form\FormStateInterface $form_state,
+  $form_id
+) {
+  $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
+  if ($group = $request_extractor->getGroup()) {
+    $form['actions']['cancel']['#url'] = Url::fromRoute('view.fut_collections.page', [
+      'group' => $group->id()
+    ]);
+  }
+
+  // Redirect to collections page after creation.
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = '_fut_group_form_taxonomy_term_fut_collections_submit';
+    }
+  }
+}
+
+/**
+ * Implements hook_form_BASE_FORM_ID_alter().
+ */
+function fut_group_form_taxonomy_term_fut_collections_form_alter(
+  &$form,
+  \Drupal\Core\Form\FormStateInterface $form_state,
+  $form_id
+) {
+
+  // Hide hierarchy field.
+  $form['relations']['#access'] = FALSE;
+
+  // Redirect to collections page after creation.
+  foreach (array_keys($form['actions']) as $action) {
+    if ($action != 'preview' && isset($form['actions'][$action]['#type']) && $form['actions'][$action]['#type'] === 'submit') {
+      $form['actions'][$action]['#submit'][] = '_fut_group_form_taxonomy_term_fut_collections_submit';
+    }
+  }
+}
+
+function _fut_group_form_taxonomy_term_fut_collections_submit(array $form, FormState $form_state) {
+  $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
+  if ($group = $request_extractor->getGroup()) {
+    $form_state->setRedirect('view.fut_collections.page', [
+      'group' => $group->id(),
+    ]);
+    return;
+  }
 }

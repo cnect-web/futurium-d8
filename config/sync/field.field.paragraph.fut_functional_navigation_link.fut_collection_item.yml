@@ -1,0 +1,29 @@
+uuid: 01c8a1cb-d310-4b08-9245-725f2dd31328
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_collection_item
+    - paragraphs.paragraphs_type.fut_functional_navigation_link
+    - taxonomy.vocabulary.fut_collections
+id: paragraph.fut_functional_navigation_link.fut_collection_item
+field_name: fut_collection_item
+entity_type: paragraph
+bundle: fut_functional_navigation_link
+label: 'Collection item'
+description: ''
+required: false
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:taxonomy_term'
+  handler_settings:
+    target_bundles:
+      fut_collections: fut_collections
+    sort:
+      field: name
+      direction: asc
+    auto_create: false
+    auto_create_bundle: ''
+field_type: entity_reference

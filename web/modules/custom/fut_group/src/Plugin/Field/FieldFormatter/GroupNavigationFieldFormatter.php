@@ -10,6 +10,7 @@ use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Plugin implementation of the 'group_navigation_field_formatter' formatter.
@@ -27,34 +28,6 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
   /**
    * {@inheritdoc}
    */
-  public static function defaultSettings() {
-    return [
-      // Implement default settings.
-    ] + parent::defaultSettings();
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsForm(array $form, FormStateInterface $form_state) {
-    return [
-      // Implement settings form.
-    ] + parent::settingsForm($form, $form_state);
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function settingsSummary() {
-    $summary = [];
-    // Implement settings summary.
-
-    return $summary;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
 
@@ -62,26 +35,47 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
     foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
       if ($entity->bundle() == 'fut_functional_navigation_link') {
         $type = $entity->fut_predefined_link->value;
-        $group_id = $entity->getParentEntity()->id();
+        $label = $entity->fut_label->value;
+        $route = NULL;
         switch ($type) {
+          case 'about':
+            if (empty($label)) {
+              $label = $this->t('About');
+            }
+            $route = 'fut_group.about';
+
+            break;
           case 'events':
-            $links[] = $this->getLink($this->t('Events'), Url::fromRoute('view.fut_group_events.page_group_events', [
-              'group' => $group_id
-            ])->toString());
+            if (empty($label)) {
+              $label = $this->t('Events');
+            }
+            $route = 'view.fut_group_events.page_group_events';
             break;
 
           case 'posts':
-            $links[] = $this->getLink($this->t('Posts'), Url::fromRoute('view.fut_group_posts.page_group_posts', [
-              'group' => $group_id
-            ])->toString());
+            if (empty($label)) {
+              $label = $this->t('Posts');
+            }
+            $route = 'view.fut_group_posts.page_group_posts';
             break;
 
           case 'library':
-            $links[] = $this->getLink($this->t('Library'), Url::fromRoute('view.fut_group_library.page_group_library', [
-              'group' => $group_id
-            ])->toString());
+            if (empty($label)) {
+              $label = $this->t('Library');
+            }
+            $route = 'view.fut_group_library.page_group_library';
             break;
         }
+
+        if (!empty($route)) {
+          $group_id = $entity->getParentEntity()->id();
+          $collection = $entity->fut_collection_item->target_id;
+          $links[] = $this->getLink($label, Url::fromRoute($route, [
+            'group' => $group_id,
+            'collection' => $collection,
+          ])->toString());
+        }
+
       }
       else {
         $links[] = $this->getLink($entity->fut_link->first()->title, $entity->fut_link->first()->getUrl()->toString());

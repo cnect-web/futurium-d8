@@ -1,0 +1,8 @@
+uuid: 7274d0e9-550d-4727-8d47-6382c206a0b0
+langcode: en
+status: true
+dependencies: {  }
+name: Collections
+vid: fut_collections
+description: ''
+weight: 0

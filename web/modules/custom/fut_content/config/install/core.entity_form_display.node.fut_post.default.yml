@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.node.fut_post.fut_collection
     - field.field.node.fut_post.fut_comments
     - field.field.node.fut_post.fut_content
     - field.field.node.fut_post.fut_post_image
@@ -23,6 +24,12 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
+  fut_collection:
+    weight: 126
+    settings: {  }
+    third_party_settings: {  }
+    type: options_select
+    region: content
   fut_comments:
     weight: 125
     settings: {  }

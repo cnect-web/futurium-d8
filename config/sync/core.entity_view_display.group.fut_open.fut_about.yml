@@ -1,0 +1,38 @@
+uuid: aaa4743f-cb45-4447-bdbc-f9a08adb2f0c
+langcode: en
+status: true
+dependencies:
+  config:
+    - core.entity_view_mode.group.fut_about
+    - field.field.group.fut_open.fut_description
+    - field.field.group.fut_open.fut_navigation_menu
+    - field.field.group.fut_open.fut_short_name
+    - field.field.group.fut_open.fut_tags
+    - field.field.group.fut_open.fut_visual_identity
+    - group.type.fut_open
+  module:
+    - entity_reference_revisions
+id: group.fut_open.fut_about
+targetEntityType: group
+bundle: fut_open
+mode: fut_about
+content:
+  fut_description:
+    type: entity_reference_revisions_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: ''
+    third_party_settings: {  }
+    region: content
+hidden:
+  changed: true
+  created: true
+  fut_navigation_menu: true
+  fut_short_name: true
+  fut_tags: true
+  fut_visual_identity: true
+  label: true
+  langcode: true
+  uid: true

@@ -30,6 +30,9 @@ settings:
       fut_document:
         weight: 7
         enabled: false
+      fut_collection_link:
+        enabled: true
+        weight: 8
       fut_functional_navigation_link:
         enabled: true
         weight: 8

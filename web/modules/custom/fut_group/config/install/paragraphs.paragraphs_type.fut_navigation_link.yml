@@ -2,7 +2,7 @@ langcode: en
 status: true
 dependencies: {  }
 id: fut_navigation_link
-label: 'Navigation Link'
+label: 'External Link'
 icon_uuid: null
 description: 'Create a navigation link to existing content.'
 behavior_plugins: {  }
