@@ -21,3 +21,44 @@ fut_group.about:
     parameters:
       group:
         type: 'entity:group'
+
+fut_group.add_collection:
+  path: '/group/{group}/add-collection'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::addCollection'
+    _title: 'Collections'
+  requirements:
+    _group_permission: 'manage group collections'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+
+fut_group.edit_collection:
+  path: '/group/{group}/edit-collection/{term}'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::editCollection'
+    _title: 'Edit collection'
+  requirements:
+    _group_permission: 'manage group collections'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+      term:
+        type: 'entity:taxonomy_term'
+#        converter: 'paramconverter.entity'
+
+fut_group.delete_collection:
+  path: '/group/{group}/delete-collection/{term}'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::deleteCollection'
+    _title: 'Delete collection'
+  requirements:
+    _group_permission: 'manage group collections'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+      term:
+        type: 'entity:taxonomy_term'
