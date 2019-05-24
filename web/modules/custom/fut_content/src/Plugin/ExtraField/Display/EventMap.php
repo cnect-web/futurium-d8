@@ -97,8 +97,10 @@ class EventMap extends ExtraFieldDisplayBase implements ContainerFactoryPluginIn
           'drupalSettings' => [
             'fut_content' => [
               'event_map' => [
-                'featureCollection' => $this->prepareEventMarker($entity),
-                'center' => $this->getEventCoordinates($entity),
+                $entity->id() =>[
+                  'featureCollection' => $this->prepareEventMarker($entity),
+                  'center' => $this->getEventCoordinates($entity),
+                ],
               ],
             ],
           ],
@@ -108,7 +110,11 @@ class EventMap extends ExtraFieldDisplayBase implements ContainerFactoryPluginIn
       $elements = [
         '#theme' => 'event_map',
         '#attributes' => [
-          'id' => 'event-map',
+          'id' => 'event-map-' . $entity->id(),
+          'data-event-id' => $entity->id(),
+          'class' => [
+            'event-map',
+          ],
         ],
         'map_properties' => $map_properties,
       ];
