@@ -11,6 +11,8 @@ dependencies:
   module:
     - fut_paragraphs
     - user
+_core:
+  default_config_hash: toGf980zDt8-NZAnPOiW8OyBM_wJOxfDNuoIKDm586c
 id: node.fut_post.fut_teaser
 targetEntityType: node
 bundle: fut_post
@@ -33,6 +35,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  fut_collection: true
   fut_comments: true
   fut_post_image: true
   fut_tags: true
