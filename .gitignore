@@ -42,3 +42,9 @@
 
 # DB backups
 /backup
+
+# Artifacts
+*.zip
+
+# Docker data
+docker/data/

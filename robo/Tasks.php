@@ -2,7 +2,6 @@
 
 namespace NGF\Robo;
 
-use Robo\Robo;
 use Robo\Tasks as RoboTasks;
 
 /**
@@ -14,36 +13,7 @@ class Tasks extends RoboTasks {
   use \Boedah\Robo\Task\Drush\loadTasks;
   use \NuvoleWeb\Robo\Task\Config\loadTasks;
 
-  /**
-   * Output hostname.
-   */
-  public function ec2Hostname() {
-    $result = $this
-      ->taskExec('curl http://169.254.169.254/latest/meta-data/public-hostname')
-      ->printOutput(false)
-      ->run();
-    if($result->wasSuccessful()) {
-      $hostname = $result->getMessage();
-      $this->say($hostname);
-    }
-  }
-
-  /**
-   * Output ip.
-   */
-  public function ec2Ip() {
-    $result = $this
-      ->taskExec('curl http://169.254.169.254/latest/meta-data/local-ipv4')
-      ->printOutput(false)
-      ->run();
-
-    if($result->wasSuccessful()) {
-      $ip = $result->getMessage();
-      $this->say($ip);
-    }
-  }
-
-  /**
+   /**
    * Setup Behat.
    *
    * @command project:setup-behat
@@ -74,7 +44,6 @@ class Tasks extends RoboTasks {
    * @aliases pi
    */
   public function projectInstall() {
-    $this->npm();
     $this->projectGenerateEnv();
     $this->getInstallTask()
       ->siteInstall($this->config('site.profile'))
@@ -90,7 +59,6 @@ class Tasks extends RoboTasks {
    * @option $run-importers Run the importers after installation.
    */
   public function projectInstallConfig(array $opts = ['run-importers|i' => FALSE]) {
-    $this->npm();
     $this->projectGenerateEnv();
 
     $this->getInstallTask()
@@ -270,18 +238,6 @@ class Tasks extends RoboTasks {
    */
   protected function root() {
     return getcwd();
-  }
-
-  /**
-   * NPM install oe_theme.
-   */
-  protected function npm() {
-    // $this->taskExecStack()
-    //  ->stopOnFail()
-    //  ->dir($this->root() . '/web/themes/contrib/oe_theme')
-    //  ->exec('npm install')
-    //  ->exec('npm run build')
-    //  ->run();
   }
 
 }

@@ -20,11 +20,11 @@ account:
 
 # Database parameters.
 database:
-  host: 127.0.0.1
+  host: mysql
   port: 3306
   name: drupal
-  user: root
-  password: root
+  user: drupal
+  password: drupal
   prefix: ''
 
 # Behat settings.

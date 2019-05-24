@@ -1,0 +1,37 @@
+default:
+  suites:
+    default:
+      contexts:
+       - FeatureContext
+       - Drupal\DrupalExtension\Context\DrupalContext
+       - Drupal\DrupalExtension\Context\MinkContext
+       - Drupal\DrupalExtension\Context\MessageContext
+       - Drupal\DrupalExtension\Context\DrushContext
+  extensions:
+    Behat\MinkExtension:
+      browser_name: 'chrome'
+      goutte: ~
+      selenium2:
+        wd_host: 'http://172.17.0.1:4444/wd/hub'
+        browser: 'chrome'
+      javascript_session: 'selenium2'
+      base-url: 'http://web'
+      files_path: '/var/www/html/web'
+    Drupal\DrupalExtension:
+      api_driver: 'drupal'
+      blackbox: ~
+      drupal:
+        drupal_root: '/var/www/html/web'
+      selectors:
+        message_selector: '.messages'
+        error_message_selector: '.messages.error'
+        success_message_selector: '.messages.status'
+      region_map:
+      drush:
+        alias: 'default'
+        binary: '/var/www/html/bin/drush'
+      subcontexts:
+        paths:
+          - '/var/www/html/web/sites/default'
+  formatters:
+    progress: ~

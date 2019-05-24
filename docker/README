@@ -1,0 +1,48 @@
+# Installation of a website:
+
+Copy .env.dist to .env
+
+Configure the variables in the .env file.
+
+```
+./docker-build.sh
+```
+
+To access the shell:
+```
+docker exec -u 1000 -ti php bash
+```
+
+Behat tests:
+```
+docker exec -u 1000 -ti php ./toolkit/phing test-run-behat
+```
+
+
+If you're behind a proxy:
+
+Create a file at ~/.docker/config.json containing the following:
+```
+{
+ "proxies":
+ {
+   "default":
+   {
+     "httpProxy": "http://<user>:<password>@<proxy ip address>:<proxy port>",
+     "httpsProxy": "http://<user>:<password>@<proxy ip address>:<proxy port>",
+     "noProxy": "localhost, 127.0.0.1, 172.16.0.0/10"
+   }
+ }
+}
+```
+
+This passes the proxy vars to the containers, allowing you to do build steps.
+
+Create a drop-in at /etc/systemd/system/docker.service.d/http-proxy.conf with the following:
+```
+[Service]
+Environment="HTTP_PROXY=<user>:<password>@<proxy ip address>:<proxy port>"
+Environment="HTTPS_PROXY=<user>:<password>@<proxy ip address>:<proxy port>"
+Environment="NO_PROXY=localhost,127.0.0.1"
+```
+This allows you to pull images from docker repos.

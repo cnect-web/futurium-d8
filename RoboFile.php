@@ -127,7 +127,7 @@ class RoboFile extends NGFTasks {
   }
 
   /**
-   * Run QA tasks.
+   * Run code sniffer.
    *
    * @command tools:code-sniff
    * @aliases cs
@@ -139,6 +139,22 @@ class RoboFile extends NGFTasks {
       ->wasSuccessful()
     ) {
       $this->say('Code sniffer finished.');
+    };
+  }
+
+  /**
+   * Run Behat tests.
+   *
+   * @command tools:behat
+   * @aliases bt
+   */
+  public function behat() {
+    if ($this
+      ->taskExec('bin/behat -c tests/behat.yml')
+      ->run()
+      ->wasSuccessful()
+    ) {
+      $this->say('Behat finished.');
     };
   }
 
