@@ -70,7 +70,7 @@ function fut_content_preprocess_node(array &$variables) {
  */
 function fut_content_theme($existing, $type, $theme, $path) {
   return [
-    'event_map' => [
+    'ec_map' => [
       'render element' => 'elements',
     ],
   ];
@@ -79,13 +79,13 @@ function fut_content_theme($existing, $type, $theme, $path) {
 /**
  * Prepares variables for event_map_wrapper templates.
  *
- * Template: event-map.html.twig.
+ * Template: ec-map.html.twig.
  *
  * @param array $variables
  *   An associative array containing:
  *   - elements: An array of elements to display.
  */
-function template_preprocess_event_map(array &$variables) {
+function template_preprocess_ec_map(array &$variables) {
   // Helpful $content variable for templates.
   $variables += ['content' => []];
   foreach (Element::children($variables['elements']) as $key) {

@@ -79,9 +79,11 @@ class EventMap extends ExtraFieldDisplayBase implements ContainerFactoryPluginIn
     if ($this->eventHasLocation($entity) && $this->eventShowMap($entity)) {
 
       $path = base_path() . $this->moduleHandler->getModule('fut_content')->getPath();
-      $path .= '/js/fut_event_map.js';
+      $path .= '/js/fut_ec_map.js';
 
       $json = '{"service": "map", "version": "2.0", "custom": "' . $path . '"}';
+
+      $map_identifier = $entity->bundle() . '-' . $entity->id();
 
       $map_properties = [
         '#type' => 'html_tag',
@@ -96,8 +98,8 @@ class EventMap extends ExtraFieldDisplayBase implements ContainerFactoryPluginIn
           ],
           'drupalSettings' => [
             'fut_content' => [
-              'event_map' => [
-                $entity->id() =>[
+              'ec_map' => [
+                $map_identifier =>[
                   'featureCollection' => $this->prepareEventMarker($entity),
                   'center' => $this->getEventCoordinates($entity),
                 ],
@@ -108,12 +110,12 @@ class EventMap extends ExtraFieldDisplayBase implements ContainerFactoryPluginIn
       ];
 
       $elements = [
-        '#theme' => 'event_map',
+        '#theme' => 'ec_map',
         '#attributes' => [
-          'id' => 'event-map-' . $entity->id(),
-          'data-event-id' => $entity->id(),
+          'id' => 'ec-map-' . $map_identifier,
+          'data-map-id' => $map_identifier,
           'class' => [
-            'event-map',
+            'ec-map',
           ],
         ],
         'map_properties' => $map_properties,
