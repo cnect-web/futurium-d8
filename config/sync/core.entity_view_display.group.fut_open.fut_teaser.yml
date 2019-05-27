@@ -5,15 +5,13 @@ dependencies:
   config:
     - core.entity_view_mode.group.fut_teaser
     - field.field.group.fut_open.fut_description
+    - field.field.group.fut_open.fut_logo
     - field.field.group.fut_open.fut_navigation_menu
     - field.field.group.fut_open.fut_short_name
     - field.field.group.fut_open.fut_tags
-    - field.field.group.fut_open.fut_visual_identity
     - group.type.fut_open
-    - image.style.fut_default_thumbnail
   module:
     - fut_paragraphs
-    - media
 id: group.fut_open.fut_teaser
 targetEntityType: group
 bundle: fut_open
@@ -30,15 +28,6 @@ content:
       wordsafe: true
       ellipsis: true
     third_party_settings: {  }
-  fut_visual_identity:
-    type: media_thumbnail
-    weight: 1
-    label: above
-    settings:
-      image_style: fut_default_thumbnail
-      image_link: ''
-    third_party_settings: {  }
-    region: content
   label:
     label: hidden
     type: string
@@ -50,6 +39,7 @@ content:
 hidden:
   changed: true
   created: true
+  fut_logo: true
   fut_navigation_menu: true
   fut_short_name: true
   fut_tags: true

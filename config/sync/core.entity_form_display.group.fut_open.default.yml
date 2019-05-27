@@ -4,13 +4,14 @@ status: true
 dependencies:
   config:
     - field.field.group.fut_open.fut_description
+    - field.field.group.fut_open.fut_logo
     - field.field.group.fut_open.fut_navigation_menu
     - field.field.group.fut_open.fut_short_name
     - field.field.group.fut_open.fut_tags
-    - field.field.group.fut_open.fut_visual_identity
     - group.type.fut_open
+    - image.style.thumbnail
   module:
-    - inline_entity_form
+    - image
     - paragraphs
     - path
 id: group.fut_open.default
@@ -30,6 +31,14 @@ content:
       default_paragraph_type: fut_text
     third_party_settings: {  }
     region: content
+  fut_logo:
+    weight: 5
+    settings:
+      progress_indicator: throbber
+      preview_image_style: thumbnail
+    third_party_settings: {  }
+    type: image_image
+    region: content
   fut_short_name:
     weight: 3
     settings:
@@ -39,29 +48,13 @@ content:
     type: string_textfield
     region: content
   fut_tags:
-    weight: 6
+    weight: 7
     settings:
       match_operator: CONTAINS
       size: 60
       placeholder: ''
     third_party_settings: {  }
     type: entity_reference_autocomplete
-    region: content
-  fut_visual_identity:
-    weight: 5
-    settings:
-      form_mode: default
-      label_singular: ''
-      label_plural: ''
-      allow_new: true
-      allow_existing: true
-      match_operator: CONTAINS
-      override_labels: false
-      collapsible: false
-      collapsed: false
-      allow_duplicate: false
-    third_party_settings: {  }
-    type: inline_entity_form_complex
     region: content
   label:
     type: string_textfield

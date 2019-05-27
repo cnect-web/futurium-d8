@@ -4,10 +4,10 @@ dependencies:
   config:
     - core.entity_form_mode.group.fut_navigation
     - field.field.group.fut_open.fut_description
+    - field.field.group.fut_open.fut_logo
     - field.field.group.fut_open.fut_navigation_menu
     - field.field.group.fut_open.fut_short_name
     - field.field.group.fut_open.fut_tags
-    - field.field.group.fut_open.fut_visual_identity
     - group.type.fut_open
   module:
     - paragraphs
@@ -36,9 +36,9 @@ content:
     third_party_settings: {  }
 hidden:
   fut_description: true
+  fut_logo: true
   fut_short_name: true
   fut_tags: true
-  fut_visual_identity: true
   label: true
   langcode: true
   path: true
