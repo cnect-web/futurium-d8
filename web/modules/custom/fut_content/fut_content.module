@@ -65,30 +65,3 @@ function fut_content_preprocess_node(array &$variables) {
 
 }
 
-/**
- * Implements hook_theme().
- */
-function fut_content_theme($existing, $type, $theme, $path) {
-  return [
-    'ec_map' => [
-      'render element' => 'elements',
-    ],
-  ];
-}
-
-/**
- * Prepares variables for event_map_wrapper templates.
- *
- * Template: ec-map.html.twig.
- *
- * @param array $variables
- *   An associative array containing:
- *   - elements: An array of elements to display.
- */
-function template_preprocess_ec_map(array &$variables) {
-  // Helpful $content variable for templates.
-  $variables += ['content' => []];
-  foreach (Element::children($variables['elements']) as $key) {
-    $variables['content'][$key] = $variables['elements'][$key];
-  }
-}

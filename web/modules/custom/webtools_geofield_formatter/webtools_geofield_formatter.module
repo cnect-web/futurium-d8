@@ -1,0 +1,53 @@
+<?php
+
+/**
+ * @file
+ * Contains webtools_geofield_formatter.module.
+ */
+
+use Drupal\Core\Render\Element;
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function webtools_geofield_formatter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the webtools_geofield_formatter module.
+    case 'help.page.webtools_geofield_formatter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides formatter to display geofield as a map using webtools maps service.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function webtools_geofield_formatter_theme($existing, $type, $theme, $path) {
+  return [
+    'ec_map' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for event_map_wrapper templates.
+ *
+ * Template: ec-map.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An array of elements to display.
+ */
+function template_preprocess_ec_map(array &$variables) {
+  // Helpful $content variable for templates.
+  $variables += ['content' => []];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
+  }
+}
