@@ -1,7 +1,9 @@
+uuid: 4795af71-eac0-41be-8b25-6502f9af0dea
 langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.map_description_default
     - field.field.node.fut_event.fut_content
     - field.field.node.fut_event.fut_event_address
     - field.field.node.fut_event.fut_event_coordinates
@@ -13,19 +15,15 @@ dependencies:
   module:
     - address
     - datetime_range
-    - entity_reference_revisions
     - field_group
-    - link
     - user
 third_party_settings:
   field_group:
     group_meta_data:
       children:
         - fut_event_registration_url
-        - fut_event_address
-        - extra_field_event_map
       parent_name: ''
-      weight: 1
+      weight: 9
       format_type: html_element
       format_settings:
         id: cnect-event-meta
@@ -37,28 +35,14 @@ third_party_settings:
         effect: none
         speed: fast
       label: 'Meta Data'
-      region: content
-id: node.fut_event.default
+      region: hidden
+id: node.fut_event.map_description_default
 targetEntityType: node
 bundle: fut_event
-mode: default
+mode: map_description_default
 content:
-  extra_field_event_map:
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
-  fut_content:
-    weight: 2
-    label: hidden
-    settings:
-      view_mode: default
-      link: ''
-    third_party_settings: {  }
-    type: entity_reference_revisions_entity_view
-    region: content
   fut_event_address:
-    weight: 6
+    weight: 1
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -74,25 +58,12 @@ content:
     third_party_settings: {  }
     type: daterange_default
     region: content
-  fut_event_registration_url:
-    weight: 5
-    label: above
-    settings:
-      trim_length: 80
-      url_only: false
-      url_plain: false
-      rel: ''
-      target: ''
-    third_party_settings: {  }
-    type: link
-    region: content
-  links:
-    weight: 3
-    region: content
-    settings: {  }
-    third_party_settings: {  }
 hidden:
+  extra_field_event_map: true
+  fut_content: true
   fut_event_coordinates: true
+  fut_event_registration_url: true
   fut_event_show_map: true
   fut_event_visual_identity: true
   langcode: true
+  links: true

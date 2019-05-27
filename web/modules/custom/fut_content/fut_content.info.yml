@@ -10,3 +10,4 @@ dependencies:
   - single_datetime
   - taxonomy
   - extra_field
+  - webtools_geofield_formatter

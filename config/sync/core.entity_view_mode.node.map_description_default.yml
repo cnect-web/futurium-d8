@@ -1,0 +1,12 @@
+uuid: 3b3e5c68-482a-4cec-9fd3-02164e17ddb8
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+_core:
+  default_config_hash: R0yjfAxkuPY_mzu0c6yAHIMioGwN4KPP-eBlekEfkVE
+id: node.map_description_default
+label: 'Map description default'
+targetEntityType: node
+cache: true
