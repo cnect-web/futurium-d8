@@ -4,51 +4,14 @@
  *
  * @see http://robo.li/
  */
-use NGF\Robo\Tasks as NGFTasks;
+use Cnect\Robo\Tasks as CnectTasks;
 /**
  * Class RoboFile.
  */
-class RoboFile extends NGFTasks {
+class RoboFile extends CnectTasks {
 
-  private $defaultOp = 'cs,unit';
-  private $defaultPaths = 'web/modules/custom,web/themes/contrib/funkywave';
-
-  /**
-   * Build project.
-   *
-   * @command project:build
-   * @aliases pb
-   */
-  public function build($branch) {
-    // Change Branch.
-    $this
-      ->taskGitStack()
-      ->stopOnFail()
-      ->checkout($branch)
-      ->pull()
-      ->run();
-
-    // Checkout any local changes on settings.php
-    if ($this->taskExec('git checkout -- web/sites/default/settings.php')->run()->wasSuccessful()) {
-      $this->say('Cleared up settings.php changes.');
-    }
-
-    // Install website.
-    $this->projectInstallConfig();
-  }
-
-  /**
-   * Update project dependencies.
-   *
-   * @command project:update-dep
-   * @aliases pud
-   */
-  public function updateSiteDependencies() {
-    // Run Composer update.
-    $this
-      ->taskComposerUpdate()
-      ->run();
-  }
+  private $defaultOp = 'cs,unit,behat';
+  private $defaultPaths = 'web/modules/custom,web/themes/contrib/blellow';
 
   /**
    * Import config from filesystem to database.
@@ -112,6 +75,12 @@ class RoboFile extends NGFTasks {
       $this->say('Running unit tests...');
       $this->put($paths);
     }
+
+    if (in_array('behat', $op)) {
+      $this->say('Running behat tests...');
+      $this->behat($paths);
+    }
+
   }
 
   /**

@@ -1,6 +1,6 @@
 <?php
 
-namespace NGF\Robo;
+namespace Cnect\Robo;
 
 use Robo\Config\Config;
 /**

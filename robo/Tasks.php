@@ -1,41 +1,17 @@
 <?php
 
-namespace NGF\Robo;
+namespace Cnect\Robo;
 
 use Robo\Tasks as RoboTasks;
 
 /**
  * Class Tasks.
  *
- * @package NGF\Robo\Task\Build
+ * @package Cnect\Robo\Task\Build
  */
 class Tasks extends RoboTasks {
   use \Boedah\Robo\Task\Drush\loadTasks;
   use \NuvoleWeb\Robo\Task\Config\loadTasks;
-
-   /**
-   * Setup Behat.
-   *
-   * @command project:setup-behat
-   * @aliases psb
-   */
-  public function projectSetupBehat() {
-    $behat_tokens = $this->config('behat.tokens');
-
-    $this->collectionBuilder()->addTaskList([
-      $this->taskFilesystemStack()
-        ->copy($this->config('behat.source'), $this->config('behat.destination'), TRUE),
-      $this->taskReplaceInFile($this->config('behat.destination'))
-        ->from(array_keys($behat_tokens))
-        ->to($behat_tokens),
-      $this->taskReplaceInFile($this->config('behat.destination'))
-        ->from("{drupal_root}")
-        ->to($this->config('project.root')),
-      $this->taskReplaceInFile($this->config('behat.destination'))
-        ->from("{base_url}")
-        ->to($this->config('project.url')),
-    ])->run();
-  }
 
   /**
    * Install site.
