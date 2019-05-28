@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
-# Deploy script.
-RELATIVE_PATH_TO_SETTINGS_FOLDER="$(find . -type d -path '*/sites/default')"
+SETTINGS_FOLDER_RELPATH="$(find . -type d -path '*/sites/default')"
 
+# Deploy script.
 if [ ! -z $DATABASE_USERNAME ]; then
   QUERY_RESULT=$(mysql \
   -u ${DATABASE_USERNAME} \
@@ -11,13 +11,17 @@ if [ ! -z $DATABASE_USERNAME ]; then
 
   TABLE_COUNT=${QUERY_RESULT#"COUNT(*)"}
 
+  # Need a HOME env var set or drush blows up.
+  if [ -z "$HOME" ]; then
+    export HOME=/tmp
+  fi
+
   if [ $TABLE_COUNT == "0" ]; then
 
-    #chmod -R 0777 ${RELATIVE_PATH_TO_SETTINGS_FOLDER}
+    chmod -R 0777 $SETTINGS_FOLDER_RELPATH
 
     # Site is not installed, install it.
     su -s /bin/bash -m -c "
-          . /opt/elasticbeanstalk/support/envvars && \
           vendor/bin/drush site-install minimal -y \
           '--root=./web' \
           --config-dir='../config/sync' \
@@ -30,20 +34,18 @@ if [ ! -z $DATABASE_USERNAME ]; then
           --db-prefix= \
           --db-url='mysql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:3306/${DATABASE_NAME}'" \
           webapp
-
-    #chmod -R 0555 ${RELATIVE_PATH_TO_SETTINGS_FOLDER}
-    #chmod -R 0775 ${RELATIVE_PATH_TO_SETTINGS_FOLDER}/files
-
   else
     # Site is installed, overwrite settings files.
-    rm -rf $RELATIVE_PATH_TO_SETTINGS_FOLDER/settings.php
-    rm -rf $RELATIVE_PATH_TO_SETTINGS_FOLDER/settings.local.php
-    cp .ebextensions/files/settings.php $RELATIVE_PATH_TO_SETTINGS_FOLDER
-    cp .ebextensions/files/settings.local.php $RELATIVE_PATH_TO_SETTINGS_FOLDER
+    rm -rf $SETTINGS_FOLDER_RELPATH/settings.php
+    rm -rf $SETTINGS_FOLDER_RELPATH/settings.local.php
+    cp .ebextensions/files/settings.php $SETTINGS_FOLDER_RELPATH
+    cp .ebextensions/files/settings.local.php $SETTINGS_FOLDER_RELPATH
 
     su -s /bin/bash -c "vendor/bin/drush -r web cache-clear drush" webapp
     su -s /bin/bash -c "vendor/bin/drush -r web updb" webapp
-    su -s /bin/bash -c "vendor/bin/drush -r web csim -y" webapp
+    su -s /bin/bash -c "vendor/bin/drush -r web cim -y" webapp
   fi
-
 fi
+
+# Reset folder and files permissions.
+bash ./scripts/deployments/permissions.sh --drupal_path=$(pwd)/web --drupal_user=webapp --httpd_group=webapp
