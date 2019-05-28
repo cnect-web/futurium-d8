@@ -59,6 +59,7 @@ content:
     region: content
 hidden:
   extra_field_event_map: true
+  fut_collection: true
   fut_content: true
   fut_event_coordinates: true
   fut_event_registration_url: true

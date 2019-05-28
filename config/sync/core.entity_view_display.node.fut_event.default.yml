@@ -45,6 +45,11 @@ targetEntityType: node
 bundle: fut_event
 mode: default
 content:
+  extra_field_event_map:
+    weight: 7
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   fut_collection:
     weight: 110
     label: above
@@ -53,11 +58,6 @@ content:
     third_party_settings: {  }
     type: entity_reference_label
     region: content
-  extra_field_event_map:
-    weight: 7
-    region: content
-    settings: {  }
-    third_party_settings: {  }
   fut_content:
     weight: 2
     label: hidden
