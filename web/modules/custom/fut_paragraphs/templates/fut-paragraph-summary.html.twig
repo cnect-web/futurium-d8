@@ -1,0 +1,14 @@
+{% set _summary = summary|default('') %}
+
+{%
+  set classes = [
+    'fut-paragraph-summary',
+    class,
+  ]
+%}
+
+{% if _summary is not empty %}
+    <div{{ attributes.addClass(classes) }}>
+        {{ _summary }}
+    </div>
+{% endif %}
