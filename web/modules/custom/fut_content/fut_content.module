@@ -5,6 +5,7 @@
  * Contains fut_content.module.
  */
 
+use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -22,7 +23,6 @@ function fut_content_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
-
 
 /**
  * Implements hook_preprocess_node().
@@ -64,3 +64,4 @@ function fut_content_preprocess_node(array &$variables) {
   }
 
 }
+

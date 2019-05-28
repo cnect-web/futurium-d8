@@ -1,0 +1,22 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.fut_event_show_map
+    - node.type.fut_event
+id: node.fut_event.fut_event_show_map
+field_name: fut_event_show_map
+entity_type: node
+bundle: fut_event
+label: 'Show map'
+description: ''
+required: false
+translatable: false
+default_value:
+  -
+    value: 0
+default_value_callback: ''
+settings:
+  on_label: 'On'
+  off_label: 'Off'
+field_type: boolean

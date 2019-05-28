@@ -17,7 +17,7 @@ third_party_settings:
     hidden: false
     disabled: false
     plugins:
-      - openstreetmap
+      - webtools
     dumper: wkt
     delta_handling: default
     failure:

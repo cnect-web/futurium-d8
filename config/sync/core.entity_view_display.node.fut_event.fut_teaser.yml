@@ -36,10 +36,12 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  extra_field_event_map: true
   fut_collection: true
   fut_event_address: true
   fut_event_coordinates: true
   fut_event_date: true
   fut_event_registration_url: true
+  fut_event_show_map: true
   fut_event_visual_identity: true
   langcode: true
