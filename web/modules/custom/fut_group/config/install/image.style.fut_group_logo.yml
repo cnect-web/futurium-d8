@@ -1,0 +1,14 @@
+langcode: en
+status: true
+dependencies: {  }
+name: fut_group_logo
+label: 'Futurium group logo'
+effects:
+  1f819f19-6586-488e-9f39-00e171119190:
+    uuid: 1f819f19-6586-488e-9f39-00e171119190
+    id: image_scale
+    weight: 1
+    data:
+      width: 200
+      height: 200
+      upscale: false

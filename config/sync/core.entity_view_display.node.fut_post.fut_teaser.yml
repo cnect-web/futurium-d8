@@ -36,6 +36,7 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  fut_collection: true
   fut_comments: true
   fut_post_image: true
   fut_tags: true

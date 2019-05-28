@@ -11,3 +11,24 @@ fut_group.link.group_collections:
   description: 'Group collections'
   base_route: 'entity.group.canonical'
   weight: 20
+
+fut_group.link.group_posts:
+  route_name: 'view.fut_group_posts.page_group_posts'
+  title: 'Posts'
+  description: 'Group posts'
+  base_route: 'entity.group.canonical'
+  weight: 30
+
+fut_group.link.group_events:
+  route_name: 'view.fut_group_events.page_group_events'
+  title: 'Events'
+  description: 'Group events'
+  base_route: 'entity.group.canonical'
+  weight: 40
+
+fut_group.link.group_library:
+  route_name: 'view.fut_group_library.page_group_library'
+  title: 'Library'
+  description: 'Group library'
+  base_route: 'entity.group.canonical'
+  weight: 50
