@@ -7,6 +7,7 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\fut_content\MediaExtractor;
 use Drupal\group\Entity\GroupInterface;
+use Drupal\image\Entity\ImageStyle;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder;
 use Drupal\Core\Config\ConfigFactoryInterface;
@@ -143,12 +144,25 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
    *   Array with src and alt.
    */
   protected function getVisualIdentity(GroupInterface $group) {
-    if (empty($group->fut_visual_identity->first()->entity)) {
+    if (empty($group->fut_logo->first()->entity)) {
       return '';
     }
 
-    $media_entity = $group->fut_visual_identity->first()->entity;
-    return $this->mediaExtractor->getImageFromMedia($media_entity,'fut_default_thumbnail');
+    $file_entity = $group->fut_logo->first()->entity;
+
+    $image_src = ImageStyle::load('fut_group_logo')
+      ->buildUrl($file_entity
+        ->get('uri')
+        ->first()
+        ->getString());
+    $alt = $group->fut_logo->alt ?? '';
+
+    $image = [
+      'src' => $image_src,
+      'alt' => $alt,
+    ];
+
+    return $image;
   }
 
   /**
