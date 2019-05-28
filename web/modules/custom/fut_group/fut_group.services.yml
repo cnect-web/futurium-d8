@@ -7,3 +7,8 @@ services:
   fut_group.request_entity_extractor:
     class: Drupal\fut_group\RequestEntityExtractor
     arguments: ['@current_route_match']
+
+  fut_group.route_subscriber:
+    class: Drupal\fut_group\Routing\RouteSubscriber
+    tags:
+      - { name: event_subscriber }

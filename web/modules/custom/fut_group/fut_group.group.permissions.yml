@@ -2,3 +2,8 @@ manage group navigation:
   title: 'Manage group navigation'
   description: 'Allows to manage group navigation without accessing group edit form.'
   restrict access: TRUE
+
+manage group collections:
+  title: 'Manage group collections'
+  description: 'Allows to manage group collections.'
+  restrict access: TRUE

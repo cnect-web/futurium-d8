@@ -1,0 +1,25 @@
+uuid: 4a8939a5-3599-41ce-999a-5b4753552b2a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.taxonomy_term.fut_collections.fut_related_group
+    - taxonomy.vocabulary.fut_collections
+id: taxonomy_term.fut_collections.default
+targetEntityType: taxonomy_term
+bundle: fut_collections
+mode: default
+content:
+  name:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  description: true
+  fut_related_group: true
+  langcode: true
+  path: true

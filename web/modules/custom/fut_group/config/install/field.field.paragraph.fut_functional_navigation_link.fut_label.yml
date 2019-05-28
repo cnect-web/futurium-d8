@@ -1,0 +1,18 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_label
+    - paragraphs.paragraphs_type.fut_functional_navigation_link
+id: paragraph.fut_functional_navigation_link.fut_label
+field_name: fut_label
+entity_type: paragraph
+bundle: fut_functional_navigation_link
+label: Label
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string

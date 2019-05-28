@@ -1,0 +1,22 @@
+uuid: 8cf479ac-8227-46e1-adb9-2550acf5fe0e
+langcode: en
+status: true
+dependencies:
+  config:
+    - taxonomy.vocabulary.fut_tags
+  module:
+    - text
+id: taxonomy_term.fut_tags.default
+targetEntityType: taxonomy_term
+bundle: fut_tags
+mode: default
+content:
+  description:
+    label: hidden
+    type: text_default
+    weight: 0
+    region: content
+    settings: {  }
+    third_party_settings: {  }
+hidden:
+  langcode: true

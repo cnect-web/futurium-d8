@@ -337,9 +337,9 @@ display:
         - 'user.node_grants:view'
       tags:
         - 'config:field.storage.node.fut_content'
-  page_1:
+  page_group_library:
     display_plugin: page
-    id: page_1
+    id: page_group_library
     display_title: Page
     position: 1
     display_options:

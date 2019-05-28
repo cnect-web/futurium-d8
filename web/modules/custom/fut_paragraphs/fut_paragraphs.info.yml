@@ -6,3 +6,4 @@ package: 'Futurium'
 dependencies:
   - fut_media
   - inline_entity_form
+  - paragraphs

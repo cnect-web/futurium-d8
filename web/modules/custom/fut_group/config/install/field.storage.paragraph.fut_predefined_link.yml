@@ -1,16 +1,20 @@
-uuid: dcc24b37-3029-4229-b51d-e182c0bd0570
 langcode: en
 status: true
 dependencies:
   module:
     - options
     - paragraphs
+_core:
+  default_config_hash: 3L3HGNtDjEG_97N5-3J-yKBwACn61NpkghM6JRj_kE4
 id: paragraph.fut_predefined_link
 field_name: fut_predefined_link
 entity_type: paragraph
 type: list_string
 settings:
   allowed_values:
+    -
+      value: about
+      label: About
     -
       value: posts
       label: Posts
