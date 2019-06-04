@@ -107,16 +107,18 @@ class FutSummaryFieldFormatter extends EntityReferenceFormatterBase implements C
   public function viewElements(FieldItemListInterface $items, $langcode) {
     $elements = [];
 
-    foreach ($this->getEntitiesToView($items, $langcode) as $delta => $entity) {
+    foreach ($this->getEntitiesToView($items, $langcode) as $entity) {
 
       // Check from available paragraphs which one mach formatter settings.
       if ($entity->id() && $entity->bundle() == $this->getSetting('paragraph_types')) {
 
         $text_summary = $this->getSummary($entity);
 
-        $elements[$delta] = [
-          '#type' => 'markup',
-          '#markup' => $text_summary,
+        $class = 'fut-paragraph-summary-' . $entity->getParentEntity()->bundle();
+        $elements[] = [
+          '#theme' => 'fut_paragraph_summary',
+          '#class' => $class,
+          '#summary' => $text_summary,
         ];
         break;
       }

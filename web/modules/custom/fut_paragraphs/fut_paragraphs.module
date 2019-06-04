@@ -22,3 +22,17 @@ function fut_paragraphs_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * Implements hook_theme().
+ */
+function fut_paragraphs_theme($existing, $type, $theme, $path) {
+  return [
+    'fut_paragraph_summary' => [
+      'variables' => [
+        'summary' => NULL,
+        'class' => NULL,
+      ],
+    ],
+  ];
+}
