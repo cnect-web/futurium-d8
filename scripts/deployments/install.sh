@@ -35,12 +35,7 @@ if [ ! -z $DATABASE_USERNAME ]; then
           --db-url='mysql://${DATABASE_USERNAME}:${DATABASE_PASSWORD}@${DATABASE_HOST}:3306/${DATABASE_NAME}'" \
           webapp
   else
-    # Site is installed, overwrite settings files.
-    rm -rf $SETTINGS_FOLDER_RELPATH/settings.php
-    rm -rf $SETTINGS_FOLDER_RELPATH/settings.local.php
-    cp .ebextensions/files/settings.php $SETTINGS_FOLDER_RELPATH
-    cp .ebextensions/files/settings.local.php $SETTINGS_FOLDER_RELPATH
-
+    # Site is installed, just update.
     su -s /bin/bash -c "vendor/bin/drush -r web cache-clear drush" webapp
     su -s /bin/bash -c "vendor/bin/drush -r web updb" webapp
     su -s /bin/bash -c "vendor/bin/drush -r web cim -y" webapp
