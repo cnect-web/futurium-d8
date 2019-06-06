@@ -1,0 +1,5 @@
+name: 'webtools'
+type: module
+description: 'Module provides all webtools related features'
+core: 8.x
+package: 'Webtools'

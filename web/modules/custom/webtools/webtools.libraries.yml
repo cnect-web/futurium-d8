@@ -1,0 +1,3 @@
+webtools-smart-loader:
+  js:
+    //europa.eu/webtools/load.js: { type: external , attributes: { defer: true } }

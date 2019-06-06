@@ -204,7 +204,7 @@ class WebtoolsGeofieldFormatter extends FormatterBase implements ContainerFactor
         '#value' => $json,
         '#attached' => [
           'library' => [
-            'fut_content/webtools-smart-loader',
+            'webtools/webtools-smart-loader',
           ],
           'drupalSettings' => [
             'fut_content' => [
