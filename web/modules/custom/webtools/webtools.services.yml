@@ -1,0 +1,4 @@
+services:
+  webtools.webtools_map_helper:
+    class: Drupal\webtools\WebtoolsMapHelper
+    arguments: ['@entity_type.manager', '@renderer']

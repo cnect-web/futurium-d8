@@ -8,7 +8,7 @@
       // drupalSettings.fut_content.event_map
 
       var map = L.map(obj, {
-        center: drupalSettings.fut_content.ec_map[$(obj).parent().attr('data-map-id')].center,
+        center: drupalSettings.webtools.ec_map[$(obj).parent().attr('data-map-id')].center,
         zoom: 15,
         background: "osmec"
       });
@@ -17,7 +17,7 @@
 
 
         var map_identifier = $(this).attr('data-map-id');
-        var markers = L.wt.markers(drupalSettings.fut_content.ec_map[map_identifier].featureCollection, {color:"blue"} ).addTo(map);
+        var markers = L.wt.markers(drupalSettings.webtools.ec_map[map_identifier].featureCollection, {color:"blue"} ).addTo(map);
 
 
 
