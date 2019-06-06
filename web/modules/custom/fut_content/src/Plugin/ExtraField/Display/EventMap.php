@@ -67,10 +67,10 @@ class EventMap extends ExtraFieldDisplayBase {
    *   Return TRUE if user checks "Show map" field.
    */
   private function eventShowMap(ContentEntityInterface $entity) {
-    if ($entity->get('fut_event_show_map')->isEmpty()) {
-      return FALSE;
+    if ($entity->get('fut_event_show_map')->value) {
+      return TRUE;
     }
-    return TRUE;
+    return FALSE;
   }
 
 }
