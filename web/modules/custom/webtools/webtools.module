@@ -5,6 +5,7 @@
  * Contains webtools.module.
  */
 
+use Drupal\Core\Render\Element;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -20,5 +21,33 @@ function webtools_help($route_name, RouteMatchInterface $route_match) {
       return $output;
 
     default:
+  }
+}
+
+/**
+ * Implements hook_theme().
+ */
+function webtools_theme($existing, $type, $theme, $path) {
+  return [
+    'ec_map' => [
+      'render element' => 'elements',
+    ],
+  ];
+}
+
+/**
+ * Prepares variables for event_map_wrapper templates.
+ *
+ * Template: ec-map.html.twig.
+ *
+ * @param array $variables
+ *   An associative array containing:
+ *   - elements: An array of elements to display.
+ */
+function template_preprocess_ec_map(array &$variables) {
+  // Helpful $content variable for templates.
+  $variables += ['content' => []];
+  foreach (Element::children($variables['elements']) as $key) {
+    $variables['content'][$key] = $variables['elements'][$key];
   }
 }
