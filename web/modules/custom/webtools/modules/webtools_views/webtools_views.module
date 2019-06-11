@@ -23,7 +23,6 @@ function webtools_views_help($route_name, RouteMatchInterface $route_match) {
   }
 }
 
-
 /**
  * Implements hook_views_data().
  */

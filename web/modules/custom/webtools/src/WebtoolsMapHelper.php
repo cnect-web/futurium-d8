@@ -1,7 +1,9 @@
 <?php
 
 namespace Drupal\webtools;
+
 use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\Core\Entity\EntityFieldManagerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Render\RendererInterface;
 use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
@@ -12,23 +14,32 @@ use Drupal\geofield\Plugin\Field\FieldType\GeofieldItem;
 class WebtoolsMapHelper {
 
   /**
-   * Drupal\Core\Entity\EntityTypeManagerInterface definition.
+   * The entity type manager.
    *
    * @var \Drupal\Core\Entity\EntityTypeManagerInterface
    */
   protected $entityTypeManager;
   /**
-   * Drupal\Core\Render\RendererInterface definition.
+   * The renderer.
    *
    * @var \Drupal\Core\Render\RendererInterface
    */
   protected $renderer;
+
+  /**
+   * The entity manager.
+   *
+   * @var \Drupal\Core\Entity\EntityFieldManagerInterface
+   */
+  protected $entityFieldManager;
+
   /**
    * Constructs a new WebtoolsMapHelper object.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, RendererInterface $renderer, EntityFieldManagerInterface $entity_field_manager) {
     $this->entityTypeManager = $entity_type_manager;
     $this->renderer = $renderer;
+    $this->entityFieldManager = $entity_field_manager;
   }
 
   /**
@@ -67,31 +78,44 @@ class WebtoolsMapHelper {
     return $feature;
   }
 
-
   /**
+   * Creates properties array for multiple markers from a view $result array.
+   *
+   * Here we expect that entities in result have at least one geofield.
+   *
    * @param array $result
+   *   Result from a view.
    *
    * @return array
+   *   Array with multiple markers.
+   *
    * @throws \Exception
    */
-  public function prepareMultipleMarkers(array $result){
+  public function prepareMultipleMarkers(array $result) {
 
     $features = [];
 
-    foreach ($result as $resultRow){
-      if (isset($resultRow->_entity)){
+    foreach ($result as $resultRow) {
+      if (isset($resultRow->_entity)) {
         /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
         $entity = $resultRow->_entity;
 
-        // todo somehow i need to make fut_event_coordinates (coordinates field configurable)
-        $features[] = $this->prepareMarker($entity,  $entity->fut_event_coordinates->first());
+        $entity_fields = $this->entityFieldManager->getFieldDefinitions($entity->getEntityTypeId(), $entity->bundle());
 
+        // Find first field of type geofield to get coordinates.
+        $available_fields = array_map(function ($e) {
+          return $e->getType();
+        }, $entity_fields);
+
+        $geofield = array_search('geofield', $available_fields);
+
+        if ($geofield) {
+          $features[] = $this->prepareMarker($entity, $entity->{$geofield}->first());
+        }
       }
     }
     return $features;
-
   }
-
 
   /**
    * Get array with coordinates.
@@ -109,6 +133,5 @@ class WebtoolsMapHelper {
     ];
   }
 
-  // TODO create interface for this service
-
+  // TODO create interface for this service.
 }

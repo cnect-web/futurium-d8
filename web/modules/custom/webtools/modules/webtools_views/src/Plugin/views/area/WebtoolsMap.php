@@ -8,7 +8,6 @@ use Drupal\views\Plugin\views\area\AreaPluginBase;
 use Drupal\webtools\WebtoolsMapHelper;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-
 /**
  * Views area text handler.
  *
@@ -66,18 +65,32 @@ class WebtoolsMap extends AreaPluginBase {
     );
   }
 
-
   /**
    * {@inheritdoc}
    */
   protected function defineOptions() {
     $options = parent::defineOptions();
-//    $options['content'] = [
-//      'contains' => [
-//        'value' => ['default' => ''],
-//        'format' => ['default' => NULL],
-//      ],
-//    ];
+
+    $options['zoom'] = [
+      'contains' => [
+        'initial_zoom' => ['default' => 4],
+        'min_zoom' => ['default' => 2],
+        'max_zoom' => ['default' => 10],
+      ],
+    ];
+
+    $options['map_center'] = [
+      'contains' => [
+        'center_lat' => ['default' => 50.84],
+        'center_lon' => ['default' => 4.36],
+        'fitbounds' => ['default' => 1],
+      ],
+    ];
+
+    $options['tile'] = ['default' => 'osmec'];
+
+    $options['height'] = ['default' => 430];
+
     return $options;
   }
 
@@ -87,33 +100,108 @@ class WebtoolsMap extends AreaPluginBase {
   public function buildOptionsForm(&$form, FormStateInterface $form_state) {
     parent::buildOptionsForm($form, $form_state);
 
-//    $form['content'] = [
-//      '#title' => $this->t('Content'),
-//      '#type' => 'text_format',
-//      '#default_value' => $this->options['content']['value'],
-//      '#rows' => 6,
-//      '#format' => isset($this->options['content']['format']) ? $this->options['content']['format'] : filter_default_format(),
-//      '#editor' => FALSE,
-//    ];
-  }
+    // Defines zoom options.
+    $zoom_options = [
+      0 => $this->t('0 - Low/Far'),
+      18 => $this->t('18 - High/Close'),
+    ];
 
-  /**
-   * {@inheritdoc}
-   */
-//  public function preQuery() {
-//    $content = $this->options['content']['value'];
-//    // Check for tokens that require a total row count.
-//    if (strpos($content, '[view:page-count]') !== FALSE || strpos($content, '[view:total-rows]') !== FALSE) {
-//      $this->view->get_total_rows = TRUE;
-//    }
-//  }
+    for ($i = 1; $i < 18; $i++) {
+      $zoom_options[$i] = $i;
+    }
+
+    ksort($zoom_options);
+
+    $form['zoom'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Zoom'),
+      'initial_zoom' => [
+        '#title' => $this->t('Initial zoom level'),
+        '#description' => $this->t('The starting zoom level when this map is rendered.  Restricted by min and max zoom settings.'),
+        '#type' => 'select',
+        '#options' => $zoom_options,
+        '#default_value' => $this->options['zoom']['initial_zoom'],
+      ],
+      'min_zoom' => [
+        '#title' => $this->t('Minimum zoom level'),
+        '#description' => $this->t('The minimum zoom level allowed. (How far away can you view from?)'),
+        '#type' => 'select',
+        '#options' => $zoom_options,
+        '#default_value' => $this->options['zoom']['min_zoom'],
+      ],
+      'max_zoom' => [
+        '#title' => $this->t('Maximum zoom level'),
+        '#description' => $this->t('The maximum zoom level allowed. (How close in can you get?).'),
+        '#type' => 'select',
+        '#options' => $zoom_options,
+        '#default_value' => $this->options['zoom']['max_zoom'],
+      ],
+      'info' => [
+        '#markup' => $this->t('Please check <a href=":information" target="_blank">Map - Available tile services</a>info page for more inf on tiles and max zoom.', [':information' => 'https://webgate.ec.europa.eu/fpfis/wikis/display/webtools/Map+-+Available+tile+services']),
+      ],
+    ];
+
+    $form['map_center'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Map center'),
+      '#description' => $this->t('Center of the map. E.g. latitude 50.84 and 4.36 longitude for Brussels'),
+      'center_lat' => [
+        '#title' => $this->t('Latitude'),
+        '#type' => 'textfield',
+        '#default_value' => $this->options['map_center']['center_lat'],
+      ],
+      'center_lon' => [
+        '#title' => $this->t('Longitude'),
+        '#type' => 'textfield',
+        '#default_value' => $this->options['map_center']['center_lon'],
+
+      ],
+      'fitbounds' => [
+        '#type' => 'checkbox',
+        '#title' => $this->t('Fit map to visible markers'),
+        '#description' => $this->t('This sets the center of the map automatically based on the visible markers. It ignores the map center coordinates set above.'),
+        '#default_value' => $this->options['map_center']['fitbounds'],
+      ],
+    ];
+
+    $form['tile'] = [
+      '#type' => 'select',
+      '#title' => t('Tiles'),
+      '#description' => t('Map background'),
+      '#options' => [
+        'osmec' => 'Open Street Map customised for European Commission (Max zoom 18)',
+        'graybg' => 'Gray background with country outlines (Max zoom 8)',
+        'coast' => 'Gray background with continent outlines (Max zoom 11)',
+        'gray' => 'Gray shaded relief of earth (Max zoom 6)',
+        'hypso' => 'Climate shaded relief of earth (Max zoom 6)',
+        'natural' => 'Landcover shaded relief of earth (Max zoom 6)',
+        'bmarble' => 'Satellite  images of earth (Max zoom 7)',
+        'copernicus003' => 'Copernicus Core003 mosaic (Max zoom 16)',
+        'countryboundaries_world' => 'Country boundaries world (Max zoom 12)',
+        'roadswater_europe' => 'Roads and waterways Europe (Max zoom 12)',
+        'countrynames_europe' => 'Country names Europe (Max zoom 12)',
+        'citynames_europe' => 'City names Europe (Max zoom 12)',
+        'sentinelcloudless' => 'Sentinel Cloudless (Max zoom 18)',
+      ],
+      '#default_value' => $this->options['tile'],
+    ];
+
+    $form['height'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Height'),
+      '#description' => $this->t('To ensure the map menu displays correctly, it is recommended to choose a height higher than 300px.'),
+      '#field_suffix' => $this->t('px'),
+      '#default_value' => $this->options['height'],
+    ];
+
+  }
 
   /**
    * {@inheritdoc}
    */
   public function render($empty = FALSE) {
 
-    if ($empty){
+    if ($empty) {
       return NULL;
     }
 
@@ -135,7 +223,7 @@ class WebtoolsMap extends AreaPluginBase {
         ],
         'drupalSettings' => [
           'webtools' => [
-            'ec_map' => []
+            'ec_map' => [],
           ],
         ],
       ],
@@ -143,20 +231,25 @@ class WebtoolsMap extends AreaPluginBase {
 
     $map_identifier = $this->view->id() . '-' . $this->view->current_display;
 
-    //todo this needs review how to organize it better (identifier)
     $map_properties["#attached"]['drupalSettings']['webtools']['ec_map'][$map_identifier] = [
       'featureCollection' => [
         'type' => 'FeatureCollection',
         'features' => $this->webtoolsMapHelper->prepareMultipleMarkers($this->view->result),
       ],
-      'center' => [
-        40.610273,
-        8.535205
+      'zoom' => [
+        'initial_zoom' => $this->options['zoom']['initial_zoom'],
+        'min_zoom' => $this->options['zoom']['min_zoom'],
+        'max_zoom' => $this->options['zoom']['max_zoom'],
       ],
+      'center' => [
+        $this->options['map_center']['center_lat'],
+        $this->options['map_center']['center_lon'],
+      ],
+      'fitbounds' => $this->options['map_center']['fitbounds'],
+      'tile' => $this->options['tile'],
+      'height' => $this->options['height'],
+
     ];
-
-    //todo missing center (for that i need a config form for this plugin)
-
 
     $map = [
       '#theme' => 'ec_map',
@@ -170,9 +263,7 @@ class WebtoolsMap extends AreaPluginBase {
       'map_properties' => $map_properties,
     ];
 
-
     return $map;
-
   }
 
 }
