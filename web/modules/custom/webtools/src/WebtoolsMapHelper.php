@@ -49,16 +49,18 @@ class WebtoolsMapHelper {
    *   Event entity.
    * @param \Drupal\geofield\Plugin\Field\FieldType\GeofieldItem $current_item
    *   Current item/marker.
+   * @param string $view_mode
+   *   View mode that we use to render marker description.
    *
    * @return array
    *   Properties array with marker.
    *
    * @throws \Exception
    */
-  public function prepareMarker(ContentEntityInterface $entity, GeofieldItem $current_item) {
+  public function prepareMarker(ContentEntityInterface $entity, GeofieldItem $current_item, $view_mode = 'map_description_default') {
 
     $view_builder = $this->entityTypeManager->getViewBuilder($entity->getEntityTypeId());
-    $description_elements = $view_builder->view($entity, 'map_description_default');
+    $description_elements = $view_builder->view($entity, $view_mode);
     $description = $this->renderer->render($description_elements);
 
     $coordinates = array_reverse($this->getCoordinates($current_item));

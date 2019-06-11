@@ -166,8 +166,8 @@ class WebtoolsMap extends AreaPluginBase {
 
     $form['tile'] = [
       '#type' => 'select',
-      '#title' => t('Tiles'),
-      '#description' => t('Map background'),
+      '#title' => $this->t('Tiles'),
+      '#description' => $this->t('Map background'),
       '#options' => [
         'osmec' => 'Open Street Map customised for European Commission (Max zoom 18)',
         'graybg' => 'Gray background with country outlines (Max zoom 8)',

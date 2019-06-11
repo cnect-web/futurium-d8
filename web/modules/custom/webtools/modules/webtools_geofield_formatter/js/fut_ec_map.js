@@ -9,8 +9,11 @@
 
       var map = L.map(obj, {
         center: drupalSettings.webtools.ec_map[$(obj).parent().attr('data-map-id')].center,
-        zoom: 15,
-        background: "osmec"
+        minZoom: drupalSettings.webtools.ec_map[$(obj).parent().attr('data-map-id')].zoom.min_zoom,
+        maxZoom: drupalSettings.webtools.ec_map[$(obj).parent().attr('data-map-id')].zoom.max_zoom,
+        zoom: drupalSettings.webtools.ec_map[$(obj).parent().attr('data-map-id')].zoom.initial_zoom,
+        height: drupalSettings.webtools.ec_map[$(obj).parent().attr('data-map-id')].height,
+        background: drupalSettings.webtools.ec_map[$(obj).parent().attr('data-map-id')].tile,
       });
 
       $('.ec-map').each(function () {

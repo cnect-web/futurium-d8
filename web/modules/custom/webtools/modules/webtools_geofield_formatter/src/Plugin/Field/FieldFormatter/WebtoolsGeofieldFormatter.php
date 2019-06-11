@@ -100,8 +100,18 @@ class WebtoolsGeofieldFormatter extends FormatterBase implements ContainerFactor
    * {@inheritdoc}
    */
   public static function defaultSettings() {
+
     return [
-      'map_view_mode' => 'map_description_default',
+      'zoom' => [
+        'initial_zoom' => 4,
+        'min_zoom' => 2,
+        'max_zoom' => 10,
+      ],
+      'tile' => 'osmec',
+      'height' => 430,
+      'marker_description' => [
+        'map_view_mode' => 'map_description_default',
+      ],
     ] + parent::defaultSettings();
   }
 
@@ -111,25 +121,98 @@ class WebtoolsGeofieldFormatter extends FormatterBase implements ContainerFactor
   public function settingsForm(array $form, FormStateInterface $form_state) {
     $form = parent::settingsForm($form, $form_state);
 
-    $form['formatter_warning'] = [
-      '#type' => 'item',
-      '#title' => $this->t('Warning'),
-      '#markup' => $this->t('The use of a view mode where this same formatter is used will lead to infinite loop.'),
+    // Defines zoom options.
+    $zoom_options = [
+      0 => $this->t('0 - Low/Far'),
+      18 => $this->t('18 - High/Close'),
     ];
 
-    $form['formatter_help'] = [
-      '#type' => 'item',
-      '#title' => $this->t('Info'),
-      '#markup' => $this->t('Make use of Map description default view mode by enabling it in CUSTOM DISPLAY SETTINGS.'),
+    for ($i = 1; $i < 18; $i++) {
+      $zoom_options[$i] = $i;
+    }
+
+    ksort($zoom_options);
+
+    $form['zoom'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Zoom'),
+      'initial_zoom' => [
+        '#title' => $this->t('Initial zoom level'),
+        '#description' => $this->t('The starting zoom level when this map is rendered.  Restricted by min and max zoom settings.'),
+        '#type' => 'select',
+        '#options' => $zoom_options,
+        '#default_value' => $this->getSetting('zoom')['initial_zoom'],
+      ],
+      'min_zoom' => [
+        '#title' => $this->t('Minimum zoom level'),
+        '#description' => $this->t('The minimum zoom level allowed. (How far away can you view from?)'),
+        '#type' => 'select',
+        '#options' => $zoom_options,
+        '#default_value' => $this->getSetting('zoom')['min_zoom'],
+      ],
+      'max_zoom' => [
+        '#title' => $this->t('Maximum zoom level'),
+        '#description' => $this->t('The maximum zoom level allowed. (How close in can you get?).'),
+        '#type' => 'select',
+        '#options' => $zoom_options,
+        '#default_value' => $this->getSetting('zoom')['max_zoom'],
+      ],
+      'info' => [
+        '#markup' => $this->t('Please check <a href=":information" target="_blank">Map - Available tile services</a>info page for more inf on tiles and max zoom.', [':information' => 'https://webgate.ec.europa.eu/fpfis/wikis/display/webtools/Map+-+Available+tile+services']),
+      ],
     ];
 
-    $form['map_view_mode'] = [
+    $form['tile'] = [
       '#type' => 'select',
-      '#title' => $this->t('In map view mode'),
-      '#description' => $this->t('Select a view mode to render current entity in marker description'),
-      '#options' => $this->getInMapViewMode(),
-      '#default_value' => $this->getSetting('in_map_view_mode'),
-      '#required' => TRUE,
+      '#title' => $this->t('Tiles'),
+      '#description' => $this->t('Map background'),
+      '#options' => [
+        'osmec' => 'Open Street Map customised for European Commission (Max zoom 18)',
+        'graybg' => 'Gray background with country outlines (Max zoom 8)',
+        'coast' => 'Gray background with continent outlines (Max zoom 11)',
+        'gray' => 'Gray shaded relief of earth (Max zoom 6)',
+        'hypso' => 'Climate shaded relief of earth (Max zoom 6)',
+        'natural' => 'Landcover shaded relief of earth (Max zoom 6)',
+        'bmarble' => 'Satellite  images of earth (Max zoom 7)',
+        'copernicus003' => 'Copernicus Core003 mosaic (Max zoom 16)',
+        'countryboundaries_world' => 'Country boundaries world (Max zoom 12)',
+        'roadswater_europe' => 'Roads and waterways Europe (Max zoom 12)',
+        'countrynames_europe' => 'Country names Europe (Max zoom 12)',
+        'citynames_europe' => 'City names Europe (Max zoom 12)',
+        'sentinelcloudless' => 'Sentinel Cloudless (Max zoom 18)',
+      ],
+      '#default_value' => $this->getSetting('tile'),
+    ];
+
+    $form['height'] = [
+      '#type' => 'textfield',
+      '#title' => $this->t('Height'),
+      '#description' => $this->t('To ensure the map menu displays correctly, it is recommended to choose a height higher than 300px.'),
+      '#field_suffix' => $this->t('px'),
+      '#default_value' => $this->getSetting('height'),
+    ];
+
+    $form['marker_description'] = [
+      '#type' => 'fieldset',
+      '#title' => $this->t('Marker description'),
+      'formatter_warning' => [
+        '#type' => 'item',
+        '#title' => $this->t('Warning'),
+        '#markup' => $this->t('The use of a view mode where this same formatter is used will lead to infinite loop.'),
+      ],
+      'formatter_help' => [
+        '#type' => 'item',
+        '#title' => $this->t('Info'),
+        '#markup' => $this->t('Make use of Map description default view mode by enabling it in CUSTOM DISPLAY SETTINGS.'),
+      ],
+      'map_view_mode' => [
+        '#type' => 'select',
+        '#title' => $this->t('In map view mode'),
+        '#description' => $this->t('Select a view mode to render current entity in marker description'),
+        '#options' => $this->getInMapViewMode(),
+        '#default_value' => $this->getSetting('marker_description')['map_view_mode'],
+        '#required' => TRUE,
+      ],
     ];
 
     return $form;
@@ -141,7 +224,37 @@ class WebtoolsGeofieldFormatter extends FormatterBase implements ContainerFactor
   public function settingsSummary() {
     $summary = [];
 
-    $map_view_mode_setting = $this->getSetting('map_view_mode');
+    $map_initial_zoom_setting = $this->getSetting('zoom')['initial_zoom'];
+    if (!empty($map_initial_zoom_setting)) {
+      $summary[] = $this->t('Map initial zoom: @map_initial_zoom',
+        ['@map_initial_zoom' => $map_initial_zoom_setting]);
+    }
+
+    $map_min_zoom_setting = $this->getSetting('zoom')['min_zoom'];
+    if (!empty($map_min_zoom_setting)) {
+      $summary[] = $this->t('Map min zoom: @map_min_zoom',
+        ['@map_min_zoom' => $map_min_zoom_setting]);
+    }
+
+    $map_max_zoom_setting = $this->getSetting('zoom')['max_zoom'];
+    if (!empty($map_max_zoom_setting)) {
+      $summary[] = $this->t('Map max zoom: @map_max_zoom',
+        ['@map_max_zoom' => $map_max_zoom_setting]);
+    }
+
+    $map_tile_setting = $this->getSetting('tile');
+    if (!empty($map_tile_setting)) {
+      $summary[] = $this->t('Map tile: @map_tile',
+        ['@map_tile' => $map_tile_setting]);
+    }
+
+    $map_height_setting = $this->getSetting('height');
+    if (!empty($map_height_setting)) {
+      $summary[] = $this->t('Map height: @map_height',
+        ['@map_height' => $map_height_setting]);
+    }
+
+    $map_view_mode_setting = $this->getSetting('marker_description')['map_view_mode'];
     if (!empty($map_view_mode_setting)) {
       $summary[] = $this->t('Map View Mode: @map_view_mode',
         ['@map_view_mode' => $map_view_mode_setting]);
@@ -185,9 +298,22 @@ class WebtoolsGeofieldFormatter extends FormatterBase implements ContainerFactor
                 $map_identifier => [
                   'featureCollection' => [
                     'type' => 'FeatureCollection',
-                    'features' => [$this->webtoolsMapHelper->prepareMarker($entity, $item)],
+                    'features' => [
+                      $this->webtoolsMapHelper->prepareMarker(
+                        $entity,
+                        $item,
+                        $this->getSetting('marker_description')['map_view_mode']
+                      ),
+                    ],
+                  ],
+                  'zoom' => [
+                    'initial_zoom' => $this->getSetting('zoom')['initial_zoom'],
+                    'min_zoom' => $this->getSetting('zoom')['min_zoom'],
+                    'max_zoom' => $this->getSetting('zoom')['max_zoom'],
                   ],
                   'center' => $this->webtoolsMapHelper->getCoordinates($item),
+                  'tile' => $this->getSetting('tile'),
+                  'height' => $this->getSetting('height'),
                 ],
               ],
             ],
