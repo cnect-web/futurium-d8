@@ -12,6 +12,7 @@ dependencies:
     - field.field.node.fut_event.fut_event_visual_identity
     - node.type.fut_event
   module:
+    - datetime_range
     - fut_paragraphs
     - user
 id: node.fut_event.fut_teaser
@@ -30,18 +31,23 @@ content:
       wordsafe: true
       ellipsis: true
     third_party_settings: {  }
-  links:
+  fut_event_date:
+    type: daterange_default
     weight: 0
     region: content
-    settings: {  }
+    label: hidden
+    settings:
+      separator: '-'
+      timezone_override: ''
+      format_type: medium
     third_party_settings: {  }
 hidden:
   extra_field_event_map: true
   fut_collection: true
   fut_event_address: true
   fut_event_coordinates: true
-  fut_event_date: true
   fut_event_registration_url: true
   fut_event_show_map: true
   fut_event_visual_identity: true
   langcode: true
+  links: true
