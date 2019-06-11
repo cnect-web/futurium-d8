@@ -8,16 +8,33 @@ dependencies:
     - field.field.node.fut_event.fut_event_coordinates
     - field.field.node.fut_event.fut_event_date
     - field.field.node.fut_event.fut_event_registration_url
+    - field.field.node.fut_event.fut_event_show_map
     - field.field.node.fut_event.fut_event_visual_identity
     - node.type.fut_event
   module:
     - address
-    - geofield
+    - field_group
     - inline_entity_form
     - link
     - paragraphs
     - path
     - single_datetime
+third_party_settings:
+  field_group:
+    group_event_location:
+      children:
+        - fut_event_address
+        - fut_event_show_map
+      parent_name: ''
+      weight: 11
+      format_type: fieldset
+      format_settings:
+        id: ''
+        classes: ''
+        description: ''
+        required_fields: true
+      label: 'Event Location'
+      region: content
 id: node.fut_event.default
 targetEntityType: node
 bundle: fut_event
@@ -36,7 +53,7 @@ content:
     type: options_select
     region: content
   fut_content:
-    weight: 26
+    weight: 14
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -48,20 +65,13 @@ content:
     type: entity_reference_paragraphs
     region: content
   fut_event_address:
-    weight: 11
+    weight: 12
     settings: {  }
     third_party_settings: {  }
     type: address_default
     region: content
-  fut_event_coordinates:
-    weight: 13
-    settings:
-      html5_geolocation: false
-    third_party_settings: {  }
-    type: geofield_latlon
-    region: content
   fut_event_date:
-    weight: 12
+    weight: 13
     settings:
       hour_format: 24h
       allow_times: '15'
@@ -85,6 +95,13 @@ content:
       placeholder_title: ''
     third_party_settings: {  }
     type: link_default
+    region: content
+  fut_event_show_map:
+    weight: 13
+    settings:
+      display_label: true
+    third_party_settings: {  }
+    type: boolean_checkbox
     region: content
   fut_event_visual_identity:
     weight: 9
@@ -158,4 +175,5 @@ content:
     region: content
     settings: {  }
     third_party_settings: {  }
-hidden: {  }
+hidden:
+  fut_event_coordinates: true

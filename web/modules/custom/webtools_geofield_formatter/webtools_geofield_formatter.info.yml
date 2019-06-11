@@ -1,0 +1,7 @@
+name: 'Webtools Geofield Formatter'
+type: module
+description: 'Provides formatter to display geofield as a map using webtools maps service.'
+core: 8.x
+package: 'Webtools'
+dependencies:
+  - geofield

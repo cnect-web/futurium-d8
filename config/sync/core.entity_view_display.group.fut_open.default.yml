@@ -40,7 +40,7 @@ content:
   fut_navigation_menu:
     type: fut_group_navigation_field_formatter
     weight: 6
-    label: above
+    label: hidden
     settings: {  }
     third_party_settings: {  }
     region: content

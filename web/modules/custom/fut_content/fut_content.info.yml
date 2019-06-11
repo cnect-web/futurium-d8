@@ -10,3 +10,5 @@ dependencies:
   - node
   - single_datetime
   - taxonomy
+  - extra_field
+  - webtools_geofield_formatter
