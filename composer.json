@@ -66,9 +66,7 @@
         "drupal/config_devel": "^1.2",
         "drupal/devel": "^2.0",
         "drupal/drupal-extension": "^3.4",
-        "drupal/config_devel": "^1.2",
         "drupal/default_content_deploy": "^1.0@alpha",
-        "drupal/devel": "^2.0",
         "skounis/fut_sample_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
     },
@@ -119,9 +117,6 @@
             "enable-patching" : true,
             "drupal/core": {
                 "LanguageNegotiator::updateConfiguration() is passed a NULL": "https://www.drupal.org/files/issues/2019-02-28/language-2718657-17.patch"
-            },
-            "drupal/adminimal_theme": {
-                "Colors in horizontal and vertical toolbar need fixing": "https://www.drupal.org/files/issues/2019-02-13/adminimal_theme_fix_toolbar_colors-2826369-19.patch"
             },
             "drupal/views": {
                 "Cannot use relationship for rendered entity on Views": "https://www.drupal.org/files/issues/2019-03-15/2457999-189.patch"
