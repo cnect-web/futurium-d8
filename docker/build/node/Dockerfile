@@ -36,5 +36,5 @@ RUN if [ -z "`getent group ${GROUP_ID}`" ]; then \
 
 # Setup NPM.
 # ---------------------------------------------------------------------------------------------------------------
-RUN npm config set -g proxy ${HTTP_PROXY}
-RUN npm config set -g https-proxy ${HTTPS_PROXY}
+RUN if [ ! -z $HTTP_PROXY ]; then npm config set -g proxy ${HTTP_PROXY} fi
+RUN if [ ! -z $HTTPS_PROXY ]; then npm config set -g https-proxy ${HTTPS_PROXY}fi
