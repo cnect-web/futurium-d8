@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains webtools_geofield_formatter.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function webtools_geofield_formatter_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the webtools_geofield_formatter module.
+    case 'help.page.webtools_geofield_formatter':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides formatter to display geofield as a map using webtools maps service.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

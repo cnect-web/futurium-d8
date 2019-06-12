@@ -3,10 +3,12 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.node.fut_teaser
     - node.type.fut_event
   module:
     - group
     - node
+    - webtools_views
 id: fut_group_events
 label: 'Group events'
 module: views
@@ -70,7 +72,8 @@ display:
       row:
         type: 'entity:node'
         options:
-          view_mode: teaser
+          relationship: none
+          view_mode: fut_teaser
       fields:
         title:
           id: title
@@ -198,7 +201,33 @@ display:
             label: ''
           granularity: second
       title: 'Group events'
-      header: {  }
+      header:
+        webtools_map:
+          id: webtools_map
+          table: views
+          field: webtools_map
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          zoom:
+            initial_zoom: '9'
+            min_zoom: '5'
+            max_zoom: '12'
+          map_center:
+            center_lat: '50.84'
+            center_lon: '4.36'
+            fitbounds: 1
+          tile: osmec
+          height: '630'
+          initial_zoom: 4
+          min_zoom: 2
+          max_zoom: 10
+          center_lat: 50.84
+          center_lon: 4.36
+          fitbounds: true
+          tiles: osmec
+          plugin_id: webtools_map
       footer: {  }
       empty: {  }
       relationships:

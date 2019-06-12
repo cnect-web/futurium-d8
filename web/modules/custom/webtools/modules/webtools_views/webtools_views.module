@@ -1,0 +1,39 @@
+<?php
+
+/**
+ * @file
+ * Contains webtools_views.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function webtools_views_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the webtools_views module.
+    case 'help.page.webtools_views':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides plugins for views.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_views_data().
+ */
+function webtools_views_views_data() {
+  $data['views']['webtools_map'] = [
+    'title' => t('Webtools Map'),
+    'help' => t('Shows map with markers from all results.'),
+    'area' => [
+      'id' => 'webtools_map',
+    ],
+  ];
+
+  return $data;
+}

@@ -31,7 +31,16 @@ class EventMap extends ExtraFieldDisplayBase {
         'type' => 'webtools_geofield_formatter',
         'label' => 'hidden',
         'settings' => [
-          'map_view_mode' => 'map_description_default',
+          'zoom' => [
+            'initial_zoom' => 10,
+            'min_zoom' => 5,
+            'max_zoom' => 15,
+          ],
+          'tile' => 'osmec',
+          'height' => 430,
+          'marker_description' => [
+            'map_view_mode' => 'map_description_default',
+          ],
         ],
       ]);
 
@@ -67,10 +76,10 @@ class EventMap extends ExtraFieldDisplayBase {
    *   Return TRUE if user checks "Show map" field.
    */
   private function eventShowMap(ContentEntityInterface $entity) {
-    if ($entity->get('fut_event_show_map')->isEmpty()) {
-      return FALSE;
+    if ($entity->get('fut_event_show_map')->value) {
+      return TRUE;
     }
-    return TRUE;
+    return FALSE;
   }
 
 }
