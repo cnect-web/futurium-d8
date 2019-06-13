@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\fut_group\Breadcrumb;
 
 use Drupal\Core\Breadcrumb\Breadcrumb;
@@ -9,9 +10,13 @@ use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\group\Entity\GroupContent;
 use Drupal\group\Entity\GroupInterface;
 
+/**
+ * Provides a custom Grouop breadcrumb builder.
+ */
 class GroupBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
   use StringTranslationTrait;
+
   /**
    * {@inheritdoc}
    */
@@ -45,19 +50,19 @@ class GroupBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
     $group = $route_match->getParameter('group');
     if (!empty($group)) {
-      
+
       // Add parent group if threre is one.
       $this->addParentGroupBreadcrumb($breadcrumb, $group);
 
       $breadcrumb->addLink(Link::createFromRoute($group->label(), 'entity.group.canonical', [
-        'group' => $group->id()
+        'group' => $group->id(),
       ]));
     }
 
     $group_content = $route_match->getParameter('group_content');
     if (!empty($group_content)) {
       $breadcrumb->addLink(Link::createFromRoute($group_content->getEntity()->label(), "entity.{$group_content->getContentPlugin()->getEntityTypeId()}.canonical", [
-        $group_content->getContentPlugin()->getEntityTypeId() => $group_content->getEntity()->id()
+        $group_content->getContentPlugin()->getEntityTypeId() => $group_content->getEntity()->id(),
       ]));
     }
 
@@ -66,18 +71,18 @@ class GroupBreadcrumbBuilder implements BreadcrumbBuilderInterface {
       $group_content_items = GroupContent::loadByEntity($node);
       if (!empty($group_content_items)) {
         $group_content = reset($group_content_items);
-        
+
         // Add parent group if threre is one.
         $this->addParentGroupBreadcrumb($breadcrumb, $group_content->getGroup());
 
         $breadcrumb->addLink(Link::createFromRoute($group_content->getGroup()->label(), 'entity.group.canonical', [
-          'group' => $group_content->getGroup()->id()
+          'group' => $group_content->getGroup()->id(),
         ]));
       }
 
       $breadcrumb->addLink(Link::createFromRoute($node->getTitle(), 'entity.node.canonical', [
-        'node' => $node->id()
-      ]));
+        'node' => $node->id(),
+      ],));
     }
 
     $view = $route_match->getParameter('view_id');
@@ -106,30 +111,28 @@ class GroupBreadcrumbBuilder implements BreadcrumbBuilderInterface {
     return $breadcrumb;
   }
 
-  
   /**
    * Adds parent group to breadcrumb in case there is one.
    *
    * @param \Drupal\Core\Breadcrumb\Breadcrumb $breadcrumb
    *   The breadcrumb object.
-   * @param  \Drupal\group\Entity\GroupInterface $group
+   * @param \Drupal\group\Entity\GroupInterface $group
    *   The group that we check if has a parent.
-   *
-   * @return void
    */
-  protected function addParentGroupBreadcrumb(Breadcrumb $breadcrumb, GroupInterface $group){
-      // Check if is a subgroup and add parent to breadcrumb. 
-      $group_contents = GroupContent::loadByEntity($group);
+  protected function addParentGroupBreadcrumb(Breadcrumb $breadcrumb, GroupInterface $group) {
+    // Check if is a subgroup and add parent to breadcrumb.
+    $group_contents = GroupContent::loadByEntity($group);
 
-      if ($group_contents) {
-        $group_content = reset($group_contents);
-        $parent_group = $group_content->getGroup();
-        
-        if (!empty($parent_group)) {
-          $breadcrumb->addLink(Link::createFromRoute($parent_group->label(), 'entity.group.canonical', [
-            'group' => $parent_group->id()
-          ]));
-        }
+    if ($group_contents) {
+      $group_content = reset($group_contents);
+      $parent_group = $group_content->getGroup();
+
+      if (!empty($parent_group)) {
+        $breadcrumb->addLink(Link::createFromRoute($parent_group->label(), 'entity.group.canonical', [
+          'group' => $parent_group->id(),
+        ]));
       }
+    }
   }
+
 }
