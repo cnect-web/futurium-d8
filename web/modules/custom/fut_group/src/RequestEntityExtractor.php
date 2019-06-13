@@ -111,6 +111,9 @@ class RequestEntityExtractor {
     $this->extractEntities();
   }
 
+  /**
+   *
+   */
   private function extractEntities() {
     foreach ($this->routeMatch->getParameters() as $parameter) {
       if ($parameter instanceof EntityInterface) {
