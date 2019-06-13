@@ -2,9 +2,15 @@
 
 namespace Drupal\fut_group\Plugin\Field\FieldFormatter;
 
+use Drupal\Component\Utility\Html;
+use Drupal\Core\Field\FieldItemInterface;
 use Drupal\Core\Field\FieldItemListInterface;
+use Drupal\Core\Field\FormatterBase;
 use Drupal\Core\Field\Plugin\Field\FieldFormatter\EntityReferenceFormatterBase;
+use Drupal\Core\Form\FormStateInterface;
+use Drupal\Core\Link;
 use Drupal\Core\Url;
+use Drupal\taxonomy\Entity\Term;
 
 /**
  * Plugin implementation of the 'group_navigation_field_formatter' formatter.
@@ -39,7 +45,6 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
             $route = 'fut_group.about';
 
             break;
-
           case 'events':
             if (empty($label)) {
               $label = $this->t('Events');
@@ -84,9 +89,6 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
     return $elements;
   }
 
-  /**
-   *
-   */
   private function getLink($title, $url) {
     $std = new \stdClass();
     $std->title = $title;
