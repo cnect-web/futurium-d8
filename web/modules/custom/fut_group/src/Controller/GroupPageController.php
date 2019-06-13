@@ -24,7 +24,7 @@ class GroupPageController extends ControllerBase {
   /**
    * Manages navigation of the group.
    *
-   * @param \Drupal\group\Entity\Group $group
+   * @param Group $group
    *   Group item.
    *
    * @return mixed
@@ -37,7 +37,7 @@ class GroupPageController extends ControllerBase {
   /**
    * Manages navigation of the group.
    *
-   * @param \Drupal\group\Entity\Group $group
+   * @param Group $group
    *   Group item.
    *
    * @return mixed
@@ -48,24 +48,15 @@ class GroupPageController extends ControllerBase {
     return $view_builder->view($group, 'fut_about');
   }
 
-  /**
-   *
-   */
   public function aboutTitle(Group $group) {
     return $group->label();
   }
 
-  /**
-   *
-   */
   public function collections(Group $group) {
     $view_builder = $this->entityTypeManager()->getViewBuilder('group');
     return $view_builder->view($group, 'fut_about');
   }
 
-  /**
-   *
-   */
   public function addCollection(Group $group) {
     $taxonomy_term = Term::create([
       'fut_related_group' => $group->id(),
@@ -74,16 +65,10 @@ class GroupPageController extends ControllerBase {
     return $this->entityFormBuilder()->getForm($taxonomy_term, 'default');
   }
 
-  /**
-   *
-   */
   public function editCollection(Group $group, Term $term) {
     return $this->entityFormBuilder()->getForm($term, 'default');
   }
 
-  /**
-   *
-   */
   public function deleteCollection(Group $group, Term $term) {
     return $this->entityFormBuilder()->getForm($term, 'delete');
   }
