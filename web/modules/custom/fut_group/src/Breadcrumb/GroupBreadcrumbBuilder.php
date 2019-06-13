@@ -82,7 +82,7 @@ class GroupBreadcrumbBuilder implements BreadcrumbBuilderInterface {
 
       $breadcrumb->addLink(Link::createFromRoute($node->getTitle(), 'entity.node.canonical', [
         'node' => $node->id(),
-      ],));
+      ]));
     }
 
     $view = $route_match->getParameter('view_id');
