@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 FORCE=${1:-no}
+REBUILD_CONTAINERS=${2:-no}
+
+if [ -x "$(command -v yq)" ]; then
+  echo "You need to have yq installed."
+fi
 
 if [ "$FORCE" != "no" ]; then
   FORCE="--force"
@@ -7,34 +12,34 @@ else
   FORCE=""
 fi
 
-if [ ! -f "robo.yml" ]; then
-  cp robo.yml.dist robo.yml
-  echo "Check your settings on robo.yml and re-run this script."
+if [ ! -f "config.yml" ]; then
+  cp config.yml.dist config.yml
+  echo "Check your settings on config.yml and re-run this script."
   exit 1
 fi
 
 > .env
-echo PROJECT_NAME=$(yq r robo.yml "project.name") >> .env
-echo ENVIRONMENT=$(yq r robo.yml "project.environment") >> .env
-echo BEHAT_API_DRIVER=$(yq r robo.yml "behat.api_driver") >> .env
-echo BEHAT_WD_HOST_URL=$(yq r robo.yml "behat.webdriver_host") >> .env
+echo PROJECT_NAME=$(yq r config.yml "project.name") >> .env
+echo ENVIRONMENT=$(yq r config.yml "project.environment") >> .env
+echo BEHAT_API_DRIVER=$(yq r config.yml "behat.api_driver") >> .env
+echo BEHAT_WD_HOST_URL=$(yq r config.yml "behat.webdriver_host") >> .env
 echo USER_ID=1000 >> .env
 echo GROUP_ID=1000 >> .env
 echo DATABASE_DRIVER=mysql >> .env
-echo DATABASE_ROOT_PASSWORD=$(yq r robo.yml "database.root_password") >> .env
-echo DATABASE_PORT=$(yq r robo.yml "database.port") >> .env
-echo SITE_PROFILE=$(yq r robo.yml "site.profile") >> .env
+echo DATABASE_ROOT_PASSWORD=$(yq r config.yml "database.root_password") >> .env
+echo DATABASE_PORT=$(yq r config.yml "database.port") >> .env
+echo SITE_PROFILE=$(yq r config.yml "site.profile") >> .env
 
 # Check if we're on beanstalk.
 # If we aren't, add the database info to .env
 # If we are, the database info should already be in place.
 if [ -z $EFS_MOUNT_DIR ]; then
-  echo DATABASE_NAME=$(yq r robo.yml "database.name") >> .env
-  echo DATABASE_USERNAME=$(yq r robo.yml "database.user") >> .env
-  echo DATABASE_PASSWORD=$(yq r robo.yml "database.password") >> .env
-  echo DATABASE_PREFIX=$(yq r robo.yml "database.prefix") >> .env
-  echo DATABASE_HOST=$(yq r robo.yml "database.host") >> .env
-  echo HASH_SALT=$(yq r robo.yml "site.hash_salt") >> .env
+  echo DATABASE_NAME=$(yq r config.yml "database.name") >> .env
+  echo DATABASE_USERNAME=$(yq r config.yml "database.user") >> .env
+  echo DATABASE_PASSWORD=$(yq r config.yml "database.password") >> .env
+  echo DATABASE_PREFIX=$(yq r config.yml "database.prefix") >> .env
+  echo DATABASE_HOST=$(yq r config.yml "database.host") >> .env
+  echo HASH_SALT=$(yq r config.yml "site.hash_salt") >> .env
 fi
 
 # Export the vars in .env.
@@ -49,7 +54,6 @@ if [ -x "$(command -v docker)" && -x "$(command -v docker-compose)" ]; then
   # Docker is installed, carry on with docker.
   echo "Using docker-compose."
   export $(egrep -v '^#' .env | xargs)
-  REBUILD_CONTAINERS=${2:-no}
 
   if [ "$REBUILD_CONTAINERS" = "yes" ]; then
       # Kill all running containers.

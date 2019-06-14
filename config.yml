@@ -22,10 +22,10 @@ account:
 
 # Database parameters.
 database:
-  name: drupal
-  user: drupal
-  password: drupal
-  host: mysql
+  name: futuriumd8
+  user: mysql
+  password: mysql
+  host: localhost
   port: 3306
   root_password: password
   prefix: ''
@@ -38,11 +38,6 @@ bin:
 behat:
   api_driver: drupal
   webdriver_host: http://172.17.0.1:4444/wd/hub
-
-# Settings
-settings:
-  config_directories:
-    sync: ../config/sync
 
 # Here you can specify environment overrides.
 #environment:
