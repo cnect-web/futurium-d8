@@ -83,7 +83,7 @@
             "Cnect\\Robo\\": "robo"
         },
         "classmap": [
-            "scripts/composer/ScriptHandler.php"
+            "resources/scripts/composer/ScriptHandler.php"
         ]
     },
     "scripts": {
@@ -94,10 +94,7 @@
         "pre-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
-        "post-install-cmd": [
-            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
-	        "bash scripts/symlink.sh"
-        ],
+        "post-install-cmd": [],
         "post-update-cmd": []
     },
     "extra": {

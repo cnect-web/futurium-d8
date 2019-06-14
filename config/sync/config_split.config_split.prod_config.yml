@@ -9,8 +9,6 @@ label: 'Prod Config'
 description: ''
 folder: ../config/prod_config
 module:
-  cdn: 0
-  cdn_ui: 0
   config_readonly: 0
 theme: {  }
 blacklist: {  }

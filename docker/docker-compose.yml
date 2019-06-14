@@ -26,6 +26,8 @@ services:
     container_name: "php"
     environment:
       PHP_IDE_CONFIG: serverName=docker/web
+    env_file:
+      - ../.env
     volumes:
       # Add a configurable php.ini
       - ./config/php/php.ini:/usr/local/etc/php/conf.d/php_overrides.ini
@@ -36,18 +38,18 @@ services:
       - mysql
 
   # Solr
-  solr:
-    container_name: "solr"
-    image: solr:5.5.5
-    ports:
-      - "8983:8983"
-    volumes:
-      - ./config/solr:/opt/solr/solr_conf
-    entrypoint:
-      - docker-entrypoint.sh
-      - solr-precreate
-      - drupal
-      - ./solr_conf/drupal
+  #solr:
+  #  container_name: "solr"
+  #  image: solr:5.5.5
+  #  ports:
+  #    - "8983:8983"
+  #  volumes:
+  #    - ./config/solr:/opt/solr/solr_conf
+  #  entrypoint:
+  #    - docker-entrypoint.sh
+  #    - solr-precreate
+  #    - drupal
+  #    - ./solr_conf/drupal
 
   # MySQL
   mysql:
@@ -57,9 +59,9 @@ services:
     command: --max_allowed_packet=1073741824
     environment:
       - MYSQL_ROOT_PASSWORD=$DATABASE_ROOT_PASSWORD
-      - MYSQL_USER=$DATABASE_USER
+      - MYSQL_USER=$DATABASE_USERNAME
       - MYSQL_PASSWORD=$DATABASE_PASSWORD
-      - MYSQL_DATABASE=$DATABASE
+      - MYSQL_DATABASE=$DATABASE_NAME
     ports:
       - "3306:3306"
     volumes:
@@ -71,7 +73,7 @@ services:
     container_name: "phpmyadmin"
     environment:
         PMA_HOST: $DATABASE_HOST
-        PMA_USER: $DATABASE_USER
+        PMA_USER: $DATABASE_USERNAME
         PMA_PASSWORD: $DATABASE_PASSWORD
         PHP_UPLOAD_MAX_FILESIZE: 1G
         PHP_MAX_INPUT_VARS: 1G
@@ -89,14 +91,14 @@ services:
       - "8025:8025"
 
   # Portainer
-  portainer:
-    image: portainer/portainer
-    container_name: "portainer"
-    command: --no-auth -H unix:///var/run/docker.sock
-    volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
-    ports:
-      - "9001:9000"
+  #portainer:
+  #  image: portainer/portainer
+  #  container_name: "portainer"
+  #  command: --no-auth -H unix:///var/run/docker.sock
+  #  volumes:
+  #    - /var/run/docker.sock:/var/run/docker.sock
+  #  ports:
+  #    - "9001:9000"
 
   # Selenium
   selenium:
