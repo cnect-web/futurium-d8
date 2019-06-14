@@ -772,11 +772,6 @@ $settings['entity_update_backup'] = TRUE;
 $config_directories['sync'] = '../config/sync';
 
 /**
- * Hash salt.
- */
-$settings['hash_salt'] = $_SERVER['HASH_SALT'];
-
-/**
  * Load local development override configuration, if available.
  *
  * Use settings.local.php to override variables on secondary (staging,

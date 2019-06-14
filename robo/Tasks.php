@@ -71,18 +71,11 @@ class Tasks extends RoboTasks {
     $this->say($output);
 
     $settings_folder = "{$this->root()}/web/sites/default";
-    $settings_file = "{$settings_folder}/settings.php";
+    $settings_file = "{$settings_folder}/settings.local.php";
 
-    if (!file_exists($settings_file)) {
+    if (file_exists($settings_file)) {
       $this->changeFilePerms("open");
-
-      $this
-        ->taskFlattenDir(['resources/files/*settings*php'])
-        ->to($settings_folder)
-        ->run();
-    }
-    else {
-      $this->say("${y} File settings.php already exists, skipping... ${w}");
+      $this->taskExec("rm {$settings_file}")->run();
     }
 
     if (!$is_installed) {
@@ -92,6 +85,13 @@ class Tasks extends RoboTasks {
         ->silent(TRUE)->printOutput(TRUE)
         ->run();
     }
+
+    // Copy settings*.php.
+    $this
+      ->taskFlattenDir(['resources/files/settings*.php'])
+      ->to($settings_folder)
+      ->run();
+
     $this->changeFilePerms("close");
 
     return TRUE;

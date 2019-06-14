@@ -94,7 +94,10 @@
         "pre-update-cmd": [
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
-        "post-install-cmd": [],
+        "post-install-cmd": [
+            "DrupalProject\\composer\\ScriptHandler::createRequiredFiles",
+            "sh resources/scripts/composer/symlink.sh"
+        ],
         "post-update-cmd": []
     },
     "extra": {

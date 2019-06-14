@@ -1,6 +1,20 @@
 #!/usr/bin/env bash
+FORCE=${1:-no}
+
+if [ "$FORCE" != "no" ]; then
+  FORCE="--force"
+else
+  FORCE=""
+fi
+
+if [ ! -z $FORCE ]; then
+  rm -rf web/sites/default/settings.php
+fi
+
 if [ ! -f "robo.yml" ]; then
   cp robo.yml.dist robo.yml
+  echo "Check your settings on robo.yml and re-run this script."
+  exit 1
 fi
 
 > .env
@@ -18,11 +32,11 @@ echo DATABASE_PORT=$(yq r robo.yml "database.port") >> .env
 # If we aren't, add the database info to .env
 # If we are, the database info should already be in place.
 if [ -z $EFS_MOUNT_DIR ]; then
-	echo DATABASE_NAME=$(yq r robo.yml "database.name") >> .env
-	echo DATABASE_USERNAME=$(yq r robo.yml "database.user") >> .env
-	echo DATABASE_PASSWORD=$(yq r robo.yml "database.password") >> .env
-	echo DATABASE_HOST=$(yq r robo.yml "database.host") >> .env
-	echo HASH_SALT=$(yq r robo.yml "site.hash_salt") >> .env
+  echo DATABASE_NAME=$(yq r robo.yml "database.name") >> .env
+  echo DATABASE_USERNAME=$(yq r robo.yml "database.user") >> .env
+  echo DATABASE_PASSWORD=$(yq r robo.yml "database.password") >> .env
+  echo DATABASE_HOST=$(yq r robo.yml "database.host") >> .env
+  echo HASH_SALT=$(yq r robo.yml "site.hash_salt") >> .env
 fi
 
 # Export the vars in .env.
@@ -40,7 +54,7 @@ if [ -x "$(command -v docker)" ]; then
   # Docker is installed, carry on with docker.
   echo "Using docker-compose."
   export $(egrep -v '^#' .env | xargs)
-  REBUILD_CONTAINERS=${1:-no}
+  REBUILD_CONTAINERS=${2:-no}
 
   if [ "$REBUILD_CONTAINERS" = "yes" ]; then
       # Kill all running containers.
@@ -55,14 +69,14 @@ if [ -x "$(command -v docker)" ]; then
   docker-compose -f docker/docker-compose.yml up -d \
   && docker exec -u 1000 -it php bash -c 'if [[ $ENVIRONMENT == "development" ]]; then composer install; else composer install --no-dev; fi' \
   && docker exec -u ${USER_ID} php echo "" \
-  && docker exec -u ${USER_ID} php ./bin/robo pic --force
+  && docker exec -u ${USER_ID} php ./vendor/bin/robo pic $FORCE
 else
   # No docker, install on bare metal.
   echo "Bare metal install."
-  if [[ $ENVIRONMENT == "development" ]]; then
+  if [ "$ENVIRONMENT" = "development" ]; then
     composer install;
   else
     composer install --no-dev;
   fi
-  ./bin/robo pic
+  ./vendor/bin/robo pic $FORCE
 fi
