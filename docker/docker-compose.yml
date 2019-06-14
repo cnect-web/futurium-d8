@@ -37,20 +37,6 @@ services:
     links:
       - mysql
 
-  # Solr
-  #solr:
-  #  container_name: "solr"
-  #  image: solr:5.5.5
-  #  ports:
-  #    - "8983:8983"
-  #  volumes:
-  #    - ./config/solr:/opt/solr/solr_conf
-  #  entrypoint:
-  #    - docker-entrypoint.sh
-  #    - solr-precreate
-  #    - drupal
-  #    - ./solr_conf/drupal
-
   # MySQL
   mysql:
     container_name: "mysql"
@@ -89,16 +75,6 @@ services:
     ports:
       - "1025:1025"
       - "8025:8025"
-
-  # Portainer
-  #portainer:
-  #  image: portainer/portainer
-  #  container_name: "portainer"
-  #  command: --no-auth -H unix:///var/run/docker.sock
-  #  volumes:
-  #    - /var/run/docker.sock:/var/run/docker.sock
-  #  ports:
-  #    - "9001:9000"
 
   # Selenium
   selenium:

@@ -10,19 +10,31 @@ else
   echo ".env file found."
 fi
 
-export $(egrep -v '^#' .env | xargs)
+# Check if docker is installed.
+if [ -x "$(command -v docker)" ]; then
+  export $(egrep -v '^#' .env | xargs)
 
-if [ "$REBUILD_CONTAINERS" = "yes" ]; then
-	# Kill all running containers.
-	RUNNING_CONTAINERS=$(docker ps -q)
-	if [ ! -z "$RUNNING_CONTAINERS" ]
-	then
-	  echo "Killing running containers."
-	  KILL=$(docker kill $RUNNING_CONTAINERS)
-	fi
+  if [ "$REBUILD_CONTAINERS" = "yes" ]; then
+      # Kill all running containers.
+      RUNNING_CONTAINERS=$(docker ps -q)
+      if [ ! -z "$RUNNING_CONTAINERS" ]
+      then
+        echo "Killing running containers."
+        KILL=$(docker kill $RUNNING_CONTAINERS)
+      fi
+  fi
+
+  docker-compose -f docker/docker-compose.yml up -d \
+  && docker exec -u 1000 -it php bash -c 'if [[ $ENVIRONMENT == "development" ]]; then composer install; else composer install --no-dev; fi' \
+  && docker exec -u ${USER_ID} php echo "" \
+  && docker exec -u ${USER_ID} php ./bin/robo pic --force
+else
+  # No docker, install on bare metal.
+  if [[ $ENVIRONMENT == "development" ]]; then
+    composer install;
+  else
+    composer install --no-dev;
+  fi
+  ./bin/robo pic
 fi
 
-docker-compose -f docker/docker-compose.yml up -d \
-&& docker exec -u 1000 -it php bash -c 'if [[ $ENVIRONMENT == "development" ]]; then composer install; else composer install --no-dev; fi' \
-&& docker exec -u ${USER_ID} php echo "" \
-&& docker exec -u ${USER_ID} php ./bin/robo pic --force

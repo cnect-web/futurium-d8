@@ -38,6 +38,7 @@ class Tasks extends RoboTasks {
   public function projectInstallConfig($options = ['force|f' => false]) {
 
     if (!$options['force']) {
+
       // Check if the DB is empty.
       $db_tables = (int) $this->taskExec('mysql')
         ->option('user', $this->config('database.user'), '=')
@@ -58,13 +59,14 @@ class Tasks extends RoboTasks {
       $is_installed = FALSE;
     }
 
-    $gc = "\033[0;32m";
-    $yc = "\033[0;33m";
-    $wc = "\033[0m";
+    # Some colors.
+    $g = "\033[0;32m";
+    $y = "\033[0;33m";
+    $w = "\033[0m";
 
     $output = $is_installed
-      ? "${yc} Drupal is already installed.\nUse --force to install anyway. ${wc}"
-      : "${gc} Starting Drupal installation. ${wc}";
+      ? "${y} Drupal is already installed.\nUse --force to install anyway. ${w}"
+      : "${g} Starting Drupal installation. ${w}";
 
     $this->say($output);
 
@@ -80,7 +82,7 @@ class Tasks extends RoboTasks {
         ->run();
     }
     else {
-      $this->say("${yc} File settings.php already exists, skipping... ${wc}");
+      $this->say("${y} File settings.php already exists, skipping... ${w}");
     }
 
     if (!$is_installed) {
