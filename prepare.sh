@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+if [ ! -f "robo.yml" ]; then
+  cp robo.yml.dist robo.yml
+fi
+
 > .env
 echo PROJECT_NAME=$(yq r robo.yml "project.name") >> .env
 echo ENVIRONMENT=$(yq r robo.yml "project.environment") >> .env
