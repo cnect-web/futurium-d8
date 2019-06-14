@@ -769,7 +769,7 @@ $settings['entity_update_backup'] = TRUE;
  * Type of config: Common
  * Should be in settings.php.
  */
-$config_directories['sync'] = '../config/sync';
+$config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
 
 /**
  * Load local development override configuration, if available.

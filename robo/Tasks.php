@@ -86,6 +86,8 @@ class Tasks extends RoboTasks {
         ->run();
     }
 
+    $this->changeFilePerms("open");
+
     // Copy settings*.php.
     $this
       ->taskFlattenDir(['resources/files/settings*.php'])
@@ -165,7 +167,7 @@ class Tasks extends RoboTasks {
 
     $perms = ($op == 'open')
       ? '0755'
-      : '0644';
+      : '0444';
 
     if (file_exists("{$settings_folder}/settings.php")) {
       $this

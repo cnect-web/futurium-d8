@@ -6,16 +6,25 @@
  * @file
  * Local override configurations.
  */
+if (!isset($_SERVER['DATABASE_NAME'])) {
+  if (file_exists($app_root . '/../.env')) {
+    // Load .env file from project root.
+    $dotenv = new Dotenv\Dotenv($app_root . "/../");
+    $dotenv->load();
+  }
+}
+
+$settings['hash_salt'] = ($_SERVER['HASH_SALT']) ?? getenv('HASH_SALT');
 
 /**
  * Databases.
  */
 $databases['default']['default'] = array (
-  'database' => $_SERVER['DATABASE_NAME'],
-  'username' => $_SERVER['DATABASE_USERNAME'],
-  'password' => $_SERVER['DATABASE_PASSWORD'],
+  'database' => ($_SERVER['DATABASE_NAME']) ?? getenv('DATABASE_NAME'),
+  'username' => ($_SERVER['DATABASE_USERNAME']) ?? getenv('DATABASE_USERNAME'),
+  'password' => ($_SERVER['DATABASE_PASSWORD']) ?? getenv('DATABASE_PASSWORD'),
   'prefix' => '',
-  'host' => $_SERVER['DATABASE_HOST'],
+  'host' => ($_SERVER['DATABASE_HOST']) ?? getenv('DATABASE_HOST'),
   'port' => '3306',
   'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
   'driver' => 'mysql',
