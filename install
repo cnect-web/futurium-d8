@@ -2,7 +2,7 @@
 FORCE=${1:-no}
 REBUILD_CONTAINERS=${2:-no}
 
-if [ -x "$(command -v yq)" ]; then
+if [ ! -x "$(command -v yq)" ]; then
   echo "You need to have yq installed."
 fi
 
@@ -49,11 +49,12 @@ if [ ! -f ".env" ]; then
   exit 1
 fi
 
+export $(egrep -v '^#' .env | xargs)
+
 # Check if docker and docker-compose are installed.
-if [ -x "$(command -v docker)" && -x "$(command -v docker-compose)" ]; then
+if [ -x "$(command -v docker)" ] && [ -x "$(command -v docker-compose)" ]; then
   # Docker is installed, carry on with docker.
   echo "Using docker-compose."
-  export $(egrep -v '^#' .env | xargs)
 
   if [ "$REBUILD_CONTAINERS" = "yes" ]; then
       # Kill all running containers.
