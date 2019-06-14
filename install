@@ -7,10 +7,6 @@ else
   FORCE=""
 fi
 
-if [ ! -z $FORCE ]; then
-  rm -rf web/sites/default/settings.php
-fi
-
 if [ ! -f "robo.yml" ]; then
   cp robo.yml.dist robo.yml
   echo "Check your settings on robo.yml and re-run this script."
@@ -27,6 +23,7 @@ echo GROUP_ID=1000 >> .env
 echo DATABASE_DRIVER=mysql >> .env
 echo DATABASE_ROOT_PASSWORD=$(yq r robo.yml "database.root_password") >> .env
 echo DATABASE_PORT=$(yq r robo.yml "database.port") >> .env
+echo SITE_PROFILE=$(yq r robo.yml "site.profile") >> .env
 
 # Check if we're on beanstalk.
 # If we aren't, add the database info to .env
@@ -35,6 +32,7 @@ if [ -z $EFS_MOUNT_DIR ]; then
   echo DATABASE_NAME=$(yq r robo.yml "database.name") >> .env
   echo DATABASE_USERNAME=$(yq r robo.yml "database.user") >> .env
   echo DATABASE_PASSWORD=$(yq r robo.yml "database.password") >> .env
+  echo DATABASE_PREFIX=$(yq r robo.yml "database.prefix") >> .env
   echo DATABASE_HOST=$(yq r robo.yml "database.host") >> .env
   echo HASH_SALT=$(yq r robo.yml "site.hash_salt") >> .env
 fi
@@ -49,8 +47,8 @@ else
   echo ".env file found."
 fi
 
-# Check if docker is installed.
-if [ -x "$(command -v docker)" ]; then
+# Check if docker and docker-compose are installed.
+if [ -x "$(command -v docker)" && -x "$(command -v docker-compose)" ]; then
   # Docker is installed, carry on with docker.
   echo "Using docker-compose."
   export $(egrep -v '^#' .env | xargs)

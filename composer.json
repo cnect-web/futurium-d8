@@ -51,7 +51,6 @@
         "drush/drush": "^9.0",
         "harvesthq/chosen": "^1.8",
         "henrikbjorn/lurker": "^1.2",
-        "nuvoleweb/robo-config": "^0.2",
         "openeuropa/ecl-twig-loader": "~0.1",
         "twig/extensions": "^1.5",
         "twig/twig": "^1.38.2",

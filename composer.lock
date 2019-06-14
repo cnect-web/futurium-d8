@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ddf5d788e3133ec1085501f28e5abd69",
+    "content-hash": "206c33487079d3e784d50463af27329c",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6015,8 +6015,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/harvesthq/chosen/releases/download/v1.8.7/chosen_v1.8.7.zip",
-                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d",
-                "shasum": null
+                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d"
             },
             "require": {
                 "composer/installers": "^1.2.0"
@@ -6397,48 +6396,6 @@
                 "php"
             ],
             "time": "2019-05-25T20:07:01+00:00"
-        },
-        {
-            "name": "nuvoleweb/robo-config",
-            "version": "0.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nuvoleweb/robo-config.git",
-                "reference": "ce4c3285f2cbc692d96f5f2d57eb2c5068aeadd2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nuvoleweb/robo-config/zipball/ce4c3285f2cbc692d96f5f2d57eb2c5068aeadd2",
-                "reference": "ce4c3285f2cbc692d96f5f2d57eb2c5068aeadd2",
-                "shasum": ""
-            },
-            "require": {
-                "consolidation/robo": "~1"
-            },
-            "require-dev": {
-                "drupal/coder": "^8.2",
-                "phpro/grumphp": "^0.11.4",
-                "phpunit/phpunit": "^5"
-            },
-            "type": "robo-tasks",
-            "autoload": {
-                "psr-4": {
-                    "NuvoleWeb\\Robo\\Task\\Config\\": "src",
-                    "NuvoleWeb\\Robo\\Tests\\": "tests"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Antonio De Marco",
-                    "email": "antonio@nuvole.org"
-                }
-            ],
-            "description": "CI/developer-friendly configuration processor for Robo.",
-            "time": "2018-08-22T06:38:44+00:00"
         },
         {
             "name": "openeuropa/ecl-twig-loader",
@@ -10059,9 +10016,6 @@
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
-                },
-                "patches_applied": {
-                    "Handle exceptions during import": "https://www.drupal.org/files/issues/2019-05-29/3057880-handleexceptions.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -10676,7 +10630,7 @@
             "time": "2019-01-14T23:55:14+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "v1.6.6",
             "source": {
                 "type": "git",

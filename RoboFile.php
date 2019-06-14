@@ -4,14 +4,94 @@
  *
  * @see http://robo.li/
  */
-use Cnect\Robo\Tasks as CnectTasks;
+use Robo\Tasks as RoboTasks;
+use DrupalFinder\DrupalFinder;
+use Symfony\Component\Filesystem\Filesystem;
+use Webmozart\PathUtil\Path;
+use Dotenv\Dotenv;
+
 /**
  * Class RoboFile.
  */
-class RoboFile extends CnectTasks {
+class RoboFile extends RoboTasks {
+
+  use \Boedah\Robo\Task\Drush\loadTasks;
+
+  private $env;
+  private $fs;
+
+  private $binDir;
+  private $projectRoot;
+  private $drupalRoot;
 
   private $defaultOp = 'cs,unit,behat';
   private $defaultPaths = 'web/modules/custom,web/themes/contrib/blellow';
+
+  /**
+   * Constructor.
+   */
+  public function __construct() {
+
+    $this->fs = new Filesystem();
+    $drupalFinder = new DrupalFinder();
+    $drupalFinder->locateRoot(getcwd());
+
+    $projectRoot = $drupalFinder->getComposerRoot();
+    $drupalRoot = Path::makeRelative($drupalFinder->getDrupalRoot(), $projectRoot);
+    $binDir = Path::makeRelative($drupalFinder->getVendorDir() . '/bin', $projectRoot);
+
+    $this->projectRoot = $projectRoot;
+    $this->drupalRoot = $drupalRoot;
+    $this->binDir = $binDir;
+
+    $dotenv = new Dotenv($this->projectRoot);
+    $dotenv->load();
+    $this->env = getenv();
+  }
+
+  /**
+   * Install site from given configuration.
+   *
+   * @command project:install-config
+   * @aliases pic
+   *
+   * @option $force Force the installation.
+   */
+  public function projectInstallConfig($options = ['force|f' => false]) {
+
+    $is_installed = (!$options['force'])
+      ? $this->isInstalled()
+      : FALSE;
+
+    !$is_installed || $options['force']
+      ? $this->sayMessage("Starting Drupal installation.", "ok")
+      : $this->sayMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
+
+    if (!$is_installed || $options['force']) {
+      $this->getInstallTask()
+        ->arg('--existing-config')
+        ->siteInstall($this->env['SITE_PROFILE'])
+        ->run();
+    }
+
+    return TRUE;
+
+  }
+
+  /**
+   * Get installation task.
+   */
+  protected function getInstallTask() {
+    return $this->taskDrushStack($this->binDir . '/drush')
+      ->arg("--root={$this->drupalRoot}")
+      ->dbPrefix($this->env['DATABASE_PREFIX'])
+      ->dbUrl(sprintf("mysql://%s:%s@%s:%s/%s",
+        $this->env['DATABASE_USERNAME'],
+        $this->env['DATABASE_PASSWORD'],
+        $this->env['DATABASE_HOST'],
+        $this->env['DATABASE_PORT'],
+        $this->env['DATABASE_NAME']));
+  }
 
   /**
    * Import config from filesystem to database.
@@ -20,8 +100,8 @@ class RoboFile extends CnectTasks {
    * @aliases imc
    */
   public function importConfig() {
-    $this->taskDrushStack($this->config('bin.drush'))
-      ->arg('-r', 'web/')
+    $this->taskDrushStack($this->binDir . '/drush')
+      ->arg('-r', $this->drupalRoot)
       ->exec('cache-clear drush')
       ->exec('updb')
       ->exec('csim -y')
@@ -36,8 +116,8 @@ class RoboFile extends CnectTasks {
    * @aliases exc
    */
   public function exportConfig() {
-    $this->taskDrushStack($this->config('bin.drush'))
-      ->arg('-r', 'web/')
+    $this->taskDrushStack($this->binDir . '/drush')
+      ->arg('-r', $this->drupalRoot)
       ->exec('cache-clear drush')
       ->exec('csex -y')
       ->exec('cr')
@@ -125,6 +205,44 @@ class RoboFile extends CnectTasks {
     ) {
       $this->say('Behat finished.');
     };
+  }
+
+  private function isInstalled() {
+    // Check if the DB is empty.
+    $db_tables = (int) $this->taskExec('mysql')
+      ->option('user', $this->env['DATABASE_USERNAME'], '=')
+      ->option('password', $this->env['DATABASE_PASSWORD'], '=')
+      ->option('host', $this->env['DATABASE_HOST'], '=')
+      ->arg('--silent')
+      ->arg('--raw')
+      ->arg('--skip-column-names')
+      ->option('execute', "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = \"{$this->env['DATABASE_NAME']}\"")
+      ->silent(TRUE)
+      ->printOutput(FALSE)
+      ->run()
+      ->getMessage();
+
+    return ($db_tables !== 0);
+  }
+
+  private function sayMessage($text, $type) {
+    $color_reset = "\033[0m";
+    switch ($type) {
+
+      case 'ok':
+        $color = "\e[32m";
+        break;
+
+      case 'warn':
+        $color = "\e[33m";
+        break;
+
+      case 'error':
+        $color = "\e[31m";
+        break;
+    }
+
+    $this->say($color . $text . $color_reset);
   }
 
 }

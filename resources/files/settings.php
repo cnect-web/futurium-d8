@@ -765,9 +765,6 @@ $settings['entity_update_backup'] = TRUE;
 
 /**
  * Config directories.
- *
- * Type of config: Common
- * Should be in settings.php.
  */
 $config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
 
