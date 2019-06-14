@@ -39,12 +39,9 @@ fi
 
 # Export the vars in .env.
 # The .env file should be present in the folder from where this script is invoked.
-
 if [ ! -f ".env" ]; then
   echo "No .env file present. Stopping."
   exit 1
-else
-  echo ".env file found."
 fi
 
 # Check if docker and docker-compose are installed.
