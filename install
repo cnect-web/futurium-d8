@@ -3,7 +3,7 @@ FORCE=${1:-no}
 REBUILD_CONTAINERS=${2:-no}
 
 if [ ! -x "$(command -v yq)" ]; then
-  echo "You need to have yq installed."
+  echo "You need to install yq."
 fi
 
 if [ "$FORCE" != "no" ]; then
@@ -18,17 +18,10 @@ if [ ! -f "config.yml" ]; then
   exit 1
 fi
 
+# Prepare the environment.
 > .env
 echo PROJECT_NAME=$(yq r config.yml "project.name") >> .env
 echo ENVIRONMENT=$(yq r config.yml "project.environment") >> .env
-echo BEHAT_API_DRIVER=$(yq r config.yml "behat.api_driver") >> .env
-echo BEHAT_WD_HOST_URL=$(yq r config.yml "behat.webdriver_host") >> .env
-echo USER_ID=1000 >> .env
-echo GROUP_ID=1000 >> .env
-echo DATABASE_DRIVER=mysql >> .env
-echo DATABASE_ROOT_PASSWORD=$(yq r config.yml "database.root_password") >> .env
-echo DATABASE_PORT=$(yq r config.yml "database.port") >> .env
-echo SITE_PROFILE=$(yq r config.yml "site.profile") >> .env
 
 # Check if we're on beanstalk.
 # If we aren't, add the database info to .env
@@ -37,10 +30,20 @@ if [ -z $EFS_MOUNT_DIR ]; then
   echo DATABASE_NAME=$(yq r config.yml "database.name") >> .env
   echo DATABASE_USERNAME=$(yq r config.yml "database.user") >> .env
   echo DATABASE_PASSWORD=$(yq r config.yml "database.password") >> .env
+  echo DATABASE_ROOT_PASSWORD=$(yq r config.yml "database.root_password") >> .env
   echo DATABASE_PREFIX=$(yq r config.yml "database.prefix") >> .env
   echo DATABASE_HOST=$(yq r config.yml "database.host") >> .env
   echo HASH_SALT=$(yq r config.yml "site.hash_salt") >> .env
 fi
+echo DATABASE_DRIVER=mysql >> .env
+echo DATABASE_PORT=$(yq r config.yml "database.port") >> .env
+echo DATABASE_ROOT_PASSWORD=$(yq r config.yml "database.root_password") >> .env
+
+echo BEHAT_API_DRIVER=$(yq r config.yml "behat.api_driver") >> .env
+echo BEHAT_WD_HOST_URL=$(yq r config.yml "behat.webdriver_host") >> .env
+echo USER_ID=1000 >> .env
+echo GROUP_ID=1000 >> .env
+echo SITE_PROFILE=$(yq r config.yml "site.profile") >> .env
 
 # Export the vars in .env.
 # The .env file should be present in the folder from where this script is invoked.

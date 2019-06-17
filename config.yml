@@ -25,10 +25,10 @@ database:
   name: futuriumd8
   user: mysql
   password: mysql
-  host: localhost
+  host: mysql
   port: 3306
   root_password: password
-  prefix: ''
+  prefix: ""
 
 # Binaries
 bin:

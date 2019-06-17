@@ -64,8 +64,8 @@ class RoboFile extends RoboTasks {
       : FALSE;
 
     !$is_installed || $options['force']
-      ? $this->sayMessage("Starting Drupal installation.", "ok")
-      : $this->sayMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
+      ? $this->statusMessage("Starting Drupal installation.", "ok")
+      : $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
 
     if (!$is_installed || $options['force']) {
       $this->getInstallTask()
@@ -225,7 +225,7 @@ class RoboFile extends RoboTasks {
     return ($db_tables !== 0);
   }
 
-  private function sayMessage($text, $type) {
+  private function statusMessage($text, $type) {
     $color_reset = "\033[0m";
     switch ($type) {
 
