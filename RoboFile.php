@@ -4,7 +4,11 @@
  *
  * @see http://robo.li/
  */
+
 use Robo\Tasks as RoboTasks;
+use Robo\Config\Config;
+use Consolidation\Config\Loader\YamlConfigLoader;
+use Consolidation\Config\Loader\ConfigProcessor;
 use DrupalFinder\DrupalFinder;
 use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\PathUtil\Path;
@@ -23,6 +27,8 @@ class RoboFile extends RoboTasks {
   private $binDir;
   private $projectRoot;
   private $drupalRoot;
+
+  private $config;
 
   private $defaultOp = 'cs,unit,behat';
   private $defaultPaths = 'web/modules/custom,web/themes/contrib/blellow';
@@ -44,9 +50,18 @@ class RoboFile extends RoboTasks {
     $this->drupalRoot = $drupalRoot;
     $this->binDir = $binDir;
 
-    $dotenv = new Dotenv($this->projectRoot);
-    $dotenv->load();
-    $this->env = getenv();
+    if (file_exists("{$projectRoot}/.env")) {
+      $dotenv = new Dotenv($this->projectRoot);
+      $dotenv->load();
+      $this->env = getenv();
+    }
+
+    $config = new Config();
+    $loader = new YamlConfigLoader();
+    $processor = new ConfigProcessor();
+    $processor->extend($loader->load($this->projectRoot . '/config.yml'));
+    $config->import($processor->export());
+    $this->config = $config;
   }
 
   /**
@@ -71,6 +86,7 @@ class RoboFile extends RoboTasks {
       $this->getInstallTask()
         ->arg('--existing-config')
         ->siteInstall($this->env['SITE_PROFILE'])
+        ->silent(TRUE)
         ->run();
     }
 
@@ -207,6 +223,9 @@ class RoboFile extends RoboTasks {
     };
   }
 
+  /**
+   *
+   */
   private function isInstalled() {
     // Check if the DB is empty.
     $db_tables = (int) $this->taskExec('mysql')
@@ -225,6 +244,9 @@ class RoboFile extends RoboTasks {
     return ($db_tables !== 0);
   }
 
+  /**
+   *
+   */
   private function statusMessage($text, $type) {
     $color_reset = "\033[0m";
     switch ($type) {
@@ -243,6 +265,50 @@ class RoboFile extends RoboTasks {
     }
 
     $this->say($color . $text . $color_reset);
+  }
+
+  /**
+   * Setup .env file.
+   *
+   * @command project:setup-env
+   * @aliases pse
+   */
+  public function projectGenerateEnv(array $opts = ['force' => FALSE, 'type' => NULL]) {
+    $file = "{$this->projectRoot}/.env";
+    if (!file_exists($file) || $opts['force']) {
+      $settings = [
+        'ENVIRONMENT' => 'project.environment',
+        'DATABASE_NAME' => 'database.name',
+        'DATABASE_HOST' => 'database.host',
+        'DATABASE_PORT' => 'database.port',
+        'DATABASE_USERNAME' => 'database.user',
+        'DATABASE_PASSWORD' => 'database.password',
+        'DATABASE_PREFIX' => 'database.prefix',
+        'SITE_PROFILE' => 'site.profile',
+      ];
+      $content = "";
+      if ($opts['type'] == 'docker') {
+        $content .= "USER_ID=1000\n";
+        $content .= "GROUP_ID=1000\n";
+        $settings['DATABASE_ROOT_PASSWORD'] = 'database.root_password';
+      }
+      foreach ($settings as $key => $setting) {
+        $content .= "$key={$this->config->get($setting)}\n";
+      }
+      if (!empty($content)) {
+        $this
+          ->taskWriteToFile($file)
+          ->text($content)
+          ->run()
+          ->silent(TRUE)
+          ->printOutput(FALSE);
+
+        $this->statusMessage('Created .env file', 'ok');
+      }
+    }
+    else {
+      $this->statusMessage('File .env already exists, skipping...', 'warn');
+    }
   }
 
 }
