@@ -25,16 +25,17 @@ use Drupal\webtools_paragraphs\Ajax\RenderWebtools;
 class WebtoolsCodeWidget extends WidgetBase {
 
   use WebtoolsCodeHelperTrait;
+
   /**
    * {@inheritdoc}
    */
   public function formElement(FieldItemListInterface $items, $delta, array $element, array &$form, FormStateInterface $form_state) {
 
-    $preview_id = 'widget-preview-'.implode('-',$element["#field_parents"]);
+    $preview_id = 'widget-preview-' . implode('-', $element["#field_parents"]);
 
     $element = $element + [
       'preview' => [
-        '#markup' => '<div id="'.$preview_id.'"></div>',
+        '#markup' => '<div id="' . $preview_id . '"></div>',
       ],
       'value' => [
         '#title' => $element['#title'],
@@ -58,13 +59,24 @@ class WebtoolsCodeWidget extends WidgetBase {
     return $element;
   }
 
+  /**
+   * Previews Webtools Widget in form.
+   *
+   * @param array $form
+   *   Form array.
+   * @param Drupal\Core\Form\FormStateInterface $form_state
+   *   Form state object.
+   *
+   * @return Drupal\Core\Ajax\AjaxResponse
+   *   The current AjaxResponse.
+   */
   public function previewWebtools(array $form, FormStateInterface $form_state) {
 
     $value = $form_state->getTriggeringElement()['#value'];
 
     $response = new AjaxResponse();
 
-    $element_id = '#widget-preview-' . implode('-',$form_state->getTriggeringElement()['#field_parents']);
+    $element_id = '#widget-preview-' . implode('-', $form_state->getTriggeringElement()['#field_parents']);
 
     if ($this->isValidCode($value)) {
 
@@ -76,7 +88,7 @@ class WebtoolsCodeWidget extends WidgetBase {
         'padding' => '0px',
       ];
       $response->addCommand(new CssCommand($element_id, $css));
-      $response->addCommand(new RenderWebtools($element_id,$json));
+      $response->addCommand(new RenderWebtools($element_id, $json));
     }
     else {
 
@@ -91,6 +103,6 @@ class WebtoolsCodeWidget extends WidgetBase {
     }
 
     return $response;
-   }
+  }
 
 }
