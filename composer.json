@@ -6,7 +6,7 @@
     "require": {
         "balbuf/drupal-libraries-installer": "^1.0",
         "boedah/robo-drush": "~4",
-        "cnect-web/blellow": "dev-master",
+        "cnect-web/blellow": "@dev",
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",

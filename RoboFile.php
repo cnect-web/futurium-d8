@@ -88,10 +88,12 @@ class RoboFile extends RoboTasks {
         ->siteInstall($this->env['SITE_PROFILE'])
         ->silent(TRUE)
         ->run();
+
+      // Overwrite settings.php and settings.local.php.
+      $this->rewriteSettings();
     }
 
-    // Overwrite settings.php and settings.local.php.
-    $this->rewriteSettings();
+    $this->statusMessage("Installation finished.", 'ok');
 
     return TRUE;
 
@@ -345,22 +347,34 @@ class RoboFile extends RoboTasks {
     $hash = $this->getHash();
     if (!empty($hash)) {
 
-      $folder = $this->drupalRoot . '/sites/default';
-      $this->taskExec('chmod')->arg('ugo+w')->arg($folder)->run();
-      $files = ['settings.php', 'settings.local.php'];
-      foreach ($files as $file) {
-        if (file_exists($folder . '/' . $file))
-        $this->taskExec('chmod')->arg('ugo+w')->arg($folder . '/' . $file)->run();
-      }
+      $source_folder = $this->projectRoot . '/resources/files';
+      $target_folder = $this->drupalRoot . '/sites/default';
 
-      $this->taskExec('rm')->arg($folder . '/settings.php')->arg($folder . '/settings.local.php')->run();
-      $this->taskFlattenDir(['resources/files/settings*.php'])->to($folder . '/')->run();
-      $this->taskExec('chmod')->arg('ugo+w')->arg($folder . '/settings.local.php')->run();
+      // Unlock the sites/default folder and settings files.
+      // Delete the settings files.
+      $this->taskExecStack()
+        ->exec("chmod ugo+w ${target_folder}")
+        ->exec("chmod ugo+w ${target_folder}/settings.php")
+        ->exec("chmod ugo+w ${target_folder}/settings.local.php")
+        ->exec("rm ${target_folder}/settings.php")
+        ->exec("rm ${target_folder}/settings.local.php")
+        ->run();
 
-      $this->taskWriteToFile($folder . '/settings.local.php')->append(true)->text("\n\$settings['hash_salt'] = '{$hash}';\n")->run();
-      $this->taskExec('chmod')->arg('ugo-w')->arg($folder . '/settings.local.php')->run();
-      $this->taskExec('chmod')->arg('ugo-w')->arg($folder)->run();
+      // Override the settings.file and lock it.
+      $this->_copy($source_folder . '/settings.php', $target_folder . '/settings.php');
+      $this->taskExec('chmod')->arg('ugo-w')->arg($target_folder . '/settings.php')->run();
+
+      // Place local settings file in place.
+      // Place it in the shared folder if we're on AWS.
+      $settings_folder = ($shared_folder = getenv("EFS_MOUNT_DIR"))
+        ? $shared_folder
+        : $target_folder;
+
+      $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
+      $this->taskExec('chmod')->arg('ugo-w')->arg($settings_folder . '/settings.local.php')->run();
+
+      // Lock the sites default folder.
+      $this->taskExec('chmod')->arg('ugo-w')->arg($target_folder)->run();
     }
   }
-
 }

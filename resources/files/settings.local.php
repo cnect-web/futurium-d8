@@ -14,8 +14,6 @@ if (!isset($_SERVER['DATABASE_NAME'])) {
   }
 }
 
-$settings['hash_salt'] = ($_SERVER['HASH_SALT']) ?? getenv('HASH_SALT');
-
 /**
  * Databases.
  */
