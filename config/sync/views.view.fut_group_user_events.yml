@@ -188,7 +188,7 @@ display:
           expose:
             label: ''
           granularity: second
-      title: 'User events'
+      title: 'Next events in your groups'
       header: {  }
       footer: {  }
       empty: {  }
@@ -203,9 +203,9 @@ display:
         - 'user.node_grants:view'
         - user.permissions
       tags: {  }
-  block_1:
+  user_event_block:
     display_plugin: block
-    id: block_1
+    id: user_event_block
     display_title: Block
     position: 1
     display_options:
