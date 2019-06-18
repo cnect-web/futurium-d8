@@ -1,0 +1,8 @@
+langcode: en
+status: true
+dependencies: {  }
+id: webtools_uec
+label: 'Webtools Unified Embed Code'
+icon_uuid: null
+description: 'Display a Widget using the webtools wizard.'
+behavior_plugins: {  }
