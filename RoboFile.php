@@ -90,7 +90,8 @@ class RoboFile extends RoboTasks {
         ->run();
     }
 
-    // @todo: overwrite settings.php and settings.local.php
+    // Overwrite settings.php and settings.local.php.
+    $this->rewriteSettings();
 
     return TRUE;
 
@@ -356,7 +357,7 @@ class RoboFile extends RoboTasks {
       $this->taskFlattenDir(['resources/files/settings*.php'])->to($folder . '/')->run();
       $this->taskExec('chmod')->arg('ugo+w')->arg($folder . '/settings.local.php')->run();
 
-      $this->taskWriteToFile($folder . '/settings.local.php')->append(true)->text("\$settings['hash_salt'] = '{$hash}';\n")->run();
+      $this->taskWriteToFile($folder . '/settings.local.php')->append(true)->text("\n\$settings['hash_salt'] = '{$hash}';\n")->run();
       $this->taskExec('chmod')->arg('ugo-w')->arg($folder . '/settings.local.php')->run();
       $this->taskExec('chmod')->arg('ugo-w')->arg($folder)->run();
     }
