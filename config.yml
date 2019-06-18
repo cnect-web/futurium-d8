@@ -1,8 +1,7 @@
 # Project information.
 project:
   name: FuturiumD8
-  url: http://web
-  root: /var/www/html/web/
+  url: http://localhost
   environment: development
 
 # Site information.
@@ -12,7 +11,6 @@ site:
   profile: minimal
   update: false
   locale: en
-  hash_salt: nBLOu5CNVuJ9Zm0dDE4KTCToRbtmbz0mb9WFx6bcTDsoKRPlvNsA5t4QQ6JxhgzH7nrpFHrrKw
 
 # Administrator account.
 account:
@@ -30,9 +28,8 @@ database:
   root_password: password
   prefix: ""
 
-# Binaries
-bin:
-  drush: ./vendor/bin/drush
+theme:
+  path: web/sites/contrib/blellow
 
 # Behat
 behat:

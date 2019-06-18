@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "206c33487079d3e784d50463af27329c",
+    "content-hash": "cae3038c91e9d33f7573df67242484e0",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -289,24 +289,16 @@
         },
         {
             "name": "cnect-web/blellow",
-            "version": "dev-develop",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://gitlab.dgcnect.eu/web-team/blellow-d8-theme",
-                "reference": "fd2e2074f391b76c1ea1a50246612fd56223a708"
-            },
-            "require": {
-                "drupal/components": "^1.0",
-                "drupal/ui_patterns": "^1.0",
-                "openeuropa/ecl-twig-loader": "~0.1"
+                "reference": "16a1cc17bb24892b5f66c4af836a2c2b81d16a28"
             },
             "type": "drupal-theme",
             "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "EUPL-1.2"
-            ],
             "description": "Institutional Look and Feel for D8",
-            "time": "2019-06-11T12:43:17+00:00"
+            "time": "2018-11-12T16:14:08+00:00"
         },
         {
             "name": "commerceguys/addressing",
@@ -6015,7 +6007,8 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/harvesthq/chosen/releases/download/v1.8.7/chosen_v1.8.7.zip",
-                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d"
+                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d",
+                "shasum": null
             },
             "require": {
                 "composer/installers": "^1.2.0"
@@ -6430,6 +6423,86 @@
             ],
             "description": "Europa Component Library Twig loader.",
             "time": "2018-09-27T12:44:45+00:00"
+        },
+        {
+            "name": "openeuropa/oe_theme",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/openeuropa/oe_theme.git",
+                "reference": "8848b707b892a7adedc76972e278508cdbec945e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/openeuropa/oe_theme/zipball/8848b707b892a7adedc76972e278508cdbec945e",
+                "reference": "8848b707b892a7adedc76972e278508cdbec945e",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/core": "^8.7",
+                "drupal/ui_patterns": "^1.0",
+                "openeuropa/ecl-twig-loader": "~0.1",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "composer/installers": "~1.5",
+                "cweagans/composer-patches": "~1.0",
+                "drupal-composer/drupal-scaffold": "^2.5.2",
+                "drupal/config_devel": "~1.2",
+                "drupal/console": "~1.0",
+                "drupal/drupal-driver": "~2.0.0-alpha6",
+                "drupal/drupal-extension": "~4.0",
+                "drupal/styleguide": "~1.0-alpha3",
+                "drush/drush": "~9.0",
+                "easyrdf/easyrdf": "0.10.0-alpha.1 as 0.9.1",
+                "nikic/php-parser": "~3.0",
+                "openeuropa/behat-transformation-context": "~0.1",
+                "openeuropa/code-review": "~1.0@beta",
+                "openeuropa/drupal-core-require-dev": "^8.7",
+                "openeuropa/oe_content": "~0.6",
+                "openeuropa/oe_corporate_blocks": "~1.0",
+                "openeuropa/oe_multilingual": "~0.3.1",
+                "openeuropa/oe_paragraphs": "~0.5",
+                "openeuropa/oe_search": "~1.0",
+                "openeuropa/task-runner": "~1.0@beta",
+                "phpunit/phpunit": "~6.0",
+                "symfony/dom-crawler": "~3.4"
+            },
+            "type": "drupal-theme",
+            "extra": {
+                "composer-exit-on-patch-failure": true,
+                "enable-patching": true,
+                "installer-paths": {
+                    "build/core": [
+                        "type:drupal-core"
+                    ],
+                    "build/profiles/contrib/{$name}": [
+                        "type:drupal-profile"
+                    ],
+                    "build/modules/contrib/{$name}": [
+                        "type:drupal-module"
+                    ],
+                    "build/themes/contrib/{$name}": [
+                        "type:drupal-theme"
+                    ]
+                },
+                "patches": {
+                    "drupal/drupal-driver": {
+                        "allow-date-only-date-fields": "https://patch-diff.githubusercontent.com/raw/jhedstrom/DrupalDriver/pull/201.patch"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\oe_theme\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "EUPL-1.2"
+            ],
+            "description": "OpenEuropa base theme.",
+            "time": "2019-05-15T09:57:34+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -6983,6 +7056,28 @@
             ],
             "description": "A polyfill for getallheaders.",
             "time": "2016-02-11T07:05:27+00:00"
+        },
+        {
+            "name": "skounis/blellow_helper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/skounis/blellow_helper.git",
+                "reference": "e2ce8a59d775c1f2c795f4109dc7ecf9861088e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/e2ce8a59d775c1f2c795f4109dc7ecf9861088e5",
+                "reference": "e2ce8a59d775c1f2c795f4109dc7ecf9861088e5",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/ui_patterns": "^1.0"
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Additional functionality required by the Blellow Theme for Futurium D8 website",
+            "time": "2019-06-11T09:35:49+00:00"
         },
         {
             "name": "stack/builder",
@@ -10016,6 +10111,9 @@
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Handle exceptions during import": "https://www.drupal.org/files/issues/2019-05-29/3057880-handleexceptions.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -10630,7 +10728,7 @@
             "time": "2019-01-14T23:55:14+00:00"
         },
         {
-            "name": "mikey179/vfsstream",
+            "name": "mikey179/vfsStream",
             "version": "v1.6.6",
             "source": {
                 "type": "git",
@@ -12274,6 +12372,7 @@
         "cnect-web/blellow": 20,
         "drupal/console": 20,
         "drupal/group": 20,
+        "skounis/blellow_helper": 20,
         "drupal/default_content_deploy": 15,
         "skounis/fut_sample_content": 20
     },

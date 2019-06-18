@@ -90,6 +90,8 @@ class RoboFile extends RoboTasks {
         ->run();
     }
 
+    // @todo: overwrite settings.php and settings.local.php
+
     return TRUE;
 
   }
@@ -100,12 +102,15 @@ class RoboFile extends RoboTasks {
   protected function getInstallTask() {
     return $this->taskDrushStack($this->binDir . '/drush')
       ->arg("--root={$this->drupalRoot}")
-      ->dbPrefix($this->env['DATABASE_PREFIX'])
+      ->accountName($this->config->get('account.name'))
+      ->accountMail($this->config->get('account.mail'))
+      ->accountPass($this->config->get('account.password'))
+      ->dbPrefix($this->config->get('database.prefix'))
       ->dbUrl(sprintf("mysql://%s:%s@%s:%s/%s",
         $this->env['DATABASE_USERNAME'],
         $this->env['DATABASE_PASSWORD'],
         $this->env['DATABASE_HOST'],
-        $this->env['DATABASE_PORT'],
+        $this->config->get('database.port'),
         $this->env['DATABASE_NAME']));
   }
 
@@ -263,8 +268,9 @@ class RoboFile extends RoboTasks {
         $color = "\e[31m";
         break;
     }
-
+    $this->say('-------------------------------------------');
     $this->say($color . $text . $color_reset);
+    $this->say('-------------------------------------------');
   }
 
   /**
@@ -296,18 +302,63 @@ class RoboFile extends RoboTasks {
         $content .= "$key={$this->config->get($setting)}\n";
       }
       if (!empty($content)) {
-        $this
+        $r = $this
           ->taskWriteToFile($file)
           ->text($content)
           ->run()
-          ->silent(TRUE)
-          ->printOutput(FALSE);
+          ->getMessage();
 
         $this->statusMessage('Created .env file', 'ok');
       }
     }
     else {
       $this->statusMessage('File .env already exists, skipping...', 'warn');
+    }
+  }
+
+  /**
+   * Get hash_salt after install.
+   */
+  private function getHash() {
+    $app_root = $this->projectRoot;
+    $site_path = $this->drupalRoot;
+
+    require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
+    require_once $this->drupalRoot . '/core/includes/install.inc';
+
+    $file = $this->drupalRoot . '/sites/default/settings.php';
+    require $file;
+    return $settings['hash_salt'];
+  }
+
+  /**
+   * Overwrite settings files.
+   *
+   * @command project:rewrite-settings
+   * @aliases rs
+   */
+  public function rewriteSettings() {
+    require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
+    require_once $this->drupalRoot . '/core/includes/install.inc';
+
+    $hash = $this->getHash();
+    if (!empty($hash)) {
+
+      $folder = $this->drupalRoot . '/sites/default';
+      $this->taskExec('chmod')->arg('ugo+w')->arg($folder)->run();
+      $files = ['settings.php', 'settings.local.php'];
+      foreach ($files as $file) {
+        if (file_exists($folder . '/' . $file))
+        $this->taskExec('chmod')->arg('ugo+w')->arg($folder . '/' . $file)->run();
+      }
+
+      $this->taskExec('rm')->arg($folder . '/settings.php')->arg($folder . '/settings.local.php')->run();
+      $this->taskFlattenDir(['resources/files/settings*.php'])->to($folder . '/')->run();
+      $this->taskExec('chmod')->arg('ugo+w')->arg($folder . '/settings.local.php')->run();
+
+      $this->taskWriteToFile($folder . '/settings.local.php')->append(true)->text("\$settings['hash_salt'] = '{$hash}';\n")->run();
+      $this->taskExec('chmod')->arg('ugo-w')->arg($folder . '/settings.local.php')->run();
+      $this->taskExec('chmod')->arg('ugo-w')->arg($folder)->run();
     }
   }
 

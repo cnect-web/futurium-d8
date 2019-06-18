@@ -6,7 +6,7 @@
     "require": {
         "balbuf/drupal-libraries-installer": "^1.0",
         "boedah/robo-drush": "~4",
-        "cnect-web/blellow": "dev-develop",
+        "cnect-web/blellow": "dev-master",
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
@@ -52,6 +52,8 @@
         "harvesthq/chosen": "^1.8",
         "henrikbjorn/lurker": "^1.2",
         "openeuropa/ecl-twig-loader": "~0.1",
+        "openeuropa/oe_theme": "^1.0",
+        "skounis/blellow_helper": "dev-master",
         "twig/extensions": "^1.5",
         "twig/twig": "^1.38.2",
         "vlucas/phpdotenv": "^2.4",
