@@ -371,6 +371,11 @@ class RoboFile extends RoboTasks {
         : $target_folder;
 
       $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
+      $this->taskWriteToFile($settings_folder . '/settings.local.php')
+        ->append(true)
+        ->text("\n\$settings['hash_salt'] = '{$hash}';\n")
+        ->run();
+
       $this->taskExec('chmod')->arg('ugo-w')->arg($settings_folder . '/settings.local.php')->run();
 
       // Lock the sites default folder.
