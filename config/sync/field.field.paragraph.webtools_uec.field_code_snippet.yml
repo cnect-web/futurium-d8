@@ -1,0 +1,21 @@
+uuid: 24b475a7-4beb-4610-984c-d70ef3c14b82
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.field_code_snippet
+    - paragraphs.paragraphs_type.webtools_uec
+_core:
+  default_config_hash: rSdzanHSY0QD7B8OVl77-TldFHmLm0ZmpL0eBYY4o8I
+id: paragraph.webtools_uec.field_code_snippet
+field_name: field_code_snippet
+entity_type: paragraph
+bundle: webtools_uec
+label: Code
+description: 'Use the <a href="http://europa.eu/webtools/mgmt/wizard/" target="_blank">Webtools Wizard</a>  to generate desired widget and paste the code into this field.'
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: string_long

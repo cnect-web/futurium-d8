@@ -1,0 +1,25 @@
+uuid: 14af92d6-f3d7-4329-8321-ca7d8eb662ba
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.webtools_uec.field_code_snippet
+    - paragraphs.paragraphs_type.webtools_uec
+  module:
+    - webtools_paragraphs
+_core:
+  default_config_hash: XMaH9ioRPorJM880ds56g1c1rSOCVvddfN010mg4XCQ
+id: paragraph.webtools_uec.default
+targetEntityType: paragraph
+bundle: webtools_uec
+mode: default
+content:
+  field_code_snippet:
+    weight: 0
+    settings: {  }
+    third_party_settings: {  }
+    type: webtools_code_widget
+    region: content
+hidden:
+  created: true
+  status: true

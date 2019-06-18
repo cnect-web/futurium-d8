@@ -80,6 +80,7 @@ module:
   webtools: 0
   webtools_geocoder: 0
   webtools_geofield_formatter: 0
+  webtools_paragraphs: 0
   webtools_views: 0
   menu_link_content: 1
   pathauto: 1
