@@ -1,0 +1,19 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.webtools_uec.field_code_snippet
+    - paragraphs.paragraphs_type.webtools_uec
+id: paragraph.webtools_uec.default
+targetEntityType: paragraph
+bundle: webtools_uec
+mode: default
+content:
+  field_code_snippet:
+    weight: 0
+    label: above
+    settings: {  }
+    third_party_settings: {  }
+    type: basic_string
+    region: content
+hidden: {  }

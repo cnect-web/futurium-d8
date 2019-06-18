@@ -1,0 +1,11 @@
+uuid: e0cdf290-963b-4e86-95db-98e8f52ed9c2
+langcode: en
+status: true
+dependencies: {  }
+_core:
+  default_config_hash: HrbZzuuAvinx28Qwa6D2e7gPKJUdUV7q9Nf9J209boM
+id: webtools_uec
+label: 'Webtools Unified Embed Code'
+icon_uuid: null
+description: 'Display a Widget using the webtools wizard.'
+behavior_plugins: {  }

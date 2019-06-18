@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * @file
+ * Contains webtools_paragraphs.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityTypeInterface;
+
+/**
+ * Implements hook_help().
+ */
+function webtools_paragraphs_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the webtools_paragraphs module.
+    case 'help.page.webtools_paragraphs':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Provides a paragraph type to render webtools generated codes.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_entity_bundle_field_info_alter().
+ */
+function webtools_paragraphs_entity_bundle_field_info_alter(&$fields, EntityTypeInterface $entity_type, $bundle) {
+  if ($bundle === 'webtools_uec') {
+    // Add constraint to webtools code snippet field.
+    if (isset($fields['field_code_snippet'])) {
+      $fields['field_code_snippet']->addConstraint('webtools_code_constraint');
+    }
+  }
+}
