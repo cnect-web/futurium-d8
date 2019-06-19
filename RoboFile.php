@@ -405,7 +405,7 @@ class RoboFile extends RoboTasks {
   }
 
   /**
-   * Istall theme.
+   * Install theme.
    *
    * @command theme:install
    * @aliases ti
