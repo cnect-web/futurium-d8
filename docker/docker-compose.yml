@@ -22,7 +22,7 @@ services:
 
   # PHP
   php:
-    image: horaciolopesqq/php:latest
+    image: horaciolopesqq/phpnode:latest
     container_name: "php"
     environment:
       PHP_IDE_CONFIG: serverName=docker/web
