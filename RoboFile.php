@@ -18,7 +18,6 @@ use Dotenv\Dotenv;
  * Class RoboFile.
  */
 class RoboFile extends RoboTasks {
-
   use \Boedah\Robo\Task\Drush\loadTasks;
 
   private $env;
@@ -284,7 +283,8 @@ class RoboFile extends RoboTasks {
    */
   public function projectGenerateEnv(array $options = ['force' => FALSE, 'type' => NULL]) {
     $file = "{$this->projectRoot}/.env";
-    if (!file_exists($file) || $options['force']) {
+    if (!file_exists($file) && !$options['force']) {
+
       $settings = [
         'ENVIRONMENT' => 'project.environment',
         'DATABASE_NAME' => 'database.name',
@@ -293,29 +293,28 @@ class RoboFile extends RoboTasks {
         'DATABASE_USERNAME' => 'database.user',
         'DATABASE_PASSWORD' => 'database.password',
         'DATABASE_PREFIX' => 'database.prefix',
-        'SITE_PROFILE' => 'site.profile',
       ];
+
       $content = "";
+
       if ($options['type'] == 'docker') {
         $content .= "USER_ID=1000\n";
         $content .= "GROUP_ID=1000\n";
         $settings['DATABASE_ROOT_PASSWORD'] = 'database.root_password';
       }
+
       foreach ($settings as $key => $setting) {
-        $content .= "$key={$this->config->get($setting)}\n";
+        // Don't override existing environment variables.
+        if (!getenv($key))  $content .= "$key={$this->config->get($setting)}\n";
+        else                $this->statusMessage("Environment variable \"${key}\" already exists, skipping...", "warn");
       }
       if (!empty($content)) {
-        $r = $this
-          ->taskWriteToFile($file)
-          ->text($content)
-          ->run()
-          ->getMessage();
-
-        $this->statusMessage('Created .env file', 'ok');
+        $this->taskWriteToFile($file)->text($content)->run()->getMessage();
+        $this->statusMessage('.env file created.', 'ok');
       }
     }
     else {
-      $this->statusMessage('File .env already exists, skipping...', 'warn');
+      $this->statusMessage('.env file already exists, skipping...', 'warn');
     }
   }
 
@@ -343,7 +342,6 @@ class RoboFile extends RoboTasks {
 
     $hash = $this->getHash();
     if (!empty($hash)) {
-
       $source_folder = $this->projectRoot . '/resources/files';
       $target_folder = $this->drupalRoot . '/sites/default';
 
@@ -368,14 +366,15 @@ class RoboFile extends RoboTasks {
         : $target_folder;
 
       $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
+
+      // Write the hash_salt to the environment specific settings file.
       $this->taskWriteToFile($settings_folder . '/settings.local.php')
         ->append(true)
         ->text("\n\$settings['hash_salt'] = '{$hash}';\n")
         ->run();
 
+      // Lock the sites default folder and environment specific settings file.
       $this->taskExec("chmod ugo-w ${settings_folder}/settings.local.php")->run();
-
-      // Lock the sites default folder.
       $this->taskExec("chmod ugo-w ${target_folder}")->run();
     }
   }
@@ -413,7 +412,6 @@ class RoboFile extends RoboTasks {
    */
   public function themeInstall() {
     $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
-
     $this->taskNpmInstall()
       ->dir($path)
       ->run();
@@ -433,7 +431,6 @@ class RoboFile extends RoboTasks {
    */
   public function themeWatch() {
     $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
-
     $this->taskExec('npm')
       ->arg('run')
       ->arg('watch')
