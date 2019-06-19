@@ -66,6 +66,18 @@ class RoboFile extends RoboTasks {
   /**
    * Install site from given configuration.
    *
+   * @command project:install-update
+   * @aliases piu
+   */
+  public function projectInstallOrUpdate() {
+    ($this->isInstalled())
+      ? $this->importConfig()
+      : $this->projectInstallConfig();
+  }
+
+  /**
+   * Install site from given configuration.
+   *
    * @command project:install-config
    * @aliases pic
    *
