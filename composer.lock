@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "02b8450e347475aae0a69f5af2642f24",
+    "content-hash": "39b93a9b1224419bda22490c6ea58ef7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4167,7 +4167,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupalcode.org/project/group.git",
-                "reference": "cb58c30b7e6a441ccfbf0bc63245b0ee32129b1c"
+                "reference": "fe95d00c0c49db8c539d942e1515fdce70841636"
             },
             "require": {
                 "drupal/core": "^8.6",
@@ -4179,15 +4179,15 @@
                     "dev-1.x": "1.x-dev"
                 },
                 "drupal": {
-                    "version": "8.x-1.0-rc2+36-dev",
-                    "datestamp": "1552902485",
+                    "version": "8.x-1.0-rc3+4-dev",
+                    "datestamp": "1560338581",
                     "security-coverage": {
                         "status": "not-covered",
                         "message": "Dev releases are not covered by Drupal security advisories."
                     }
                 },
                 "patches_applied": {
-                    "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-03-19/port-subgroups-2736233-216.patch",
+                    "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-06-15/port-subgroups-2736233-236.patch",
                     "Request membership feature": "https://www.drupal.org/files/issues/2019-03-11/group-request_membership_feature-2752603-88.patch",
                     "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
                     "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-03-01/group_membership_duplication-3016197-7.patch",
@@ -4216,10 +4216,10 @@
             "description": "This module allows you to group users, content and other entities",
             "homepage": "http://drupal.org/project/group",
             "support": {
-                "source": "https://cgit.drupalcode.org/group",
+                "source": "https://git.drupalcode.org/project/group",
                 "issues": "https://drupal.org/project/issues/group"
             },
-            "time": "2019-03-18T09:48:44+00:00"
+            "time": "2019-06-12T11:20:06+00:00"
         },
         {
             "name": "drupal/honeypot",
@@ -6007,8 +6007,7 @@
             "dist": {
                 "type": "zip",
                 "url": "https://github.com/harvesthq/chosen/releases/download/v1.8.7/chosen_v1.8.7.zip",
-                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d",
-                "shasum": null
+                "reference": "ad86732b668627c131e61ee8f0e6e9ed52e4db8d"
             },
             "require": {
                 "composer/installers": "^1.2.0"
