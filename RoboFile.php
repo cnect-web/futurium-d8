@@ -282,9 +282,9 @@ class RoboFile extends RoboTasks {
    * @command project:setup-env
    * @aliases pse
    */
-  public function projectGenerateEnv(array $opts = ['force' => FALSE, 'type' => NULL]) {
+  public function projectGenerateEnv(array $options = ['force' => FALSE, 'type' => NULL]) {
     $file = "{$this->projectRoot}/.env";
-    if (!file_exists($file) || $opts['force']) {
+    if (!file_exists($file) || $options['force']) {
       $settings = [
         'ENVIRONMENT' => 'project.environment',
         'DATABASE_NAME' => 'database.name',
@@ -296,7 +296,7 @@ class RoboFile extends RoboTasks {
         'SITE_PROFILE' => 'site.profile',
       ];
       $content = "";
-      if ($opts['type'] == 'docker') {
+      if ($options['type'] == 'docker') {
         $content .= "USER_ID=1000\n";
         $content .= "GROUP_ID=1000\n";
         $settings['DATABASE_ROOT_PASSWORD'] = 'database.root_password';
@@ -336,11 +336,8 @@ class RoboFile extends RoboTasks {
 
   /**
    * Overwrite settings files.
-   *
-   * @command project:rewrite-settings
-   * @aliases rs
    */
-  public function rewriteSettings() {
+  private function rewriteSettings() {
     require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
     require_once $this->drupalRoot . '/core/includes/install.inc';
 
@@ -362,7 +359,7 @@ class RoboFile extends RoboTasks {
 
       // Override the settings.file and lock it.
       $this->_copy($source_folder . '/settings.php', $target_folder . '/settings.php');
-      $this->taskExec('chmod')->arg('ugo-w')->arg($target_folder . '/settings.php')->run();
+      $this->taskExec("chmod ugo-w ${target_folder}/settings.php")->run();
 
       // Place local settings file in place.
       // Place it in the shared folder if we're on AWS.
@@ -376,10 +373,72 @@ class RoboFile extends RoboTasks {
         ->text("\n\$settings['hash_salt'] = '{$hash}';\n")
         ->run();
 
-      $this->taskExec('chmod')->arg('ugo-w')->arg($settings_folder . '/settings.local.php')->run();
+      $this->taskExec("chmod ugo-w ${settings_folder}/settings.local.php")->run();
 
       // Lock the sites default folder.
-      $this->taskExec('chmod')->arg('ugo-w')->arg($target_folder)->run();
+      $this->taskExec("chmod ugo-w ${target_folder}")->run();
     }
   }
+
+  /**
+   * Overwrite theme for dev purposes.
+   *
+   * @command theme:download
+   * @aliases td
+   *
+   * @option $watch Start the watcher after installation.
+   */
+  public function themeDownload($options = ['watch|w' => FALSE]) {
+    $repo = $this->config->get('theme.dev.repo');
+    $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
+    $branch = $this->config->get('theme.dev.branch');
+    $this->taskExec("rm -rf ${path}")->run();
+
+    $this->taskGitStack()
+      ->cloneRepo($repo, $path, $branch)
+      ->run();
+
+    $this->themeInstall();
+
+    if ($options['watch']) {
+      $this->themeWatch();
+    }
+  }
+
+  /**
+   * Istall theme.
+   *
+   * @command theme:install
+   * @aliases ti
+   */
+  public function themeInstall() {
+    $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
+
+    $this->taskNpmInstall()
+      ->dir($path)
+      ->run();
+
+    $this->taskExec('npm')
+      ->arg('run')
+      ->arg('build')
+      ->dir($path)
+      ->run();
+  }
+
+  /**
+   * Start theme watcher.
+   *
+   * @command theme:watch
+   * @aliases tw
+   */
+  public function themeWatch() {
+    $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
+
+    $this->taskExec('npm')
+      ->arg('run')
+      ->arg('watch')
+      ->dir($path)
+      ->run();
+  }
+
 }
