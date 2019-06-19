@@ -29,7 +29,10 @@ database:
   prefix: ""
 
 theme:
-  path: web/sites/contrib/blellow
+  path: themes/contrib/blellow
+  dev:
+    repo: https://gitlab.dgcnect.eu/web-team/blellow-d8-theme
+    branch: develop
 
 # Behat
 behat:
