@@ -52,7 +52,6 @@
         "harvesthq/chosen": "^1.8",
         "henrikbjorn/lurker": "^1.2",
         "openeuropa/ecl-twig-loader": "~0.1",
-        "openeuropa/oe_theme": "^1.0",
         "skounis/blellow_helper": "dev-master",
         "twig/extensions": "^1.5",
         "twig/twig": "^1.38.2",

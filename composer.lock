@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "39b93a9b1224419bda22490c6ea58ef7",
+    "content-hash": "8dd18c71ad993bad3b74dab85574477e",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6422,86 +6422,6 @@
             ],
             "description": "Europa Component Library Twig loader.",
             "time": "2018-09-27T12:44:45+00:00"
-        },
-        {
-            "name": "openeuropa/oe_theme",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/openeuropa/oe_theme.git",
-                "reference": "8848b707b892a7adedc76972e278508cdbec945e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/openeuropa/oe_theme/zipball/8848b707b892a7adedc76972e278508cdbec945e",
-                "reference": "8848b707b892a7adedc76972e278508cdbec945e",
-                "shasum": ""
-            },
-            "require": {
-                "drupal/core": "^8.7",
-                "drupal/ui_patterns": "^1.0",
-                "openeuropa/ecl-twig-loader": "~0.1",
-                "php": "^7.1"
-            },
-            "require-dev": {
-                "composer/installers": "~1.5",
-                "cweagans/composer-patches": "~1.0",
-                "drupal-composer/drupal-scaffold": "^2.5.2",
-                "drupal/config_devel": "~1.2",
-                "drupal/console": "~1.0",
-                "drupal/drupal-driver": "~2.0.0-alpha6",
-                "drupal/drupal-extension": "~4.0",
-                "drupal/styleguide": "~1.0-alpha3",
-                "drush/drush": "~9.0",
-                "easyrdf/easyrdf": "0.10.0-alpha.1 as 0.9.1",
-                "nikic/php-parser": "~3.0",
-                "openeuropa/behat-transformation-context": "~0.1",
-                "openeuropa/code-review": "~1.0@beta",
-                "openeuropa/drupal-core-require-dev": "^8.7",
-                "openeuropa/oe_content": "~0.6",
-                "openeuropa/oe_corporate_blocks": "~1.0",
-                "openeuropa/oe_multilingual": "~0.3.1",
-                "openeuropa/oe_paragraphs": "~0.5",
-                "openeuropa/oe_search": "~1.0",
-                "openeuropa/task-runner": "~1.0@beta",
-                "phpunit/phpunit": "~6.0",
-                "symfony/dom-crawler": "~3.4"
-            },
-            "type": "drupal-theme",
-            "extra": {
-                "composer-exit-on-patch-failure": true,
-                "enable-patching": true,
-                "installer-paths": {
-                    "build/core": [
-                        "type:drupal-core"
-                    ],
-                    "build/profiles/contrib/{$name}": [
-                        "type:drupal-profile"
-                    ],
-                    "build/modules/contrib/{$name}": [
-                        "type:drupal-module"
-                    ],
-                    "build/themes/contrib/{$name}": [
-                        "type:drupal-theme"
-                    ]
-                },
-                "patches": {
-                    "drupal/drupal-driver": {
-                        "allow-date-only-date-fields": "https://patch-diff.githubusercontent.com/raw/jhedstrom/DrupalDriver/pull/201.patch"
-                    }
-                }
-            },
-            "autoload": {
-                "psr-4": {
-                    "Drupal\\oe_theme\\": "./src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "EUPL-1.2"
-            ],
-            "description": "OpenEuropa base theme.",
-            "time": "2019-05-15T09:57:34+00:00"
         },
         {
             "name": "paragonie/random_compat",
