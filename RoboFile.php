@@ -96,7 +96,7 @@ class RoboFile extends RoboTasks {
     if (!$is_installed || $options['force']) {
       $this->getInstallTask()
         ->arg('--existing-config')
-        ->siteInstall($this->env['SITE_PROFILE'])
+        ->siteInstall($this->config->get('site.profile'))
         ->silent(TRUE)
         ->run();
 
