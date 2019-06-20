@@ -95,21 +95,5 @@ services:
       - HUB_HOST=172.17.0.1
       - HUB_PORT=4444
 
-  # Node
-  node:
-    container_name: "node"
-    build:
-      context: ./build/node
-      dockerfile: Dockerfile
-      args:
-        USER_ID: ${USER_ID}
-        GROUP_ID: ${GROUP_ID}
-    working_dir: "/var/www/html"
-    expose:
-      - "3000"
-    volumes:
-      - ..:/var/www/html
-    command: "tail -f /dev/null"
-
 volumes:
   data:
