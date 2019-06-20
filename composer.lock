@@ -293,7 +293,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.dgcnect.eu/web-team/blellow-d8-theme",
-                "reference": "34195af1385c988f60616ff25491ff684c53d633"
+                "reference": "210281c6c848edbc7900afe0f55339bb955113bb"
             },
             "require": {
                 "drupal/components": "^1.0",
@@ -7041,6 +7041,28 @@
             ],
             "description": "A polyfill for getallheaders.",
             "time": "2016-02-11T07:05:27+00:00"
+        },
+        {
+            "name": "skounis/blellow_helper",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/skounis/blellow_helper.git",
+                "reference": "e2ce8a59d775c1f2c795f4109dc7ecf9861088e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/e2ce8a59d775c1f2c795f4109dc7ecf9861088e5",
+                "reference": "e2ce8a59d775c1f2c795f4109dc7ecf9861088e5",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/ui_patterns": "^1.0"
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Additional functionality required by the Blellow Theme for Futurium D8 website",
+            "time": "2019-06-11T09:35:49+00:00"
         },
         {
             "name": "stack/builder",
