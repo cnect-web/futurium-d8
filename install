@@ -23,6 +23,8 @@ if [ -f ".env" ] && [[ $FORCE == "--force" ]]; then rm -rf .env ; fi
 if [ $INSTALLATION_TYPE == "docker" ]
 then
   echo "Using ${BOLD}Docker Compose${NORMAL}."
+  # Create an alias to open a tty in the php container.
+  alias "dshp=docker exec -u 1000 -it php bash"
   RUNNING_CONTAINERS=$(docker ps -q)
   if [ ! -z "$RUNNING_CONTAINERS" ]
   then
