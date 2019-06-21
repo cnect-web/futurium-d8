@@ -1,0 +1,14 @@
+{
+    "name": "horaciolopesqq/docker",
+    "description": "A Docker compose template",
+    "type": "docker-compose",
+    "require": {},
+    "scripts": {
+        "pre-install-cmd": [],
+        "post-install-cmd": [],
+        "post-update-cmd": [],
+        "post-install-cmd": [
+            "cp install .."
+        ]
+    }
+}

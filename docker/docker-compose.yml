@@ -30,6 +30,9 @@ services:
       DOCKER: docker
       USER_ID: 1000
       GROUP_ID: 1000
+    env_file:
+    - ../.env
+
     volumes:
       # Add a configurable php.ini
       - ./config/php/php.ini:/usr/local/etc/php/conf.d/php_overrides.ini
