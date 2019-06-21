@@ -13,6 +13,7 @@ use DrupalFinder\DrupalFinder;
 use Symfony\Component\Filesystem\Filesystem;
 use Webmozart\PathUtil\Path;
 use Dotenv\Dotenv;
+use Drupal\Core\Site\Settings;
 
 /**
  * Class RoboFile.
@@ -61,6 +62,51 @@ class RoboFile extends RoboTasks {
     $processor->extend($loader->load($this->projectRoot . '/config.yml'));
     $config->import($processor->export());
     $this->config = $config;
+
+  }
+
+  /**
+   * Creates the files and folders needed to install drupal.
+   * Copied from ScriptHandler.
+   *
+   * @command project:init-filesystem
+   * @aliases pifs
+   */
+  public function initFileSystem() {
+    $fs = $this->fs;
+    $projectRoot = $this->projectRoot;
+    $drupalRoot = $this->drupalRoot;
+
+    $dirs = [
+      'modules',
+      'profiles',
+      'themes',
+    ];
+
+    // Required for unit testing
+    foreach ($dirs as $dir) {
+      if (!$fs->exists($drupalRoot . '/'. $dir)) {
+        $fs->mkdir($drupalRoot . '/'. $dir);
+        $fs->touch($drupalRoot . '/'. $dir . '/.gitkeep');
+        $this->say("Created ${drupalRoot}/${dir} .");
+      }
+    }
+
+    // Prepare the settings file for installation
+    if (!$fs->exists($drupalRoot . '/sites/default/settings.php') and $fs->exists($projectRoot . '/resources/files/settings.php')) {
+      $fs->copy($projectRoot . '/resources/files/settings.php', $drupalRoot . '/sites/default/settings.php');
+      $fs->chmod($drupalRoot . '/sites/default/settings.php', 0666);
+      $this->say("Created sites/default/settings.php .");
+    }
+
+    // Create the files directory with chmod 0777
+    if (!$fs->exists($drupalRoot . '/sites/default/files')) {
+      $oldmask = umask(0);
+      $fs->mkdir($drupalRoot . '/sites/default/files', 0777);
+      umask($oldmask);
+      $this->say("Created a sites/default/files .");
+    }
+    $fs->chmod($drupalRoot . '/sites/default', 0755);
   }
 
   /**
@@ -83,31 +129,41 @@ class RoboFile extends RoboTasks {
    *
    * @option $force Force the installation.
    */
-  public function projectInstallConfig($options = ['force|f' => false]) {
+  public function installConfig($options = ['force|f' => false]) {
+
+    $fs = $this->fs;
+    $drupalRoot = $this->drupalRoot;
+
+    $this->initFileSystem();
 
     $is_installed = (!$options['force'])
       ? $this->isInstalled()
       : FALSE;
 
-    !$is_installed || $options['force']
-      ? $this->statusMessage("Starting Drupal installation.", "ok")
-      : $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
-
     if (!$is_installed || $options['force']) {
+
+      // Delete local.settings.php if it exists.
+      if ($fs->exists($drupalRoot . '/sites/default/settings.local.php')) {
+        $fs->chmod($drupalRoot . '/sites/default', 0777);
+        $fs->chmod($drupalRoot . '/sites/default/settings.local.php', 0777);
+        $fs->remove($drupalRoot . '/sites/default/settings.local.php');
+        $this->say("Deleted sites/default/settings.local.php file.");
+      }
+
+      $this->statusMessage("Starting Drupal installation.", "ok");
       $this->getInstallTask()
         ->arg('--existing-config')
         ->siteInstall($this->config->get('site.profile'))
         ->silent(TRUE)
         ->run();
 
-      // Overwrite settings.php and settings.local.php.
       $this->rewriteSettings();
-    }
 
-    $this->statusMessage("Installation finished.", 'ok');
+      $this->statusMessage("Installation finished.", 'ok');
+    }
+    else $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
 
     return TRUE;
-
   }
 
   /**
@@ -282,9 +338,7 @@ class RoboFile extends RoboTasks {
         $color = "\e[31m";
         break;
     }
-    $this->say('-------------------------------------------');
     $this->say($color . $text . $color_reset);
-    $this->say('-------------------------------------------');
   }
 
   /**
@@ -316,9 +370,14 @@ class RoboFile extends RoboTasks {
       }
 
       foreach ($settings as $key => $setting) {
-        // Don't override existing environment variables.
-        if (!getenv($key))  $content .= "$key={$this->config->get($setting)}\n";
-        else                $this->statusMessage("Environment variable \"${key}\" already exists, skipping...", "warn");
+        // We need the env vars on docker and other local environments.
+        if (!getenv('EFS_MOUNT_DIR'))
+          $content .= "$key={$this->config->get($setting)}\n";
+        // Don't override existing environment variables on aws.
+        elseif (getenv('EFS_MOUNT_DIR') && !getenv($key))
+          $content .= "$key={$this->config->get($setting)}\n";
+        else
+          $this->statusMessage("Environment variable \"${key}\" already exists, skipping...", "warn");
       }
       if (!empty($content)) {
         $this->taskWriteToFile($file)->text($content)->run()->getMessage();
@@ -331,28 +390,16 @@ class RoboFile extends RoboTasks {
   }
 
   /**
-   * Get hash_salt after install.
-   */
-  private function getHash() {
-    $app_root = $this->projectRoot;
-    $site_path = $this->drupalRoot;
-
-    require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
-    require_once $this->drupalRoot . '/core/includes/install.inc';
-
-    $file = $this->drupalRoot . '/sites/default/settings.php';
-    require $file;
-    return $settings['hash_salt'];
-  }
-
-  /**
    * Overwrite settings files.
    */
-  private function rewriteSettings() {
+  public function rewriteSettings() {
     require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
     require_once $this->drupalRoot . '/core/includes/install.inc';
 
-    $hash = $this->getHash();
+    // Initialize Settings.
+    Settings::initialize($this->drupalRoot, 'sites/default', $this->classLoader);
+    $hash = Settings::get('hash_salt');
+
     if (!empty($hash)) {
       $source_folder = $this->projectRoot . '/resources/files';
       $target_folder = $this->drupalRoot . '/sites/default';
@@ -362,13 +409,20 @@ class RoboFile extends RoboTasks {
       $this->taskExecStack()
         ->exec("chmod ugo+w ${target_folder}")
         ->exec("chmod ugo+w ${target_folder}/settings.php")
-        ->exec("chmod ugo+w ${target_folder}/settings.local.php")
         ->exec("rm ${target_folder}/settings.php")
-        ->exec("rm ${target_folder}/settings.local.php")
         ->run();
 
       // Override the settings.file and lock it.
       $this->_copy($source_folder . '/settings.php', $target_folder . '/settings.php');
+
+      $settings['settings']['hash_salt'] = (object) [
+        'value'    => $hash,
+        'required' => TRUE,
+      ];
+
+      // Keep the hash in settings.php
+      drupal_rewrite_settings($settings, $this->drupalRoot . '/sites/default/settings.php');
+
       $this->taskExec("chmod ugo-w ${target_folder}/settings.php")->run();
 
       // Place local settings file in place.
@@ -379,11 +433,8 @@ class RoboFile extends RoboTasks {
 
       $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
 
-      // Write the hash_salt to the environment specific settings file.
-      $this->taskWriteToFile($settings_folder . '/settings.local.php')
-        ->append(true)
-        ->text("\n\$settings['hash_salt'] = '{$hash}';\n")
-        ->run();
+      // But override it in settings.local.php
+      drupal_rewrite_settings($settings, $this->drupalRoot . '/sites/default/settings.local.php');
 
       // Lock the sites default folder and environment specific settings file.
       $this->taskExec("chmod ugo-w ${settings_folder}/settings.local.php")->run();
@@ -450,4 +501,25 @@ class RoboFile extends RoboTasks {
       ->run();
   }
 
+  public function i() {
+    require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
+    require_once $this->drupalRoot . '/core/includes/install.inc';
+
+    // Initialize Settings.
+    Settings::initialize($this->drupalRoot, 'sites/default', $this->classLoader);
+    $db = Settings::getAll();
+
+    var_dump($db);
+/*
+    $settings['databases']['default']['default'] = (object) [
+      'value'    => $database,
+      'required' => TRUE,
+    ];
+
+        drupal_rewrite_settings($settings);
+*/
+  }
+
 }
+
+
