@@ -25,9 +25,11 @@ services:
     image: horaciolopesqq/phpnode:latest
     container_name: "php"
     environment:
-      PHP_IDE_CONFIG: serverName=docker/web
-    env_file:
-      - ../.env
+      PHP_IDE_CONFIG: serverName=docker
+      XDEBUG_CONFIG: "remote_enable=1 remote_mode=req remote_port=9000 remote_host=172.17.0.1 remote_connect_back=0"
+      DOCKER: docker
+      USER_ID: 1000
+      GROUP_ID: 1000
     volumes:
       # Add a configurable php.ini
       - ./config/php/php.ini:/usr/local/etc/php/conf.d/php_overrides.ini
