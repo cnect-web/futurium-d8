@@ -14,6 +14,8 @@ if (!isset($_SERVER['DATABASE_NAME'])) {
   }
 }
 
+$settings['hash_salt'] = '';
+
 /**
  * Databases.
  */
