@@ -94,6 +94,7 @@ class RoboFile extends RoboTasks {
 
     // Prepare the settings file for installation
     if (!$fs->exists($drupalRoot . '/sites/default/settings.php') and $fs->exists($projectRoot . '/resources/files/settings.php')) {
+      $fs->chmod($drupalRoot . '/sites/default', 0775);
       $fs->copy($projectRoot . '/resources/files/settings.php', $drupalRoot . '/sites/default/settings.php');
       $fs->chmod($drupalRoot . '/sites/default/settings.php', 0666);
       $this->say("Created sites/default/settings.php .");
@@ -392,27 +393,25 @@ class RoboFile extends RoboTasks {
   /**
    * Overwrite settings files.
    */
-  public function rewriteSettings() {
+  private function rewriteSettings() {
     require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
     require_once $this->drupalRoot . '/core/includes/install.inc';
+
+    $source_folder = $this->projectRoot . '/resources/files';
+    $target_folder = $this->drupalRoot . '/sites/default';
+
+    // Unlock the sites/default folder and settings files.q
+    $this->fs->chmod($this->drupalRoot . '/sites/default', 0775);
+    $this->fs->chmod($this->drupalRoot . '/sites/default/settings.php', 0775);
 
     // Initialize Settings.
     Settings::initialize($this->drupalRoot, 'sites/default', $this->classLoader);
     $hash = Settings::get('hash_salt');
 
     if (!empty($hash)) {
-      $source_folder = $this->projectRoot . '/resources/files';
-      $target_folder = $this->drupalRoot . '/sites/default';
-
-      // Unlock the sites/default folder and settings files.
-      // Delete the settings files.
-      $this->taskExecStack()
-        ->exec("chmod ugo+w ${target_folder}")
-        ->exec("chmod ugo+w ${target_folder}/settings.php")
-        ->exec("rm ${target_folder}/settings.php")
-        ->run();
 
       // Override the settings.file and lock it.
+      $this->fs->remove($this->drupalRoot . '/sites/default/settings.php');
       $this->_copy($source_folder . '/settings.php', $target_folder . '/settings.php');
 
       $settings['settings']['hash_salt'] = (object) [
@@ -422,8 +421,6 @@ class RoboFile extends RoboTasks {
 
       // Keep the hash in settings.php
       drupal_rewrite_settings($settings, $this->drupalRoot . '/sites/default/settings.php');
-
-      $this->taskExec("chmod ugo-w ${target_folder}/settings.php")->run();
 
       // Place local settings file in place.
       // Place it in the shared folder if we're on AWS.
@@ -435,11 +432,15 @@ class RoboFile extends RoboTasks {
 
       // But override it in settings.local.php
       drupal_rewrite_settings($settings, $this->drupalRoot . '/sites/default/settings.local.php');
-
-      // Lock the sites default folder and environment specific settings file.
-      $this->taskExec("chmod ugo-w ${settings_folder}/settings.local.php")->run();
-      $this->taskExec("chmod ugo-w ${target_folder}")->run();
     }
+
+    // Reset the permissions to the proper state.
+    $this->fs->chmod($this->drupalRoot . '/sites/default', 0555);
+    $this->fs->chmod($this->drupalRoot . '/sites/default/settings.php', 0444);
+    $this->fs->chmod($settings_folder. '/settings.local.php', 0444);
+    $this->fs->chmod($this->drupalRoot. '/sites/default/files', 2775);
+
+    return TRUE;
   }
 
   /**
@@ -484,6 +485,9 @@ class RoboFile extends RoboTasks {
       ->arg('build')
       ->dir($path)
       ->run();
+
+    $this->cacheRebuild();
+
   }
 
   /**
@@ -501,23 +505,27 @@ class RoboFile extends RoboTasks {
       ->run();
   }
 
-  public function i() {
-    require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
-    require_once $this->drupalRoot . '/core/includes/install.inc';
+  public function userLogin($options = ['uid|u' => "1"]) {
+    $loginUrl = $this->taskExec($this->binDir . '/drush')
+      ->arg('uli')
+      ->option('--uri', $this->config->get('project.url'), '=')
+      ->option('--root', $this->drupalRoot, '=')
+      ->option('--uid', $options['uid'], '=')
+      ->silent(TRUE)
+      ->printOutput(FALSE)
+      ->run()
+      ->getMessage();
 
-    // Initialize Settings.
-    Settings::initialize($this->drupalRoot, 'sites/default', $this->classLoader);
-    $db = Settings::getAll();
+    $this->say($loginUrl);
 
-    var_dump($db);
-/*
-    $settings['databases']['default']['default'] = (object) [
-      'value'    => $database,
-      'required' => TRUE,
-    ];
+  }
 
-        drupal_rewrite_settings($settings);
-*/
+  public function cacheRebuild() {
+    $this->taskDrushStack($this->binDir . '/drush')
+      ->drush('cache-rebuild')
+      ->arg("--root={$this->drupalRoot}")
+      ->silent(TRUE)
+      ->run();
   }
 
 }
