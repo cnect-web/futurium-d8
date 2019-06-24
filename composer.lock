@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8dd18c71ad993bad3b74dab85574477e",
+    "content-hash": "3f4b000ebcb0381d18dc6b68730a92cc",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -10405,6 +10405,29 @@
                 "scraper"
             ],
             "time": "2018-06-29T15:13:57+00:00"
+        },
+        {
+            "name": "horaciolopesqq/docker",
+            "version": "0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/HoracioLopes/docker-compose-template.git",
+                "reference": "41a57a0e506fa3e42cc96c32d9dba2e4f7d0654c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/HoracioLopes/docker-compose-template/get/41a57a0e506fa3e42cc96c32d9dba2e4f7d0654c.zip",
+                "reference": "41a57a0e506fa3e42cc96c32d9dba2e4f7d0654c",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.2"
+            },
+            "type": "porto-container",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A Docker compose template",
+            "homepage": "https://bitbucket.org/HoracioLopes/docker-compose-template",
+            "time": "2019-06-21T15:35:14+00:00"
         },
         {
             "name": "instaclick/php-webdriver",

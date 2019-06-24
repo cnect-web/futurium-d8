@@ -40,5 +40,5 @@
 # Artifacts
 *.zip
 
-# Docker data
-docker/data/
+# Docker
+docker/

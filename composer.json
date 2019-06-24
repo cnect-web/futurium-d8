@@ -64,9 +64,10 @@
         "behat/mink": "^1.7",
         "behat/mink-goutte-driver": "^1.2",
         "drupal/config_devel": "^1.2",
+        "drupal/default_content_deploy": "^1.0@alpha",
         "drupal/devel": "^2.0",
         "drupal/drupal-extension": "^3.4",
-        "drupal/default_content_deploy": "^1.0@alpha",
+        "horaciolopesqq/docker": "^0.0.3",
         "skounis/fut_sample_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
     },
@@ -106,7 +107,8 @@
             "web/modules/contrib/{$name}": ["type:drupal-module"],
             "web/profiles/contrib/{$name}": ["type:drupal-profile"],
             "web/themes/contrib/{$name}": ["type:drupal-theme"],
-            "drush/contrib/{$name}": ["type:drupal-drush"]
+            "drush/contrib/{$name}": ["type:drupal-drush"],
+   	    "./{$name}": ["type:porto-container"]
         },
         "drupal-libraries": {
             "datetimepicker": "https://github.com/xdan/datetimepicker/archive/2.5.20.zip"
