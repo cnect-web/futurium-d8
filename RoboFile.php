@@ -400,6 +400,12 @@ class RoboFile extends RoboTasks {
     $source_folder = $this->projectRoot . '/resources/files';
     $target_folder = $this->drupalRoot . '/sites/default';
 
+    // Place local settings file in place.
+    // Place it in the shared folder if we're on AWS.
+    $settings_folder = ($shared_folder = getenv("EFS_MOUNT_DIR"))
+      ? $shared_folder
+      : $target_folder;
+
     // Unlock the sites/default folder and settings files.q
     $this->fs->chmod($this->drupalRoot . '/sites/default', 0775);
     $this->fs->chmod($this->drupalRoot . '/sites/default/settings.php', 0775);
@@ -421,12 +427,6 @@ class RoboFile extends RoboTasks {
 
       // Keep the hash in settings.php
       drupal_rewrite_settings($settings, $this->drupalRoot . '/sites/default/settings.php');
-
-      // Place local settings file in place.
-      // Place it in the shared folder if we're on AWS.
-      $settings_folder = ($shared_folder = getenv("EFS_MOUNT_DIR"))
-        ? $shared_folder
-        : $target_folder;
 
       $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
 
