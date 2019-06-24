@@ -97,17 +97,16 @@ class RoboFile extends RoboTasks {
       $fs->chmod($drupalRoot . '/sites/default', 0775);
       $fs->copy($projectRoot . '/resources/files/settings.php', $drupalRoot . '/sites/default/settings.php');
       $fs->chmod($drupalRoot . '/sites/default/settings.php', 0666);
-      $this->say("Created sites/default/settings.php .");
+      $this->say("Created sites/default/settings.php");
     }
+
+    $fs->chmod($drupalRoot . '/sites/default', 0755);
 
     // Create the files directory with chmod 0777
     if (!$fs->exists($drupalRoot . '/sites/default/files')) {
-      $oldmask = umask(0);
       $fs->mkdir($drupalRoot . '/sites/default/files', 0777);
-      umask($oldmask);
-      $this->say("Created a sites/default/files .");
+      $this->say("Created sites/default/files/");
     }
-    $fs->chmod($drupalRoot . '/sites/default', 0755);
   }
 
   /**
@@ -393,20 +392,21 @@ class RoboFile extends RoboTasks {
   /**
    * Overwrite settings files.
    */
-  private function rewriteSettings() {
+  public function rewriteSettings() {
     require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
     require_once $this->drupalRoot . '/core/includes/install.inc';
 
     $source_folder = $this->projectRoot . '/resources/files';
     $target_folder = $this->drupalRoot . '/sites/default';
 
-    // Place local settings file in place.
-    // Place it in the shared folder if we're on AWS.
+    // Define a place for the local settings file.
+    // If we're on AWS, place it in the shared folder.
+    // Otherwise just place it in the normal location (sites/default).
     $settings_folder = ($shared_folder = getenv("EFS_MOUNT_DIR"))
       ? $shared_folder
       : $target_folder;
 
-    // Unlock the sites/default folder and settings files.q
+    // Unlock the sites/default folder and settings file.
     $this->fs->chmod($this->drupalRoot . '/sites/default', 0775);
     $this->fs->chmod($this->drupalRoot . '/sites/default/settings.php', 0775);
 
@@ -416,21 +416,24 @@ class RoboFile extends RoboTasks {
 
     if (!empty($hash)) {
 
-      // Override the settings.file and lock it.
+      // Overwrite the settings.file.
       $this->fs->remove($this->drupalRoot . '/sites/default/settings.php');
       $this->_copy($source_folder . '/settings.php', $target_folder . '/settings.php');
 
+      // Re-add the hash_salt to settings.php
       $settings['settings']['hash_salt'] = (object) [
         'value'    => $hash,
         'required' => TRUE,
       ];
 
-      // Keep the hash in settings.php
       drupal_rewrite_settings($settings, $this->drupalRoot . '/sites/default/settings.php');
 
-      $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
+      // Don't overwrite local settings if a file already exists.
+      if (!file_exists($settings_folder . '/settings.local.php')) {
+        $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
+      }
 
-      // But override it in settings.local.php
+      // Add the hash_salt copied from settings.php to settings.local.php
       drupal_rewrite_settings($settings, $this->drupalRoot . '/sites/default/settings.local.php');
     }
 
@@ -438,7 +441,6 @@ class RoboFile extends RoboTasks {
     $this->fs->chmod($this->drupalRoot . '/sites/default', 0555);
     $this->fs->chmod($this->drupalRoot . '/sites/default/settings.php', 0444);
     $this->fs->chmod($settings_folder. '/settings.local.php', 0444);
-    $this->fs->chmod($this->drupalRoot. '/sites/default/files', 2775);
 
     return TRUE;
   }
