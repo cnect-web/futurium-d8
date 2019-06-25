@@ -1,12 +1,12 @@
 # Project information.
 project:
-  name: FuturiumD8
+  name: ProjectName
   url: http://localhost
   environment: development
 
 # Site information.
 site:
-  name: Futurium
+  name: SiteName
   mail: email@example.com
   profile: minimal
   update: false
@@ -20,7 +20,7 @@ account:
 
 # Database parameters.
 database:
-  name: futuriumd8
+  name: drupal
   user: mysql
   password: mysql
   host: mysql
@@ -28,11 +28,15 @@ database:
   root_password: password
   prefix: ""
 
-theme:
-  path: themes/contrib/blellow
-  dev:
-    repo: https://gitlab.dgcnect.eu/web-team/blellow-d8-theme
-    branch: develop
+# If you wish to swap a theme downloaded using composer,
+# specify it's info bellow.
+# You can then use 'robo theme:dev' (alias 'robo td') to swap.
+
+#theme:
+#  path: themes/contrib/theme_name
+#  dev:
+#    repo: https://github.com/organization/theme_name
+#    branch: master
 
 # Behat
 behat:
@@ -40,10 +44,12 @@ behat:
   webdriver_host: http://172.17.0.1:4444/wd/hub
 
 # Here you can specify environment overrides.
+# Not working atm.
+
 #environment:
 #  settings:
 #    trusted_host_patterns:
-#      - "dev.europa.eu$"
+#      - "my.fqdn.here$"
 #    http_client_config:
 #      proxy:
 #        http: "http://username:password@host:port"
