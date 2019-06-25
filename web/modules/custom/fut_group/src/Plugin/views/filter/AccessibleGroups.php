@@ -5,6 +5,7 @@ namespace Drupal\fut_group\Plugin\views\filter;
 use Drupal\group\GroupMembershipLoaderInterface;
 use Drupal\views\Plugin\views\filter\FilterPluginBase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Filter by group where current user is member.
@@ -54,6 +55,40 @@ class AccessibleGroups extends FilterPluginBase {
   /**
    * {@inheritdoc}
    */
+  protected function defineOptions() {
+    $options = parent::defineOptions();
+    $options['not'] = ['default' => FALSE];
+
+    return $options;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
+    $form['not'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Inverse'),
+      '#description' => $this->t('If checked, will display groups where current user is not a member.'),
+      '#default_value' => $this->options['not'],
+    ];
+
+    parent::buildOptionsForm($form, $form_state);
+  }
+
+  /**
+   * Display the filter on the administrative summary.
+   */
+  public function adminSummary() {
+    if ($this->options['not']) {
+      return $this->t('Showing groups where user is not member.');
+    }
+    return $this->t('Showing groups where user is member.');
+  }
+
+  /**
+   * {@inheritdoc}
+   */
   public function canExpose() {
     return FALSE;
   }
@@ -77,7 +112,8 @@ class AccessibleGroups extends FilterPluginBase {
 
     // Add condition (Group IDs where current user is member).
     if (!empty($account_group_ids)) {
-      $this->view->query->addWhere($this->options['group'], "{$this->tableAlias}.{$this->realField}", $account_group_ids, 'IN');
+      $operator = !($this->options['not']) ? 'IN' : 'NOT IN';
+      $this->view->query->addWhere($this->options['group'], "{$this->tableAlias}.{$this->realField}", $account_group_ids, $operator);
     }
   }
 
