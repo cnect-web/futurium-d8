@@ -54,7 +54,7 @@ COMMAND=$([ "$ENVIRONMENT" == "development" ] && echo "composer install" || echo
 if [ $INSTALLATION_TYPE == "docker" ]; then
   docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -t -v $(pwd):/var/www/html $PHP_IMAGE $COMMAND \
   && docker-compose -f docker/docker-compose.yml up -d \
-  && docker exec -u ${USER_ID} php bin/robo pic $FORCE
+  && docker exec -u ${USER_ID} php bash bin/robo pic $FORCE
   # Create an alias to open a tty in the php container.
   alias "dshp=docker exec -u 1000 -it php bash"
 else
