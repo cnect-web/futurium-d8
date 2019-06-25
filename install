@@ -35,6 +35,7 @@ then
 else
   # No docker, install on bare metal.
   echo "Using ${BOLD}Bare install${NORMAL}."
+  # Composer install because we need robo.
   composer install
   ./bin/robo pse
 fi
