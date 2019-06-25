@@ -532,6 +532,21 @@ class RoboFile extends RoboTasks {
       ->run();
   }
 
+  /**
+   * Create a release ready artifact.
+   *
+   * @command release:package
+   * @aliases rp
+   *
+   * @option $force Force the installation.
+   */
+  public function releasePackage($archive_name = NULL) {
+    // Enforce composer --no-dev
+    $this->taskComposerInstall()
+      ->noDev()
+      ->run();
+    $this->_exec('./resources/scripts/deploy/package.sh');
+  }
 }
 
 

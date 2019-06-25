@@ -24,8 +24,8 @@ zip --symlinks -x \
 --exclude=phpcs-ruleset.xml \
 --exclude=phpunit.xml.dist \
 --exclude=RoboFile.php \
---exclude=robo.yml \
---exclude=robo.yml.dist \
+--exclude=config.yml \
+--exclude=config.yml.dist \
 --exclude=bin/\* \
 --exclude=docker/\* \
 --exclude=tests/\* \
