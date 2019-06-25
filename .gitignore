@@ -42,3 +42,6 @@
 
 # Docker
 docker/
+
+# Config file
+config.yml

@@ -163,6 +163,8 @@ class RoboFile extends RoboTasks {
     }
     else $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
 
+    $this->importConfig();
+
     return TRUE;
   }
 
