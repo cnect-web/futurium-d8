@@ -23,7 +23,6 @@ zip --symlinks -x \
 --exclude=LICENSE \
 --exclude=phpcs-ruleset.xml \
 --exclude=phpunit.xml.dist \
---exclude=RoboFile.php \
 --exclude=config.yml \
 --exclude=config.yml.dist \
 --exclude=bin/\* \
