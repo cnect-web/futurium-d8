@@ -7048,12 +7048,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/blellow_helper.git",
-                "reference": "1b3f539746ffe7e574b865108b4f78d805aaa180"
+                "reference": "8ae481a9f40f76eb64368613ee962bdf3d80ecc9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/1b3f539746ffe7e574b865108b4f78d805aaa180",
-                "reference": "1b3f539746ffe7e574b865108b4f78d805aaa180",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/8ae481a9f40f76eb64368613ee962bdf3d80ecc9",
+                "reference": "8ae481a9f40f76eb64368613ee962bdf3d80ecc9",
                 "shasum": ""
             },
             "require": {
