@@ -20,7 +20,7 @@
         "drupal/config_readonly": "^1.0",
         "drupal/config_split": "^1.4",
         "drupal/config_update": "^1.5",
-        "drupal/console": "dev-dev-core",
+        "drupal/console": "^1.9",
         "drupal/core": "^8.7",
         "drupal/ctools": "^3.0",
         "drupal/entity_reference_revisions": "^1.0",
@@ -116,14 +116,11 @@
             "drupal/core": {
                 "LanguageNegotiator::updateConfiguration() is passed a NULL": "https://www.drupal.org/files/issues/2019-02-28/language-2718657-17.patch"
             },
-            "drupal/adminimal_theme": {
-                "Colors in horizontal and vertical toolbar need fixing": "https://www.drupal.org/files/issues/2019-02-13/adminimal_theme_fix_toolbar_colors-2826369-19.patch"
-            },
             "drupal/views": {
                 "Cannot use relationship for rendered entity on Views": "https://www.drupal.org/files/issues/2019-03-15/2457999-189.patch"
             },
             "drupal/group": {
-                "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-03-19/port-subgroups-2736233-216.patch",
+                "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-06-15/port-subgroups-2736233-236.patch",
                 "Request membership feature": "https://www.drupal.org/files/issues/2019-03-11/group-request_membership_feature-2752603-88.patch",
                 "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
                 "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-03-01/group_membership_duplication-3016197-7.patch",
@@ -162,10 +159,6 @@
                 "composer/installers": "^1.2.0"
             }
           }
-        },
-        {
-            "type": "git",
-            "url": "https://github.com/cnect-web/drupal-console"
         }
     ]
 }

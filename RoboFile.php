@@ -61,7 +61,7 @@ class RoboFile extends NGFTasks {
       ->arg('-r', 'web/')
       ->exec('cache-clear drush')
       ->exec('updb')
-      ->exec('csim -y')
+      ->exec('cim -y')
       ->exec('cr')
       ->run();
   }
@@ -76,7 +76,7 @@ class RoboFile extends NGFTasks {
     $this->taskDrushStack($this->config('bin.drush'))
       ->arg('-r', 'web/')
       ->exec('cache-clear drush')
-      ->exec('csex -y')
+      ->exec('cex -y')
       ->exec('cr')
       ->run();
   }
