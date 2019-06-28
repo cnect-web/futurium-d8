@@ -10,6 +10,7 @@ description: ''
 folder: ../config/staging_config
 module:
   stage_file_proxy: 0
+  aws_info: 0
 theme: {  }
 blacklist: {  }
 graylist:
