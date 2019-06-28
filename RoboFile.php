@@ -102,34 +102,60 @@ class RoboFile extends RoboTasks {
 
     $fs->chmod($drupalRoot . '/sites/default', 0755);
 
-    $settings_folder = $this->getLocalSettingsFolder();
-
     // Create the files directory with chmod 0777
-    // This will be either created on sites/default or on a nfs mount in case of AWS.
-    if (!$fs->exists($settings_folder . '/files')) {
-      $fs->mkdir($settings_folder . '/files', 0777);
-      $this->say("Created ${settings_folder}/files");
+    if (!$fs->exists($drupalRoot . '/sites/default/files')) {
+      $oldmask = umask(0);
+      $fs->mkdir($drupalRoot . '/sites/default/files', 0777);
+      umask($oldmask);
+      $this->say("Created a sites/default/files directory with chmod 0777");
     }
+
+    $fs->chmod($drupalRoot . '/sites/default', 0755);
   }
 
   /**
    * Overwrites the settings files with symlinks if they exist.
+   *
+   * @command project:init-symlinks
+   * @aliases pisl
    */
-  private function initSymLinks() {
+  public function initSymLinks() {
     // We only want to check this on AWS.
     if ($this->isAws()) {
       $fs = $this->fs;
-      // Check if settings files exist on nfs mount.
+
       $drupal_settings_folder = $this->drupalRoot . '/sites/default';
-      $settings_folder = $this->getLocalSettingsFolder();
+      $shared_folder = $this->getLocalSettingsFolder();
+
       $files = ['settings.php', 'settings.local.php'];
       $fs->chmod($drupal_settings_folder, 0777);
+
+      // Check if settings file exist on nfs mount.
+      // If a shared settings file exists, use that.
       foreach ($files as $file) {
-        if (file_exists($settings_folder . '/' . $file) && !file_exists($drupal_settings_folder . '/' . $file)) {
-          // Create a symlink.
-          $this->_exec("ln -sf ${settings_folder}/${file} ${drupal_settings_folder}/");
+        if (file_exists($shared_folder . '/' . $file)) {
+          // If a settings file exists in the sites default, delete it.
+          if(file_exists($drupal_settings_folder . '/' . $file)) {
+            $fs->chmod($drupal_settings_folder . '/' . $file, 0777);
+            $fs->remove($drupal_settings_folder . '/' . $file);
+          }
+          // Create the symlink to the shared one.
+          $this->_symlink("${shared_folder}/${file}", "${drupal_settings_folder}/${file}");
         }
       }
+
+      // Create the symlink to the files folder.
+      if (file_exists($shared_folder . '/files')) {
+        // If a settings file exists in the sites default, delete it.
+        if(file_exists($drupal_settings_folder . '/files') && !is_link($drupal_settings_folder . '/files')) {
+          $fs->chmod($drupal_settings_folder . '/files', 0777);
+          $fs->remove($drupal_settings_folder . '/files');
+          // Create the symlink to the shared files folder.
+        }
+        $this->_symlink("${shared_folder}/files", "${drupal_settings_folder}/files");
+      }
+
+      // Lock the sites/default folder.
       $fs->chmod($drupal_settings_folder, 0555);
     }
   }
@@ -142,7 +168,10 @@ class RoboFile extends RoboTasks {
    */
   public function projectInstallOrUpdate($options = ['force' => false]) {
 
-    // Initialize the symlinks if needed.
+    // Initialize the filesystem.
+    $this->initFileSystem();
+
+    // Initialize the symlinks.
     $this->initSymLinks();
 
     // If the website is installed and we're not forcing the install,
@@ -165,17 +194,14 @@ class RoboFile extends RoboTasks {
     $fs = $this->fs;
     $drupalRoot = $this->drupalRoot;
 
-    $this->initFileSystem();
-
     $is_installed = (!$options['force'])
       ? $this->isInstalled()
       : FALSE;
 
     if (!$is_installed || $options['force']) {
 
-      $settings_folder = $this->getLocalSettingsFolder();
       // Delete local.settings.php if it exists before install.
-
+      $settings_folder = $this->getLocalSettingsFolder();
       if ($fs->exists($settings_folder . '/settings.local.php')) {
         $fs->chmod($settings_folder . '/settings.local.php', 0777);
         $fs->remove($settings_folder . '/settings.local.php');
@@ -189,6 +215,7 @@ class RoboFile extends RoboTasks {
         ->silent(TRUE)
         ->run();
 
+      // Rewrite the settings.
       $this->rewriteSettings();
 
       $this->statusMessage("Installation finished.", 'ok');
@@ -196,8 +223,6 @@ class RoboFile extends RoboTasks {
     else $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
 
     $this->importConfig();
-
-    return TRUE;
   }
 
   /**
@@ -228,7 +253,7 @@ class RoboFile extends RoboTasks {
     $this->taskDrushStack($this->binDir . '/drush')
       ->arg('-r', $this->drupalRoot)
       ->exec('cache-clear drush')
-      ->exec('updb')
+      ->exec('updb -y')
       ->exec('csim -y')
       ->exec('cr')
       ->run();
@@ -268,28 +293,6 @@ class RoboFile extends RoboTasks {
       ->getMessage();
 
     return ($db_tables !== 0);
-  }
-
-  /**
-   *
-   */
-  private function statusMessage($text, $type) {
-    $color_reset = "\033[0m";
-    switch ($type) {
-
-      case 'ok':
-        $color = "\e[32m";
-        break;
-
-      case 'warn':
-        $color = "\e[33m";
-        break;
-
-      case 'error':
-        $color = "\e[31m";
-        break;
-    }
-    $this->say($color . $text . $color_reset);
   }
 
   /**
@@ -340,21 +343,6 @@ class RoboFile extends RoboTasks {
     }
   }
 
-  private function isAws() {
-    return getenv("EFS_MOUNT_DIR") !== FALSE;
-  }
-
-  // Define a place for the local settings file.
-  // If we're on AWS, place it in the shared folder.
-  // Otherwise just place it in the normal location (sites/default).
-  private function getLocalSettingsFolder() {
-    if ($this->isAws()) {
-      return getenv("EFS_MOUNT_DIR");
-    }
-    return $this->drupalRoot . '/sites/default';
-  }
-
-
   /**
    * Rewrite settings files.
    *
@@ -385,11 +373,6 @@ class RoboFile extends RoboTasks {
       $this->fs->remove($this->drupalRoot . '/sites/default/settings.php');
       $this->_copy($source_folder . '/settings.php', $settings_folder . '/settings.php');
 
-      // Write a symlink to settings.php
-      if (file_exists("${settings_folder}/settings.php")) {
-        $this->_exec("ln -sf ${settings_folder}/settings.php ${target_folder}/");
-      }
-
       // Re-add the hash_salt to settings.php
       $settings['settings']['hash_salt'] = (object) [
         'value'    => $hash,
@@ -408,19 +391,24 @@ class RoboFile extends RoboTasks {
       }
     }
 
-    // Add a symlinks in $target_folder if $settings_folder != $target_folder
-    if ($settings_folder != $target_folder) {
-      if (file_exists("${settings_folder}/settings.local.php")) {
-        $this->_exec("ln -sf ${settings_folder}/settings.local.php ${target_folder}/");
-      }
-    }
-
     // Reset the permissions to the proper state.
     $this->fs->chmod($this->drupalRoot . '/sites/default', 0555);
-    $this->fs->chmod($this->drupalRoot . '/sites/default/settings.php', 0444);
+    $this->fs->chmod($settings_folder. '/settings.php', 0444);
     $this->fs->chmod($settings_folder. '/settings.local.php', 0444);
+  }
 
-    return TRUE;
+  private function isAws() {
+    return getenv("EFS_MOUNT_DIR") !== FALSE;
+  }
+
+  // Define a place for the local settings file.
+  // If we're on AWS, place it in the shared folder.
+  // Otherwise just place it in the normal location (sites/default).
+  private function getLocalSettingsFolder() {
+    if ($this->isAws()) {
+      return getenv("EFS_MOUNT_DIR");
+    }
+    return $this->drupalRoot . '/sites/default';
   }
 
   /**
@@ -610,6 +598,28 @@ class RoboFile extends RoboTasks {
 
     $this->taskComposerInstall()
       ->run();
+  }
+
+  /**
+   * Print a prettiefied message.
+   */
+  private function statusMessage($text, $type) {
+    $color_reset = "\033[0m";
+    switch ($type) {
+
+      case 'ok':
+        $color = "\e[32m";
+        break;
+
+      case 'warn':
+        $color = "\e[33m";
+        break;
+
+      case 'error':
+        $color = "\e[31m";
+        break;
+    }
+    $this->say($color . $text . $color_reset);
   }
 }
 
