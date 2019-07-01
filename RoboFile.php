@@ -171,14 +171,14 @@ class RoboFile extends RoboTasks {
     // Initialize the filesystem.
     $this->initFileSystem();
 
-    // Initialize the symlinks.
-    $this->initSymLinks();
-
     // If the website is installed and we're not forcing the install,
     // just import the config.
     (!$this->isInstalled() || $options['force'])
       ? $this->installConfig($options)
       : $this->importConfig();
+
+    // Initialize the symlinks.
+    $this->initSymLinks();
   }
 
   /**
@@ -256,6 +256,7 @@ class RoboFile extends RoboTasks {
       ->exec('updb -y')
       ->exec('csim -y')
       ->exec('cr')
+      ->silent(TRUE)
       ->run();
   }
 
@@ -278,6 +279,10 @@ class RoboFile extends RoboTasks {
    *
    */
   private function isInstalled() {
+
+    // Ensure the symlinks are in place.
+    $this->initSymlinks();
+
     // Check if the DB is empty.
     $db_tables = (int) $this->taskExec('mysql')
       ->option('user', $this->env['DATABASE_USERNAME'], '=')
@@ -622,5 +627,3 @@ class RoboFile extends RoboTasks {
     $this->say($color . $text . $color_reset);
   }
 }
-
-
