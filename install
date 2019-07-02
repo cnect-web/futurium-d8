@@ -28,10 +28,26 @@ then
   then
     docker kill $RUNNING_CONTAINERS > /dev/null 2>&1
   fi
+
+  # Generate a temporary php.ini file.
+  echo "memory_limit=-1" > php.ini
+
   # We need robo to set up the environment.
-  (docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -t -v $(pwd):/var/www/html $PHP_IMAGE composer install > /dev/null 2>&1)
-  (docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -t -v $(pwd):/var/www/html $PHP_IMAGE composer install > /dev/null 2>&1)
-  (docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -t -v $(pwd):/var/www/html $PHP_IMAGE ./bin/robo pse --type docker > /dev/null 2>&1)
+  ( docker run --user ${USER_ID}:${GROUP_ID} \
+    --name php_install --rm -t \
+    -v $(pwd):/var/www/html \
+    -v $(pwd)/php.ini:/usr/local/etc/php/conf.d/php_overrides.ini \
+    $PHP_IMAGE composer install )
+
+  ( docker run --user ${USER_ID}:${GROUP_ID} \
+    --name php_install --rm -t \
+    -v $(pwd):/var/www/html \
+    -v $(pwd)/php.ini:/usr/local/etc/php/conf.d/php_overrides.ini \
+    $PHP_IMAGE ./bin/robo pse --type docker )
+
+  # Delete temporary php.ini file.
+  rm -rf php.ini
+
 else
   # No docker, install on bare metal.
   echo "Using ${BOLD}Bare install${NORMAL}."
@@ -55,7 +71,8 @@ COMMAND=$([ "$ENVIRONMENT" == "development" ] && echo "composer install" || echo
 if [ $INSTALLATION_TYPE == "docker" ]; then
   docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -t -v $(pwd):/var/www/html $PHP_IMAGE $COMMAND \
   && docker-compose -f docker/docker-compose.yml up -d \
-  && docker exec -u ${USER_ID} php bin/robo pic $FORCE
+  && sleep 10 \
+  && docker exec -u ${USER_ID} php bin/robo piu $FORCE
   # Create an alias to open a tty in the php container.
   alias "dshp=docker exec -u 1000 -it php bash"
 else
