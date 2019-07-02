@@ -254,7 +254,7 @@ class RoboFile extends RoboTasks {
       ->arg('-r', $this->drupalRoot)
       ->exec('cache-clear drush')
       ->exec('updb -y')
-      ->exec('csim -y')
+      ->exec('cim -y')
       ->exec('cr')
       ->silent(TRUE)
       ->run();
@@ -270,7 +270,7 @@ class RoboFile extends RoboTasks {
     $this->taskDrushStack($this->binDir . '/drush')
       ->arg('-r', $this->drupalRoot)
       ->exec('cache-clear drush')
-      ->exec('csex -y')
+      ->exec('cex -y')
       ->exec('cr')
       ->run();
   }
