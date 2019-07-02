@@ -2510,7 +2510,66 @@
             "description": "Limit which text formats are available for each field instance.",
             "homepage": "https://www.drupal.org/project/allowed_formats",
             "support": {
-                "source": "http://cgit.drupalcode.org/allowed_formats"
+                "source": "https://git.drupalcode.org/project/allowed_formats"
+            }
+        },
+        {
+            "name": "drupal/better_normalizers",
+            "version": "1.0.0-beta3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/better_normalizers.git",
+                "reference": "8.x-1.0-beta3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/better_normalizers-8.x-1.0-beta3.zip",
+                "reference": "8.x-1.0-beta3",
+                "shasum": "876c5f0006c3764677e1dbe6dec60a32d5a2d636"
+            },
+            "require": {
+                "drupal/core": "^8.3"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0-beta3",
+                    "datestamp": "1493796785",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Sam152",
+                    "homepage": "https://www.drupal.org/user/1485048"
+                },
+                {
+                    "name": "andypost",
+                    "homepage": "https://www.drupal.org/user/118908"
+                },
+                {
+                    "name": "chr.fritsch",
+                    "homepage": "https://www.drupal.org/user/2103716"
+                },
+                {
+                    "name": "larowlan",
+                    "homepage": "https://www.drupal.org/user/395439"
+                }
+            ],
+            "description": "Improve the normalizers in core.",
+            "homepage": "https://www.drupal.org/project/better_normalizers",
+            "support": {
+                "source": "https://git.drupalcode.org/project/better_normalizers"
             }
         },
         {
@@ -11874,6 +11933,28 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "skounis/fut_default_content",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/skounis/fut_default_content.git",
+                "reference": "ef00a81eef24a82ad08852e17adc8d780714bc49"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/skounis/fut_default_content/zipball/ef00a81eef24a82ad08852e17adc8d780714bc49",
+                "reference": "ef00a81eef24a82ad08852e17adc8d780714bc49",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/default_content": "1.*"
+            },
+            "type": "drupal-module",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "Default Content for Futurium D8",
+            "time": "2019-07-02T12:44:27+00:00"
+        },
+        {
             "name": "skounis/fut_sample_content",
             "version": "dev-master",
             "source": {
@@ -12156,7 +12237,8 @@
         "drupal/group": 20,
         "skounis/blellow_helper": 20,
         "drupal/default_content_deploy": 15,
-        "skounis/fut_sample_content": 20
+        "skounis/fut_sample_content": 20,
+        "skounis/fut_default_content": 20
     },
     "prefer-stable": true,
     "prefer-lowest": false,
