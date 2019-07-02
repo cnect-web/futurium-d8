@@ -6,8 +6,8 @@
     "require": {
         "balbuf/drupal-libraries-installer": "^1.0",
         "boedah/robo-drush": "~4",
-        "cnect-web/blellow": "@dev",
-        "composer/installers": "^1.6.0",
+        "cnect-web/blellow": "dev-develop",
+        "composer/installers": "dev-master as 1.6.0",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
         "drupal/address": "^1.6",
@@ -20,7 +20,7 @@
         "drupal/config_readonly": "^1.0",
         "drupal/config_split": "^1.4",
         "drupal/config_update": "^1.5",
-        "drupal/console": "dev-dev-core",
+        "drupal/console": "^1.9",
         "drupal/core": "^8.7",
         "drupal/ctools": "^3.0",
         "drupal/entity_reference_revisions": "^1.0",
@@ -51,6 +51,7 @@
         "drush/drush": "^9.0",
         "harvesthq/chosen": "^1.8",
         "henrikbjorn/lurker": "^1.2",
+        "nuvoleweb/robo-config": "^0.2",
         "openeuropa/ecl-twig-loader": "~0.1",
         "skounis/blellow_helper": "dev-master",
         "twig/extensions": "^1.5",
@@ -67,7 +68,7 @@
         "drupal/default_content_deploy": "^1.0@alpha",
         "drupal/devel": "^2.0",
         "drupal/drupal-extension": "^3.4",
-        "horaciolopesqq/docker": "^0.0.4",
+        "horaciolopesqq/docker": "^0.0.6",
         "skounis/fut_sample_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
     },
@@ -77,11 +78,14 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "sort-packages": true
+        "sort-packages": true,
+        "github-oauth": {
+          "github.com": "db5f705abddcb6cebfdef9f90ff536fce12eed9c"
+        }
     },
     "autoload": {
         "psr-4": {
-            "Cnect\\Robo\\": "robo"
+            "NGF\\Robo\\": "robo"
         },
         "classmap": [
             "resources/scripts/composer/ScriptHandler.php"
@@ -96,7 +100,7 @@
             "DrupalProject\\composer\\ScriptHandler::checkComposerVersion"
         ],
         "post-install-cmd": [
-            "sh resources/scripts/composer/symlink.sh"
+            "bash resources/scripts/composer/symlink.sh"
         ],
         "post-update-cmd": []
     },
@@ -115,9 +119,6 @@
         "_comment_patches": "Temporarily enabling patches on chained composer.json until config_installer is on core",
         "patches": {
             "enable-patching" : true,
-            "composer/installers": {
-                "Add docker-compose to composer/installers": "./resources/patches/composer-installers-160-docker-compose.patch"
-            },
             "drupal/core": {
                 "LanguageNegotiator::updateConfiguration() is passed a NULL": "https://www.drupal.org/files/issues/2019-02-28/language-2718657-17.patch"
             },
@@ -166,8 +167,8 @@
           }
         },
         {
-            "type": "git",
-            "url": "https://github.com/cnect-web/drupal-console"
+          "url": "https://github.com/horaciolopesqq/installers",
+          "type": "git"
         }
     ]
 }
