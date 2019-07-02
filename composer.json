@@ -67,6 +67,7 @@
         "drupal/default_content_deploy": "^1.0@alpha",
         "drupal/devel": "^2.0",
         "skounis/fut_sample_content": "dev-master",
+        "skounis/fut_default_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
     },
     "conflict": {
