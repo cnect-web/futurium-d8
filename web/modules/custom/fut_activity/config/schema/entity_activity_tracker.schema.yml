@@ -1,0 +1,33 @@
+fut_activity.entity_activity_tracker.*:
+  type: config_entity
+  label: 'Entity activity tracker config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    entity_type:
+      type: string
+      label: 'Entity Type'
+    entity_bundle:
+      type: string
+      label: 'Entity Bundle'
+    decay:
+      type: int
+      label: 'Dacay'
+    decay_granularity:
+      type: int
+      label: 'Decay Granularity'
+    halflife:
+      type: int
+      label: 'Halflife'
+    activity_creation:
+      type: int
+      label: 'Activity Creation'
+    activity_update:
+      type: int
+      label: 'Activity Update'

@@ -1,0 +1,9 @@
+services:
+  fut_activity.activity_subscriber:
+    class: Drupal\fut_activity\EventSubscriber\ActivitySubscriber
+    arguments: ['@fut_activity.activity_processor']
+    tags:
+      - { name: event_subscriber }
+  fut_activity.activity_processor:
+    class: Drupal\fut_activity\ActivityProcessor
+    arguments: ['@queue', '@entity_type.manager', '@config.factory', '@database', '@datetime.time']

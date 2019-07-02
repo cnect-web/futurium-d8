@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains fut_activity.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function fut_activity_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fut_activity module.
+    case 'help.page.fut_activity':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Module provides a way to sort content based on activity.') . '</p>';
+      return $output;
+
+    default:
+  }
+}

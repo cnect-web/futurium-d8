@@ -1,0 +1,5 @@
+name: 'fut_activity'
+type: module
+description: 'Module provides a way to sort content based on activity.'
+core: 8.x
+package: 'Futurium'
