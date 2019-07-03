@@ -7097,8 +7097,8 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/8ae481a9f40f76eb64368613ee962bdf3d80ecc9",
-                "reference": "8ae481a9f40f76eb64368613ee962bdf3d80ecc9",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/d3fb62bc27e5f004282cebc1edcf5d57464cd001",
+                "reference": "d3fb62bc27e5f004282cebc1edcf5d57464cd001",
                 "shasum": ""
             },
             "require": {
