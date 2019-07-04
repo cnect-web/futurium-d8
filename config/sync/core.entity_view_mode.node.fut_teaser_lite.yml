@@ -1,0 +1,10 @@
+uuid: 9dd50531-9123-4647-b204-38c13d1dc22a
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+id: node.fut_teaser_lite
+label: 'Teaser Lite'
+targetEntityType: node
+cache: true
