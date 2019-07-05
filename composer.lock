@@ -11938,12 +11938,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/fut_default_content.git",
-                "reference": "ef00a81eef24a82ad08852e17adc8d780714bc49"
+                "reference": "c7541533da3412eaba3c677612bbb193e76df3eb"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/fut_default_content/zipball/ef00a81eef24a82ad08852e17adc8d780714bc49",
-                "reference": "ef00a81eef24a82ad08852e17adc8d780714bc49",
+                "url": "https://api.github.com/repos/skounis/fut_default_content/zipball/c7541533da3412eaba3c677612bbb193e76df3eb",
+                "reference": "c7541533da3412eaba3c677612bbb193e76df3eb",
                 "shasum": ""
             },
             "require": {
