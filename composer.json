@@ -139,6 +139,9 @@
             },
             "drupal/default_content": {
                 "Handle exceptions during import": "https://www.drupal.org/files/issues/2019-05-29/3057880-handleexceptions.patch"
+            },
+            "drupal/default_content_deploy": {
+                "Pass logger to parent": "https://www.drupal.org/files/issues/2019-07-08/passloggertoparent-3066432.patch"
             }
         }
     },
