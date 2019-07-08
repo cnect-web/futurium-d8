@@ -293,7 +293,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.dgcnect.eu/web-team/blellow-d8-theme",
-                "reference": "97c0fc5605ba35cad7a74cfafec5ec0a31d1d9d7"
+                "reference": "df2c814660b8ecd6b390d143b5a593c6a71ba083"
             },
             "require": {
                 "drupal/components": "^1.0",
