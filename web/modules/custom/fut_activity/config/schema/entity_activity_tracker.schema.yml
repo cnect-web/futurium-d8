@@ -16,18 +16,62 @@ fut_activity.entity_activity_tracker.*:
     entity_bundle:
       type: string
       label: 'Entity Bundle'
+    activity_processors:
+      type: sequence
+      label: 'Activity Processors Plugins'
+      sequence:
+        type: fut_activity.activity_processor.plugin.[id]
+        label: 'Plugin Id'
+
+fut_activity.activity_processor.plugin:
+  type: mapping
+  label: 'Activity Processor settings'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+
+fut_activity.activity_processor.plugin.activity_processor_node:
+  type: fut_activity.activity_processor.plugin
+  mapping:
     decay:
-      type: int
-      label: 'Dacay'
+      type: integer
     decay_granularity:
-      type: int
-      label: 'Decay Granularity'
+      type: integer
     halflife:
-      type: int
-      label: 'Halflife'
+      type: integer
     activity_creation:
-      type: int
-      label: 'Activity Creation'
+      type: integer
     activity_update:
-      type: int
-      label: 'Activity Update'
+      type: integer
+
+
+
+
+
+
+
+
+
+
+
+#       activity_processors:
+#         type: fut_activity.activity_processor.settings.[%key]
+#         label: 'Activity processor plugins'
+
+# fut_activity.activity_processor.settings_base:
+#   type: mapping
+#   label: 'Settings for base activity_processor plugin'
+#   mapping:
+#     enabled:
+#       type: boolean
+#       label: 'Enabled'
+
+# # The plugins which extend the base activity_processor plugin and don't provide
+# # any configuration form will validate on this entry.
+# fut_activity.activity_processor.settings.*:
+#   type: fut_activity.activity_processor.settings_base
+
+
+
+

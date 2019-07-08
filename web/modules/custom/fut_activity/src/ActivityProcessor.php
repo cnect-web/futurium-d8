@@ -142,6 +142,7 @@ class ActivityProcessor implements ActivityProcessorInterface {
     } catch (\Throwable $th) {
       \Drupal::logger('system')->error($th->getMessage());
     }
+    
 
   }
 

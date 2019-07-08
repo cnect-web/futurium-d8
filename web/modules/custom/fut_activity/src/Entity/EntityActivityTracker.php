@@ -3,6 +3,8 @@
 namespace Drupal\fut_activity\Entity;
 
 use Drupal\Core\Config\Entity\ConfigEntityBase;
+use Drupal\fut_activity\Plugin\ActivityProcessorCollection;
+use Drupal\Core\Entity\EntityWithPluginCollectionInterface;
 
 /**
  * Defines the Entity activity tracker entity.
@@ -38,7 +40,7 @@ use Drupal\Core\Config\Entity\ConfigEntityBase;
  *   }
  * )
  */
-class EntityActivityTracker extends ConfigEntityBase implements EntityActivityTrackerInterface {
+class EntityActivityTracker extends ConfigEntityBase implements EntityActivityTrackerInterface, EntityWithPluginCollectionInterface {
 
   /**
    * The Entity activity tracker ID.
@@ -69,49 +71,27 @@ class EntityActivityTracker extends ConfigEntityBase implements EntityActivityTr
    */
   protected $entity_bundle;
 
-  /**
-   * The activity value to subtract when preform a decay.
-   *
-   * @var int
-   */
-  protected $decay;
-
-  /**
-   * The time in seconds that the activity value is kept before applying the decay.
-   *
-   * @var int
-   */
-  protected $decay_granularity;
-
-  /**
-   * The time in seconds in which the activity value halves.
-   *
-   * @var int
-   */
-  protected $halflife;
-
-  /**
-   * The activity value on entity creation.
-   *
-   * @var int
-   */
-  protected $activity_creation;
-
-  /**
-   * The activity value to increment on entity update.
-   *
-   * @var int
-   */
-  protected $activity_update;
-
-
-  // TODO: IDK how to handle the comment part :S
   // /**
-  //  * The activity value to increment when a comment is added.
+  //  * Processors instances IDs.
   //  *
-  //  * @var int
+  //  * @var array
   //  */
-  // protected $activity_comment;
+  // protected $activity_processors;
+
+  /**
+   * The Activity Tracker processor plugins configuration keyed by their id.
+   *
+   * @var array
+   */
+  public $activity_processors = [];
+
+  /**
+   * Holds the collection of processor plugins that are attached to this
+   * Entity Activity Tracker.
+   *
+   * @var \Drupal\fut_activity\Plugin\ActivityProcessorCollection
+   */
+  protected $processorCollection;
 
 
   /**
@@ -131,35 +111,51 @@ class EntityActivityTracker extends ConfigEntityBase implements EntityActivityTr
   /**
    * {@inheritdoc}
    */
-  public function getDecay() {
-    return $this->decay;
+  public function getProcessorPlugins() {
+    if (!isset($this->processorCollection)) {
+      $this->processorCollection = new ActivityProcessorCollection(\Drupal::service('fut_activity.plugin.manager.activity_processor'), $this->activity_processors);
+    }
+    return $this->processorCollection;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getDecayGranularity() {
-    return $this->decay_granularity;
+  public function getProcessorPlugin($instance_id) {
+    return $this->getProcessorPlugins()->get($instance_id);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getHalflife() {
-    return $this->halflife;
+  public function getEnabledProcessorsPlugins() {
+    return $this->getProcessorPlugins()->getEnabled();
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getActivityCreation() {
-    return $this->activity_creation;
+  public function getPluginCollections() {
+    return ['activity_processors' => $this->getProcessorPlugins()];
   }
 
-  /**
-   * {@inheritdoc}
-   */
-  public function getActivityUpdate() {
-    return $this->activity_update;
-  }
+
+  // /**
+  //  * {@inheritdoc}
+  //  */
+  // public function getProcessors() {
+  //   return $this->activity_processors;
+  // }
+
+  //  /**
+  //  * {@inheritdoc}
+  //  */
+  // public function getProcessor($key) {
+  //   if (!isset($this->activity_processors[$key])) {
+  //     return NULL;
+  //   }
+  //   return $this->activity_processors[$key];
+  // }
+
+
 }

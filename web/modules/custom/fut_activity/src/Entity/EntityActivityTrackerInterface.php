@@ -25,43 +25,45 @@ interface EntityActivityTrackerInterface extends ConfigEntityInterface {
    */
   public function getTargetEntityBundle();
 
-  /**
-   * Gets the decay value.
-   *
-   * @return int
-   *   The activity value to subtract when preform a decay.
-   */
-  public function getDecay();
 
   /**
-   * Gets the decay granularity.
+   * getProcessorPlugins
    *
-   * @return int
-   *   The time in seconds that the activity value is kept before applying the decay.
+   * @return void
    */
-  public function getDecayGranularity();
+  public function getProcessorPlugins();
 
   /**
-   * Gets the halflife value.
+   * getProcessorPlugin
    *
-   * @return int
-   *   The time in seconds in which the activity value halves.
+   * @param  mixed $instance_id
+   *
+   * @return void
    */
-  public function getHalflife();
+  public function getProcessorPlugin($instance_id);
 
   /**
-   * Gets the timestap of entity creation.
+   * getEnabledProcessorsPlugins
    *
-   * @return int
-   *   The timestamp of creation.
+   * @return void
    */
-  public function getActivityCreation();
+  public function getEnabledProcessorsPlugins();
 
-  /**
-   * Gets the timestap of last update.
-   *
-   * @return int
-   *   The timestamp of last update.
-   */
-  public function getActivityUpdate();
+
+  // /**
+  //  * Gets the list of activity processors.
+  //  *
+  //  * @return array
+  //  *   The list of processors.
+  //  */
+  // public function getProcessors();
+
+  // /**
+  //  * Get a specific processor.
+  //  *
+  //  * @return \Drupal\fut_activity\Plugin\ActivityProcessorInterface
+  //  *   A specific ActivityProcessor.
+  //  */
+  // public function getProcessor($key);
+
 }
