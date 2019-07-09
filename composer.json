@@ -7,6 +7,7 @@
         "balbuf/drupal-libraries-installer": "^1.0",
         "boedah/robo-drush": "~4",
         "cnect-web/blellow": "dev-develop",
+        "cnect-web/group_permissions": "1.0",
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
@@ -125,7 +126,7 @@
                 "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-06-15/port-subgroups-2736233-236.patch",
                 "Request membership feature": "https://www.drupal.org/files/issues/2019-03-11/group-request_membership_feature-2752603-88.patch",
                 "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
-                "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-03-01/group_membership_duplication-3016197-7.patch",
+                "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-07-09/group_membership_duplication-3016197-10.patch",
                 "Get a token of a node's parent group to create a pathauto pattern" : "https://www.drupal.org/files/issues/group_add-node-group-tokens-2774827-24.patch",
                 "Media enabler" : "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch",
                 "Group language settings are missing" : "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
@@ -162,6 +163,18 @@
             },
             "require": {
                 "composer/installers": "^1.2.0"
+            }
+          }
+        },
+        {
+          "type": "package",
+          "package": {
+            "name": "cnect-web/group_permissions",
+            "version": "1.0",
+            "type": "drupal-module",
+            "dist": {
+              "url": "https://github.com/cnect-web/group_permissions/archive/1.0.zip",
+              "type": "zip"
             }
           }
         }
