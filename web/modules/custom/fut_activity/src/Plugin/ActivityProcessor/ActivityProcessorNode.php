@@ -4,13 +4,14 @@ namespace Drupal\fut_activity\Plugin\ActivityProcessor;
 
 use Drupal\fut_activity\Plugin\ActivityProcessorBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
 use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Database\Driver\mysql\Connection;
 use Drupal\Component\Datetime\TimeInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\fut_activity\ActivityRecordStorageInterface;
+use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Sets setting for nodes and preforms the activity process for nodes.
@@ -23,46 +24,37 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFactoryPluginInterface {
 
-  use StringTranslationTrait;
+  // use StringTranslationTrait;
 
 
-  /**
-   * Database connection.
-   *
-   * @var \Drupal\Core\Database\Connection
-   */
-  protected $connection;
-
-  /**
-   * The date time service.
-   *
-   * @var \Drupal\Component\Datetime\TimeInterface
-   */
-  protected $dateTime;
+  // /**
+  //  * The activity record storage service.
+  //  *
+  //  * @var \Drupal\fut_activity\ActivityRecordStorageInterface
+  //  */
+  // protected $activityRecordStorage;
 
 
 
-    /**
-   * {@inheritdoc}
-   */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition, Connection $connection, TimeInterface $date_time) {
-    parent::__construct($configuration, $plugin_id, $plugin_definition);
-    $this->connection = $connection;
-    $this->dateTime = $date_time;
-  }
+  // /**
+  //  * {@inheritdoc}
+  //  */
+  // public function __construct(array $configuration, $plugin_id, $plugin_definition, ActivityRecordStorageInterface $activity_record_storage) {
+  //   parent::__construct($configuration, $plugin_id, $plugin_definition);
+  //   $this->activityRecordStorage = $activity_record_storage;
+  // }
 
-    /**
-   * {@inheritdoc}
-   */
-  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-    return new static(
-      $configuration,
-      $plugin_id,
-      $plugin_definition,
-      $container->get('database'),
-      $container->get('datetime.time')
-    );
-  }
+  // /**
+  //  * {@inheritdoc}
+  //  */
+  // public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+  //   return new static(
+  //     $configuration,
+  //     $plugin_id,
+  //     $plugin_definition,
+  //     $container->get('fut_activity.activity_record_storage')
+  //   );
+  // }
 
 
    /**
@@ -168,62 +160,23 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
   /**
    * {@inheritdoc}
    */
-  public function processActivity(BaseEntityEvent $event) {
+  public function processActivity(Event $event) {
 
     $dispatcher_type = $event->getDispatcherType();
-    $entity = $event->getEntity();
+    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity  */
 
     switch ($dispatcher_type) {
       case HookEventDispatcherInterface::ENTITY_INSERT:
-        $keys = [
-          'entity_type' => $entity->getEntityTypeId(),
-          'entity_id' => (int)$entity->id(),
-        ];
-        $fields = [
-          'activity' => $this->configuration['activity_creation'],
-          'created' =>  $this->dateTime->getRequestTime(),
-          'changed' => $this->dateTime->getRequestTime(),
-        ];
-        try {
+        $this->activityRecordStorage->updateActivityRecord($event->getEntity(), $this->configuration['activity_creation']);
+      break;
 
-          $existing_record = $this->connection->select('fut_activity','fa');
-          $existing_record->addField('fa','activity_id');
+      case HookEventDispatcherInterface::ENTITY_UPDATE:
+        $this->activityRecordStorage->updateActivityRecord($event->getEntity(), $this->configuration['activity_update']);
+      break;
 
-          foreach ($keys as $key => $value) {
-            $existing_record->condition($key,$value);
-          }
-
-          $existing_record->execute()->fetchCol();
-
-          $teste="";
-
-          $this->connection->merge('fut_activity')
-            ->key($keys)
-            ->fields($fields)
-            ->expression('activity', 'activity + :inc', [':inc' => $this->configuration['activity_creation']])
-            ->execute();
-        } catch (\Throwable $th) {
-          \Drupal::logger('system')->error($th->getMessage());
-        }
-
-        break;
-
-        case HookEventDispatcherInterface::ENTITY_UPDATE:
-        $fields = [
-          'changed'=> $this->dateTime->getRequestTime(),
-        ];
-        try {
-          $this->connection->update('fut_activity')
-            ->fields($fields)
-            ->condition('entity_id', $entity->id())
-            ->condition('entity_type',$entity->getEntityTypeId())
-            ->expression('activity', 'activity + :inc', [':inc' => $this->configuration['activity_update']])
-            ->execute();
-        } catch (\Throwable $th) {
-          \Drupal::logger('system')->error($th->getMessage());
-        }
-
-        break;
+      case HookEventDispatcherInterface::ENTITY_DELETE:
+        $this->activityRecordStorage->deleteActivityRecord($event->getEntity());
+      break;
     }
 
 

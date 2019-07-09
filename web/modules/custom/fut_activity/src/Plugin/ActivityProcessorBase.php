@@ -5,37 +5,54 @@ namespace Drupal\fut_activity\Plugin;
 use Drupal\Component\Plugin\PluginBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
+use Drupal\fut_activity\ActivityRecordStorageInterface;
+use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Base class for Activity processor plugins.
  */
 abstract class ActivityProcessorBase extends PluginBase implements ActivityProcessorInterface {
 
-  // /**
-  //  * The processor settings.
-  //  *
-  //  * @var array
-  //  */
-  // protected $processorSettings;
+  use StringTranslationTrait;
+
+  /**
+   * The activity record storage service.
+   *
+   * @var \Drupal\fut_activity\ActivityRecordStorageInterface
+   */
+  protected $activityRecordStorage;
 
 
   /**
    * {@inheritdoc}
    */
-  public function __construct(array $configuration, $plugin_id, $plugin_definition) {
+  public function __construct(array $configuration, $plugin_id, $plugin_definition, ActivityRecordStorageInterface $activity_record_storage) {
     parent::__construct($configuration, $plugin_id, $plugin_definition);
-
+    $this->activityRecordStorage = $activity_record_storage;
     $this->setConfiguration($configuration);
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
+    return new static(
+      $configuration,
+      $plugin_id,
+      $plugin_definition,
+      $container->get('fut_activity.activity_record_storage')
+    );
   }
 
 
 
 
-
   /**
    * {@inheritdoc}
    */
-  public function processActivity(BaseEntityEvent $event) {
+  public function processActivity(Event $event) {
     # code...
   }
 
