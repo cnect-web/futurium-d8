@@ -63,11 +63,14 @@
     },
     "require-dev": {
         "behat/behat": "^3.4",
+        "behat/mink": "^1.7",
         "drupal/config_devel": "^1.2",
         "drupal/default_content_deploy": "^1.0@alpha",
         "drupal/devel": "^2.0",
-        "skounis/fut_sample_content": "dev-master",
+        "drupal/drupal-extension": "^3.4",
+        "guzzlehttp/guzzle" : "^6.0@dev",
         "skounis/fut_default_content": "dev-master",
+        "skounis/fut_sample_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
     },
     "conflict": {

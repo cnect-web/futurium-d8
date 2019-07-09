@@ -6,7 +6,7 @@ Feature: Site is installed
 
   Scenario: Verify that the website is accessible.
     Given I am on the homepage
-    Then I see the text "NGF"
+    Then I see the text "Futurium"
 
   Scenario: Check main links are accessible.
     Given I am on the homepage
