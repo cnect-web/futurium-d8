@@ -5,10 +5,15 @@
  * Contains fut_group.module.
  */
 
+use Drupal\Core\Access\AccessResult;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\group\Entity\Group;
 use Drupal\group\Entity\GroupContent;
+use Drupal\group\Entity\GroupContentType;
+use Drupal\group_permissions\Entity\GroupPermission;
+use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Form\FormState;
@@ -203,4 +208,166 @@ function _fut_group_form_taxonomy_term_fut_collections_submit(array $form, FormS
     ]);
     return;
   }
+}
+
+/**
+ * Implements hook_node_access().
+ *
+ * We add new logic for collection, everything else is the same as in
+ * gnode_node_access.
+ */
+function fut_group_node_access(NodeInterface $node, $op, AccountInterface $account) {
+
+  // We do not care about create access as we have our own wizard for that. Any
+  // operation aside from 'view', 'update' and 'delete' is also unsupported.
+  if (!in_array($op, ['view', 'update', 'delete'])) {
+    return AccessResult::neutral();
+  }
+
+  // Some modules, including the code in \Drupal\node\NodeForm::access() may
+  // check for 'view', 'update' or 'delete' access on new nodes, even though
+  // that makes little sense. We need to account for it to avoid crashes because
+  // we would otherwise query the DB with a non-existent node ID.
+  if ($node->isNew()) {
+    return AccessResult::neutral();
+  }
+
+  $plugin_id = 'group_node:' . $node->bundle();
+
+  // Only act if there are group content types for this node type.
+  $group_content_types = GroupContentType::loadByContentPluginId($plugin_id);
+  if (empty($group_content_types)) {
+    return AccessResult::neutral();
+  }
+
+  // Load all the group content for this node.
+  $group_contents = \Drupal::entityTypeManager()
+    ->getStorage('group_content')
+    ->loadByProperties([
+      'type' => array_keys($group_content_types),
+      'entity_id' => $node->id(),
+    ]);
+
+  // If the node does not belong to any group, we have nothing to say.
+  if (empty($group_contents)) {
+    return AccessResult::neutral();
+  }
+
+  /** @var \Drupal\group\Entity\GroupInterface[] $groups */
+  $groups = [];
+  foreach ($group_contents as $group_content) {
+    /** @var \Drupal\group\Entity\GroupContentInterface $group_content */
+    $group = $group_content->getGroup();
+    $groups[$group->id()] = $group;
+  }
+
+  $collection_id = NULL;
+  if (!empty($node->fut_collection->target_id)) {
+    $node->fut_collection->target_id;
+  }
+
+  // From this point on you need group to allow you to perform the operation.
+  switch ($op) {
+    case 'view':
+      foreach ($groups as $group) {
+        // Check collection first.
+        if (!empty($collection_id)) {
+          if (_fut_group_check_permissions_by_collection($op, $collection_id, $group, $account)) {
+            return AccessResult::allowed();
+          }
+          else {
+            return AccessResult::forbidden();
+          }
+        }
+        else {
+          if ($node->isPublished()) {
+            if ($group->hasPermission("view $plugin_id entity", $account)) {
+              return AccessResult::allowed();
+            }
+            else {
+              return AccessResult::forbidden();
+            }
+          }
+          elseif ($group->hasPermission("view unpublished $plugin_id entity",
+            $account)) {
+            return AccessResult::allowed();
+          }
+          else {
+            return AccessResult::forbidden();
+          }
+        }
+      }
+      break;
+
+    case 'update':
+    case 'delete':
+      // Check collection first.
+      if (!empty($collection_id)) {
+        if (_fut_group_check_permissions_by_collection($op, $collection_id, $group, $account)) {
+          return AccessResult::allowed();
+        }
+        else {
+          return AccessResult::forbidden();
+        }
+      }
+      else {
+        foreach ($groups as $group) {
+          if ($group->hasPermission("$op any $plugin_id entity", $account)) {
+            return AccessResult::allowed();
+          }
+          elseif ($account->id() == $node->getOwnerId() && $group->hasPermission("$op own $plugin_id entity",
+              $account)) {
+            return AccessResult::allowed();
+          }
+        }
+      }
+      break;
+  }
+
+  // Instead of outright forbidding access when no group granted it, we return
+  // a neutral access result to play nice with other modules. If the end result
+  // is still neutral, Drupal will deny access anyway unless the node grants
+  // system allows the operation in a last ditch effort to determine access.
+  return AccessResult::neutral();
+}
+
+/**
+ * Checks permissions for collection.
+ *
+ * @param string $op
+ *   Operation.
+ * @param int $collection_id
+ *   Collection id.
+ * @param \Drupal\group\Entity\Group $group
+ *   Group.
+ * @param \Drupal\Core\Session\AccountInterface $account
+ *   Current user.
+ *
+ * @return bool
+ *   Result of the check.
+ */
+function _fut_group_check_permissions_by_collection($op, $collection_id, Group $group, AccountInterface $account) {
+  $group_permission = GroupPermission::loadByGroup($group);
+  if ($group_permission) {
+    $custom_permissions = $group_permission->getPermissions()->first()->getValue();
+    if (!empty($custom_permissions)) {
+      // Get roles of the current user.
+      $group_roles = [];
+      $member = $group->getMember($account);
+      if (!empty($member)) {
+        $group_roles = $member->getRoles();
+      }
+
+      $group_roles[$group->getGroupType()->getAnonymousRoleId()] = '';
+      $group_roles[$group->getGroupType()->getOutsiderRoleId()] = '';
+
+      foreach ($group_roles as $role_name => $group_role) {
+        if (in_array("$op $collection_id collection", $custom_permissions[$role_name])) {
+          return TRUE;
+        }
+      }
+    }
+  }
+
+  return FALSE;
 }
