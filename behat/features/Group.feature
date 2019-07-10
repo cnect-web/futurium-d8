@@ -4,8 +4,8 @@ Feature: Groups
   I want to know if the group functionalities are working
 
   Scenario: Verify that authenticated users can create groups.
-    Given I am logged in as a user with the "authenticated" role
-    And I am on "/discover"
+    Given I am logged in as a user with the administrator role
+    And I am on "/"
     Then I should see the link "Create a Group"
     When I click "Create a Group"
     Then I should see the text "Add group"
