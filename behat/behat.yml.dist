@@ -14,7 +14,7 @@ default:
         browser: "chrome"
         capabilities: {"browserName": "chrome", "browser": "chrome", "proxy":{"proxyType":"direct"}}
       javascript_session: 'selenium2'
-      base-url: '{base_url}'
+      base-url: '_base_url'
     Drupal\DrupalExtension:
       blackbox: ~
       api_driver: 'drupal'

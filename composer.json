@@ -83,7 +83,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NGF\\Robo\\": "robo"
+            "fut\\Robo\\": "robo"
         },
         "classmap": [
             "scripts/composer/ScriptHandler.php"

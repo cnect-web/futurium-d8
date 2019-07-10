@@ -4,14 +4,14 @@
  *
  * @see http://robo.li/
  */
-use NGF\Robo\Tasks as NGFTasks;
+use fut\Robo\Tasks as futTasks;
 /**
  * Class RoboFile.
  */
-class RoboFile extends NGFTasks {
+class RoboFile extends futTasks {
 
   private $defaultOp = 'cs,unit';
-  private $defaultPaths = 'web/modules/custom,web/themes/contrib/funkywave';
+  private $defaultPaths = 'web/modules/custom,web/themes/contrib/blellow';
 
   /**
    * Build project.
