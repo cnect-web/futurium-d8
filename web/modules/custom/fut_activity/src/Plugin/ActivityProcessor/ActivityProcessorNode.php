@@ -5,13 +5,10 @@ namespace Drupal\fut_activity\Plugin\ActivityProcessor;
 use Drupal\fut_activity\Plugin\ActivityProcessorBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
-use Drupal\Core\Database\Driver\mysql\Connection;
-use Drupal\Component\Datetime\TimeInterface;
-use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\fut_activity\ActivityRecordStorageInterface;
 use Symfony\Component\EventDispatcher\Event;
+use Drupal\fut_activity\Event\ActivityDecayEvent;
+use Drupal\fut_activity\ActivityRecord;
 
 /**
  * Sets setting for nodes and preforms the activity process for nodes.
@@ -23,39 +20,6 @@ use Symfony\Component\EventDispatcher\Event;
  *
  */
 class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFactoryPluginInterface {
-
-  // use StringTranslationTrait;
-
-
-  // /**
-  //  * The activity record storage service.
-  //  *
-  //  * @var \Drupal\fut_activity\ActivityRecordStorageInterface
-  //  */
-  // protected $activityRecordStorage;
-
-
-
-  // /**
-  //  * {@inheritdoc}
-  //  */
-  // public function __construct(array $configuration, $plugin_id, $plugin_definition, ActivityRecordStorageInterface $activity_record_storage) {
-  //   parent::__construct($configuration, $plugin_id, $plugin_definition);
-  //   $this->activityRecordStorage = $activity_record_storage;
-  // }
-
-  // /**
-  //  * {@inheritdoc}
-  //  */
-  // public static function create(ContainerInterface $container, array $configuration, $plugin_id, $plugin_definition) {
-  //   return new static(
-  //     $configuration,
-  //     $plugin_id,
-  //     $plugin_definition,
-  //     $container->get('fut_activity.activity_record_storage')
-  //   );
-  // }
-
 
    /**
    * {@inheritdoc}
@@ -163,25 +127,41 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
   public function processActivity(Event $event) {
 
     $dispatcher_type = $event->getDispatcherType();
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity  */
 
     switch ($dispatcher_type) {
       case HookEventDispatcherInterface::ENTITY_INSERT:
-        $this->activityRecordStorage->updateActivityRecord($event->getEntity(), $this->configuration['activity_creation']);
+        $entity = $event->getEntity();
+        $activity_record = new ActivityRecord($entity->getEntityTypeId(),$entity->id(),$this->configuration['activity_creation']);
+        $this->activityRecordStorage->createActivityRecord($activity_record);
       break;
 
       case HookEventDispatcherInterface::ENTITY_UPDATE:
-        $this->activityRecordStorage->updateActivityRecord($event->getEntity(), $this->configuration['activity_update']);
+        /** @var \Drupal\fut_activity\ActivityRecord $activity_record */
+        $activity_record = $this->activityRecordStorage->getActivityRecordByEntity($event->getEntity());
+        $activity_record->increaseActivity($this->configuration['activity_update']);
+        $this->activityRecordStorage->updateActivityRecord($activity_record);
       break;
 
       case HookEventDispatcherInterface::ENTITY_DELETE:
-        $this->activityRecordStorage->deleteActivityRecord($event->getEntity());
+        /** @var \Drupal\fut_activity\ActivityRecord $activity_record */
+        $activity_record = $this->activityRecordStorage->getActivityRecordByEntity($event->getEntity());
+        $this->activityRecordStorage->deleteActivityRecord($activity_record);
       break;
+
+      case ActivityDecayEvent::DECAY:
+        $records = $this->recordsToDecay();
+        foreach ($records as $record) {
+          $record->decreaseActivity($this->configuration['decay']);
+          $this->activityRecordStorage->updateActivityRecord($record);
+        }
+      break;
+
     }
-
-
 
   }
 
+  protected function recordsToDecay() {
+    return $this->activityRecordStorage->getActivityRecordsChanged(time() - $this->configuration['decay_granularity']);
+  }
 
 }
