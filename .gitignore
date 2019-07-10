@@ -44,4 +44,4 @@
 /backup
 
 #behat
-/behat/features/behat.yml
+/behat/behat.yml
