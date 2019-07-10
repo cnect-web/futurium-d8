@@ -1,0 +1,10 @@
+uuid: e694de08-f9be-430a-b70d-dfed14f0b653
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.fut_featured
+label: Featured
+targetEntityType: group
+cache: true

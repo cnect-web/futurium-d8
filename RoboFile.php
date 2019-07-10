@@ -253,7 +253,7 @@ class RoboFile extends RoboTasks {
     $this->taskDrushStack($this->binDir . '/drush')
       ->arg('-r', $this->drupalRoot)
       ->exec('cache-clear drush')
-      ->exec('updb -y')
+      ->exec('updb')
       ->exec('cim -y')
       ->exec('cr')
       ->silent(TRUE)

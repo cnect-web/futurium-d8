@@ -9,6 +9,7 @@ dependencies:
     - paragraphs.paragraphs_type.fut_image
     - paragraphs.paragraphs_type.fut_text
     - paragraphs.paragraphs_type.fut_video
+    - paragraphs.paragraphs_type.webtools_uec
   module:
     - entity_reference_revisions
 _core:
@@ -32,6 +33,7 @@ settings:
       fut_image: fut_image
       fut_text: fut_text
       fut_video: fut_video
+      webtools_uec: webtools_uec
     target_bundles_drag_drop:
       fut_document:
         enabled: true
@@ -45,4 +47,13 @@ settings:
       fut_video:
         enabled: true
         weight: 8
+      fut_functional_navigation_link:
+        weight: 9
+        enabled: false
+      fut_navigation_link:
+        weight: 11
+        enabled: false
+      webtools_uec:
+        enabled: true
+        weight: 14
 field_type: entity_reference_revisions

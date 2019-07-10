@@ -1,0 +1,7 @@
+name: 'Webtools Paragraphs'
+type: module
+description: 'Provides a paragraph type to render webtools generated codes.'
+core: 8.x
+package: 'Webtools'
+dependencies:
+  - paragraphs

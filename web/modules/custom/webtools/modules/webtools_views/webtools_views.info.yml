@@ -1,0 +1,5 @@
+name: 'webtools_views'
+type: module
+description: 'Provides plugins for views.'
+core: 8.x
+package: 'Webtools'

@@ -45,3 +45,6 @@ docker/
 
 # Config file
 config.yml
+
+# Drupal console
+console/

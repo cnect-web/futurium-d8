@@ -1,0 +1,6 @@
+webtools_paragraphs-render-webtools:
+  js:
+    js/render_webtools.js: {}
+  dependencies:
+    - core/drupal.ajax
+    - webtools/webtools-smart-loader

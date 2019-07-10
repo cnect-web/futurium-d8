@@ -14,6 +14,7 @@
         "drupal/admin_toolbar": "^1.26",
         "drupal/adminimal_theme": "^1.4",
         "drupal/allowed_formats": "^1.1",
+        "drupal/better_normalizers": "^1.0",
         "drupal/chosen": "^2.7",
         "drupal/coffee": "^1.0",
         "drupal/components": "^1.0",
@@ -69,6 +70,8 @@
         "drupal/devel": "^2.0",
         "drupal/drupal-extension": "^3.4",
         "horaciolopesqq/docker": "^0.0.6",
+        "guzzlehttp/guzzle" : "^6.0@dev",
+        "skounis/fut_default_content": "dev-master",
         "skounis/fut_sample_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
     },
@@ -143,6 +146,9 @@
             },
             "drupal/default_content": {
                 "Handle exceptions during import": "https://www.drupal.org/files/issues/2019-05-29/3057880-handleexceptions.patch"
+            },
+            "drupal/default_content_deploy": {
+                "Pass logger to parent": "https://www.drupal.org/files/issues/2019-07-08/passloggertoparent-3066432.patch"
             }
         }
     },

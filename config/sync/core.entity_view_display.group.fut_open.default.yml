@@ -71,5 +71,7 @@ content:
 hidden:
   changed: true
   created: true
+  extra_field_featured_group_featured_content: true
+  extra_field_join_group: true
   langcode: true
   uid: true
