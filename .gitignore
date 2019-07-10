@@ -42,3 +42,4 @@
 
 # DB backups
 /backup
+behat/features/behat.yml
