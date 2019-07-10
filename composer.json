@@ -81,10 +81,7 @@
     "minimum-stability": "dev",
     "prefer-stable": true,
     "config": {
-        "sort-packages": true,
-        "github-oauth": {
-          "github.com": "db5f705abddcb6cebfdef9f90ff536fce12eed9c"
-        }
+        "sort-packages": true
     },
     "autoload": {
         "psr-4": {
