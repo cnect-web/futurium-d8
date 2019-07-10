@@ -1,6 +1,6 @@
 # Project information.
 project:
-  root: /var/www/html/
+  root: /var/www/html/web/
   url: http://localhost
   environment: development
 
