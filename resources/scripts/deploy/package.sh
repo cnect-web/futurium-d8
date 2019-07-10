@@ -14,7 +14,6 @@ if [ -f "${PROJECT_NAME}.zip" ]; then
 fi
 
 # Create a zip file without the cruft.
-# @todo: maybe ensure composer install --no-dev ?
 zip --symlinks -x \
 --exclude=*.zip \
 --exclude=*.git* \
