@@ -7093,7 +7093,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/blellow_helper.git",
-                "reference": "e96507afb2f74f77ac5620ee7e5324f2f6f0a237",
+                "reference": "e96507afb2f74f77ac5620ee7e5324f2f6f0a237"
             },
             "dist": {
                 "type": "zip",
