@@ -15,6 +15,8 @@ use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\fut_activity\Event\ActivityDecayEvent;
 use Drupal\hook_event_dispatcher\Event\Cron\CronEvent;
+use Drupal\Core\Queue\QueueFactory;
+use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
 
 /**
  * Class FutActivitySubscriber.
@@ -33,9 +35,10 @@ class ActivitySubscriber implements EventSubscriberInterface {
   /**
    * Constructs a new FutActivitySubscriber object.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ConfigFactoryInterface $config_factory, QueueFactory $queue) {
     $this->entityTypeManager = $entity_type_manager;
     $this->configFactory = $config_factory;
+    $this->queue = $queue;
   }
 
   /**
@@ -43,186 +46,52 @@ class ActivitySubscriber implements EventSubscriberInterface {
    */
   public static function getSubscribedEvents() {
     return [
-      HookEventDispatcherInterface::ENTITY_INSERT => 'entityInsert',
-      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityUpdate',
-      HookEventDispatcherInterface::ENTITY_DELETE => 'entityDelete',
+      HookEventDispatcherInterface::ENTITY_INSERT => 'entityOperations',
+      HookEventDispatcherInterface::ENTITY_UPDATE => 'entityOperations',
+      HookEventDispatcherInterface::ENTITY_DELETE => 'entityOperations',
       HookEventDispatcherInterface::CRON => 'scheduleDecay',
       ActivityDecayEvent::DECAY => 'applyDecay',
     ];
   }
 
   /**
-   * Entity insert.
+   * This sends the event to ActivityProcessorQueue.
    *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent $event
+   * @param \Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent $event
    *   The event.
    */
-  public function entityInsert(EntityInsertEvent $event) {
-    // Do some fancy stuff with new entity.
-
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-    $entity = $event->getEntity();
-
-    // HERE WE NEEED TO DO SOMETHING ONLY FOR OUR CONTENT ENTITIES
-    if ($entity->getEntityTypeId() == 'node') {
-      // Get entity activity tracker config for this entity.
-
-      $tracker = $this->getTracker($entity);
-
-
-      $enabled_plugins = $tracker->getProcessorPlugins()->getEnabled();
-
-      foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
-        $processor_plugin->processActivity($event);
-      }
-
-
-      // $this->activityProcessor->incrementActivityValue($tracker_config, $entity, 'create');
-
-      // Add loger here.
-    }
-
-  }
-
-  /**
-   * Entity update.
-   *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent $event
-   *   The event.
-   */
-  public function entityUpdate(EntityUpdateEvent $event) {
-
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-    $entity = $event->getEntity();
-
-    // dpm($entity->label());
-
-    // HERE WE NEEED TO DO SOMETHING ONLY FOR OUR CONTENT ENTITIES
-    if ($entity->getEntityTypeId() == 'node') {
-      // Get entity activity tracker config for this entity.
-
-      /** @var \Drupal\fut_activity\Entity\EntityActivityTracker $tracker  */
-      $tracker = $this->getTracker($entity);
-
-
-      $enabled_plugins = $tracker->getProcessorPlugins()->getEnabled();
-
-      foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
-        $processor_plugin->processActivity($event);
-      }
-
-
-
-      $teste="aa";
-      // $this->activityProcessor->incrementActivityValue($tracker_config, $entity, 'update');
-
-
-      //
-    }
-
-  }
-
-  /**
-   * Entity delete.
-   *
-   * @param \Drupal\hook_event_dispatcher\Event\Entity\EntityDeleteEvent $event
-   *   The event.
-   */
-  public function entityDelete(EntityDeleteEvent $event) {
-
-    /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
-    $entity = $event->getEntity();
-
-    if ($entity->getEntityTypeId() == 'node') {
-
-
-      /** @var \Drupal\fut_activity\Entity\EntityActivityTracker $tracker  */
-      $tracker = $this->getTracker($entity);
-
-      $enabled_plugins = $tracker->getProcessorPlugins()->getEnabled();
-      foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
-        $processor_plugin->processActivity($event);
-      }
-    }
-
-    // HERE WE NEEED TO DO SOMETHING ONLY FOR OUR CONTENT ENTITIES
-    // if ($entity->getEntityTypeId() == 'node') {
-    //   $this->activityProcessor->deleteActivityRecord($entity);
-    // }
-
+  public function entityOperations(BaseEntityEvent $event) {
+    $processors_queue = $this->queue->get('activity_processor_queue');
+    $processors_queue->createItem($event);
   }
 
 
-
   /**
-   * applyDecay on DECAY EVENT
+   * This creates a item in Decay queue to later be processed.
    *
    * @param  \Drupal\fut_activity\Event\ActivityDecayEvent $event
+   *   The decay event.
    *
    */
   public function applyDecay(ActivityDecayEvent $event) {
-    // Here we must run the processActivity of decay plugins.
-    // I need a way to get just the decay plugins -> see plugin collection
-    // (later we do this now run every plugin and each plugin is responsible to run if the event is appropriate)
-
-    $trackers = $this->getTrackers();
-
-    foreach ($trackers as $tracker_id => $tracker) {
-      $enabled_plugins = $tracker->getProcessorPlugins()->getEnabled();
-      foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
-        $processor_plugin->processActivity($event);
-        $message = $plugin_id . ' plugin processed';
-        \Drupal::logger('fut_activity')->info($message);
-      }
-    }
+    $decay_queue = $this->queue->get('decay_queue');
+    $decay_queue->createItem($event);
 
   }
 
 
   /**
-   * scheduleDecay creates DecayQueue
+   * This creates a item in Decay queue to dispatch ActivityDecayEvent.
    *
    * @param  mixed $event
+   *  The cron event.
    *
    * @return void
    */
   public function scheduleDecay(CronEvent $event) {
-    $queue = \Drupal::queue('decay_queue');
-    $queue->createItem($this->getTrackers());
+    /** @var  \Drupal\Core\Queue\QueueInterface $decay_queue */
+    $decay_queue = $this->queue->get('decay_queue');
+    $decay_queue->createItem($event);
   }
-
-  //this will move from here
-
-  /**
-   * getTracker
-   *
-   * @param  mixed $entity
-   *
-   */
-  public function getTracker(ContentEntityInterface $entity) {
-    $entity_bundle = $entity->bundle();
-    $config_id = $this->entityTypeManager->getStorage('entity_activity_tracker')->getQuery()
-      ->condition('entity_bundle',$entity_bundle)
-      ->execute();
-
-    $config_id = reset($config_id);
-
-    $tracker = $this->entityTypeManager->getStorage('entity_activity_tracker')->load($config_id);
-
-    return $tracker;
-  }
-
-
-  /**
-   * getTrackers
-   *
-   * @return \Drupal\Core\Entity\EntityInterface[]
-   *    An array of entity "entity_activity_tracker" indexed by their ID.
-   */
-  public function getTrackers() {
-    return $this->entityTypeManager->getStorage('entity_activity_tracker')->loadMultiple();
-  }
-
-
 
 }

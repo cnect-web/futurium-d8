@@ -9,6 +9,8 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface EntityActivityTrackerInterface extends ConfigEntityInterface {
 
+  const ALLOWED_ENTITY_TYPES = ['node', 'user', 'taxonomy_term',  ];
+
   /**
    * Gets the entity type to wich this config applies.
    *

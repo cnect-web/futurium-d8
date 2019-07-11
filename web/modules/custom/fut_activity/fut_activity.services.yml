@@ -1,12 +1,9 @@
 services:
   fut_activity.activity_subscriber:
     class: Drupal\fut_activity\EventSubscriber\ActivitySubscriber
-    arguments: ['@entity_type.manager', '@config.factory']
+    arguments: ['@entity_type.manager', '@config.factory', '@queue']
     tags:
       - { name: event_subscriber }
-  # fut_activity.activity_processor:
-  #   class: Drupal\fut_activity\ActivityProcessor
-  #   arguments: ['@queue', '@entity_type.manager', '@config.factory', '@database', '@datetime.time']
   fut_activity.plugin.manager.activity_processor:
     class: Drupal\fut_activity\Plugin\ActivityProcessorManager
     parent: default_plugin_manager
