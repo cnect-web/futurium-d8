@@ -3,20 +3,14 @@
 namespace Drupal\fut_activity\EventSubscriber;
 
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
-use Symfony\Component\EventDispatcher\Event;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityInsertEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityUpdateEvent;
-use Drupal\hook_event_dispatcher\Event\Entity\EntityDeleteEvent;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\fut_activity\ActivityProcessorInterface;
-use Drupal\Core\Config\ImmutableConfig;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\Config\ConfigFactoryInterface;
-use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\fut_activity\Event\ActivityDecayEvent;
 use Drupal\hook_event_dispatcher\Event\Cron\CronEvent;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
+use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
 
 /**
  * Class FutActivitySubscriber.
@@ -61,8 +55,10 @@ class ActivitySubscriber implements EventSubscriberInterface {
    *   The event.
    */
   public function entityOperations(BaseEntityEvent $event) {
-    $processors_queue = $this->queue->get('activity_processor_queue');
-    $processors_queue->createItem($event);
+    if (in_array($event->getEntity()->getEntityTypeId(),EntityActivityTrackerInterface::ALLOWED_ENTITY_TYPES)) {
+      $processors_queue = $this->queue->get('activity_processor_queue');
+      $processors_queue->createItem($event);
+    }
   }
 
 

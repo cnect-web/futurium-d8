@@ -9,7 +9,7 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface EntityActivityTrackerInterface extends ConfigEntityInterface {
 
-  const ALLOWED_ENTITY_TYPES = ['node', 'user', 'taxonomy_term',  ];
+  const ALLOWED_ENTITY_TYPES = ['node', 'user', 'taxonomy_term', 'group', 'comment'];
 
   /**
    * Gets the entity type to wich this config applies.
@@ -27,45 +27,32 @@ interface EntityActivityTrackerInterface extends ConfigEntityInterface {
    */
   public function getTargetEntityBundle();
 
-
   /**
-   * getProcessorPlugins
+   * Returns the collection of ActivityProcessor plugins instances.
    *
-   * @return void
+   * @return \Drupal\fut_activity\Plugin\ActivityProcessorCollection
+   *   The behavior plugins collection.
    */
   public function getProcessorPlugins();
 
   /**
-   * getProcessorPlugin
+   * Returns an individual plugin instance.
    *
-   * @param  mixed $instance_id
+   * @param string $instance_id
+   *   The ID of a behavior plugin instance to return.
    *
-   * @return void
+   * @return \Drupal\fut_activity\EntityActivityTrackerInterface
+   *   A specific plugin instance.
    */
   public function getProcessorPlugin($instance_id);
 
   /**
-   * getEnabledProcessorsPlugins
+   * Retrieves all the enabled plugins.
    *
-   * @return void
+   * @return \Drupal\fut_activity\EntityActivityTrackerInterface[]
+   *   Array of the enabled plugins as instances.
    */
   public function getEnabledProcessorsPlugins();
 
-
-  // /**
-  //  * Gets the list of activity processors.
-  //  *
-  //  * @return array
-  //  *   The list of processors.
-  //  */
-  // public function getProcessors();
-
-  // /**
-  //  * Get a specific processor.
-  //  *
-  //  * @return \Drupal\fut_activity\Plugin\ActivityProcessorInterface
-  //  *   A specific ActivityProcessor.
-  //  */
-  // public function getProcessor($key);
 
 }

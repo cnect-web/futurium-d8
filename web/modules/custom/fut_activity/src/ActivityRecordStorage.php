@@ -42,7 +42,7 @@ class ActivityRecordStorage implements ActivityRecordStorageInterface {
     ->condition('activity_id', $id);
 
     if ($result = $query->execute()->fetchAssoc()){
-      return new ActivityRecord($result['entity_type'], $result['entity_id'], $result['activity'], $result['created'],  $result['changed'],  $result['activity_id']);
+      return new ActivityRecord($result['entity_type'], $result['bundle'], $result['entity_id'], $result['activity'], $result['created'],  $result['changed'],  $result['activity_id']);
     }
     return FALSE;
   }
@@ -50,11 +50,14 @@ class ActivityRecordStorage implements ActivityRecordStorageInterface {
   /**
    * @inheritdoc
    */
-  public function getActivityRecords(string $entity_type = '') {
+  public function getActivityRecords(string $entity_type = '', string $bundle = '') {
     $query = $this->database->select('fut_activity','fa')
       ->fields('fa');
-    if($entity_type){
+    if($entity_type) {
       $query->condition('entity_type', $entity_type);
+      if($bundle) {
+        $query->condition('bundle', $bundle);
+      }
     }
 
    return $this->preparareList($query);
@@ -67,10 +70,11 @@ class ActivityRecordStorage implements ActivityRecordStorageInterface {
     $query = $this->database->select('fut_activity','fa')
     ->fields('fa')
     ->condition('entity_type', $entity->getEntityTypeId())
+    ->condition('bundle', $entity->bundle())
     ->condition('entity_id',$entity->id());
 
     if ($result = $query->execute()->fetchAssoc()){
-      return new ActivityRecord($result['entity_type'], $result['entity_id'], $result['activity'], $result['created'],  $result['changed'],  $result['activity_id']);
+      return new ActivityRecord($result['entity_type'], $result['bundle'], $result['entity_id'], $result['activity'], $result['created'],  $result['changed'],  $result['activity_id']);
     }
     return FALSE;
   }
@@ -82,6 +86,7 @@ class ActivityRecordStorage implements ActivityRecordStorageInterface {
     if ($activity_record->isNew()) {
        $fields = [
         'entity_type' => $activity_record->getEntityType(),
+        'bundle' => $activity_record->getBundle(),
         'entity_id' => $activity_record->getEntityId(),
         'activity' => $activity_record->getActivityValue(),
         'created' =>  $this->dateTime->getRequestTime(),
@@ -144,10 +149,16 @@ class ActivityRecordStorage implements ActivityRecordStorageInterface {
   /**
    * @inheritdoc
    */
-  public function getActivityRecordsCreated(int $timestamp, string $operator = '<=') {
+  public function getActivityRecordsCreated(int $timestamp, string $entity_type = '', string $bundle = '', string $operator = '<=') {
     $query = $this->database->select('fut_activity','fa')
       ->fields('fa');
       $query->condition('created', $timestamp, $operator);
+      if($entity_type) {
+        $query->condition('entity_type', $entity_type);
+        if($bundle) {
+          $query->condition('bundle', $bundle);
+        }
+      }
 
       return $this->preparareList($query);
   }
@@ -155,10 +166,16 @@ class ActivityRecordStorage implements ActivityRecordStorageInterface {
   /**
    * @inheritdoc
    */
-  public function getActivityRecordsChanged(int $timestamp, string $operator = '<=') {
+  public function getActivityRecordsChanged(int $timestamp, string $entity_type = '', string $bundle = '',  string $operator = '<=') {
     $query = $this->database->select('fut_activity','fa')
       ->fields('fa')
       ->condition('changed', $timestamp, $operator);
+      if($entity_type) {
+        $query->condition('entity_type', $entity_type);
+        if($bundle) {
+          $query->condition('bundle', $bundle);
+        }
+      }
     return $this->preparareList($query);
   }
 
@@ -175,7 +192,7 @@ class ActivityRecordStorage implements ActivityRecordStorageInterface {
     if ($results = $query->execute()->fetchAllAssoc('activity_id',PDO::FETCH_ASSOC)){
       $records = [];
       foreach ($results as $activity_id => $record) {
-        $records[$activity_id] = new ActivityRecord($record['entity_type'], $record['entity_id'], $record['activity'], $record['created'],  $record['changed'],  $record['activity_id']);
+        $records[$activity_id] = new ActivityRecord($record['entity_type'], $record['bundle'], $record['entity_id'], $record['activity'], $record['created'],  $record['changed'],  $record['activity_id']);
       }
       return $records;
     }

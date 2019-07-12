@@ -23,6 +23,13 @@ class ActivityRecord {
   private $entity_type;
 
   /**
+   * The tracked entity bundle.
+   *
+   * @var string
+   */
+  private $bundle;
+
+  /**
    * The tracked entity id.
    *
    * @var int
@@ -54,6 +61,7 @@ class ActivityRecord {
    * Constructor.
    *
    * @param  string $entity_type
+   * @param  string $bundle
    * @param  int $entity_id
    * @param  int $activity
    * @param  int $created
@@ -62,9 +70,10 @@ class ActivityRecord {
    *
    * @return void
    */
-  public function __construct($entity_type, $entity_id, $activity, $created = NULL, $changed = NULL, $activity_id = NULL) {
+  public function __construct($entity_type, $bundle, $entity_id, $activity, $created = NULL, $changed = NULL, $activity_id = NULL) {
       $this->activity_id = $activity_id;
       $this->entity_type = $entity_type;
+      $this->bundle = $bundle;
       $this->entity_id = $entity_id;
       $this->activity = $activity;
       $this->created = $created ?? time();
@@ -99,6 +108,16 @@ class ActivityRecord {
    */
   public function getEntityType() {
     return $this->entity_type;
+  }
+
+  /**
+   * Get record entity_type.
+   *
+   * @return string
+   *   Tracked entity type.
+   */
+  public function getBundle() {
+    return $this->bundle;
   }
 
   /**

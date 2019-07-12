@@ -83,12 +83,16 @@ interface ActivityRecordStorageInterface {
    *
    * @param  int $timestamp
    *   UNIX timestamp to use as filter.
+   * @param  string $entity_type
+   *   (Optional) Defines entity_type of wich records we should get.
+   * @param  string $bundle
+   *   (Optional) Defines bundle of wich records we should get.
    * @param  string $operator
    *   (Optional) Defines if we want a record created before or after given timestamp.
    *
    * @return void
    */
-  public function getActivityRecordsCreated(int $timestamp, string $operator = '<=');
+  public function getActivityRecordsCreated(int $timestamp, string $entity_type = '', string $bundle = '', string $operator = '<=');
 
   /**
    * Gets a list of ActivityRecords filtering by changed timestamp.
@@ -99,11 +103,15 @@ interface ActivityRecordStorageInterface {
    *
    * @param  int $timestamp
    *   UNIX timestamp to use as filter.
+   * @param  string $entity_type
+   *   (Optional) Defines entity_type of wich records we should get.
+   * @param  string $bundle
+   *   (Optional) Defines bundle of wich records we should get.
    * @param  string $operator
    *   (Optional) Defines if we want a record changed before or after given timestamp.
    *
    * @return void
    */
-  public function getActivityRecordsChanged(int $timestamp, string $operator = '<=');
+  public function getActivityRecordsChanged(int $timestamp, string $entity_type = '', string $bundle = '',  string $operator = '<=');
 
 }

@@ -28,6 +28,12 @@ function fut_activity_schema() {
         'length' => EntityTypeInterface::ID_MAX_LENGTH,
         'not null' => TRUE,
       ],
+      'bundle' => [
+        'description' => 'Entity bundle of tracked entity.',
+        'type' => 'varchar_ascii',
+        'length' => EntityTypeInterface::BUNDLE_MAX_LENGTH,
+        'not null' => TRUE,
+      ],
       'entity_id' => [
         'description' => 'The unique ID of the entity, for example the gid or nid.',
         'type' => 'varchar_ascii',

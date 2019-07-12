@@ -54,28 +54,34 @@ class DecayQueue extends QueueWorkerBase implements ContainerFactoryPluginInterf
    * {@inheritdoc}
    */
   public function processItem($event) {
-
+    /** @var \Drupal\fut_activity\Event\ActivityDecayEvent $event */
     switch ($event) {
       case $event instanceof ActivityDecayEvent:
         // If here we get the ActivityDecayEvent we process plugins.
-        $trackers = $this->getTrackers();
+        $enabled_plugins = $event->getTracker()->getProcessorPlugins()->getEnabled();
+        foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
+          $processor_plugin->processActivity($event);
 
-        foreach ($trackers as $tracker_id => $tracker) {
-          $enabled_plugins = $tracker->getProcessorPlugins()->getEnabled();
-          foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
-            $processor_plugin->processActivity($event);
-            $message = $plugin_id . ' plugin processed';
-            \Drupal::logger('fut_activity')->info($message);
-          }
+          $message = $plugin_id . ' plugin processed';
+          \Drupal::logger('fut_activity')->info($message);
         }
+
 
         break;
 
       case $event instanceof CronEvent:
         // If here we get the CronEvent we dispatch our decay event.
         $dispatcher = \Drupal::service('event_dispatcher');
-        $event = new ActivityDecayEvent();
-        $dispatcher->dispatch(ActivityDecayEvent::DECAY, $event);
+
+        // Get all trackers.
+        $trackers = $this->getTrackers();
+
+        // Here we dispatch a Decay Event for each config entity.
+        foreach ($trackers as $tracker_id => $tracker) {
+          // The decay event recives a tracker that will run all plugins passing the decay event.
+          $event = new ActivityDecayEvent($tracker);
+          $dispatcher->dispatch(ActivityDecayEvent::DECAY, $event);
+        }
 
         \Drupal::logger('fut_activity')->info("Activity Decay Dispatched");
         break;

@@ -8,10 +8,9 @@ use Drupal\Core\Entity\ContentEntityInterface;
 use Drupal\Component\Plugin\PluginManagerInterface;
 use Drupal\Core\Form\FormBuilderInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Drupal\Core\Ajax\OpenModalDialogCommand;
-use Drupal\views\Plugin\views\field\Url;
-use Drupal\Component\Utility\NestedArray;
 use Drupal\Core\Form\SubformState;
+use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
+use Drupal\Core\Entity\EntityTypeManagerInterface;
 
 /**
  * Class EntityActivityTrackerForm.
@@ -39,7 +38,8 @@ class EntityActivityTrackerForm extends EntityForm {
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('fut_activity.plugin.manager.activity_processor'),
-      $container->get('form_builder')
+      $container->get('form_builder'),
+      $container->get('entity_type.manager')
     );
   }
 
@@ -51,9 +51,10 @@ class EntityActivityTrackerForm extends EntityForm {
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   The form builder.
    */
-  public function __construct(PluginManagerInterface $manager, FormBuilderInterface $formBuilder) {
+  public function __construct(PluginManagerInterface $manager, FormBuilderInterface $formBuilder, EntityTypeManagerInterface $entity_type_manager) {
     $this->manager = $manager;
     $this->formBuilder = $formBuilder;
+    $this->entityTypeManager = $entity_type_manager;
   }
 
 
@@ -86,7 +87,7 @@ class EntityActivityTrackerForm extends EntityForm {
     // TODO: Clean this up (use dependency injection and put this code on separte method)
     $entity_type_options = [];
     foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
-      if ($entity_type->entityClassImplements(ContentEntityInterface::class)) {
+      if ($entity_type->entityClassImplements(ContentEntityInterface::class) && in_array($entity_type_id, EntityActivityTrackerInterface::ALLOWED_ENTITY_TYPES)) {
         $entity_type_options[$entity_type_id] = $entity_type->get('label');
       }
     }
@@ -114,7 +115,7 @@ class EntityActivityTrackerForm extends EntityForm {
 
     // I need to set the default value when editing already created tracker
 
-    $entity_type = $form_state->getValue('entity_type');
+    $entity_type = $entity_activity_tracker->getTargetEntityType();
     if (!empty($entity_type)) {
       $form['entity_bundle_wrapper']['entity_bundle'] = [
         '#type' => 'select',
@@ -163,22 +164,34 @@ class EntityActivityTrackerForm extends EntityForm {
         ];
       }
     }
-
-
-
     return $form;
   }
 
   /**
    * {@inheritdoc}
    */
-  public function save(array $form, FormStateInterface $form_state) {
-    // $form_state->setRebuild(TRUE);
+  public function validateForm(array &$form, FormStateInterface $form_state){
 
+    $teste='';
+
+    $properties = [
+      'entity_type' => $form_state->getValue('entity_type'),
+      'entity_bundle' => $bundle_value = $form_state->getValue('entity_bundle'),
+    ];
+    $existing = $this->entityTypeManager->getStorage('entity_activity_tracker')->loadByProperties($properties);
+    if (sizeof($existing) >= 1 && !array_key_exists($this->entity->id(),$existing)) {
+      // There is a Tracker for this entiy/bundle so we set a form error.
+      $form_state->setErrorByName('entity_bundle', $this->t('There is already a Tracker for this bundle: @bundle', ['@bundle' => $bundle_value]));
+    }
+
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function save(array $form, FormStateInterface $form_state) {
     /** @var \Drupal\fut_activity\Entity\EntityActivityTrackerInterface $entity_activity_tracker */
     $entity_activity_tracker = $this->entity;
-
-
 
     foreach ($this->manager->getDefinitions() as $plugin_id => $definition) {
       $processor_plugin = $entity_activity_tracker->getProcessorPlugin($plugin_id);
@@ -196,12 +209,6 @@ class EntityActivityTrackerForm extends EntityForm {
         $processor_plugin->setConfiguration([]);
       }
     }
-
-
-
-
-
-
 
     $status = $entity_activity_tracker->save();
 

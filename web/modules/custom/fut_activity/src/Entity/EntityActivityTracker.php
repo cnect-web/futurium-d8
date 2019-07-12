@@ -71,13 +71,6 @@ class EntityActivityTracker extends ConfigEntityBase implements EntityActivityTr
    */
   protected $entity_bundle;
 
-  // /**
-  //  * Processors instances IDs.
-  //  *
-  //  * @var array
-  //  */
-  // protected $activity_processors;
-
   /**
    * The Activity Tracker processor plugins configuration keyed by their id.
    *
@@ -138,24 +131,5 @@ class EntityActivityTracker extends ConfigEntityBase implements EntityActivityTr
   public function getPluginCollections() {
     return ['activity_processors' => $this->getProcessorPlugins()];
   }
-
-
-  // /**
-  //  * {@inheritdoc}
-  //  */
-  // public function getProcessors() {
-  //   return $this->activity_processors;
-  // }
-
-  //  /**
-  //  * {@inheritdoc}
-  //  */
-  // public function getProcessor($key) {
-  //   if (!isset($this->activity_processors[$key])) {
-  //     return NULL;
-  //   }
-  //   return $this->activity_processors[$key];
-  // }
-
 
 }

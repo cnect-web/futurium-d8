@@ -131,7 +131,7 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
     switch ($dispatcher_type) {
       case HookEventDispatcherInterface::ENTITY_INSERT:
         $entity = $event->getEntity();
-        $activity_record = new ActivityRecord($entity->getEntityTypeId(),$entity->id(),$this->configuration['activity_creation']);
+        $activity_record = new ActivityRecord($entity->getEntityTypeId(), $entity->bundle(), $entity->id(), $this->configuration['activity_creation']);
         $this->activityRecordStorage->createActivityRecord($activity_record);
       break;
 
@@ -149,10 +149,12 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
       break;
 
       case ActivityDecayEvent::DECAY:
-        $records = $this->recordsToDecay();
-        foreach ($records as $record) {
-          $record->decreaseActivity($this->configuration['decay']);
-          $this->activityRecordStorage->updateActivityRecord($record);
+        $records = $this->recordsToDecay($event->getTracker());
+        if (!empty($records)) {
+          foreach ($records as $record) {
+            $record->decreaseActivity($this->configuration['decay']);
+            $this->activityRecordStorage->updateActivityRecord($record);
+          }
         }
       break;
 
@@ -160,8 +162,13 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
 
   }
 
-  protected function recordsToDecay() {
-    return $this->activityRecordStorage->getActivityRecordsChanged(time() - $this->configuration['decay_granularity']);
+  /**
+   * This returns List of ActivityRecords to Decay.
+   *
+   * @return \Drupal\fut_activity\ActivityRecord[]
+   */
+  protected function recordsToDecay($tracker) {
+    return $this->activityRecordStorage->getActivityRecordsChanged(time() - $this->configuration['decay_granularity'], $tracker->getTargetEntityType(), $tracker->getTargetEntityBundle());
   }
 
 }
