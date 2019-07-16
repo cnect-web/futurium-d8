@@ -1,6 +1,6 @@
 # Project information.
 project:
-  root: /var/www/html/
+  root: /var/www/html/web/
   url: http://localhost
   environment: development
 
@@ -35,7 +35,7 @@ behat:
   destination: behat/behat.yml
   # Following tokens will be automatically replaced when running "project:setup-behat".
   tokens:
-    _base_url: http://localhost
+    _base_url: 'http://localhost'
 
 bin:
   drush: ./vendor/bin/drush

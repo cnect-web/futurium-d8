@@ -46,12 +46,11 @@ nano robo.yml
 Setup behat settings
 
 ```
-./bin/robo project:setup-behat
+./bin/robo psb
 ```
 
 Run behat tests
 
 ```
-cd tests
-./behat_no_proxy.sh behat
+cd behat && ./bnp.sh behat
 ```
