@@ -164,6 +164,20 @@ class EntityActivityTrackerForm extends EntityForm {
         ];
       }
     }
+
+    $form['activity_records_title'] = [
+      '#markup' => '<h2>' . $this->t('@entity_activity_tracker Activity Records',['@entity_activity_tracker' => $entity_activity_tracker->label()]) . '</h2>',
+    ];
+
+    $form['activity_records_list'] = [
+      '#type' => 'view',
+      '#name' => 'fut_activity_list',
+      '#arguments' => [
+        $entity_activity_tracker->getTargetEntityType(),
+        $entity_activity_tracker->getTargetEntityBundle()
+      ],
+    ];
+
     return $form;
   }
 

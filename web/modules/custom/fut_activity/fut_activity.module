@@ -6,6 +6,9 @@
  */
 
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityFormInterface;
+use Drupal\fut_activity\FutActivityFormsOperations;
+use Drupal\Core\Form\FormStateInterface;
 
 /**
  * Implements hook_help().
@@ -21,4 +24,24 @@ function fut_activity_help($route_name, RouteMatchInterface $route_match) {
 
     default:
   }
+}
+
+/**
+ * Implements hook_form_alter().
+ */
+function fut_activity_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  if ($form_state->getFormObject() instanceof EntityFormInterface) {
+  \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(FutActivityFormsOperations::class)
+    ->formAlter($form, $form_state, $form_id);
+  }
+}
+
+/**
+ * Implements hook_entity_extra_field_info().
+ */
+function fut_activity_entity_extra_field_info() {
+  return \Drupal::service('class_resolver')
+    ->getInstanceFromDefinition(FutActivityFormsOperations::class)
+    ->entityExtraFieldInfo();
 }

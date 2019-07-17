@@ -56,6 +56,78 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
 
     $data['fut_activity'] = $data['fut_activity'] + $this->getRelationsFields();
 
+    $data['fut_activity']['activity_id'] = [
+      'title' => $this->t('Activity ID'),
+      'help' => $this->t('Activity Record ID.'),
+      'field' => [
+        'id' => 'numeric',
+        'click sortable' => TRUE,
+      ],
+      'filter' => [
+        'id' => 'numeric',
+      ],
+      'argument' => [
+        'id' => 'numeric',
+      ],
+      'sort' => [
+        'id' => 'standard',
+      ],
+    ];
+
+    $data['fut_activity']['entity_type'] = [
+      'title' => $this->t('Entity Type'),
+      'help' => $this->t('Tracked entity type.'),
+      'field' => [
+        'id' => 'standard',
+        'click sortable' => TRUE,
+      ],
+      'filter' => [
+        'id' => 'string',
+      ],
+      'argument' => [
+        'id' => 'string',
+      ],
+      'sort' => [
+        'id' => 'standard',
+      ],
+    ];
+
+    $data['fut_activity']['bundle'] = [
+      'title' => $this->t('Entity Bundle'),
+      'help' => $this->t('Tracked entity bundle.'),
+      'field' => [
+        'id' => 'standard',
+        'click sortable' => TRUE,
+      ],
+      'filter' => [
+        'id' => 'string',
+      ],
+      'argument' => [
+        'id' => 'string',
+      ],
+      'sort' => [
+        'id' => 'standard',
+      ],
+    ];
+
+    $data['fut_activity']['entity_id'] = [
+      'title' => $this->t('Entity ID'),
+      'help' => $this->t('Tracked Entity ID.'),
+      'field' => [
+        'id' => 'numeric',
+        'click sortable' => TRUE,
+      ],
+      'filter' => [
+        'id' => 'numeric',
+      ],
+      'argument' => [
+        'id' => 'numeric',
+      ],
+      'sort' => [
+        'id' => 'standard',
+      ],
+    ];
+
     $data['fut_activity']['activity'] = [
       'title' => $this->t('Activity'),
       'help' => $this->t('Entity activity value.'),
@@ -93,7 +165,7 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
     ];
 
     $data['fut_activity']['changed'] = [
-      'title' => $this->t('last changed'),
+      'title' => $this->t('Last changed'),
       'help' => $this->t('Last time record was changed'),
       'field' => [
         'id' => 'date',
@@ -108,6 +180,15 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
       'sort' => [
         'id' => 'standard',
       ],
+    ];
+
+    // Custom field to show tracked entity.
+    $data['fut_activity']['tracked_entity'] = [
+        'title' => t('Tracked entity'),
+        'help' => t('Display tracked entity title and link'),
+        'field' => [
+            'id' => 'tracked_entity',
+        ],
     ];
 
     return $data;
@@ -165,23 +246,10 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
             'title' => $this->t('@entity_type', ['@entity_type' => $entity_type->getLabel()]),
             'help' => $this->t('Relate activity to the @entity_type  that is being tracked.',['@entity_type' => $entity_type->getLabel()]),
             'handler' => 'views_handler_relationship',
-            'base' => $entity_type->getBaseTable(),
+            'base' => $entity_type->getDataTable(),
             'base field' => $entity_type->getKey('id'),
             'field' => 'entity_id',
             'label' => $this->t('Entity: @entity_type',['@entity_type' => $entity_type->getLabel()]),
-          ],
-          'field' => [
-            'id' => 'numeric',
-            'click sortable' => TRUE,
-          ],
-          'filter' => [
-            'id' => 'numeric',
-          ],
-          'argument' => [
-            'id' => 'numeric',
-          ],
-          'sort' => [
-            'id' => 'standard',
           ],
         ];
       }

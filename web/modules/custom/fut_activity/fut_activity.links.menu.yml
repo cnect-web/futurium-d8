@@ -4,6 +4,12 @@ entity.entity_activity_tracker.collection:
   title: 'Entity activity tracker'
   route_name: entity.entity_activity_tracker.collection
   description: 'List Entity activity tracker (bundles)'
-  parent: system.admin_structure
+  parent: system.admin_config
   weight: 99
 
+fut_activity.fut_activity_admin_form:
+  title: 'Fut Activity Administration'
+  route_name: fut_activity.fut_activity_admin_form
+  description: 'Activity Administration Form'
+  parent: entity.entity_activity_tracker.collection
+  weight: 99
