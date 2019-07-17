@@ -222,6 +222,8 @@ class RoboFile extends RoboTasks {
     }
     else $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
 
+    // On installation, drupal only takes into account config in the config/sync dir.
+    // So we need to import config so that config splits kick in.
     $this->importConfig();
   }
 
@@ -251,7 +253,7 @@ class RoboFile extends RoboTasks {
    */
   public function importConfig() {
     $this->taskDrushStack($this->binDir . '/drush')
-      ->arg('-r', $this->drupalRoot)
+      ->exec('cr')
       ->exec('cache-clear drush')
       ->exec('updb')
       ->exec('cim -y')
@@ -268,7 +270,7 @@ class RoboFile extends RoboTasks {
    */
   public function exportConfig() {
     $this->taskDrushStack($this->binDir . '/drush')
-      ->arg('-r', $this->drupalRoot)
+      ->exec('cr')
       ->exec('cache-clear drush')
       ->exec('cex -y')
       ->exec('cr')
