@@ -1,7 +1,7 @@
 # Project information.
 project:
   root: /var/www/html/web/
-  url: http://localhost
+  url: localhost
   environment: development
 
 # Site information.
