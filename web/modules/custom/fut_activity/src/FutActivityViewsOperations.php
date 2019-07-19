@@ -233,8 +233,8 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
    *   Associative array describing relation fields.
    */
   protected function getRelationsFields() {
+    $data = [];
     if (count($this->getTrackers())) {
-      $data = [];
       foreach ($this->getTrackers() as $tracker) {
         $entity_type = $this->entityTypeManager->getStorage($tracker->getTargetEntityType())->getEntityType();
 
@@ -253,7 +253,7 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
           ],
         ];
       }
-      return $data;
     }
+    return $data;
   }
 }

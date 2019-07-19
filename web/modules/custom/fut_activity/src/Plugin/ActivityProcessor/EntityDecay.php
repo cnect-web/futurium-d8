@@ -9,17 +9,18 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Drupal\fut_activity\Event\ActivityDecayEvent;
 use Drupal\fut_activity\ActivityRecord;
+use Drupal\fut_activity\Plugin\ActivityProcessorInterface;
 
 /**
  * Sets setting for nodes and preforms the activity process for nodes.
  *
  * @ActivityProcessor (
- *   id = "activity_processor_node",
- *   label = @Translation("Node Processor")
+ *   id = "entity_decay",
+ *   label = @Translation("Entity Decay")
  * )
  *
  */
-class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFactoryPluginInterface {
+class EntityDecay extends ActivityProcessorBase implements ActivityProcessorInterface {
 
    /**
    * {@inheritdoc}
@@ -28,9 +29,6 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
     return [
       'decay' => 100,
       'decay_granularity' => 345600, // 4 days;
-      'halflife' =>  172800, // 2 days;
-      'activity_creation' => 5000,
-      'activity_update' => 100,
     ];
   }
 
@@ -38,8 +36,6 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
    * {@inheritdoc}
    */
   public function buildConfigurationForm(array $form, FormStateInterface $form_state) {
-
-
     $form['decay'] = [
       '#type' => 'number',
       '#title' => $this->t('Decay Value'),
@@ -55,33 +51,6 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
       '#min' => 1,
       '#default_value' => $this->getConfiguration()['decay_granularity'],
       '#description' => $this->t('The time in seconds that the activity value is kept before applying the decay.'),
-      '#required' => TRUE,
-    ];
-
-    $form['halflife'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Half-life time'),
-      '#min' => 1,
-      '#default_value' => $this->getConfiguration()['halflife'],
-      '#description' => $this->t('The time in seconds in which the activity value halves.'),
-      '#required' => TRUE,
-    ];
-
-    $form['activity_creation'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Activity on Creation'),
-      '#min' => 1,
-      '#default_value' => $this->getConfiguration()['activity_creation'],
-      '#description' => $this->t('The activity value on entity creation.'),
-      '#required' => TRUE,
-    ];
-
-    $form['activity_update'] = [
-      '#type' => 'number',
-      '#title' => $this->t('Activity on update'),
-      '#min' => 1,
-      '#default_value' => $this->getConfiguration()['activity_update'],
-      '#description' => $this->t('The activity value on entity update.'),
       '#required' => TRUE,
     ];
     return $form;
@@ -100,9 +69,6 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['decay'] = $form_state->getValue('decay');
     $this->configuration['decay_granularity'] = $form_state->getValue('decay_granularity');
-    $this->configuration['halflife'] = $form_state->getValue('halflife');
-    $this->configuration['activity_creation'] = $form_state->getValue('activity_creation');
-    $this->configuration['activity_update'] = $form_state->getValue('activity_update');
   }
 
   /**
@@ -114,52 +80,29 @@ class ActivityProcessorNode extends ActivityProcessorBase implements ContainerFa
       '@plugin_name' => $this->pluginDefinition['label']->render(),
       '@decay' => $this->configuration['decay'],
       '@decay_granularity' => $this->configuration['decay_granularity'],
-      '@halflife' => $this->configuration['halflife'],
-      '@activity_creation' => $this->configuration['activity_creation'],
-      '@activity_update' => $this->configuration['activity_update'],
     ];
-    return $this->t('<b>@plugin_name:</b> <br> Decay: @decay <br> Granularity: @decay_granularity <br> Half Life: @halflife <br>  Activity on creation: @activity_creation <br> Activity on update: @activity_update <br>', $replacements );
+    return $this->t('<b>@plugin_name:</b> <br> Decay: @decay <br> Granularity: @decay_granularity <br>', $replacements );
   }
 
   /**
    * {@inheritdoc}
    */
   public function processActivity(Event $event) {
-
     $dispatcher_type = $event->getDispatcherType();
 
     switch ($dispatcher_type) {
-      case HookEventDispatcherInterface::ENTITY_INSERT:
-        $entity = $event->getEntity();
-        $activity_record = new ActivityRecord($entity->getEntityTypeId(), $entity->bundle(), $entity->id(), $this->configuration['activity_creation']);
-        $this->activityRecordStorage->createActivityRecord($activity_record);
-      break;
-
-      case HookEventDispatcherInterface::ENTITY_UPDATE:
-        /** @var \Drupal\fut_activity\ActivityRecord $activity_record */
-        $activity_record = $this->activityRecordStorage->getActivityRecordByEntity($event->getEntity());
-        $activity_record->increaseActivity($this->configuration['activity_update']);
-        $this->activityRecordStorage->updateActivityRecord($activity_record);
-      break;
-
-      case HookEventDispatcherInterface::ENTITY_DELETE:
-        /** @var \Drupal\fut_activity\ActivityRecord $activity_record */
-        $activity_record = $this->activityRecordStorage->getActivityRecordByEntity($event->getEntity());
-        $this->activityRecordStorage->deleteActivityRecord($activity_record);
-      break;
-
       case ActivityDecayEvent::DECAY:
         $records = $this->recordsToDecay($event->getTracker());
         if (!empty($records)) {
           foreach ($records as $record) {
+            // Right now i'm simply decreasing the configured decay value.
+            // Later on we can work on fancy algorithm to decay entities.
             $record->decreaseActivity($this->configuration['decay']);
             $this->activityRecordStorage->updateActivityRecord($record);
           }
         }
       break;
-
     }
-
   }
 
   /**

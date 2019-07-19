@@ -7,6 +7,8 @@ use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\fut_activity\Event\TrackerCreateEvent;
+use Drupal\fut_activity\Event\TrackerDeleteEvent;
 
 /**
  * Processes ActivityProcessor plugins.
@@ -14,7 +16,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  * @QueueWorker(
  *   id = "activity_processor_queue",
  *   title = @Translation("Activity Processor queue"),
- *   cron = {"time" = 1}
+ *   cron = {"time" = 10}
  * )
  */
 class ActivityProcessorQueue extends QueueWorkerBase implements ContainerFactoryPluginInterface {
@@ -54,13 +56,26 @@ class ActivityProcessorQueue extends QueueWorkerBase implements ContainerFactory
    */
   public function processItem($event) {
 
-    foreach ($this->getTrackerFromEvent($event) as $tracker) {
-      $enabled_plugins = $tracker->getProcessorPlugins()->getEnabled();
-      foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
-        $processor_plugin->processActivity($event);
-        $message = $plugin_id . ' plugin processed';
-        \Drupal::logger('fut_activity')->info($message);
-      }
+    switch ($event) {
+      case $event instanceof BaseEntityEvent:
+        foreach ($this->getTrackerFromEvent($event) as $tracker) {
+          $enabled_plugins = $tracker->getProcessorPlugins()->getEnabled();
+          foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
+            $processor_plugin->processActivity($event);
+            $message = $plugin_id . ' plugin processed';
+            \Drupal::logger('fut_activity')->info($message);
+          }
+        }
+        break;
+      case $event instanceof TrackerCreateEvent:
+      case $event instanceof TrackerDeleteEvent:
+        $enabled_plugins = $event->getTracker()->getProcessorPlugins()->getEnabled();
+        foreach ($enabled_plugins as $plugin_id => $processor_plugin) {
+          $processor_plugin->processActivity($event);
+          $message = $plugin_id . ' plugin processed';
+          \Drupal::logger('fut_activity')->info($message);
+        }
+        break;
     }
     \Drupal::logger('fut_activity')->info("Processing item of ActivityProcessorQueue");
   }

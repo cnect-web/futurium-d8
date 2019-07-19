@@ -1,15 +1,18 @@
 <?php
+
+// @TODO: LATER ON MERGE THIS WITH TRACKER_CREATE AND DECAY IN ONE EVENT BASE CLASS!!
+
 namespace Drupal\fut_activity\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
 
 /**
- * Class ActivityDecayEvent.
+ * Class TrackerDeleteEvent.
  */
-class ActivityDecayEvent extends Event {
+class TrackerDeleteEvent extends Event {
 
-  const DECAY = 'event.decay';
+  const TRACKER_DELETE = 'event.tracker.delete';
 
   /**
    * The EntityActivityTracker.
@@ -19,7 +22,7 @@ class ActivityDecayEvent extends Event {
   protected $tracker;
 
   /**
-   * ActivityDecayEvent constructor.
+   * TrackerDeleteEvent constructor.
    *
    * @param \Drupal\Core\Entity\EntityActivityTrackerInterface $tracker
    *   The EntityActivityTracker.
@@ -45,7 +48,7 @@ class ActivityDecayEvent extends Event {
    *   The dispatcher type.
    */
   public function getDispatcherType() {
-    return self::DECAY;
+    return self::TRACKER_DELETE;
   }
 
 }

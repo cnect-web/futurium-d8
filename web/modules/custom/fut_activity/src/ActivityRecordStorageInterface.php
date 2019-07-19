@@ -25,10 +25,13 @@ interface ActivityRecordStorageInterface {
    * @param string $entity_type
    *   Optional get list of given entity_type.
    *
+   * @param string $bundle
+   *   Optional get list of given entity_type and bundle.
+   *
    * @return \Drupal\fut_activity\ActivityRecord[]
    *   A list of ActivityRecord objects.
    */
-  public function getActivityRecords(string $entity_type = '');
+  public function getActivityRecords(string $entity_type = '', string $bundle = '');
 
   /**
    * Gets a ActivityRecord given a Entity.

@@ -5,11 +5,11 @@ use Symfony\Component\EventDispatcher\Event;
 use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
 
 /**
- * Class ActivityDecayEvent.
+ * Class TrackerCreateEvent.
  */
-class ActivityDecayEvent extends Event {
+class TrackerCreateEvent extends Event {
 
-  const DECAY = 'event.decay';
+  const TRACKER_CREATE = 'event.tracker.create';
 
   /**
    * The EntityActivityTracker.
@@ -19,7 +19,7 @@ class ActivityDecayEvent extends Event {
   protected $tracker;
 
   /**
-   * ActivityDecayEvent constructor.
+   * TrackerCreateEvent constructor.
    *
    * @param \Drupal\Core\Entity\EntityActivityTrackerInterface $tracker
    *   The EntityActivityTracker.
@@ -45,7 +45,7 @@ class ActivityDecayEvent extends Event {
    *   The dispatcher type.
    */
   public function getDispatcherType() {
-    return self::DECAY;
+    return self::TRACKER_CREATE;
   }
 
 }

@@ -15,7 +15,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
  * @QueueWorker(
  *   id = "decay_queue",
  *   title = @Translation("Decay queue"),
- *   cron = {"time" = 1}
+ *   cron = {"time" = 10}
  * )
  */
 class DecayQueue extends QueueWorkerBase implements ContainerFactoryPluginInterface {
@@ -54,7 +54,6 @@ class DecayQueue extends QueueWorkerBase implements ContainerFactoryPluginInterf
    * {@inheritdoc}
    */
   public function processItem($event) {
-    /** @var \Drupal\fut_activity\Event\ActivityDecayEvent $event */
     switch ($event) {
       case $event instanceof ActivityDecayEvent:
         // If here we get the ActivityDecayEvent we process plugins.

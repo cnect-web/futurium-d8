@@ -1,3 +1,4 @@
+# Define config entity (Tracker) schema.
 fut_activity.entity_activity_tracker.*:
   type: config_entity
   label: 'Entity activity tracker config'
@@ -23,6 +24,7 @@ fut_activity.entity_activity_tracker.*:
         type: fut_activity.activity_processor.plugin.[id]
         label: 'Plugin Id'
 
+# Define plugin schema type.
 fut_activity.activity_processor.plugin:
   type: mapping
   label: 'Activity Processor settings'
@@ -31,47 +33,17 @@ fut_activity.activity_processor.plugin:
       type: string
       label: 'ID'
 
-fut_activity.activity_processor.plugin.activity_processor_node:
+# Define ActivityProcessor plugins schema.
+fut_activity.activity_processor.plugin.entity_create:
+  type: fut_activity.activity_processor.plugin
+  mapping:
+    activity_creation:
+      type: integer
+
+fut_activity.activity_processor.plugin.entity_decay:
   type: fut_activity.activity_processor.plugin
   mapping:
     decay:
       type: integer
     decay_granularity:
       type: integer
-    halflife:
-      type: integer
-    activity_creation:
-      type: integer
-    activity_update:
-      type: integer
-
-
-
-
-
-
-
-
-
-
-
-#       activity_processors:
-#         type: fut_activity.activity_processor.settings.[%key]
-#         label: 'Activity processor plugins'
-
-# fut_activity.activity_processor.settings_base:
-#   type: mapping
-#   label: 'Settings for base activity_processor plugin'
-#   mapping:
-#     enabled:
-#       type: boolean
-#       label: 'Enabled'
-
-# # The plugins which extend the base activity_processor plugin and don't provide
-# # any configuration form will validate on this entry.
-# fut_activity.activity_processor.settings.*:
-#   type: fut_activity.activity_processor.settings_base
-
-
-
-

@@ -7,9 +7,3 @@ entity.entity_activity_tracker.collection:
   parent: system.admin_config
   weight: 99
 
-fut_activity.fut_activity_admin_form:
-  title: 'Fut Activity Administration'
-  route_name: fut_activity.fut_activity_admin_form
-  description: 'Activity Administration Form'
-  parent: entity.entity_activity_tracker.collection
-  weight: 99

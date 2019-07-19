@@ -11,6 +11,9 @@ use Drupal\hook_event_dispatcher\Event\Cron\CronEvent;
 use Drupal\Core\Queue\QueueFactory;
 use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
 use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
+use Drupal\fut_activity\Event\TrackerCreateEvent;
+use Drupal\fut_activity\Event\TrackerDeleteEvent;
+use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class FutActivitySubscriber.
@@ -45,6 +48,8 @@ class ActivitySubscriber implements EventSubscriberInterface {
       HookEventDispatcherInterface::ENTITY_DELETE => 'entityOperations',
       HookEventDispatcherInterface::CRON => 'scheduleDecay',
       ActivityDecayEvent::DECAY => 'applyDecay',
+      TrackerCreateEvent::TRACKER_CREATE => 'trackerOperations',
+      TrackerDeleteEvent ::TRACKER_DELETE => 'trackerOperations',
     ];
   }
 
@@ -88,6 +93,17 @@ class ActivitySubscriber implements EventSubscriberInterface {
     /** @var  \Drupal\Core\Queue\QueueInterface $decay_queue */
     $decay_queue = $this->queue->get('decay_queue');
     $decay_queue->createItem($event);
+  }
+
+
+  /**
+   * trackerOperations
+   *
+   * @return void
+   */
+  public function trackerOperations(Event $event) {
+    $processors_queue = $this->queue->get('activity_processor_queue');
+    $processors_queue->createItem($event);
   }
 
 }

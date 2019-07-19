@@ -5,11 +5,42 @@ namespace Drupal\fut_activity\Form;
 use Drupal\Core\Entity\EntityConfirmFormBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Url;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Drupal\fut_activity\Event\TrackerDeleteEvent;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Builds the form to delete Entity activity tracker entities.
  */
 class EntityActivityTrackerDeleteForm extends EntityConfirmFormBase {
+
+  /**
+   * The event dispatcher.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
+   * Overridden constructor to get event dispactcher service.
+   *
+   * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
+   *   The event dispatcher.
+   */
+  public function __construct(EventDispatcherInterface $event_dispatcher) {
+    $this->eventDispatcher = $event_dispatcher;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('event_dispatcher')
+    );
+  }
+
+
 
   /**
    * {@inheritdoc}
@@ -37,6 +68,9 @@ class EntityActivityTrackerDeleteForm extends EntityConfirmFormBase {
    */
   public function submitForm(array &$form, FormStateInterface $form_state) {
     $this->entity->delete();
+
+    $event = new TrackerDeleteEvent($this->entity);
+    $this->eventDispatcher->dispatch(TrackerDeleteEvent::TRACKER_DELETE, $event);
 
     \Drupal::messenger()->addMessage(
       $this->t('content @type: deleted @label.',

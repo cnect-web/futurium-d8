@@ -11,6 +11,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Form\SubformState;
 use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Drupal\fut_activity\Event\TrackerCreateEvent;
 
 /**
  * Class EntityActivityTrackerForm.
@@ -33,13 +35,21 @@ class EntityActivityTrackerForm extends EntityForm {
   protected $manager;
 
   /**
+   * The event dispatcher.
+   *
+   * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
+   */
+  protected $eventDispatcher;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
     return new static(
       $container->get('fut_activity.plugin.manager.activity_processor'),
       $container->get('form_builder'),
-      $container->get('entity_type.manager')
+      $container->get('entity_type.manager'),
+      $container->get('event_dispatcher')
     );
   }
 
@@ -51,10 +61,11 @@ class EntityActivityTrackerForm extends EntityForm {
    * @param \Drupal\Core\Form\FormBuilderInterface $formBuilder
    *   The form builder.
    */
-  public function __construct(PluginManagerInterface $manager, FormBuilderInterface $formBuilder, EntityTypeManagerInterface $entity_type_manager) {
+  public function __construct(PluginManagerInterface $manager, FormBuilderInterface $formBuilder, EntityTypeManagerInterface $entity_type_manager, EventDispatcherInterface $event_dispatcher) {
     $this->manager = $manager;
     $this->formBuilder = $formBuilder;
     $this->entityTypeManager = $entity_type_manager;
+    $this->eventDispatcher = $event_dispatcher;
   }
 
 
@@ -86,7 +97,7 @@ class EntityActivityTrackerForm extends EntityForm {
 
     // TODO: Clean this up (use dependency injection and put this code on separte method)
     $entity_type_options = [];
-    foreach (\Drupal::entityTypeManager()->getDefinitions() as $entity_type_id => $entity_type) {
+    foreach ($this->entityTypeManager->getDefinitions() as $entity_type_id => $entity_type) {
       if ($entity_type->entityClassImplements(ContentEntityInterface::class) && in_array($entity_type_id, EntityActivityTrackerInterface::ALLOWED_ENTITY_TYPES)) {
         $entity_type_options[$entity_type_id] = $entity_type->get('label');
       }
@@ -186,8 +197,6 @@ class EntityActivityTrackerForm extends EntityForm {
    */
   public function validateForm(array &$form, FormStateInterface $form_state){
 
-    $teste='';
-
     $properties = [
       'entity_type' => $form_state->getValue('entity_type'),
       'entity_bundle' => $bundle_value = $form_state->getValue('entity_bundle'),
@@ -231,6 +240,9 @@ class EntityActivityTrackerForm extends EntityForm {
         \Drupal::messenger()->addMessage($this->t('Created the %label Entity activity tracker.', [
           '%label' => $entity_activity_tracker->label(),
         ]));
+        // Dispatch the TrackerCreateEvent.
+        $event = new TrackerCreateEvent($entity_activity_tracker);
+        $this->eventDispatcher->dispatch(TrackerCreateEvent::TRACKER_CREATE, $event);
         break;
 
       default:
