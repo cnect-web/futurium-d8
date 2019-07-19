@@ -1,0 +1,337 @@
+diff --git a/group.behat.inc b/group.behat.inc
+index e69de29..6da73f1 100644
+--- a/group.behat.inc
++++ b/group.behat.inc
+@@ -0,0 +1,332 @@
++<?php
++
++/**
++ * Please see the following page for directions in implementing in behat:
++ *
++ * https://behat-drupal-extension.readthedocs.io/en/3.1/subcontexts.html
++ */
++use Behat\Behat\Hook\Scope\BeforeScenarioScope;
++use Behat\Behat\Tester\Exception\PendingException;
++use Behat\Gherkin\Node\TableNode;
++use Drupal\DrupalExtension\Context\DrupalSubContextBase;
++use Drupal\DrupalExtension\Context\DrupalSubContextInterface;
++use Drupal\group\Entity\Group;
++use Drupal\group\Entity\GroupType;
++use Drupal\group\Entity\GroupContent;
++use Drupal\paragraphs\Entity\Paragraph;
++use Drupal\DrupalDriverManager;
++
++/**
++ * Defines application features from the specific context.
++ */
++class GroupBehatContext extends DrupalSubContextBase implements DrupalSubContextInterface {
++
++  /* Keeps track of group values for usage and later cleanup */
++  protected $current_group;
++  protected $groups = array();
++
++  /**
++   * Initializes context.
++   *
++   * Every scenario gets its own context instance.
++   * You can also pass arbitrary arguments to the
++   * context constructor through behat.yml.
++   */
++  public function __construct(DrupalDriverManager $drupal) {}
++
++  /**
++   * @var \Drupal\DrupalExtension\Context\DrupalContext
++   */
++  protected $drupalContext;
++
++  /**
++   * @var \Drupal\DrupalExtension\Context\MinkContext
++   */
++  protected $minkContext;
++
++  /**
++   * @BeforeScenario
++   */
++  public function gatherContexts(BeforeScenarioScope $scope) {
++    $environment = $scope->getEnvironment();
++
++    $this->drupalContext = $environment->getContext('Drupal\DrupalExtension\Context\DrupalContext');
++    $this->minkContext = $environment->getContext('Drupal\DrupalExtension\Context\MinkContext');
++  }
++
++  /**
++   * Creates a group of type passed as parameter.
++   *
++   * And then visits the detail page of the new group.
++   *
++   * @param string $group_type
++   *   A string with the group type machine name.
++   * @param Behat\Gherkin\Node\TableNode $table
++   *   A table with field data, in the following format:
++   *     | label         | Reducing pollution in 2016       |
++   *     | paragraph     | Bundle:FieldName:Value1, Value 2 |
++   *     | body          | Some text bla bla                |!
++   *
++   * @Given a group of type :group_type
++   */
++  public function aGroupOfType($group_type, TableNode $table) {
++    $table_info = $table->getRowsHash();
++
++    $group = Group::create(['type' => $group_type]);
++    foreach ($table_info as $field_name => $field_value) {
++
++      if (!$group->hasField($field_name)) {
++        throw new \Exception(sprintf("Field not found: %s", $field_name));
++      }
++
++      switch ($field_type = $group->get($field_name)->getFieldDefinition()->getType()) {
++        // For paragraphs
++        case 'entity_reference_revisions':
++          $target_bundle = explode(":", $field_value)[0];
++          $target_bundle_field = explode(":", $field_value)[1];
++          $target_bundle_field_value = explode(":", $field_value)[2];
++
++          $fs = $group->get($field_name)->getSetting('handler_settings');
++          if (isset($fs['target_bundles'])) {
++            if (!in_array($target_bundle, $fs['target_bundles'])) {
++              $message = sprintf("'%s' is not an allowed bundle for the '%s' field.", $target_bundle, $field_name);
++              throw new \Exception($message);
++            }
++            else {
++              $field_values = explode(",", $target_bundle_field_value);
++              $paragraphs = [];
++              foreach ($field_values as $delta => $value) {
++                $paragraph = Paragraph::create([
++                  'type' => $target_bundle,
++                  $target_bundle_field => [
++                    "value"  =>  $value
++                  ],
++                ]);
++                $paragraph->save();
++
++                $paragraphs[] = [
++                  'target_id' => $paragraph->id(),
++                  'target_revision_id' => $paragraph->getRevisionId(),
++                ];
++              }
++
++              // @todo: Might need to check if it's a multivalued field.
++              $group->set($field_name, $paragraphs);
++            }
++          }
++          break;
++
++        // For simple values
++        default:
++          $group->set($field_name, $field_value);
++          break;
++
++      }
++    }
++    $group->save();
++
++    $this->current_group = $group;
++    $this->groups[] = $group;
++
++    $this->getSession()->visit($this->locatePath('/group/' . $group->id()));
++  }
++
++  /**
++   * @Given I am viewing a group of type :arg1 with the title :arg2
++   *
++   * Creates and takes users to a Group with title of group_type
++   */
++  public function createNewGroupAndView($group_type, $title) {
++    $machine_name = preg_replace('@[^a-z0-9_]+@', '_', strtolower($title));
++
++    $group = entity_create('group', array(
++      'type' => $group_type,
++      'label' => $title,
++      'uid' => 1,
++      'path' => ['alias' => '/behat-testing/' . $machine_name],
++    ));
++    $group->save();
++
++    $this->current_group = $group;
++    $this->groups[] = $group;
++
++    // Get group alias.
++    $group_alias = \Drupal::service('path.alias_manager')->getAliasByPath('/group/' . $group->id());
++
++    $this->getSession()->visit($this->locatePath($group_alias));
++  }
++
++  /**
++   * @Given There is a group of type :arg1 with the title :arg2
++   *
++   * Creates and takes users to a Group with title of group_type
++   */
++  public function createNewGroup($group_type, $title) {
++    $machine_name = $this->machineNameConversion($title);
++
++    $group = entity_create('group', array(
++      'type' => $group_type,
++      'label' => $title,
++      'uid' => 1,
++      'path' => ['alias' => '/behat-testing/' . $machine_name],
++    ));
++    $group->save();
++    $this->groups[$machine_name] = $group;
++  }
++
++  /**
++   * @Then I load the group with title :title
++   *
++   * Creates and takes users to a Group with title of group_type
++   */
++  public function loadCreatedGroup($title) {
++    $machine_name = $this->machineNameConversion($title);
++
++    if (isset($this->groups[$machine_name])) {
++      $group_alias = \Drupal::service('path.alias_manager')
++        ->getAliasByPath('/group/' . $this->groups[$machine_name]->id());
++      $this->getSession()->visit($this->locatePath($group_alias));
++    }
++    else {
++      $message = sprintf('Unable to find group with that title.');
++      throw new \Exception($message);
++    }
++  }
++
++  /**
++   * @Then I load the current group
++   *
++   * Takes user to their current group.
++   */
++  public function iLoadTheCurrentGroup() {
++    if (is_null($this->current_group)) {
++      $message = sprintf('No current group set to view.');
++      throw new \Exception($message);
++    }
++    else {
++      $group_alias = \Drupal::service('path.alias_manager')->getAliasByPath('/group/' . $this->current_group->id());
++      $this->getSession()->visit($this->locatePath($group_alias));
++    }
++  }
++
++  /**
++   * @Then I view the path :relative_path relative to my current group
++   *
++   * Creates and takes users to a Group with title of group_type
++   */
++  public function viewGroupPage($relative_path) {
++    if (is_null($this->current_group)) {
++      $message = sprintf('No current group set to view path relative to');
++      throw new \Exception($message);
++    }
++
++    $path_to_visit = '/group/' . $this->current_group->id();
++    $path_to_visit .= '/' . $relative_path;
++
++    $this->getSession()->visit($this->locatePath($path_to_visit));
++  }
++
++  /**
++   * @Then I am a member of the current group with the role :group_role
++   *
++   * Adds current user to the current group with the specified role.
++   */
++  public function joinCurrentGroupWithRole($group_role) {
++
++    $group = $this->current_group;
++    $group_type = $group->get('type')->getvalue()[0]['target_id'];
++
++    $account = \Drupal::entityTypeManager()->getStorage('user')->load(
++      $this->getUserManager()->getCurrentUser()->uid
++    );
++
++    $values = ['group_roles' => $group_type . '-' . $group_role];
++    $group->addMember($account, $values);
++  }
++
++  /**
++   * @Then I am a member of the current group
++   *
++   * Adds user to the current group.
++   */
++  public function joinCurrentGroup() {
++    $plugin = $this->current_group->getGroupType()->getContentPlugin('group_membership');
++
++    // Pre-populate a group membership with the current user.
++    $group_content = GroupContent::create([
++      'type' => $plugin->getContentTypeConfigId(),
++      'gid' => $this->current_group->id(),
++      'entity_id' => $this->getUserManager()->getCurrentUser()->uid,
++    ]);
++
++    $group_content->save();
++  }
++
++  /**
++   * @Given User with name :user_name is a member of group with title :group_title
++   */
++  public function userWithNameIsAMemberOfGroupWithTitle($user_name, $group_title) {
++    $users = \Drupal::entityTypeManager()
++      ->getStorage('user')
++      ->loadByProperties(['name' => $user_name]);
++
++    $groups = \Drupal::entityTypeManager()
++      ->getStorage('group')
++      ->loadByProperties(['label' => $group_title]);
++
++    if (!is_array($users) || count($users) > 1) {
++      $message = sprintf('More than one or no users with that username found.');
++      throw new \Exception($message);
++    }
++    if (!is_array($groups) || count($groups) > 1) {
++      $message = sprintf('More than one or no groups with that name found.');
++      throw new \Exception($message);
++    }
++    $user = reset($users);
++    $group = reset($groups);
++
++    $group->addMember($user);
++  }
++
++  /**
++   * Unset current group after scenario as cleanup.
++   *
++   * @AfterScenario
++   */
++  public function cleanCurrentGroup() {
++    if (!is_null($this->current_group)) {
++      $this->current_group = NULL;
++    }
++  }
++
++  /**
++   * Remove groups after scenario as cleanup.
++   *
++   * @AfterScenario
++   */
++  public function cleanCurrentGroupst() {
++    if (!empty($this->groups)) {
++      foreach ($this->groups as $group) {
++        if (get_class($group) == 'Drupal\group\Entity\Group') {
++          $group->delete();
++          continue;
++        }
++        $this->getDriver()->entityDelete('group', $group);
++      }
++    }
++  }
++
++  /**
++   * Helper function to convert string to Drupal machine name.
++   *
++   * @param string $string
++   *   String to convert.
++   *
++   * @return string
++   *   Converted string.
++   */
++  private function machineNameConversion($string) {
++    return preg_replace('@[^a-z0-9_]+@', '_', strtolower($string));
++  }
++
++}
