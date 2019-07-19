@@ -30,6 +30,7 @@ default:
         message_selector: '.messages'
         error_message_selector: '.messages.error'
         success_message_selector: '.messages.status'
+        logged_in_selector: '.user-logged-in'
       region_map:
       drush:
         alias: 'default'
