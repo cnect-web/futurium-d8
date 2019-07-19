@@ -1,4 +1,5 @@
 <?php
+
 namespace Drupal\fut_activity\Event;
 
 use Symfony\Component\EventDispatcher\Event;

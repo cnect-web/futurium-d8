@@ -2,7 +2,6 @@
 
 namespace Drupal\fut_activity;
 
-
 /**
  * Defines the ActivityRecord class.
  */
@@ -13,14 +12,14 @@ class ActivityRecord {
    *
    * @var int
    */
-  private $activity_id;
+  private $activityId;
 
   /**
    * The tracked entity type.
    *
    * @var string
    */
-  private $entity_type;
+  private $entityType;
 
   /**
    * The tracked entity bundle.
@@ -34,7 +33,7 @@ class ActivityRecord {
    *
    * @var int
    */
-  private $entity_id;
+  private $entityId;
 
   /**
    * The activity value.
@@ -58,26 +57,31 @@ class ActivityRecord {
   private $changed;
 
   /**
-   * Constructor.
+   * ActivityRecord constructor.
    *
-   * @param  string $entity_type
-   * @param  string $bundle
-   * @param  int $entity_id
-   * @param  int $activity
-   * @param  int $created
-   * @param  int $changed
-   * @param  int $activity_id
-   *
-   * @return void
+   * @param string $entity_type
+   *   Tracked entity_type.
+   * @param string $bundle
+   *   Trakced entity bundle.
+   * @param int $entity_id
+   *   Trakced entity id.
+   * @param int $activity
+   *   Trakced entity activity value.
+   * @param int $created
+   *   ActivityRecord creation timestamp.
+   * @param int $changed
+   *   ActivityRecord last change timestamp.
+   * @param int $activity_id
+   *   Id of existing ActivityRecord.
    */
   public function __construct($entity_type, $bundle, $entity_id, $activity, $created = NULL, $changed = NULL, $activity_id = NULL) {
-      $this->activity_id = $activity_id;
-      $this->entity_type = $entity_type;
-      $this->bundle = $bundle;
-      $this->entity_id = $entity_id;
-      $this->activity = $activity;
-      $this->created = $created ?? time();
-      $this->changed = $changed ?? time();
+    $this->activityId = $activity_id;
+    $this->entityType = $entity_type;
+    $this->bundle = $bundle;
+    $this->entityId = $entity_id;
+    $this->activity = $activity;
+    $this->created = $created ?? time();
+    $this->changed = $changed ?? time();
   }
 
   /**
@@ -87,7 +91,7 @@ class ActivityRecord {
    *   True if record is new.
    */
   public function isNew() {
-    return empty($this->activity_id);
+    return empty($this->activityId);
   }
 
   /**
@@ -97,7 +101,7 @@ class ActivityRecord {
    *   ActivityRecord ID.
    */
   public function id() {
-    return $this->activity_id;
+    return $this->activityId;
   }
 
   /**
@@ -107,7 +111,7 @@ class ActivityRecord {
    *   Tracked entity type.
    */
   public function getEntityType() {
-    return $this->entity_type;
+    return $this->entityType;
   }
 
   /**
@@ -127,7 +131,7 @@ class ActivityRecord {
    *   Tracked entity id.
    */
   public function getEntityId() {
-    return $this->entity_id;
+    return $this->entityId;
   }
 
   /**

@@ -30,6 +30,12 @@ class DecayQueue extends QueueWorkerBase implements ContainerFactoryPluginInterf
   /**
    * Constructs a new ActivityProcessorQueue.
    *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    */
@@ -65,7 +71,6 @@ class DecayQueue extends QueueWorkerBase implements ContainerFactoryPluginInterf
           \Drupal::logger('fut_activity')->info($message);
         }
 
-
         break;
 
       case $event instanceof CronEvent:
@@ -75,9 +80,8 @@ class DecayQueue extends QueueWorkerBase implements ContainerFactoryPluginInterf
         // Get all trackers.
         $trackers = $this->getTrackers();
 
-        // Here we dispatch a Decay Event for each config entity.
-        foreach ($trackers as $tracker_id => $tracker) {
-          // The decay event recives a tracker that will run all plugins passing the decay event.
+        // Here we dispatch a Decay Event for each tracker.
+        foreach ($trackers as $tracker) {
           $event = new ActivityDecayEvent($tracker);
           $dispatcher->dispatch(ActivityDecayEvent::DECAY, $event);
         }
@@ -91,9 +95,10 @@ class DecayQueue extends QueueWorkerBase implements ContainerFactoryPluginInterf
    * This gets all EntityActivityTrackers config entities.
    *
    * @return \Drupal\Core\Entity\EntityInterface[]
-   *    An array of entity "entity_activity_tracker" indexed by their ID.
+   *   An array of entity "entity_activity_tracker" indexed by their ID.
    */
   protected function getTrackers() {
     return $this->entityTypeManager->getStorage('entity_activity_tracker')->loadMultiple();
   }
+
 }

@@ -4,12 +4,10 @@ namespace Drupal\fut_activity\Plugin\ActivityProcessor;
 
 use Drupal\fut_activity\Plugin\ActivityProcessorBase;
 use Drupal\Core\Form\FormStateInterface;
-use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\EventDispatcher\Event;
 use Drupal\fut_activity\Event\ActivityDecayEvent;
-use Drupal\fut_activity\ActivityRecord;
 use Drupal\fut_activity\Plugin\ActivityProcessorInterface;
+use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
 
 /**
  * Sets setting for nodes and preforms the activity process for nodes.
@@ -18,17 +16,17 @@ use Drupal\fut_activity\Plugin\ActivityProcessorInterface;
  *   id = "entity_decay",
  *   label = @Translation("Entity Decay")
  * )
- *
  */
 class EntityDecay extends ActivityProcessorBase implements ActivityProcessorInterface {
 
-   /**
+  /**
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
     return [
       'decay' => 100,
-      'decay_granularity' => 345600, // 4 days;
+    // 4 days;
+      'decay_granularity' => 345600,
     ];
   }
 
@@ -60,7 +58,7 @@ class EntityDecay extends ActivityProcessorBase implements ActivityProcessorInte
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    // do nodthing for now.
+    // Do nodthing for now.
   }
 
   /**
@@ -81,7 +79,7 @@ class EntityDecay extends ActivityProcessorBase implements ActivityProcessorInte
       '@decay' => $this->configuration['decay'],
       '@decay_granularity' => $this->configuration['decay_granularity'],
     ];
-    return $this->t('<b>@plugin_name:</b> <br> Decay: @decay <br> Granularity: @decay_granularity <br>', $replacements );
+    return $this->t('<b>@plugin_name:</b> <br> Decay: @decay <br> Granularity: @decay_granularity <br>', $replacements);
   }
 
   /**
@@ -101,16 +99,20 @@ class EntityDecay extends ActivityProcessorBase implements ActivityProcessorInte
             $this->activityRecordStorage->updateActivityRecord($record);
           }
         }
-      break;
+        break;
     }
   }
 
   /**
    * This returns List of ActivityRecords to Decay.
    *
+   * @param \Drupal\fut_activity\EntityActivityTrackerInterface $tracker
+   *   The tracker config entity.
+   *
    * @return \Drupal\fut_activity\ActivityRecord[]
+   *   List of records to decay.
    */
-  protected function recordsToDecay($tracker) {
+  protected function recordsToDecay(EntityActivityTrackerInterface $tracker) {
     return $this->activityRecordStorage->getActivityRecordsChanged(time() - $this->configuration['decay_granularity'], $tracker->getTargetEntityType(), $tracker->getTargetEntityBundle());
   }
 

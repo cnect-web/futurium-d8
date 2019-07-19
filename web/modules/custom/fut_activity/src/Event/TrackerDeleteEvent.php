@@ -1,7 +1,5 @@
 <?php
 
-// @TODO: LATER ON MERGE THIS WITH TRACKER_CREATE AND DECAY IN ONE EVENT BASE CLASS!!
-
 namespace Drupal\fut_activity\Event;
 
 use Symfony\Component\EventDispatcher\Event;
@@ -9,6 +7,8 @@ use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
 
 /**
  * Class TrackerDeleteEvent.
+ *
+ * @TODO: LATER ON MERGE THIS WITH TRACKER_CREATE AND DECAY IN ONE EVENT BASE CLASS!!
  */
 class TrackerDeleteEvent extends Event {
 

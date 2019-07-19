@@ -11,7 +11,6 @@ use Drupal\Core\Extension\ModuleHandlerInterface;
  */
 class ActivityProcessorManager extends DefaultPluginManager {
 
-
   /**
    * Constructs a new ActivityProcessorManager object.
    *
@@ -29,7 +28,5 @@ class ActivityProcessorManager extends DefaultPluginManager {
     $this->alterInfo('fut_activity_activity_processor_info');
     $this->setCacheBackend($cache_backend, 'fut_activity_activity_processor_plugins');
   }
-
-
 
 }

@@ -5,9 +5,7 @@ namespace Drupal\fut_activity\Plugin\ActivityProcessor;
 use Drupal\fut_activity\Plugin\ActivityProcessorBase;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\hook_event_dispatcher\HookEventDispatcherInterface;
-use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
 use Symfony\Component\EventDispatcher\Event;
-use Drupal\fut_activity\Event\ActivityDecayEvent;
 use Drupal\fut_activity\ActivityRecord;
 use Drupal\fut_activity\Event\TrackerCreateEvent;
 use Drupal\fut_activity\Plugin\ActivityProcessorInterface;
@@ -15,6 +13,7 @@ use Drupal\fut_activity\ActivityRecordStorageInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\fut_activity\Event\TrackerDeleteEvent;
+use Drupal\fut_activity\Entity\EntityActivityTrackerInterface;
 
 /**
  * Sets activity when entity is created.
@@ -23,7 +22,6 @@ use Drupal\fut_activity\Event\TrackerDeleteEvent;
  *   id = "entity_create",
  *   label = @Translation("Entity Create")
  * )
- *
  */
 class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInterface {
 
@@ -55,7 +53,7 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
     );
   }
 
-   /**
+  /**
    * {@inheritdoc}
    */
   public function defaultConfiguration() {
@@ -84,7 +82,7 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
    * {@inheritdoc}
    */
   public function validateConfigurationForm(array &$form, FormStateInterface $form_state) {
-    // do nodthing for now.
+    // Do nodthing for now.
   }
 
   /**
@@ -102,7 +100,7 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
       '@plugin_name' => $this->pluginDefinition['label']->render(),
       '@activity_creation' => $this->configuration['activity_creation'],
     ];
-    return $this->t('<b>@plugin_name:</b> <br> Activity on creation: @activity_creation <br>', $replacements );
+    return $this->t('<b>@plugin_name:</b> <br> Activity on creation: @activity_creation <br>', $replacements);
   }
 
   /**
@@ -118,6 +116,7 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
         $activity_record = new ActivityRecord($entity->getEntityTypeId(), $entity->bundle(), $entity->id(), $this->configuration['activity_creation']);
         $this->activityRecordStorage->createActivityRecord($activity_record);
         break;
+
       case TrackerCreateEvent::TRACKER_CREATE:
         // Iterate all already existing entities and create a record.
         foreach ($this->getExistingEntities($event->getTracker()) as $existing_entity) {
@@ -125,15 +124,17 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
           $this->activityRecordStorage->createActivityRecord($activity_record);
         }
         break;
+
       case HookEventDispatcherInterface::ENTITY_DELETE:
         /** @var \Drupal\fut_activity\ActivityRecord $activity_record */
         $activity_record = $this->activityRecordStorage->getActivityRecordByEntity($event->getEntity());
         $this->activityRecordStorage->deleteActivityRecord($activity_record);
         break;
+
       case TrackerDeleteEvent::TRACKER_DELETE:
         $tracker = $event->getTracker();
         // Get ActivityRecords from this tracker.
-        foreach ($this->activityRecordStorage->getActivityRecords($tracker->getTargetEntityType(),$tracker->getTargetEntityBundle()) as $activity_record) {
+        foreach ($this->activityRecordStorage->getActivityRecords($tracker->getTargetEntityType(), $tracker->getTargetEntityBundle()) as $activity_record) {
           $this->activityRecordStorage->deleteActivityRecord($activity_record);
         }
         break;
@@ -141,22 +142,15 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
   }
 
   /**
-   * This returns List of ActivityRecords to Decay.
+   * Get existing entities of tracker that was just created.
    *
-   * @return \Drupal\fut_activity\ActivityRecord[]
+   * @param \Drupal\fut_activity\EntityActivityTrackerInterface $tracker
+   *   The tracker config entity.
+   *
+   * @return \Drupal\Core\Entity\ContentEntityInterface[]
+   *   Existing entities to be tracked.
    */
-  protected function recordsToDecay($tracker) {
-    return $this->activityRecordStorage->getActivityRecordsChanged(time() - $this->configuration['decay_granularity'], $tracker->getTargetEntityType(), $tracker->getTargetEntityBundle());
-  }
-
-  /**
-   * getExistingEntities
-   *
-   * @param  mixed $tracker
-   *
-   * @return array
-   */
-  protected function getExistingEntities($tracker) {
+  protected function getExistingEntities(EntityActivityTrackerInterface $tracker) {
     $storage = $this->entityTypeManager->getStorage($tracker->getTargetEntityType());
     $bundle_key = $storage->getEntityType()->getKey('bundle');
     return $this->entityTypeManager->getStorage($tracker->getTargetEntityType())->loadByProperties([$bundle_key => $tracker->getTargetEntityBundle()]);

@@ -31,6 +31,12 @@ class ActivityProcessorQueue extends QueueWorkerBase implements ContainerFactory
   /**
    * Constructs a new ActivityProcessorQueue.
    *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
    */
@@ -67,6 +73,7 @@ class ActivityProcessorQueue extends QueueWorkerBase implements ContainerFactory
           }
         }
         break;
+
       case $event instanceof TrackerCreateEvent:
       case $event instanceof TrackerDeleteEvent:
         $enabled_plugins = $event->getTracker()->getProcessorPlugins()->getEnabled();
@@ -81,10 +88,13 @@ class ActivityProcessorQueue extends QueueWorkerBase implements ContainerFactory
   }
 
   /**
-   * getTrackerFromEvent
+   * Get Tracker from given Event.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent $event
+   *   An entity event.
    *
+   * @return \Drupal\fut_activity\Entity\EntityActivityTrackerInterface
+   *   The tracker config entity.
    */
   protected function getTrackerFromEvent(BaseEntityEvent $event) {
     $properties = [

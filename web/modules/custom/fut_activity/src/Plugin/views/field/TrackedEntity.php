@@ -2,8 +2,6 @@
 
 namespace Drupal\fut_activity\Plugin\views\field;
 
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\Component\Utility\Random;
 use Drupal\views\Plugin\views\field\FieldPluginBase;
 use Drupal\views\ResultRow;
 use Drupal\Core\Plugin\ContainerFactoryPluginInterface;
@@ -37,9 +35,14 @@ class TrackedEntity extends FieldPluginBase implements ContainerFactoryPluginInt
   /**
    * Constructs a new TrackedEntity field plugin.
    *
+   * @param array $configuration
+   *   A configuration array containing information about the plugin instance.
+   * @param string $plugin_id
+   *   The plugin_id for the plugin instance.
+   * @param mixed $plugin_definition
+   *   The plugin implementation definition.
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager.
-   *
    * @param \Drupal\fut_activity\ActivityRecordStorageInterface $activity_record_storage
    *   The activity record storage service.
    */
@@ -61,8 +64,6 @@ class TrackedEntity extends FieldPluginBase implements ContainerFactoryPluginInt
       $container->get('fut_activity.activity_record_storage')
     );
   }
-
-
 
   /**
    * {@inheritdoc}
@@ -93,13 +94,6 @@ class TrackedEntity extends FieldPluginBase implements ContainerFactoryPluginInt
 
     $options['hide_alter_empty'] = ['default' => FALSE];
     return $options;
-  }
-
-  /**
-   * {@inheritdoc}
-   */
-  public function buildOptionsForm(&$form, FormStateInterface $form_state) {
-    parent::buildOptionsForm($form, $form_state);
   }
 
   /**

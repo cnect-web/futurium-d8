@@ -6,4 +6,3 @@ entity.entity_activity_tracker.collection:
   description: 'List Entity activity tracker (bundles)'
   parent: system.admin_config
   weight: 99
-

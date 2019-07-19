@@ -9,7 +9,13 @@ use Drupal\Core\Config\Entity\ConfigEntityInterface;
  */
 interface EntityActivityTrackerInterface extends ConfigEntityInterface {
 
-  const ALLOWED_ENTITY_TYPES = ['node', 'user', 'taxonomy_term', 'group', 'comment'];
+  const ALLOWED_ENTITY_TYPES = [
+    'node',
+    'user',
+    'taxonomy_term',
+    'group',
+    'comment',
+  ];
 
   /**
    * Gets the entity type to wich this config applies.
@@ -53,6 +59,5 @@ interface EntityActivityTrackerInterface extends ConfigEntityInterface {
    *   Array of the enabled plugins as instances.
    */
   public function getEnabledProcessorsPlugins();
-
 
 }

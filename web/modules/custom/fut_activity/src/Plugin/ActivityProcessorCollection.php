@@ -17,15 +17,6 @@ class ActivityProcessorCollection extends DefaultLazyPluginCollection {
   protected $definitions;
 
   /**
-   * {@inheritdoc}
-   *
-   * @return \Drupal\fut_activity\Plugin\ActivityProcessorInterface
-   */
-  public function &get($instance_id) {
-    return parent::get($instance_id);
-  }
-
-  /**
    * Retrieves all enabled plugins.
    */
   public function getEnabled() {
@@ -40,8 +31,7 @@ class ActivityProcessorCollection extends DefaultLazyPluginCollection {
   }
 
   /**
-   * Retrieves all plugins definitions and creates an instance for each
-   * one.
+   * Get all plugins definitions and instanciates them.
    */
   public function getAll() {
     // Retrieve all available behavior plugin definitions.
@@ -49,8 +39,8 @@ class ActivityProcessorCollection extends DefaultLazyPluginCollection {
       $this->definitions = $this->manager->getDefinitions();
     }
     // Ensure that there is an instance of all available plugins.
-    // $instance_id is the $plugin_id for processor plugins, since a processor plugin can only
-    // exist once in a paragraphs type.
+    // $instance_id is the $plugin_id for processor plugins,
+    // a processor plugin can only exist once in a EntityActivityTracker.
     foreach ($this->definitions as $plugin_id => $definition) {
       if (!isset($this->pluginInstances[$plugin_id])) {
         $this->initializePlugin($plugin_id);

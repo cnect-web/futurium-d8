@@ -8,9 +8,11 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Entity\ContentEntityInterface;
-use Webmozart\PathUtil\Url;
 use Drupal\Core\Messenger\MessengerInterface;
 
+/**
+ * Defines FutActivityFormsOperations class to react to form related operaions.
+ */
 class FutActivityFormsOperations implements ContainerInjectionInterface {
 
   use StringTranslationTrait;
@@ -41,8 +43,12 @@ class FutActivityFormsOperations implements ContainerInjectionInterface {
    *
    * @param \Drupal\Core\Entity\EntityTypeManagerInterface $entity_type_manager
    *   The entity type manager service.
+   * @param \Drupal\fut_activity\ActivityRecordStorageInterface $activity_record_storage
+   *   The activity record storage service.
+   * @param \Drupal\Core\Messenger\MessengerInterface $messenger
+   *   The messenger.
    */
-  public function __construct(EntityTypeManagerInterface $entity_type_manager,  ActivityRecordStorageInterface $activity_record_storage, MessengerInterface $messenger) {
+  public function __construct(EntityTypeManagerInterface $entity_type_manager, ActivityRecordStorageInterface $activity_record_storage, MessengerInterface $messenger) {
     $this->entityTypeManager = $entity_type_manager;
     $this->activityRecordStorage = $activity_record_storage;
     $this->messenger = $messenger;
@@ -100,14 +106,14 @@ class FutActivityFormsOperations implements ContainerInjectionInterface {
     /** @var \Drupal\Core\Entity\ContentEntityInterface $entity */
     $entity = $form_state->getFormObject()->getEntity();
     if ($entity instanceof ContentEntityInterface) {
-      if (!$entity->isNew() && $this->hasTracker($entity)){
+      if (!$entity->isNew() && $this->hasTracker($entity)) {
         $form['activity'] = [
           '#type' => 'details',
           '#title' => $this->t('Activity'),
           '#description' => $this->t('Set (force) a activity value to this entity.'),
           '#open' => FALSE,
           'activity_tracker_link' => [
-            '#title' => $this->t('Edit @tracker', ['@tracker'=>$this->getTracker($entity)->label()]),
+            '#title' => $this->t('Edit @tracker', ['@tracker' => $this->getTracker($entity)->label()]),
             '#type' => 'link',
             '#url' => $this->getTrackerCanonical($entity),
           ],
@@ -115,7 +121,7 @@ class FutActivityFormsOperations implements ContainerInjectionInterface {
             '#type' => 'number',
             '#title' => $this->t('Activity Value'),
             '#min' => 1,
-            '#default_value' => $this->getActivityDefaultValue($entity)
+            '#default_value' => $this->getActivityValue($entity),
           ],
           'submit' => [
             '#type' => 'submit',
@@ -130,7 +136,7 @@ class FutActivityFormsOperations implements ContainerInjectionInterface {
   }
 
   /**
-   * Custom submit handler to save activity value
+   * Custom submit handler to save activity value.
    *
    * @param array $form
    *   An associative array containing the structure of the form.
@@ -164,8 +170,10 @@ class FutActivityFormsOperations implements ContainerInjectionInterface {
    * Check if exists EntityActivityTracker for given entity.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The entity to check if has a tracker.
    *
    * @return bool
+   *   Returns TRUE if there is a tracker.
    */
   protected function hasTracker(ContentEntityInterface $entity) {
     if (!empty($this->getTracker($entity))) {
@@ -175,9 +183,10 @@ class FutActivityFormsOperations implements ContainerInjectionInterface {
   }
 
   /**
-   * Get Tracker tracking current entity.
+   * Get Tracker given a entity.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The tracked entity.
    *
    * @return \Drupal\fut_activity\Entity\EntityActivityTrackerInterface
    *   The tracker.
@@ -195,20 +204,23 @@ class FutActivityFormsOperations implements ContainerInjectionInterface {
    * Get current activity value of given entity.
    *
    * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The tracked entity.
    *
    * @return int
-   *    The activity value of $entity.
+   *   The activity value of $entity.
    */
-  protected function getActivityDefaultValue(ContentEntityInterface $entity) {
+  protected function getActivityValue(ContentEntityInterface $entity) {
     return $this->activityRecordStorage->getActivityRecordByEntity($entity)->getActivityValue();
   }
 
   /**
-   * getTrackerCanonical
+   * Get tracker canonical url given tracked entity.
    *
-   * @param  mixed $entity
+   * @param \Drupal\Core\Entity\ContentEntityInterface $entity
+   *   The tracked entity.
    *
-   * @return void
+   * @return \Drupal\Core\Url
+   *   The URL to tracker canonical route.
    */
   protected function getTrackerCanonical(ContentEntityInterface $entity) {
     return $this->getTracker($entity)->toUrl();

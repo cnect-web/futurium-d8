@@ -79,13 +79,11 @@ class EntityActivityTracker extends ConfigEntityBase implements EntityActivityTr
   public $activity_processors = [];
 
   /**
-   * Holds the collection of processor plugins that are attached to this
-   * Entity Activity Tracker.
+   * Holds the collection of ActivityProcessor plugins attached to tracker.
    *
    * @var \Drupal\fut_activity\Plugin\ActivityProcessorCollection
    */
   protected $processorCollection;
-
 
   /**
    * {@inheritdoc}

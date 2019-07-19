@@ -64,5 +64,4 @@ function fut_activity_schema() {
 
   return $schema;
 
-
 }

@@ -7,6 +7,9 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
+/**
+ * Defines FutActivityViewsOperations class to react to views related operaions.
+ */
 class FutActivityViewsOperations implements ContainerInjectionInterface {
 
   use StringTranslationTrait;
@@ -184,11 +187,11 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
 
     // Custom field to show tracked entity.
     $data['fut_activity']['tracked_entity'] = [
-        'title' => t('Tracked entity'),
-        'help' => t('Display tracked entity title and link'),
-        'field' => [
-            'id' => 'tracked_entity',
-        ],
+      'title' => $this->t('Tracked entity'),
+      'help' => $this->t('Display tracked entity title and link'),
+      'field' => [
+        'id' => 'tracked_entity',
+      ],
     ];
 
     return $data;
@@ -208,7 +211,8 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
    * Get implicit relations to Trackers entity types.
    *
    * @return array
-   *   Associative array describing relation when tracked entity type is the base table.
+   *   Associative array describing relation when,
+   *   tracked entity type is the base table.
    */
   protected function getImplicitRelations() {
     $id_names = [];
@@ -218,7 +222,7 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
     $joins = [];
 
     foreach ($id_names as $entity_type => $id_name) {
-      $joins[$entity_type.'_field_data'] = [
+      $joins[$entity_type . '_field_data'] = [
         'left_field' => $id_name,
         'field' => 'entity_id',
       ];
@@ -244,16 +248,17 @@ class FutActivityViewsOperations implements ContainerInjectionInterface {
           'relationship' => [
             'id' => 'standard',
             'title' => $this->t('@entity_type', ['@entity_type' => $entity_type->getLabel()]),
-            'help' => $this->t('Relate activity to the @entity_type  that is being tracked.',['@entity_type' => $entity_type->getLabel()]),
+            'help' => $this->t('Relate activity to the @entity_type  that is being tracked.', ['@entity_type' => $entity_type->getLabel()]),
             'handler' => 'views_handler_relationship',
             'base' => $entity_type->getDataTable(),
             'base field' => $entity_type->getKey('id'),
             'field' => 'entity_id',
-            'label' => $this->t('Entity: @entity_type',['@entity_type' => $entity_type->getLabel()]),
+            'label' => $this->t('Entity: @entity_type', ['@entity_type' => $entity_type->getLabel()]),
           ],
         ];
       }
     }
     return $data;
   }
+
 }

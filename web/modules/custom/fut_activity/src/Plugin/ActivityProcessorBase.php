@@ -3,8 +3,6 @@
 namespace Drupal\fut_activity\Plugin;
 
 use Drupal\Component\Plugin\PluginBase;
-use Drupal\Core\Form\FormStateInterface;
-use Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent;
 use Drupal\fut_activity\ActivityRecordStorageInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -23,7 +21,6 @@ abstract class ActivityProcessorBase extends PluginBase implements ActivityProce
    * @var \Drupal\fut_activity\ActivityRecordStorageInterface
    */
   protected $activityRecordStorage;
-
 
   /**
    * {@inheritdoc}
@@ -46,19 +43,12 @@ abstract class ActivityProcessorBase extends PluginBase implements ActivityProce
     );
   }
 
-
-
-
   /**
    * {@inheritdoc}
    */
   public function processActivity(Event $event) {
-    # code...
+    // code...
   }
-
-
-
-
 
   /**
    * {@inheritdoc}
@@ -83,6 +73,5 @@ abstract class ActivityProcessorBase extends PluginBase implements ActivityProce
     $this->configuration = $configuration + $this->defaultConfiguration();
     return $this;
   }
-
 
 }

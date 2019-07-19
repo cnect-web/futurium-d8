@@ -28,7 +28,6 @@ class ActivitySubscriber implements EventSubscriberInterface {
    */
   protected $activityProcessor;
 
-
   /**
    * Constructs a new FutActivitySubscriber object.
    */
@@ -54,25 +53,23 @@ class ActivitySubscriber implements EventSubscriberInterface {
   }
 
   /**
-   * This sends the event to ActivityProcessorQueue.
+   * Sends entity event to ActivityProcessorQueue.
    *
    * @param \Drupal\hook_event_dispatcher\Event\Entity\BaseEntityEvent $event
    *   The event.
    */
   public function entityOperations(BaseEntityEvent $event) {
-    if (in_array($event->getEntity()->getEntityTypeId(),EntityActivityTrackerInterface::ALLOWED_ENTITY_TYPES)) {
+    if (in_array($event->getEntity()->getEntityTypeId(), EntityActivityTrackerInterface::ALLOWED_ENTITY_TYPES)) {
       $processors_queue = $this->queue->get('activity_processor_queue');
       $processors_queue->createItem($event);
     }
   }
 
-
   /**
-   * This creates a item in Decay queue to later be processed.
+   * Creates a item in Decay queue to later be processed.
    *
-   * @param  \Drupal\fut_activity\Event\ActivityDecayEvent $event
+   * @param \Drupal\fut_activity\Event\ActivityDecayEvent $event
    *   The decay event.
-   *
    */
   public function applyDecay(ActivityDecayEvent $event) {
     $decay_queue = $this->queue->get('decay_queue');
@@ -80,26 +77,23 @@ class ActivitySubscriber implements EventSubscriberInterface {
 
   }
 
-
   /**
-   * This creates a item in Decay queue to dispatch ActivityDecayEvent.
+   * Creates a item in Decay queue to dispatch ActivityDecayEvent.
    *
-   * @param  mixed $event
-   *  The cron event.
-   *
-   * @return void
+   * @param \Drupal\hook_event_dispatcher\Event\Cron\CronEvent $event
+   *   The cron event.
    */
   public function scheduleDecay(CronEvent $event) {
-    /** @var  \Drupal\Core\Queue\QueueInterface $decay_queue */
+    /** @var \Drupal\Core\Queue\QueueInterface $decay_queue */
     $decay_queue = $this->queue->get('decay_queue');
     $decay_queue->createItem($event);
   }
 
-
   /**
-   * trackerOperations
+   * Sends tracker event to ActivityProcessorQueue.
    *
-   * @return void
+   * @param \Symfony\Component\EventDispatcher\Event $event
+   *   Tracker event either TrackerCreateEvent or TrackerDeleteEvent.
    */
   public function trackerOperations(Event $event) {
     $processors_queue = $this->queue->get('activity_processor_queue');

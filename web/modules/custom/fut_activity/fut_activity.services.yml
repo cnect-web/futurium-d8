@@ -9,4 +9,4 @@ services:
     parent: default_plugin_manager
   fut_activity.activity_record_storage:
     class: Drupal\fut_activity\ActivityRecordStorage
-    arguments: ['@database', '@datetime.time']
+    arguments: ['@database', '@datetime.time', '@logger.factory']

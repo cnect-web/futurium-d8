@@ -31,9 +31,9 @@ function fut_activity_help($route_name, RouteMatchInterface $route_match) {
  */
 function fut_activity_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   if ($form_state->getFormObject() instanceof EntityFormInterface) {
-  \Drupal::service('class_resolver')
-    ->getInstanceFromDefinition(FutActivityFormsOperations::class)
-    ->formAlter($form, $form_state, $form_id);
+    \Drupal::service('class_resolver')
+      ->getInstanceFromDefinition(FutActivityFormsOperations::class)
+      ->formAlter($form, $form_state, $form_id);
   }
 }
 

@@ -1,5 +1,10 @@
 <?php
 
+/**
+ * @file
+ * Provide views data for fut_activity module.
+ */
+
 use Drupal\fut_activity\FutActivityViewsOperations;
 
 /**
