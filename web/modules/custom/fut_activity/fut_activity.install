@@ -58,8 +58,16 @@ function fut_activity_schema() {
         'disp-size' => 11,
       ],
     ],
-    'primary key' => ['activity_id', 'entity_id'],
-    // 'indexes' => [], TODO: CREATE INDEXES LATER.
+    'primary key' => ['activity_id'],
+    'indexes' => [
+      // TODO: REVIEW Indexes when we have actual data to test queries performance.
+      // this might be useful -> https://2bits.com/articles/slow-queries-in-drupal-can-often-be-cured-by-indexes.html
+      // 'entity_id' => ['entity_id'],
+      // 'activity' => ['activity'],
+      // 'entity_type_bundle_entity_id' => ['entity_type', 'bundle', 'entity_id'],
+      // 'created_entity_type_bundle' => ['created', 'entity_type', 'bundle'],
+      // 'changed_entity_type_bundle' => ['changed', 'entity_type', 'bundle'],
+    ],
   ];
 
   return $schema;

@@ -8,6 +8,8 @@ use Drupal\Core\Url;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\fut_activity\Event\TrackerDeleteEvent;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
  * Builds the form to delete Entity activity tracker entities.
@@ -22,13 +24,22 @@ class EntityActivityTrackerDeleteForm extends EntityConfirmFormBase {
   protected $eventDispatcher;
 
   /**
+   * The cache backend to use.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cacheBackend;
+
+  /**
    * Overridden constructor to get event dispactcher service.
    *
    * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $event_dispatcher
    *   The event dispatcher.
    */
-  public function __construct(EventDispatcherInterface $event_dispatcher) {
+  public function __construct(EventDispatcherInterface $event_dispatcher, MessengerInterface $messenger, CacheBackendInterface $cache_backend) {
     $this->eventDispatcher = $event_dispatcher;
+    $this->messenger = $messenger;
+    $this->cacheBackend = $cache_backend;
   }
 
   /**
@@ -36,7 +47,9 @@ class EntityActivityTrackerDeleteForm extends EntityConfirmFormBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('event_dispatcher')
+      $container->get('event_dispatcher'),
+      $container->get('messenger'),
+      $container->get('cache.default')
     );
   }
 
@@ -70,7 +83,10 @@ class EntityActivityTrackerDeleteForm extends EntityConfirmFormBase {
     $event = new TrackerDeleteEvent($this->entity);
     $this->eventDispatcher->dispatch(TrackerDeleteEvent::TRACKER_DELETE, $event);
 
-    \Drupal::messenger()->addMessage(
+    // Invalidate caches for in order to views play well with fut_activity.
+    $this->cacheBackend->invalidateAll();
+
+    $this->messenger->addMessage(
       $this->t('content @type: deleted @label.',
         [
           '@type' => $this->entity->bundle(),

@@ -14,6 +14,7 @@ use Drupal\Core\Entity\EntityTypeManagerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Drupal\fut_activity\Event\TrackerCreateEvent;
 use Drupal\Core\Messenger\MessengerInterface;
+use Drupal\Core\Cache\CacheBackendInterface;
 
 /**
  * Class EntityActivityTrackerForm.
@@ -43,6 +44,13 @@ class EntityActivityTrackerForm extends EntityForm {
   protected $eventDispatcher;
 
   /**
+   * The cache backend to use.
+   *
+   * @var \Drupal\Core\Cache\CacheBackendInterface
+   */
+  protected $cacheBackend;
+
+  /**
    * {@inheritdoc}
    */
   public static function create(ContainerInterface $container) {
@@ -51,7 +59,8 @@ class EntityActivityTrackerForm extends EntityForm {
       $container->get('form_builder'),
       $container->get('entity_type.manager'),
       $container->get('event_dispatcher'),
-      $container->get('messenger')
+      $container->get('messenger'),
+      $container->get('cache.default')
     );
   }
 
@@ -68,13 +77,16 @@ class EntityActivityTrackerForm extends EntityForm {
    *   The event dispatcher.
    * @param \Drupal\Core\Messenger\MessengerInterface $messenger
    *   The messenger service.
+   * @param \Drupal\Core\Cache\CacheBackendInterface $cache_backend
+   *   The cache backend to use.
    */
-  public function __construct(PluginManagerInterface $manager, FormBuilderInterface $formBuilder, EntityTypeManagerInterface $entity_type_manager, EventDispatcherInterface $event_dispatcher, MessengerInterface $messenger) {
+  public function __construct(PluginManagerInterface $manager, FormBuilderInterface $formBuilder, EntityTypeManagerInterface $entity_type_manager, EventDispatcherInterface $event_dispatcher, MessengerInterface $messenger, CacheBackendInterface $cache_backend) {
     $this->manager = $manager;
     $this->formBuilder = $formBuilder;
     $this->entityTypeManager = $entity_type_manager;
     $this->eventDispatcher = $event_dispatcher;
     $this->messenger = $messenger;
+    $this->cacheBackend = $cache_backend;
   }
 
   /**
@@ -245,6 +257,10 @@ class EntityActivityTrackerForm extends EntityForm {
         // Dispatch the TrackerCreateEvent.
         $event = new TrackerCreateEvent($entity_activity_tracker);
         $this->eventDispatcher->dispatch(TrackerCreateEvent::TRACKER_CREATE, $event);
+
+        // Invalidate caches for in order to views play well with fut_activity.
+        $this->cacheBackend->invalidateAll();
+
         break;
 
       default:
