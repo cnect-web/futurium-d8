@@ -49,4 +49,3 @@ IDK?
 
 ## Questions, proposals, etc...
 fell free to [mail](mailto:adrianodias1994@gmail.com) me
-
