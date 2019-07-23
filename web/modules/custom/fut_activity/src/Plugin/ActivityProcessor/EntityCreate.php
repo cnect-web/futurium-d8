@@ -59,6 +59,7 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
   public function defaultConfiguration() {
     return [
       'activity_creation' => 5000,
+      'activity_existing' => 0,
     ];
   }
 
@@ -75,6 +76,27 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
       '#description' => $this->t('The activity value on entity creation.'),
       '#required' => TRUE,
     ];
+
+    $form['activity_existing_enabler'] = [
+      '#type' => 'checkbox',
+      '#title' => $this->t('Apply different activity value for entities that were already created'),
+
+    ];
+
+    $form['activity_existing'] = [
+      '#type' => 'number',
+      '#title' => $this->t('Activity for existing entities'),
+      '#description' => $this->t('Apply different activity value for entities that were already created. (This just applies on creation process)'),
+      '#min' => 1,
+      '#default_value' => $this->getConfiguration()['activity_existing'],
+      '#description' => $this->t('The activity value on entity creation.'),
+      '#states' => [
+        'invisible' => [
+          ':input[name="activity_processors[entity_create][settings][activity_existing_enabler]"]' => ['checked' => FALSE],
+        ],
+      ],
+    ];
+
     return $form;
   }
 
@@ -90,6 +112,8 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
    */
   public function submitConfigurationForm(array &$form, FormStateInterface $form_state) {
     $this->configuration['activity_creation'] = $form_state->getValue('activity_creation');
+    $this->configuration['activity_existing_enabler'] = $form_state->getValue('activity_existing_enabler');
+    $this->configuration['activity_existing'] = $form_state->getValue('activity_existing');
   }
 
   /**
@@ -119,8 +143,9 @@ class EntityCreate extends ActivityProcessorBase implements ActivityProcessorInt
 
       case TrackerCreateEvent::TRACKER_CREATE:
         // Iterate all already existing entities and create a record.
+        $activity = ($this->configuration['activity_existing_enabler']) ? $this->configuration['activity_existing'] : $this->configuration['activity_creation'] ;
         foreach ($this->getExistingEntities($event->getTracker()) as $existing_entity) {
-          $activity_record = new ActivityRecord($existing_entity->getEntityTypeId(), $existing_entity->bundle(), $existing_entity->id(), $this->configuration['activity_creation']);
+          $activity_record = new ActivityRecord($existing_entity->getEntityTypeId(), $existing_entity->bundle(), $existing_entity->id(), $activity);
           $this->activityRecordStorage->createActivityRecord($activity_record);
         }
         break;

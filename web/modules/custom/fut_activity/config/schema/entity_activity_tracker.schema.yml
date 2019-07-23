@@ -39,6 +39,10 @@ fut_activity.activity_processor.plugin.entity_create:
   mapping:
     activity_creation:
       type: integer
+    activity_existing_enabler:
+      type: boolean
+    activity_existing:
+      type: integer
 
 fut_activity.activity_processor.plugin.entity_decay:
   type: fut_activity.activity_processor.plugin
