@@ -33,15 +33,7 @@ database:
 # You can then use 'robo theme:dev' (alias 'robo td') to swap.
 
 #theme:
-#  path: themes/contrib/theme_name
-#  dev:
-#    repo: https://github.com/organization/theme_name
-#    branch: master
-
-# Behat
-behat:
-  api_driver: drupal
-  webdriver_host: http://172.17.0.1:4444/wd/hub
+#  path: themes/contrib/blellow
 
 # Here you can specify environment overrides.
 # Not working atm.

@@ -6,13 +6,14 @@
 /web/themes/contrib/
 /web/profiles/contrib/
 /web/libraries/
+console/
 
 # Ignore sensitive information
 /web/sites/*/settings.php
 /web/sites/*/settings.local.php
 
 # Ignore config files
-/robo.yml
+config.yml
 
 # Ignore binaries symlink.
 /bin
@@ -28,23 +29,13 @@
 /.idea/
 /web/.idea/
 
-# Ignore .env file
+# Ignore some files & file types
 .env
-
-# Ignore .log files
+*.zip
 *.log
 
 # DB backups
 /backup
 
-# Artifacts
-*.zip
-
-# Docker
-docker/
-
-# Config file
-config.yml
-
-# Drupal console
-console/
+# Docker folder
+/docker

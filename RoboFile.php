@@ -4,7 +4,6 @@
  *
  * @see http://robo.li/
  */
-
 use Robo\Tasks as RoboTasks;
 use Robo\Config\Config;
 use Consolidation\Config\Loader\YamlConfigLoader;
@@ -416,31 +415,6 @@ class RoboFile extends RoboTasks {
       return getenv("EFS_MOUNT_DIR");
     }
     return $this->drupalRoot . '/sites/default';
-  }
-
-  /**
-   * Overwrite theme for dev purposes.
-   *
-   * @command theme:download
-   * @aliases td
-   *
-   * @option $watch Start the watcher after installation.
-   */
-  public function themeDownload($options = ['watch|w' => FALSE]) {
-    $repo = $this->config->get('theme.dev.repo');
-    $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
-    $branch = $this->config->get('theme.dev.branch');
-    $this->taskExec("rm -rf ${path}")->run();
-
-    $this->taskGitStack()
-      ->cloneRepo($repo, $path, $branch)
-      ->run();
-
-    $this->themeInstall();
-
-    if ($options['watch']) {
-      $this->themeWatch();
-    }
   }
 
   /**
