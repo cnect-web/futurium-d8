@@ -1,0 +1,53 @@
+# Define config entity (Tracker) schema.
+fut_activity.entity_activity_tracker.*:
+  type: config_entity
+  label: 'Entity activity tracker config'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+    label:
+      type: label
+      label: 'Label'
+    uuid:
+      type: string
+    entity_type:
+      type: string
+      label: 'Entity Type'
+    entity_bundle:
+      type: string
+      label: 'Entity Bundle'
+    activity_processors:
+      type: sequence
+      label: 'Activity Processors Plugins'
+      sequence:
+        type: fut_activity.activity_processor.plugin.[id]
+        label: 'Plugin Id'
+
+# Define plugin schema type.
+fut_activity.activity_processor.plugin:
+  type: mapping
+  label: 'Activity Processor settings'
+  mapping:
+    id:
+      type: string
+      label: 'ID'
+
+# Define ActivityProcessor plugins schema.
+fut_activity.activity_processor.plugin.entity_create:
+  type: fut_activity.activity_processor.plugin
+  mapping:
+    activity_creation:
+      type: integer
+    activity_existing_enabler:
+      type: boolean
+    activity_existing:
+      type: integer
+
+fut_activity.activity_processor.plugin.entity_decay:
+  type: fut_activity.activity_processor.plugin
+  mapping:
+    decay:
+      type: integer
+    decay_granularity:
+      type: integer
