@@ -3,7 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
-    - core.entity_view_mode.node.fut_teaser
+    - core.entity_view_mode.node.fut_teaser_lite
     - field.storage.node.fut_collection
   module:
     - group
@@ -60,7 +60,7 @@ display:
         type: 'entity:node'
         options:
           relationship: none
-          view_mode: fut_teaser
+          view_mode: fut_teaser_lite
       fields:
         title:
           id: title
@@ -153,7 +153,7 @@ display:
           expose:
             label: ''
           granularity: second
-      title: 'My contributions'
+      title: 'Your latest contributions'
       header: {  }
       footer: {  }
       empty: {  }

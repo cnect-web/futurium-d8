@@ -1,6 +1,6 @@
 <?php
 
-namespace NGF\Robo;
+namespace fut\Robo;
 
 use Robo\Robo;
 use Robo\Tasks as RoboTasks;
@@ -8,7 +8,7 @@ use Robo\Tasks as RoboTasks;
 /**
  * Class Tasks.
  *
- * @package NGF\Robo\Task\Build
+ * @package fut\Robo\Task\Build
  */
 class Tasks extends RoboTasks {
   use \Boedah\Robo\Task\Drush\loadTasks;

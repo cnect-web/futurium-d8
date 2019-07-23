@@ -28,11 +28,11 @@ settings:
   max_resolution: ''
   min_resolution: ''
   default_image:
-    uuid: null
-    alt: ''
-    title: ''
-    width: null
-    height: null
+    uuid: 99ff1680-21a8-448f-8682-7b7b6bf0f7e6
+    alt: User
+    title: User
+    width: 600
+    height: 600
   alt_field_required: false
   title_field_required: false
   handler: 'default:file'

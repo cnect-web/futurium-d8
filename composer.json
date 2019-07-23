@@ -7,6 +7,7 @@
         "balbuf/drupal-libraries-installer": "^1.0",
         "boedah/robo-drush": "~4",
         "cnect-web/blellow": "dev-develop",
+        "cnect-web/group_permissions": "1.0",
         "composer/installers": "^1.2",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
@@ -14,13 +15,14 @@
         "drupal/admin_toolbar": "^1.26",
         "drupal/adminimal_theme": "^1.4",
         "drupal/allowed_formats": "^1.1",
+        "drupal/better_normalizers": "^1.0",
         "drupal/chosen": "^2.7",
         "drupal/coffee": "^1.0",
         "drupal/components": "^1.0",
         "drupal/config_readonly": "^1.0",
         "drupal/config_split": "^1.4",
         "drupal/config_update": "^1.5",
-        "drupal/console": "dev-dev-core",
+        "drupal/console": "^1.9",
         "drupal/core": "^8.7",
         "drupal/ctools": "^3.0",
         "drupal/entity_reference_revisions": "^1.0",
@@ -63,9 +65,13 @@
     },
     "require-dev": {
         "behat/behat": "^3.4",
+        "behat/mink": "^1.7",
         "drupal/config_devel": "^1.2",
         "drupal/default_content_deploy": "^1.0@alpha",
         "drupal/devel": "^2.0",
+        "drupal/drupal-extension": "^3.4",
+        "guzzlehttp/guzzle" : "^6.0@dev",
+        "skounis/fut_default_content": "dev-master",
         "skounis/fut_sample_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
     },
@@ -79,7 +85,7 @@
     },
     "autoload": {
         "psr-4": {
-            "NGF\\Robo\\": "robo"
+            "fut\\Robo\\": "robo"
         },
         "classmap": [
             "scripts/composer/ScriptHandler.php"
@@ -117,17 +123,14 @@
             "drupal/core": {
                 "LanguageNegotiator::updateConfiguration() is passed a NULL": "https://www.drupal.org/files/issues/2019-02-28/language-2718657-17.patch"
             },
-            "drupal/adminimal_theme": {
-                "Colors in horizontal and vertical toolbar need fixing": "https://www.drupal.org/files/issues/2019-02-13/adminimal_theme_fix_toolbar_colors-2826369-19.patch"
-            },
             "drupal/views": {
                 "Cannot use relationship for rendered entity on Views": "https://www.drupal.org/files/issues/2019-03-15/2457999-189.patch"
             },
             "drupal/group": {
-                "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-03-19/port-subgroups-2736233-216.patch",
+                "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-06-15/port-subgroups-2736233-236.patch",
                 "Request membership feature": "https://www.drupal.org/files/issues/2019-03-11/group-request_membership_feature-2752603-88.patch",
                 "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
-                "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-03-01/group_membership_duplication-3016197-7.patch",
+                "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-07-09/group_membership_duplication-3016197-10.patch",
                 "Get a token of a node's parent group to create a pathauto pattern" : "https://www.drupal.org/files/issues/group_add-node-group-tokens-2774827-24.patch",
                 "Media enabler" : "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch",
                 "Group language settings are missing" : "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
@@ -141,6 +144,9 @@
             },
             "drupal/default_content": {
                 "Handle exceptions during import": "https://www.drupal.org/files/issues/2019-05-29/3057880-handleexceptions.patch"
+            },
+            "drupal/default_content_deploy": {
+                "Pass logger to parent": "https://www.drupal.org/files/issues/2019-07-08/passloggertoparent-3066432.patch"
             }
         }
     },
@@ -165,8 +171,16 @@
           }
         },
         {
-            "type": "git",
-            "url": "https://github.com/cnect-web/drupal-console"
+          "type": "package",
+          "package": {
+            "name": "cnect-web/group_permissions",
+            "version": "1.0",
+            "type": "drupal-module",
+            "dist": {
+              "url": "https://github.com/cnect-web/group_permissions/archive/1.0.zip",
+              "type": "zip"
+            }
+          }
         }
     ]
 }
