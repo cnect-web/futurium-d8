@@ -293,7 +293,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.dgcnect.eu/web-team/blellow-d8-theme",
-                "reference": "f554d6d30e8c68e1ca88b9712411cc2541a39431"
+                "reference": "f553145fffb93c6b5b08b1167074b8765f6a476f"
             },
             "require": {
                 "drupal/components": "^1.0",
@@ -7211,12 +7211,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/blellow_helper.git",
-                "reference": "2be7eee7e35fee2a483d1dbb8da22dd299473312"
+                "reference": "565e4a757dc0a698c1b349d50bb416619eab305c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/2be7eee7e35fee2a483d1dbb8da22dd299473312",
-                "reference": "2be7eee7e35fee2a483d1dbb8da22dd299473312",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/565e4a757dc0a698c1b349d50bb416619eab305c",
+                "reference": "565e4a757dc0a698c1b349d50bb416619eab305c",
                 "shasum": ""
             },
             "require": {
