@@ -1,9 +1,18 @@
 <?xml version="1.0"?>
 <!-- PHP_CodeSniffer ruleset. -->
 <!-- See http://pear.php.net/manual/en/package.php.php-codesniffer.annotated-ruleset.php -->
-<ruleset name="NGF">
-    <description>Drupal coding standard for NextEuropa subsites</description>
+<ruleset name="Cnect">
+    <description>Drupal coding standard</description>
 
+    <!-- Include Drupal standards. -->
     <rule ref="./vendor/drupal/coder/coder_sniffer/Drupal" />
     <rule ref="./vendor/drupal/coder/coder_sniffer/DrupalPractice" />
+
+    <!-- Exclude vendor, node modules and tests folders. -->
+    <exclude-pattern>tests/</exclude-pattern>
+    <exclude-pattern>vendor/</exclude-pattern>
+    <exclude-pattern>node_modules/</exclude-pattern>
+
+    <!-- Exclude some file extensions. -->
+    <exclude-pattern>*\.(md|css|js)$</exclude-pattern>
 </ruleset>

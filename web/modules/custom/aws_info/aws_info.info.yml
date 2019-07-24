@@ -1,0 +1,5 @@
+name: 'aws_info'
+type: module
+description: 'AWS Info'
+core: 8.x
+package: 'AWS'

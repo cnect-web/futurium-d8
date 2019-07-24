@@ -1,0 +1,48 @@
+default:
+  suites:
+    default:
+      contexts:
+       - FeatureContext
+       - Drupal\DrupalExtension\Context\ConfigContext
+       - Drupal\DrupalExtension\Context\DrupalContext
+       - Drupal\DrupalExtension\Context\DrushContext
+       - Drupal\DrupalExtension\Context\MinkContext
+       - Drupal\DrupalExtension\Context\MarkupContext
+       - Drupal\DrupalExtension\Context\MessageContext
+       - Drupal\DrupalExtension\Context\MailContext
+       - Drupal\DrupalExtension\Context\RandomContext
+  extensions:
+    Behat\MinkExtension:
+      base_url: 'http://web'
+      browser_name: 'chrome'
+      goutte: ~
+      selenium2:
+        wd_host: 'http://selenium:4444/wd/hub'
+        browser: 'chrome'
+      javascript_session: 'selenium2'
+      files_path: '/var/www/html/web'
+    Drupal\DrupalExtension:
+      api_driver: 'drupal'
+      blackbox: ~
+      drupal:
+        drupal_root: '/var/www/html/web'
+      selectors:
+        message_selector: '.messages'
+        error_message_selector: '.messages.error'
+        success_message_selector: '.messages.status'
+        logged_in_selector: '.user-logged-in'
+      region_map:
+      drush:
+        alias: 'default'
+        binary: '/var/www/html/bin/drush'
+      subcontexts:
+        paths:
+          - '/var/www/html/web/modules'
+  formatters:
+    pretty:
+      decorated:              true
+      verbose:                false
+      time:                   true
+      language:               en
+      output_path:            null
+      multiline_arguments:    true

@@ -378,16 +378,16 @@
         },
         {
             "name": "composer/installers",
-            "version": "v1.6.0",
+            "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/composer/installers.git",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b"
+                "url": "https://github.com/horaciolopesqq/installers",
+                "reference": "64dae6b068b645816500c195a5617e3a2f674daa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/cfcca6b1b60bc4974324efb5783c13dca6932b5b",
-                "reference": "cfcca6b1b60bc4974324efb5783c13dca6932b5b",
+                "url": "https://api.github.com/repos/horaciolopesqq/installers/zipball/64dae6b068b645816500c195a5617e3a2f674daa",
+                "reference": "64dae6b068b645816500c195a5617e3a2f674daa",
                 "shasum": ""
             },
             "require": {
@@ -413,7 +413,11 @@
                     "Composer\\Installers\\": "src/Composer/Installers"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "test": [
+                    "phpunit"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -427,74 +431,78 @@
             "description": "A multi-framework Composer library installer",
             "homepage": "https://composer.github.io/installers/",
             "keywords": [
+                "AGL",
+                "Aimeos",
+                "AnnotateCms",
+                "Attogram",
+                "Bitrix",
+                "CakePHP",
+                "Chef",
+                "Cockpit",
+                "CodeIgniter",
                 "Craft",
+                "Croogo",
+                "DokuWiki",
                 "Dolibarr",
+                "Drupal",
+                "Elgg",
                 "Eliasis",
+                "ExpressionEngine",
+                "FuelPHP",
+                "Grav",
                 "Hurad",
                 "ImageCMS",
+                "Joomla",
                 "Kanboard",
+                "Kohana",
                 "Lan Management System",
+                "Laravel",
+                "Lavalite",
+                "Lithium",
+                "MODULEWork",
+                "MODX",
                 "MODX Evo",
+                "Magento",
+                "Mako",
                 "Mautic",
                 "Maya",
+                "MediaWiki",
+                "Moodle",
                 "OXID",
+                "PPI",
+                "Piwik",
                 "Plentymarkets",
                 "Porto",
+                "Puppet",
                 "RadPHP",
+                "ReIndex",
+                "Roundcube",
                 "SMF",
+                "SilverStripe",
+                "SyDES",
+                "TYPO3",
                 "Thelia",
+                "WHMCS",
                 "WolfCMS",
-                "agl",
-                "aimeos",
-                "annotatecms",
-                "attogram",
-                "bitrix",
-                "cakephp",
-                "chef",
-                "cockpit",
-                "codeigniter",
+                "WordPress",
+                "YAWIK",
+                "Zend",
+                "Zikula",
                 "concrete5",
-                "croogo",
-                "dokuwiki",
-                "drupal",
                 "eZ Platform",
-                "elgg",
-                "expressionengine",
-                "fuelphp",
-                "grav",
+                "iTop",
                 "installer",
-                "itop",
-                "joomla",
-                "kohana",
-                "laravel",
-                "lavalite",
-                "lithium",
-                "magento",
                 "majima",
-                "mako",
-                "mediawiki",
-                "modulework",
-                "modx",
-                "moodle",
                 "osclass",
-                "phpbb",
-                "piwik",
-                "ppi",
-                "puppet",
+                "phpBB",
                 "pxcms",
-                "reindex",
-                "roundcube",
                 "shopware",
-                "silverstripe",
-                "sydes",
-                "symfony",
-                "typo3",
-                "wordpress",
-                "yawik",
-                "zend",
-                "zikula"
+                "symfony"
             ],
-            "time": "2018-08-27T06:10:37+00:00"
+            "support": {
+                "source": "https://github.com/horaciolopesqq/installers/tree/v1.6.0"
+            },
+            "time": "2019-07-02T11:41:01+00:00"
         },
         {
             "name": "composer/semver",
@@ -5048,53 +5056,6 @@
             }
         },
         {
-            "name": "drupal/search_kint",
-            "version": "1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupalcode.org/project/search_kint.git",
-                "reference": "8.x-1.0"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/search_kint-8.x-1.0.zip",
-                "reference": "8.x-1.0",
-                "shasum": "b9ce4cc38a84837d9969748127fe79755e0ea738"
-            },
-            "require": {
-                "drupal/core": "~8.0"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-1.x": "1.x-dev"
-                },
-                "drupal": {
-                    "version": "8.x-1.0",
-                    "datestamp": "1461628928",
-                    "security-coverage": {
-                        "status": "covered",
-                        "message": "Covered by Drupal's security advisory policy"
-                    }
-                }
-            },
-            "notification-url": "https://packages.drupal.org/8/downloads",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "dahousecat",
-                    "homepage": "https://www.drupal.org/user/1410992"
-                }
-            ],
-            "description": "Allows searching through the kint dump",
-            "homepage": "https://www.drupal.org/project/search_kint",
-            "support": {
-                "source": "http://cgit.drupalcode.org/search_kint"
-            }
-        },
-        {
             "name": "drupal/single_datetime",
             "version": "1.7.0",
             "source": {
@@ -6200,65 +6161,6 @@
                 "composer/installers": "^1.2.0"
             },
             "type": "drupal-library"
-        },
-        {
-            "name": "henrikbjorn/lurker",
-            "version": "1.2.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/flint/Lurker.git",
-                "reference": "712d3ef19bef161daa2ba0e0237c6b875587a089"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/flint/Lurker/zipball/712d3ef19bef161daa2ba0e0237c6b875587a089",
-                "reference": "712d3ef19bef161daa2ba0e0237c6b875587a089",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/config": "^2.2|^3.0",
-                "symfony/event-dispatcher": "^2.2|^3.0"
-            },
-            "suggest": {
-                "ext-inotify": ">=0.1.6"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "Lurker": "src"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Yaroslav Kiliba",
-                    "email": "om.dattaya@gmail.com"
-                },
-                {
-                    "name": "Konstantin Kudryashov",
-                    "email": "ever.zet@gmail.com"
-                },
-                {
-                    "name": "Henrik Bjrnskov",
-                    "email": "henrik@bjrnskov.dk"
-                }
-            ],
-            "description": "Resource Watcher.",
-            "keywords": [
-                "filesystem",
-                "resource",
-                "watching"
-            ],
-            "time": "2016-03-16T15:22:20+00:00"
         },
         {
             "name": "igorw/get-in",
@@ -10456,16 +10358,16 @@
         },
         {
             "name": "drupal/drupal-driver",
-            "version": "v1.4.0",
+            "version": "v2.0.0-alpha6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhedstrom/DrupalDriver.git",
-                "reference": "919c6a39ef6a17bdcaf81dcff97b117ecfb6061c"
+                "reference": "732f2c7b3c262487bed0876a209e5326bc3935e4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhedstrom/DrupalDriver/zipball/919c6a39ef6a17bdcaf81dcff97b117ecfb6061c",
-                "reference": "919c6a39ef6a17bdcaf81dcff97b117ecfb6061c",
+                "url": "https://api.github.com/repos/jhedstrom/DrupalDriver/zipball/732f2c7b3c262487bed0876a209e5326bc3935e4",
+                "reference": "732f2c7b3c262487bed0876a209e5326bc3935e4",
                 "shasum": ""
             },
             "require": {
@@ -10479,13 +10381,13 @@
                 "drush-ops/behat-drush-endpoint": "*",
                 "jakub-onderka/php-parallel-lint": "^0.9.2",
                 "mockery/mockery": "0.9.4",
-                "phpspec/phpspec": "~2.0",
+                "phpspec/phpspec": "~2.0 || ~4.0",
                 "phpunit/phpunit": "~4.0"
             },
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.2.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -10511,20 +10413,20 @@
                 "test",
                 "web"
             ],
-            "time": "2018-02-09T18:02:28+00:00"
+            "time": "2018-12-18T23:21:10+00:00"
         },
         {
             "name": "drupal/drupal-extension",
-            "version": "v3.4.1",
+            "version": "v4.0.0beta2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/jhedstrom/drupalextension.git",
-                "reference": "50ff0f413f0dc4732f49638e743f86f45e835e50"
+                "reference": "3836ccb7fce9a16d26197ee7df13744f0a5799a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/50ff0f413f0dc4732f49638e743f86f45e835e50",
-                "reference": "50ff0f413f0dc4732f49638e743f86f45e835e50",
+                "url": "https://api.github.com/repos/jhedstrom/drupalextension/zipball/3836ccb7fce9a16d26197ee7df13744f0a5799a8",
+                "reference": "3836ccb7fce9a16d26197ee7df13744f0a5799a8",
                 "shasum": ""
             },
             "require": {
@@ -10533,15 +10435,15 @@
                 "behat/mink-extension": "~2.0",
                 "behat/mink-goutte-driver": "~1.0",
                 "behat/mink-selenium2-driver": "~1.1",
-                "drupal/drupal-driver": "~1.3",
-                "symfony/dependency-injection": "~2.7|~3.0",
-                "symfony/event-dispatcher": "~2.7|~3.0"
+                "drupal/drupal-driver": "^2.0.0",
+                "symfony/dependency-injection": "~3.0",
+                "symfony/event-dispatcher": "~3.0"
             },
             "require-dev": {
                 "behat/mink-zombie-driver": "^1.2",
+                "drupal/coder": "~8.2.12",
                 "jakub-onderka/php-parallel-lint": "^0.9.2",
-                "phpspec/phpspec": "~2.0",
-                "phpunit/phpunit": "3.7.*"
+                "phpspec/phpspec": "~2.0 || ~4.0"
             },
             "type": "behat-extension",
             "extra": {
@@ -10553,12 +10455,13 @@
                 "psr-0": {
                     "Drupal\\Drupal": "src/",
                     "Drupal\\Exception": "src/",
-                    "Drupal\\DrupalExtension": "src/"
+                    "Drupal\\DrupalExtension": "src/",
+                    "Drupal\\MinkExtension": "src/"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-2.0+"
+                "GPL-2.0-or-later"
             ],
             "authors": [
                 {
@@ -10581,7 +10484,54 @@
                 "test",
                 "web"
             ],
-            "time": "2017-12-06T20:35:40+00:00"
+            "time": "2018-12-19T17:24:54+00:00"
+        },
+        {
+            "name": "drupal/search_kint",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/search_kint.git",
+                "reference": "8.x-1.0"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/search_kint-8.x-1.0.zip",
+                "reference": "8.x-1.0",
+                "shasum": "b9ce4cc38a84837d9969748127fe79755e0ea738"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.0",
+                    "datestamp": "1461628928",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "dahousecat",
+                    "homepage": "https://www.drupal.org/user/1410992"
+                }
+            ],
+            "description": "Allows searching through the kint dump",
+            "homepage": "https://www.drupal.org/project/search_kint",
+            "support": {
+                "source": "https://git.drupalcode.org/project/search_kint"
+            }
         },
         {
             "name": "fabpot/goutte",
@@ -10637,6 +10587,29 @@
                 "scraper"
             ],
             "time": "2018-06-29T15:13:57+00:00"
+        },
+        {
+            "name": "horaciolopesqq/docker",
+            "version": "0.0.6",
+            "source": {
+                "type": "git",
+                "url": "https://bitbucket.org/HoracioLopes/docker-compose-template.git",
+                "reference": "e8be42f43a7f90a069e320d34f2f89130d87e811"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://bitbucket.org/HoracioLopes/docker-compose-template/get/e8be42f43a7f90a069e320d34f2f89130d87e811.zip",
+                "reference": "e8be42f43a7f90a069e320d34f2f89130d87e811",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "^1.2"
+            },
+            "type": "docker-compose",
+            "notification-url": "https://packagist.org/downloads/",
+            "description": "A Docker compose template",
+            "homepage": "https://bitbucket.org/HoracioLopes/docker-compose-template",
+            "time": "2019-07-02T09:54:47+00:00"
         },
         {
             "name": "instaclick/php-webdriver",
@@ -10879,7 +10852,7 @@
             "time": "2019-01-14T23:55:14+00:00"
         },
         {
-            "name": "mikey179/vfsStream",
+            "name": "mikey179/vfsstream",
             "version": "v1.6.6",
             "source": {
                 "type": "git",
@@ -12539,12 +12512,21 @@
             "time": "2019-07-04T08:01:42+00:00"
         }
     ],
-    "aliases": [],
+    "aliases": [
+        {
+            "alias": "1.6.0",
+            "alias_normalized": "1.6.0.0",
+            "version": "9999999-dev",
+            "package": "composer/installers"
+        }
+    ],
     "minimum-stability": "dev",
     "stability-flags": {
         "cnect-web/blellow": 20,
+        "composer/installers": 20,
         "drupal/group": 20,
         "skounis/blellow_helper": 20,
+        "behat/mink": 20,
         "drupal/default_content_deploy": 15,
         "guzzlehttp/guzzle": 20,
         "skounis/fut_default_content": 20,

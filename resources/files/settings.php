@@ -1,5 +1,7 @@
 <?php
 
+// @codingStandardsIgnoreFile
+
 /**
  * @file
  * Drupal site-specific configuration file.
@@ -74,7 +76,7 @@
  * specific needs.
  *
  * @code
- * $databases['default']['default'] = array (
+ * $databases['default']['default'] = [
  *   'database' => 'databasename',
  *   'username' => 'sqlusername',
  *   'password' => 'sqlpassword',
@@ -83,10 +85,10 @@
  *   'driver' => 'mysql',
  *   'prefix' => '',
  *   'collation' => 'utf8mb4_general_ci',
- * );
+ * ];
  * @endcode
  */
-$databases = array();
+$databases = [];
 
 /**
  * Customizing database settings.
@@ -154,13 +156,13 @@ $databases = array();
  * The 'default' element is mandatory and holds the prefix for any tables
  * not specified elsewhere in the array. Example:
  * @code
- *   'prefix' => array(
+ *   'prefix' => [
  *     'default'   => 'main_',
  *     'users'     => 'shared_',
  *     'sessions'  => 'shared_',
  *     'role'      => 'shared_',
  *     'authmap'   => 'shared_',
- *   ),
+ *   ],
  * @endcode
  * You can also use a reference to a schema/database as a prefix. This may be
  * useful if your Drupal installation exists in a schema that is not the default
@@ -168,13 +170,13 @@ $databases = array();
  * time.
  * Example:
  * @code
- *   'prefix' => array(
+ *   'prefix' => [
  *     'default'   => 'main.',
  *     'users'     => 'shared.',
  *     'sessions'  => 'shared.',
  *     'role'      => 'shared.',
  *     'authmap'   => 'shared.',
- *   );
+ *   ];
  * @endcode
  * NOTE: MySQL and SQLite's definition of a schema is a database.
  *
@@ -183,14 +185,14 @@ $databases = array();
  * example, to enable MySQL SELECT queries to exceed the max_join_size system
  * variable, and to reduce the database connection timeout to 5 seconds:
  * @code
- * $databases['default']['default'] = array(
- *   'init_commands' => array(
+ * $databases['default']['default'] = [
+ *   'init_commands' => [
  *     'big_selects' => 'SET SQL_BIG_SELECTS=1',
- *   ),
- *   'pdo' => array(
+ *   ],
+ *   'pdo' => [
  *     PDO::ATTR_TIMEOUT => 5,
- *   ),
- * );
+ *   ],
+ * ];
  * @endcode
  *
  * WARNING: The above defaults are designed for database portability. Changing
@@ -205,22 +207,22 @@ $databases = array();
  *
  * Sample Database configuration format for PostgreSQL (pgsql):
  * @code
- *   $databases['default']['default'] = array(
+ *   $databases['default']['default'] = [
  *     'driver' => 'pgsql',
  *     'database' => 'databasename',
  *     'username' => 'sqlusername',
  *     'password' => 'sqlpassword',
  *     'host' => 'localhost',
  *     'prefix' => '',
- *   );
+ *   ];
  * @endcode
  *
  * Sample Database configuration format for SQLite (sqlite):
  * @code
- *   $databases['default']['default'] = array(
+ *   $databases['default']['default'] = [
  *     'driver' => 'sqlite',
  *     'database' => '/path/to/databasefilename',
- *   );
+ *   ];
  * @endcode
  */
 
@@ -244,12 +246,12 @@ $databases = array();
  *
  * Example:
  * @code
- *   $config_directories = array(
+ *   $config_directories = [
  *     CONFIG_SYNC_DIRECTORY => '/directory/outside/webroot',
- *   );
+ *   ];
  * @endcode
  */
-$config_directories = array();
+$config_directories = [];
 
 /**
  * Settings:
@@ -260,23 +262,6 @@ $config_directories = array();
  *
  * @see \Drupal\Core\Site\Settings::get()
  */
-
-/**
- * The active installation profile.
- *
- * Changing this after installation is not recommended as it changes which
- * directories are scanned during extension discovery. If this is set prior to
- * installation this value will be rewritten according to the profile selected
- * by the user.
- *
- * @see install_select_profile()
- *
- * @deprecated in Drupal 8.3.0 and will be removed before Drupal 9.0.0. The
- *   install profile is written to the core.extension configuration. If a
- *   service requires the install profile use the 'install_profile' container
- *   parameter. Functional code can use \Drupal::installProfile().
- */
-# $settings['install_profile'] = '';
 
 /**
  * Salt for one-time login links, cancel links, form tokens, etc.
@@ -295,7 +280,7 @@ $config_directories = array();
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = 'xmUDik-h2jz1VKSP65v7Rhv0yr6lLkdtaQ_qOBTBo7fO5iY3owfMnbfOP--gOhViSM24FxZyeA';
+$settings['hash_salt'] = '';
 
 /**
  * Deployment identifier.
@@ -357,11 +342,10 @@ $settings['update_free_access'] = FALSE;
  * configuration requires the IP addresses of all remote proxies to be
  * specified in $settings['reverse_proxy_addresses'] to work correctly.
  *
- * Enable this setting to get Drupal to determine the client IP from
- * the X-Forwarded-For header (or $settings['reverse_proxy_header'] if set).
- * If you are unsure about this setting, do not have a reverse proxy,
- * or Drupal operates in a shared hosting environment, this setting
- * should remain commented out.
+ * Enable this setting to get Drupal to determine the client IP from the
+ * X-Forwarded-For header. If you are unsure about this setting, do not have a
+ * reverse proxy, or Drupal operates in a shared hosting environment, this
+ * setting should remain commented out.
  *
  * In order for this setting to be used you must specify every possible
  * reverse proxy IP address in $settings['reverse_proxy_addresses'].
@@ -377,37 +361,38 @@ $settings['update_free_access'] = FALSE;
  * Specify every reverse proxy IP address in your environment.
  * This setting is required if $settings['reverse_proxy'] is TRUE.
  */
-# $settings['reverse_proxy_addresses'] = array('a.b.c.d', ...);
+# $settings['reverse_proxy_addresses'] = ['a.b.c.d', ...];
 
 /**
- * Set this value if your proxy server sends the client IP in a header
- * other than X-Forwarded-For.
+ * Reverse proxy trusted headers.
+ *
+ * Sets which headers to trust from your reverse proxy.
+ *
+ * Common values are:
+ * - \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL
+ * - \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED
+ *
+ * Note the default value of
+ * @code
+ * \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED
+ * @endcode
+ * is not secure by default. The value should be set to only the specific
+ * headers the reverse proxy uses. For example:
+ * @code
+ * \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL
+ * @endcode
+ * This would trust the following headers:
+ * - X_FORWARDED_FOR
+ * - X_FORWARDED_HOST
+ * - X_FORWARDED_PROTO
+ * - X_FORWARDED_PORT
+ *
+ * @see \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL
+ * @see \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED
+ * @see \Symfony\Component\HttpFoundation\Request::setTrustedProxies
  */
-# $settings['reverse_proxy_header'] = 'X_CLUSTER_CLIENT_IP';
+# $settings['reverse_proxy_trusted_headers'] = \Symfony\Component\HttpFoundation\Request::HEADER_X_FORWARDED_ALL | \Symfony\Component\HttpFoundation\Request::HEADER_FORWARDED;
 
-/**
- * Set this value if your proxy server sends the client protocol in a header
- * other than X-Forwarded-Proto.
- */
-# $settings['reverse_proxy_proto_header'] = 'X_FORWARDED_PROTO';
-
-/**
- * Set this value if your proxy server sends the client protocol in a header
- * other than X-Forwarded-Host.
- */
-# $settings['reverse_proxy_host_header'] = 'X_FORWARDED_HOST';
-
-/**
- * Set this value if your proxy server sends the client protocol in a header
- * other than X-Forwarded-Port.
- */
-# $settings['reverse_proxy_port_header'] = 'X_FORWARDED_PORT';
-
-/**
- * Set this value if your proxy server sends the client protocol in a header
- * other than Forwarded.
- */
-# $settings['reverse_proxy_forwarded_header'] = 'FORWARDED';
 
 /**
  * Page caching:
@@ -571,10 +556,10 @@ if ($settings['hash_salt']) {
  * The "en" part of the variable name, is dynamic and can be any langcode of
  * any added language. (eg locale_custom_strings_de for german).
  */
-# $settings['locale_custom_strings_en'][''] = array(
+# $settings['locale_custom_strings_en'][''] = [
 #   'forum'      => 'Discussion board',
 #   '@count min' => '@count minutes',
-# );
+# ];
 
 /**
  * A custom theme for the offline page:
@@ -628,7 +613,7 @@ if ($settings['hash_salt']) {
  *   override in a services.yml file in the same directory as settings.php
  *   (definitions in this file will override service definition defaults).
  */
-# $settings['bootstrap_config_storage'] = array('Drupal\Core\Config\BootstrapConfigStorageFactory', 'getFileStorage');
+# $settings['bootstrap_config_storage'] = ['Drupal\Core\Config\BootstrapConfigStorageFactory', 'getFileStorage'];
 
 /**
  * Configuration overrides.
@@ -687,7 +672,7 @@ if ($settings['hash_salt']) {
 /**
  * Load services definition file.
  */
-// $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
+$settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
 
 /**
  * Override the default service container class.
@@ -720,9 +705,9 @@ if ($settings['hash_salt']) {
  *
  * For example:
  * @code
- * $settings['trusted_host_patterns'] = array(
+ * $settings['trusted_host_patterns'] = [
  *   '^www\.example\.com$',
- * );
+ * ];
  * @endcode
  * will allow the site to only run from www.example.com.
  *
@@ -733,12 +718,12 @@ if ($settings['hash_salt']) {
  *
  * For example:
  * @code
- * $settings['trusted_host_patterns'] = array(
+ * $settings['trusted_host_patterns'] = [
  *   '^example\.com$',
  *   '^.+\.example\.com$',
  *   '^example\.org$',
  *   '^.+\.example\.org$',
- * );
+ * ];
  * @endcode
  * will allow the site to run off of all variants of example.com and
  * example.org, with all subdomains included.
@@ -770,58 +755,18 @@ $settings['file_scan_ignore_directories'] = [
 $settings['entity_update_batch_size'] = 50;
 
 /**
- * Load environment vars.
+ * Entity update backup.
+ *
+ * This is used to inform the entity storage handler that the backup tables as
+ * well as the original entity type and field storage definitions should be
+ * retained after a successful entity update process.
  */
-if (file_exists($app_root . '/../.env')) {
-  // Load .env file from project root.
-  $dotenv = new Dotenv\Dotenv($app_root . "/../");
-  $dotenv->load();
-}
-
-/**
- * Database settings:
- */
-$databases['default']['default'] = array (
-  'database' => getenv('DATABASE'),
-  'username' => getenv('DATABASE_USER'),
-  'password' => getenv('DATABASE_PASSWORD'),
-  'prefix' => getenv('DATABASE_PREFIX'),
-  'host' => getenv('DATABASE_HOST'),
-  'port' => getenv('DATABASE_PORT'),
-  'namespace' => 'Drupal\\Core\\Database\\Driver\\mysql',
-  'driver' => 'mysql',
-);
+$settings['entity_update_backup'] = TRUE;
 
 /**
  * Config directories.
  */
-$config_directories['sync'] = '../config/sync';
-
-/**
- * Config Split.
- */
-$config['config_split.config_split.dev_config']['status'] = FALSE;
-$config['config_split.config_split.staging_config']['status'] = FALSE;
-$config['config_split.config_split.prod_config']['status'] = FALSE;
-switch (getenv('ENVIRONMENT')) {
-  case 'production':
-    $config['config_split.config_split.prod_config']['status'] = TRUE;
-    break;
-
-  case 'staging':
-    $config['config_split.config_split.staging_config']['status'] = TRUE;
-    break;
-
-  default:
-    $config['config_split.config_split.dev_config']['status'] = TRUE;
-    // Enable local development services.
-    $settings['container_yamls'][] = DRUPAL_ROOT . '/sites/default/development.services.yml';
-    ini_set('display_errors', TRUE);
-    ini_set('display_startup_errors', TRUE);
-    $settings['cache']['bins']['render'] = 'cache.backend.null';
-    $settings['cache']['bins']['dynamic_page_cache'] = 'cache.backend.null';
-    break;
-}
+$config_directories[CONFIG_SYNC_DIRECTORY] = '../config/sync';
 
 /**
  * Load local development override configuration, if available.
@@ -833,7 +778,6 @@ switch (getenv('ENVIRONMENT')) {
  *
  * Keep this code block at the end of this file to take full effect.
  */
-$local_settings_file = $app_root . '/' . $site_path . '/settings.local.php';
-if (file_exists($local_settings_file)) {
-  include $local_settings_file;
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
 }

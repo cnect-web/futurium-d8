@@ -1,0 +1,80 @@
+<?php
+
+/**
+ * @file
+ * Contains aws_info.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+use GuzzleHttp\Exception\RequestException;
+
+/**
+ * Implements hook_help().
+ */
+function aws_info_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the aws_info module.
+    case 'help.page.aws_info':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('AWS Info') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+/**
+ * Implements hook_requirements().
+ *
+ * Show some AWS related information on status report page.
+ * See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html
+ */
+function aws_info_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'runtime') {
+    $url = "http://169.254.169.254/latest/meta-data/instance-id";
+    $client = \Drupal::httpClient();
+    try {
+      $response = $client->get($url);
+      $data = $response->getBody();
+
+      if (getenv('ENVIRONMENT')) {
+        $environment = ucfirst(getenv('ENVIRONMENT'));
+      }
+
+      $requirements['aws_info'] = [
+        'title' => t('AWS Info'),
+        'value' => t('Environment: @environment', ['@environment' => $environment]),
+        'description' => t('Instance ID: @instance_id', ['@instance_id' => $data]),
+      ];
+    }
+    catch (RequestException $e) {
+      watchdog_exception('aws_info', $e);
+    }
+  }
+
+  return $requirements;
+}
+
+/**
+ * Add environment class to body tag.
+ */
+function aws_info_preprocess_html(&$variables) {
+  if (getenv('ENVIRONMENT')) {
+  $environment = strtolower(getenv('ENVIRONMENT'));
+    $variables['attributes']['class'][] = $environment;
+  }
+
+  $css  = ".production .toolbar-bar { background-color: #ff0000;}";
+  $css .= ".staging .toolbar-bar { background-color: #ff6c00;}";
+
+  $variables['page']['#attached']['html_head'][] = [
+    [
+      '#tag' => 'style',
+      '#value' => $css,
+    ],
+    'environment-css'
+  ];
+}

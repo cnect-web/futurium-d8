@@ -1,0 +1,49 @@
+# Project information.
+project:
+  name: ProjectName
+  url: http://localhost
+  environment: development
+
+# Site information.
+site:
+  name: SiteName
+  mail: email@example.com
+  profile: minimal
+  update: false
+  locale: en
+
+# Administrator account.
+account:
+  name: admin
+  password: admin
+  mail: admin@example.org
+
+# Database parameters.
+database:
+  name: drupal
+  user: mysql
+  password: mysql
+  host: mysql
+  port: 3306
+  root_password: password
+  prefix: ""
+
+# If you wish to swap a theme downloaded using composer,
+# specify it's info bellow.
+# You can then use 'robo theme:dev' (alias 'robo td') to swap.
+
+#theme:
+#  path: themes/contrib/blellow
+
+# Here you can specify environment overrides.
+# Not working atm.
+
+#environment:
+#  settings:
+#    trusted_host_patterns:
+#      - "my.fqdn.here$"
+#    http_client_config:
+#      proxy:
+#        http: "http://username:password@host:port"
+#        https: "http://username:password@host:port"
+
