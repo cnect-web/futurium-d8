@@ -77,5 +77,5 @@ if [ $INSTALLATION_TYPE == "docker" ]; then
   alias "dshp=docker exec -u 1000 -it php bash"
 else
   $COMMAND
-  ./vendor/bin/robo pic $FORCE
+  ./vendor/bin/robo piu $FORCE
 fi
