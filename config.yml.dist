@@ -28,22 +28,25 @@ database:
   root_password: password
   prefix: ""
 
+# User
+id:
+  user: 1000
+  group: 1000
+
 # If you wish to swap a theme downloaded using composer,
 # specify it's info bellow.
 # You can then use 'robo theme:dev' (alias 'robo td') to swap.
 
 #theme:
-#  path: themes/contrib/blellow
+#  path: themes/contrib/theme_name
 
 # Here you can specify environment overrides.
-# Not working atm.
-
 #environment:
-#  settings:
-#    trusted_host_patterns:
-#      - "my.fqdn.here$"
-#    http_client_config:
-#      proxy:
-#        http: "http://username:password@host:port"
-#        https: "http://username:password@host:port"
-
+#  development:
+#    settings:
+#      trusted_host_patterns:
+#        - "my.fqdn.here$"
+#      http_client_config:
+#        proxy:
+#          http: "http://username:password@host:port"
+#          https: "http://username:password@host:port"

@@ -324,8 +324,8 @@ class RoboFile extends RoboTasks {
       $content = "";
 
       if ($options['type'] == 'docker') {
-        $content .= "USER_ID=1000\n";
-        $content .= "GROUP_ID=1000\n";
+        $content .= "USER_ID={$this->config->get('id.user')}\n";
+        $content .= "GROUP_ID={$this->config->get('id.group')}\n";
         $settings['DATABASE_ROOT_PASSWORD'] = 'database.root_password';
       }
 
@@ -395,6 +395,8 @@ class RoboFile extends RoboTasks {
       if (!empty($settings)) {
         drupal_rewrite_settings($settings, $settings_folder . '/settings.local.php');
       }
+      // Write additional environment settings.
+      $this->setCustomConfig();
     }
 
     // Reset the permissions to the proper state.
@@ -579,6 +581,39 @@ class RoboFile extends RoboTasks {
 
     $this->taskComposerInstall()
       ->run();
+  }
+
+  /**
+   * Set up custom config.
+   *
+   * @command project:set-custom-config
+   * @aliases pscc
+   */
+  public function setCustomConfig($target_file = 'settings.local.php') {
+    $environment = getenv("ENVIRONMENT") ?? $this->config->get('project.environment');
+    $settings['settings'] = $this->config->get('environment.' . $environment . '.settings');
+    if (!empty($settings['settings'])) {
+
+      require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
+      require_once $this->drupalRoot . '/core/includes/install.inc';
+
+      $settings_folder = $this->getLocalSettingsFolder();
+
+      // Initialize Settings.
+      Settings::initialize($this->drupalRoot, $settings_folder, $this->classLoader);
+
+      foreach ($settings['settings'] as $key => $setting) {
+        $settings['settings'][$key] = (object) [
+          'value' => $setting,
+          'required' => TRUE,
+        ];
+      }
+
+      drupal_rewrite_settings($settings, $settings_folder . '/' . $target_file);
+    }
+    else {
+      $this->say('No custom settings to add.');
+    }
   }
 
   /**
