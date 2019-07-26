@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "cfe3aed1aa5ec357c0cc89347d948032",
+    "content-hash": "2bde81af26e2eb23bedaae2a014ea860",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -293,7 +293,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.dgcnect.eu/web-team/blellow-d8-theme",
-                "reference": "f554d6d30e8c68e1ca88b9712411cc2541a39431"
+                "reference": "25e674150cf28c2b9605a14ba7480fa3721570ed"
             },
             "require": {
                 "drupal/components": "^1.0",
@@ -2369,7 +2369,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.27",
-                    "datestamp": "1558552081",
+                    "datestamp": "1558553350",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4361,6 +4361,108 @@
             ],
             "support": {
                 "source": "http://cgit.drupalcode.org/honeypot"
+            }
+        },
+        {
+            "name": "drupal/hook_event_dispatcher",
+            "version": "1.25.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/hook_event_dispatcher.git",
+                "reference": "8.x-1.25"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/hook_event_dispatcher-8.x-1.25.zip",
+                "reference": "8.x-1.25",
+                "shasum": "c5373f1c6537f542328281d5f37e2f6ff51e707a"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "require-dev": {
+                "drupal/coder": "^8.3.1",
+                "drupal/core": "^8.7",
+                "drupal/webform": "*",
+                "jakub-onderka/php-console-highlighter": "^0.4.0",
+                "jakub-onderka/php-parallel-lint": "^1.0",
+                "phpmd/phpmd": "^2.6",
+                "phpunit/phpunit": "^5.7 || ^6.5",
+                "squizlabs/php_codesniffer": "^3.4"
+            },
+            "suggest": {
+                "drupal/paragraphs": "Enables the creation of paragraphs entities.",
+                "drupal/token": "Provides additional tokens not supported by core (most notably fields), as well as a UI for browsing tokens."
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.25",
+                    "datestamp": "1560602285",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\hook_event_dispatcher\\": "src/",
+                    "Drupal\\webform_event_dispatcher\\": "modules/webform_event_dispatcher/src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Drupal\\Tests\\hook_event_dispatcher\\": "tests/src/",
+                    "Drupal\\Tests\\webform_event_dispatcher\\": "modules/webform_event_dispatcher/tests/src/",
+                    "Drupal\\Tests\\": "vendor/drupal/core/tests/Drupal/Tests",
+                    "Drupal\\views\\": "vendor/drupal/core/modules/views/src/"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "scripts": {
+                "test": [
+                    "@phplint",
+                    "@phpunit",
+                    "@phpcs",
+                    "@phpmd"
+                ],
+                "phplint": [
+                    "vendor/bin/parallel-lint --exclude vendor/ --exclude .idea/ -e php,module,inc,install,profile,theme ."
+                ],
+                "phpunit": [
+                    "vendor/bin/phpunit --configuration=phpunit.xml"
+                ],
+                "phpcs": [
+                    "vendor/bin/phpcs --ignore=vendor/,.idea/ --standard=vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,profile,theme --report=full --warning-severity=0 ."
+                ],
+                "phpcbf": [
+                    "vendor/bin/phpcbf --ignore=vendor/,.idea/ --standard=vendor/drupal/coder/coder_sniffer/Drupal/ruleset.xml --extensions=php,module,inc,install,profile,theme ."
+                ],
+                "phpmd": [
+                    "vendor/bin/phpmd --exclude vendor/,.idea/ --suffixes php,module,inc,install,profile,theme . text phpmd.xml"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "pdenooijer",
+                    "homepage": "https://www.drupal.org/user/3175437"
+                },
+                {
+                    "name": "robin.ingelbrecht",
+                    "homepage": "https://www.drupal.org/user/2339074"
+                }
+            ],
+            "description": "Dispatches events for several drupal core hooks.",
+            "homepage": "https://www.drupal.org/project/hook_event_dispatcher",
+            "support": {
+                "source": "https://git.drupalcode.org/project/hook_event_dispatcher"
             }
         },
         {
@@ -7011,12 +7113,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/blellow_helper.git",
-                "reference": "2be7eee7e35fee2a483d1dbb8da22dd299473312"
+                "reference": "565e4a757dc0a698c1b349d50bb416619eab305c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/2be7eee7e35fee2a483d1dbb8da22dd299473312",
-                "reference": "2be7eee7e35fee2a483d1dbb8da22dd299473312",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/565e4a757dc0a698c1b349d50bb416619eab305c",
+                "reference": "565e4a757dc0a698c1b349d50bb416619eab305c",
                 "shasum": ""
             },
             "require": {
@@ -12140,12 +12242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/fut_sample_content.git",
-                "reference": "f466c2995162b37b0a719e88df01a0169065e3e9"
+                "reference": "f2caa22d03f777aa7a564042b8cdd2e47ded35bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/f466c2995162b37b0a719e88df01a0169065e3e9",
-                "reference": "f466c2995162b37b0a719e88df01a0169065e3e9",
+                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/f2caa22d03f777aa7a564042b8cdd2e47ded35bd",
+                "reference": "f2caa22d03f777aa7a564042b8cdd2e47ded35bd",
                 "shasum": ""
             },
             "require": {
@@ -12154,7 +12256,7 @@
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Sample Content for Futurium D8",
-            "time": "2019-07-08T11:54:17+00:00"
+            "time": "2019-07-22T15:42:29+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",
