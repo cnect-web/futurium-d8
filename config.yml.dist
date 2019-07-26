@@ -44,9 +44,20 @@ id:
 #environment:
 #  development:
 #    settings:
+#      memcache:
+#        servers:
+#          'memcached:11211' : default
+#      cache:
+#        default:
+#          'cache.backend.memcache'
 #      trusted_host_patterns:
-#        - "my.fqdn.here$"
+#        - "localhost$"
+#        - "web$"
 #      http_client_config:
 #        proxy:
 #          http: "http://username:password@host:port"
 #          https: "http://username:password@host:port"
+#  staging:
+#    settings:
+#      trusted_host_patterns:
+#        - "staging.site.tld"

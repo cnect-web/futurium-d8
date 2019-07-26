@@ -601,12 +601,21 @@ class RoboFile extends RoboTasks {
 
       // Initialize Settings.
       Settings::initialize($this->drupalRoot, $settings_folder, $this->classLoader);
-
       foreach ($settings['settings'] as $key => $setting) {
-        $settings['settings'][$key] = (object) [
-          'value' => $setting,
-          'required' => TRUE,
-        ];
+        if (is_array($setting)) {
+          foreach($setting as $k => $v) {
+            $settings['settings'][$key][$k] = (object) [
+              'value' => $v,
+              'required' => TRUE,
+            ];
+          }
+        }
+        else {
+          $settings['settings'][$key] = (object) [
+            'value' => $setting,
+            'required' => TRUE,
+          ];
+        }
       }
 
       drupal_rewrite_settings($settings, $settings_folder . '/' . $target_file);
