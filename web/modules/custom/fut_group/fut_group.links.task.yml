@@ -1,34 +1,27 @@
-fut_group.link.group_navigation:
-  route_name: 'fut_group.manage_navigation'
-  title: 'Group navigation'
-  description: 'Group navigation'
+fut_group.manage_group_content:
+  route_name: 'fut_group.manage_group_content'
+  title: 'Group Content'
+  description: 'Mange Group Content'
   base_route: 'entity.group.canonical'
-  weight: 10
+  weight: 100
 
-fut_group.link.group_collections:
-  route_name: 'view.fut_collections.page'
-  title: 'Collections'
-  description: 'Group collections'
-  base_route: 'entity.group.canonical'
-  weight: 20
-
-fut_group.link.group_posts:
-  route_name: 'view.fut_group_posts.page_group_posts'
-  title: 'Posts'
-  description: 'Group posts'
-  base_route: 'entity.group.canonical'
-  weight: 30
-
-fut_group.link.group_events:
-  route_name: 'view.fut_group_events.page_group_events'
-  title: 'Events'
-  description: 'Group events'
-  base_route: 'entity.group.canonical'
-  weight: 40
-
-fut_group.link.group_library:
-  route_name: 'view.fut_group_library.page_group_library'
+fut_group.manage_group_content.library:
+  route_name: 'fut_group.manage_group_content.library'
   title: 'Library'
-  description: 'Group library'
+  description: 'Mange library'
   base_route: 'entity.group.canonical'
-  weight: 50
+  weight: 0
+
+fut_group.manage_group_content.collections:
+  route_name: 'fut_group.manage_group_content.collections'
+  title: 'Collections'
+  description: 'Mange collections'
+  base_route: 'entity.group.canonical'
+  weight: 0
+
+fut_group.manage_group_content.subgroups:
+  route_name: 'fut_group.manage_group_content.subgroups'
+  title: 'Subgroups'
+  description: 'Mange subgroups'
+  base_route: 'entity.group.canonical'
+  weight: 0

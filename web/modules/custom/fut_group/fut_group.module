@@ -203,7 +203,7 @@ function fut_group_form_taxonomy_term_fut_collections_form_alter(
 function _fut_group_form_taxonomy_term_fut_collections_submit(array $form, FormState $form_state) {
   $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
   if ($group = $request_extractor->getGroup()) {
-    $form_state->setRedirect('view.fut_collections.page', [
+    $form_state->setRedirect('fut_group.manage_group_content.collections', [
       'group' => $group->id(),
     ]);
     return;
@@ -370,4 +370,35 @@ function _fut_group_check_permissions_by_collection($op, $collection_id, Group $
   }
 
   return FALSE;
+}
+
+
+/**
+ * Implements hook_menu_local_tasks_alter().
+ *
+ * We remove standard group local_tasks to apply ours.
+ * @see fut_group.links.tasks.yml
+ */
+function fut_group_menu_local_tasks_alter(&$data, $route_name) {
+
+  $local_tasks = [
+    'views_view:view.group_members.page_1',
+    'views_view:view.group_nodes.page_1',
+    'views_view:view.group_pending_members.page_1',
+    'views_view:view.subgroups.page',
+    'group.content',
+    'fut_group.manage_group_content.library',
+    'fut_group.manage_group_content.collections',
+    'fut_group.manage_group_content.subgroups'
+  ];
+  foreach ($local_tasks as $local_task) {
+    if (isset($data['tabs'][0][$local_task])) {
+      unset($data['tabs'][0][$local_task]);
+    }
+  }
+
+  if (strpos($route_name, 'fut_group.manage_group_content') !== FALSE ) {
+    $data["tabs"][0]["fut_group.manage_group_content"]["#active"] = TRUE;
+  }
+
 }

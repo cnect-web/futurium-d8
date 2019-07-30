@@ -62,3 +62,51 @@ fut_group.delete_collection:
         type: 'entity:group'
       term:
         type: 'entity:taxonomy_term'
+
+fut_group.manage_group_content:
+  path: '/group/{group}/manage/group-content'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupContent'
+    _title: 'Group Content'
+  requirements:
+    _group_permission: 'Access group node overview'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+
+fut_group.manage_group_content.library:
+  path: '/group/{group}/manage/group-content/library'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupLibrary'
+    _title: 'Group Library'
+  requirements:
+    _group_permission: 'View group'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+
+fut_group.manage_group_content.collections:
+  path: '/group/{group}/manage/group-content/collections'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupCollections'
+    _title: 'Group collections'
+  requirements:
+    _group_permission: 'manage group collections'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+
+fut_group.manage_group_content.subgroups:
+  path: '/group/{group}/manage/group-content/subgroups'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupSubgroups'
+    _title: 'Group Subgroups'
+  requirements:
+    _group_permission: 'Access subgroup overview'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
