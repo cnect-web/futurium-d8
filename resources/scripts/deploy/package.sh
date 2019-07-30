@@ -28,8 +28,8 @@ zip --symlinks -x \
 --exclude=docker/\* \
 --exclude=tests/\* \
 --exclude=robo/\* \
---exclude=vendor \
---exclude=vendor/\* \
+#--exclude=vendor \
+#--exclude=vendor/\* \
 --exclude=*\/node_modules/\* \
 --exclude=*\/.vscode/\* \
 --exclude=*\/tests/\* \
