@@ -223,7 +223,7 @@ class FeaturedGroupFeaturedContent extends ExtraFieldDisplayBase implements Cont
     $node_storage = $this->entityTypeManager->getStorage('node');
     $featured_group_content = $node_storage->loadMultiple($featured_content_ids);
     $view_builder = $this->entityTypeManager->getViewBuilder('node');
-    $teasers = $view_builder->viewMultiple($featured_group_content, 'fut_teaser');
+    $teasers = $view_builder->viewMultiple($featured_group_content, 'fut_teaser_lite');
     return $teasers;
   }
 
