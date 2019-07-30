@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bde81af26e2eb23bedaae2a014ea860",
+    "content-hash": "de0f0585ec4caa3d0dfde3efcef98eea",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -306,7 +306,7 @@
                 "EUPL-1.2"
             ],
             "description": "Institutional Look and Feel for D8",
-            "time": "2019-07-12T14:36:27+00:00"
+            "time": "2019-07-24T09:34:25+00:00"
         },
         {
             "name": "cnect-web/group_permissions",
@@ -2369,7 +2369,7 @@
                 },
                 "drupal": {
                     "version": "8.x-1.27",
-                    "datestamp": "1558553350",
+                    "datestamp": "1558552081",
                     "security-coverage": {
                         "status": "covered",
                         "message": "Covered by Drupal's security advisory policy"
@@ -4280,7 +4280,8 @@
                     "Get a token of a node's parent group to create a pathauto pattern": "https://www.drupal.org/files/issues/group_add-node-group-tokens-2774827-24.patch",
                     "Media enabler": "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch",
                     "Group language settings are missing": "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
-                    "Can't translate group roles": "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch"
+                    "Can't translate group roles": "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch",
+                    "Behat group context": "./resources/patches/group.behat.inc.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -7127,7 +7128,7 @@
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Additional functionality required by the Blellow Theme for Futurium D8 website",
-            "time": "2019-07-12T13:49:02+00:00"
+            "time": "2019-07-24T07:24:47+00:00"
         },
         {
             "name": "stack/builder",
@@ -9278,6 +9279,49 @@
             "time": "2015-12-06T20:17:20+00:00"
         },
         {
+            "name": "zaporylie/composer-drupal-optimizations",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zaporylie/composer-drupal-optimizations.git",
+                "reference": "173c198fd7c9aefa5e5b68cd755ee63eb0abf7e8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zaporylie/composer-drupal-optimizations/zipball/173c198fd7c9aefa5e5b68cd755ee63eb0abf7e8",
+                "reference": "173c198fd7c9aefa5e5b68cd755ee63eb0abf7e8",
+                "shasum": ""
+            },
+            "require": {
+                "composer-plugin-api": "^1.1"
+            },
+            "require-dev": {
+                "composer/composer": "^1.6",
+                "phpunit/phpunit": "^6"
+            },
+            "type": "composer-plugin",
+            "extra": {
+                "class": "zaporylie\\ComposerDrupalOptimizations\\Plugin"
+            },
+            "autoload": {
+                "psr-4": {
+                    "zaporylie\\ComposerDrupalOptimizations\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Jakub Piasecki",
+                    "email": "jakub@piaseccy.pl"
+                }
+            ],
+            "description": "Composer plugin to improve composer performance for Drupal projects",
+            "time": "2019-02-20T10:00:17+00:00"
+        },
+        {
             "name": "zendframework/zend-diactoros",
             "version": "1.8.6",
             "source": {
@@ -10357,6 +10401,54 @@
             }
         },
         {
+            "name": "drupal/devel_php",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/devel_php.git",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/devel_php-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "2ab05330df6b7720db68139880c8e59bfda57ec9"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/devel": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1562913186",
+                    "security-coverage": {
+                        "status": "not-covered",
+                        "message": "Project has not opted into security advisory coverage!"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "lussoluca",
+                    "homepage": "https://www.drupal.org/user/138068"
+                }
+            ],
+            "description": "Re-add Execute PHP feature to Devel.",
+            "homepage": "https://www.drupal.org/project/devel_php",
+            "support": {
+                "source": "https://git.drupalcode.org/project/devel_php"
+            }
+        },
+        {
             "name": "drupal/drupal-driver",
             "version": "v2.0.0-alpha6",
             "source": {
@@ -10590,16 +10682,16 @@
         },
         {
             "name": "horaciolopesqq/docker",
-            "version": "0.0.6",
+            "version": "0.0.7",
             "source": {
                 "type": "git",
                 "url": "https://bitbucket.org/HoracioLopes/docker-compose-template.git",
-                "reference": "e8be42f43a7f90a069e320d34f2f89130d87e811"
+                "reference": "4bf257a28f84fabaa5bd2b456b02775d0b5f8529"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/HoracioLopes/docker-compose-template/get/e8be42f43a7f90a069e320d34f2f89130d87e811.zip",
-                "reference": "e8be42f43a7f90a069e320d34f2f89130d87e811",
+                "url": "https://bitbucket.org/HoracioLopes/docker-compose-template/get/4bf257a28f84fabaa5bd2b456b02775d0b5f8529.zip",
+                "reference": "4bf257a28f84fabaa5bd2b456b02775d0b5f8529",
                 "shasum": ""
             },
             "require": {
@@ -10609,7 +10701,7 @@
             "notification-url": "https://packagist.org/downloads/",
             "description": "A Docker compose template",
             "homepage": "https://bitbucket.org/HoracioLopes/docker-compose-template",
-            "time": "2019-07-02T09:54:47+00:00"
+            "time": "2019-07-25T09:55:08+00:00"
         },
         {
             "name": "instaclick/php-webdriver",
@@ -12256,7 +12348,7 @@
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Sample Content for Futurium D8",
-            "time": "2019-07-22T15:42:29+00:00"
+            "time": "2019-07-25T10:08:01+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

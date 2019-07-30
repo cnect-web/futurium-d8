@@ -3,5 +3,6 @@ toolbar_items:
   - devel.configs_list
   - devel.container_info.service
   - devel.event_info
+  - devel_php.execute_php
   - devel.route_info
   - devel.run_cron
