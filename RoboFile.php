@@ -732,7 +732,7 @@ class RoboFile extends RoboTasks {
    * @return string
    */
   protected function getSiteSettingsFile() {
-    return "{$this->getSiteDefaultFilesFolder()}/settings.php";
+    return "{$this->getSiteDefaultFolder()}/settings.php";
   }
 
   /**
