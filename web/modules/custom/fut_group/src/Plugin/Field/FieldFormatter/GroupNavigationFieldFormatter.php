@@ -68,12 +68,15 @@ class GroupNavigationFieldFormatter extends EntityReferenceFormatterBase {
         }
 
         if (!empty($route)) {
-          $group_id = $entity->getParentEntity()->id();
+          $route_params = [
+            'group' => $entity->getParentEntity()->id(),
+          ];
+
           $collection = $entity->fut_collection_item->target_id;
-          $links[] = $this->getLink($label, Url::fromRoute($route, [
-            'group' => $group_id,
-            'collection' => $collection,
-          ])->toString());
+          if (!empty($collection)) {
+            $route_params['collection'] = $collection;
+          }
+          $links[] = $this->getLink($label, Url::fromRoute($route, $route_params)->toString());
         }
 
       }
