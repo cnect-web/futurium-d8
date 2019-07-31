@@ -74,6 +74,7 @@ fut_group.manage_group_content:
     parameters:
       group:
         type: 'entity:group'
+    _admin_route: TRUE
 
 fut_group.manage_group_content.library:
   path: '/group/{group}/manage/group-content/library'
@@ -86,6 +87,7 @@ fut_group.manage_group_content.library:
     parameters:
       group:
         type: 'entity:group'
+    _admin_route: TRUE
 
 fut_group.manage_group_content.collections:
   path: '/group/{group}/manage/group-content/collections'
@@ -98,6 +100,7 @@ fut_group.manage_group_content.collections:
     parameters:
       group:
         type: 'entity:group'
+    _admin_route: TRUE
 
 fut_group.manage_group_content.subgroups:
   path: '/group/{group}/manage/group-content/subgroups'
@@ -110,3 +113,69 @@ fut_group.manage_group_content.subgroups:
     parameters:
       group:
         type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group:
+  path: '/group/{group}/manage/group'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupOverview'
+    _title: 'Group Management'
+  requirements:
+    _group_permission: 'access group overview'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group.edit:
+  path: '/group/{group}/manage/group/edit'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupEdit'
+    _title: 'Edit Group'
+  requirements:
+    _group_permission: 'edit group'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group.navigation:
+  path: '/group/{group}/manage/group/navigation'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::manageNavigation'
+    _title: 'Manage Group Navigation'
+  requirements:
+    _group_permission: 'manage group navigation'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group.members:
+  path: '/group/{group}/manage/group/members'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupMembers'
+    _title: 'Manage Group Members'
+  requirements:
+    _group_permission: 'administer members'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group.member_requests:
+  path: '/group/{group}/manage/group/requests'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupRequests'
+    _title: 'Manage Group Requests'
+  requirements:
+    _group_permission: 'administer members'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE

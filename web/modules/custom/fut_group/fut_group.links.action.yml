@@ -16,3 +16,12 @@ fut_group.group_node_add:
 #   title: 'Create subgroup'
 #   appears_on:
 #     - 'fut_group.manage_group_content.subgroups'
+
+fut_group.group_add_member:
+  route_name: 'entity.group_content.add_form'
+  route_parameters:
+    plugin_id: 'group_membership'
+  class: '\Drupal\group\Plugin\Menu\LocalAction\WithDestination'
+  title: 'Add member'
+  appears_on:
+    - 'fut_group.manage_group.members'

@@ -4,8 +4,6 @@ namespace Drupal\fut_group\Plugin\Menu\LocalAction;
 
 use Drupal\Core\Menu\LocalActionDefault;
 use Drupal\Core\Routing\RouteMatchInterface;
-use Drupal\Core\Url;
-use Drupal\Component\Utility\Unicode;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
 
 /**
@@ -20,15 +18,15 @@ class GroupAddNode extends LocalActionDefault {
    */
   public function getTitle() {
     return $this
-      ->t('Add @type_name', array(
-      '@type_name' => $this->pluginDefinition['group_content_enabler_plugin_label'],
-    ));
+      ->t('Add @type_name', [
+        '@type_name' => $this->pluginDefinition['group_content_enabler_plugin_label'],
+      ]);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function getRouteParameters(RouteMatchInterface $route_match){
+  public function getRouteParameters(RouteMatchInterface $route_match) {
 
     $group = $route_match->getParameter('group');
     $route_parameters = [
