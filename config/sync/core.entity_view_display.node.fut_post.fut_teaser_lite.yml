@@ -11,7 +11,6 @@ dependencies:
     - field.field.node.fut_post.fut_tags
     - node.type.fut_post
   module:
-    - fut_paragraphs
     - user
 _core:
   default_config_hash: 3CxEx_9lG4q8FnnDUym8ZnvYwVq0mU-rqtHw_DUNeMQ
@@ -19,21 +18,11 @@ id: node.fut_post.fut_teaser_lite
 targetEntityType: node
 bundle: fut_post
 mode: fut_teaser_lite
-content:
-  fut_content:
-    type: fut_summary_field_formatter
-    weight: 0
-    label: hidden
-    settings:
-      paragraph_types: fut_text
-      char_count: 100
-      wordsafe: true
-      ellipsis: true
-    third_party_settings: {  }
-    region: content
+content: {  }
 hidden:
   fut_collection: true
   fut_comments: true
+  fut_content: true
   fut_post_image: true
   fut_tags: true
   langcode: true
