@@ -601,7 +601,7 @@ display:
       display_extenders: {  }
       path: group/%group/members-pending
       menu:
-        type: tab
+        type: none
         title: 'Membership requests'
         description: ''
         expanded: false
@@ -609,7 +609,7 @@ display:
         weight: 21
         context: '0'
         menu_name: main
-      enabled: false
+      enabled: true
     cache_metadata:
       max-age: -1
       contexts:
