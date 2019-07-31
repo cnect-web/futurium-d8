@@ -5,6 +5,7 @@ namespace Drupal\fut_group\Plugin\Menu\LocalAction;
 use Drupal\Core\Menu\LocalActionDefault;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\StringTranslation\StringTranslationTrait;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Set route parameters for "fut_group.group_node_add_post" action link.
@@ -16,7 +17,7 @@ class GroupAddNode extends LocalActionDefault {
   /**
    * {@inheritdoc}
    */
-  public function getTitle() {
+  public function getTitle(Request $request = NULL) {
     return $this
       ->t('Add @type_name', [
         '@type_name' => $this->pluginDefinition['group_content_enabler_plugin_label'],
