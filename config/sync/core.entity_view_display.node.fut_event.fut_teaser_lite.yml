@@ -4,7 +4,6 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.node.fut_teaser_lite
-    - field.field.node.fut_event.fut_collection
     - field.field.node.fut_event.fut_content
     - field.field.node.fut_event.fut_event_address
     - field.field.node.fut_event.fut_event_coordinates
@@ -15,24 +14,12 @@ dependencies:
     - node.type.fut_event
   module:
     - datetime_range
-    - fut_paragraphs
     - user
 id: node.fut_event.fut_teaser_lite
 targetEntityType: node
 bundle: fut_event
 mode: fut_teaser_lite
 content:
-  fut_content:
-    weight: 1
-    label: hidden
-    settings:
-      paragraph_types: fut_text
-      char_count: 100
-      wordsafe: true
-      ellipsis: true
-    third_party_settings: {  }
-    type: fut_summary_field_formatter
-    region: content
   fut_event_date:
     weight: 0
     label: hidden
@@ -46,6 +33,7 @@ content:
 hidden:
   extra_field_event_map: true
   fut_collection: true
+  fut_content: true
   fut_event_address: true
   fut_event_coordinates: true
   fut_event_registration_url: true

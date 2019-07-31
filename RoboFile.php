@@ -4,6 +4,7 @@
  *
  * @see http://robo.li/
  */
+
 use Robo\Tasks as RoboTasks;
 use Robo\Config\Config;
 use Consolidation\Config\Loader\YamlConfigLoader;
@@ -18,18 +19,23 @@ use Drupal\Core\Site\Settings;
  * Class RoboFile.
  */
 class RoboFile extends RoboTasks {
+
   use \Boedah\Robo\Task\Drush\loadTasks;
 
   private $env;
+
   private $fs;
 
   private $binDir;
+
   private $projectRoot;
+
   private $drupalRoot;
 
   private $config;
 
   private $defaultOp = 'cs,unit,behat';
+
   private $defaultPaths = 'web/modules/custom,web/themes/contrib/blellow';
 
   /**
@@ -43,7 +49,7 @@ class RoboFile extends RoboTasks {
 
     $projectRoot = $drupalFinder->getComposerRoot();
     $drupalRoot = Path::makeRelative($drupalFinder->getDrupalRoot(), $projectRoot);
-    $binDir = Path::makeRelative($drupalFinder->getVendorDir() . '/bin', $projectRoot);
+    $binDir = Path::makeRelative("{$drupalFinder->getVendorDir()}/bin", $projectRoot);
 
     $this->projectRoot = $projectRoot;
     $this->drupalRoot = $drupalRoot;
@@ -58,7 +64,7 @@ class RoboFile extends RoboTasks {
     $config = new Config();
     $loader = new YamlConfigLoader();
     $processor = new ConfigProcessor();
-    $processor->extend($loader->load($this->projectRoot . '/config.yml'));
+    $processor->extend($loader->load("{$this->projectRoot}/config.yml"));
     $config->import($processor->export());
     $this->config = $config;
 
@@ -73,7 +79,6 @@ class RoboFile extends RoboTasks {
    */
   public function initFileSystem() {
     $fs = $this->fs;
-    $projectRoot = $this->projectRoot;
     $drupalRoot = $this->drupalRoot;
 
     $dirs = [
@@ -84,32 +89,31 @@ class RoboFile extends RoboTasks {
 
     // Required for unit testing
     foreach ($dirs as $dir) {
-      if (!$fs->exists($drupalRoot . '/'. $dir)) {
-        $fs->mkdir($drupalRoot . '/'. $dir);
-        $fs->touch($drupalRoot . '/'. $dir . '/.gitkeep');
-        $this->say("Created ${drupalRoot}/${dir} .");
+      $directoryPath = "$drupalRoot/$dir";
+      if (!$fs->exists($directoryPath)) {
+        $fs->mkdir($directoryPath);
+        $fs->touch("$directoryPath/.gitkeep");
+        $this->say("Created $directoryPath .");
       }
     }
 
-    // Prepare the settings file for installation
-    if (!$fs->exists($drupalRoot . '/sites/default/settings.php') and $fs->exists($projectRoot . '/resources/files/settings.php')) {
-      $fs->chmod($drupalRoot . '/sites/default', 0775);
-      $fs->copy($projectRoot . '/resources/files/settings.php', $drupalRoot . '/sites/default/settings.php');
-      $fs->chmod($drupalRoot . '/sites/default/settings.php', 0666);
-      $this->say("Created sites/default/settings.php");
+    // Prepare the settings file for installation.
+    if (!$fs->exists($this->getSiteSettingsFile()) and $fs->exists($this->getResourceSettingsFile())) {
+      $fs->chmod($this->getSiteDefaultFolder(), 0775);
+      $fs->copy($this->getResourceSettingsFile(), $this->getSiteSettingsFile());
+      $fs->chmod($this->getSiteSettingsFile(), 0666);
+      $this->say("Created {$this->getSiteSettingsFile()}");
     }
 
-    $fs->chmod($drupalRoot . '/sites/default', 0755);
+    $fs->chmod($this->getSiteDefaultFolder(), 0755);
 
     // Create the files directory with chmod 0777
-    if (!$fs->exists($drupalRoot . '/sites/default/files')) {
+    if (!$fs->exists($this->getSiteDefaultFilesFolder())) {
       $oldmask = umask(0);
-      $fs->mkdir($drupalRoot . '/sites/default/files', 0777);
+      $fs->mkdir($this->getSiteDefaultFilesFolder(), 0777);
       umask($oldmask);
-      $this->say("Created a sites/default/files directory with chmod 0777");
+      $this->say("Created a {$this->getSiteDefaultFilesFolder()} directory with chmod 0777");
     }
-
-    $fs->chmod($drupalRoot . '/sites/default', 0755);
   }
 
   /**
@@ -123,7 +127,7 @@ class RoboFile extends RoboTasks {
     if ($this->isAws()) {
       $fs = $this->fs;
 
-      $drupal_settings_folder = $this->drupalRoot . '/sites/default';
+      $drupal_settings_folder = $this->getSiteDefaultFolder();
       $shared_folder = $this->getLocalSettingsFolder();
 
       $files = ['settings.php', 'settings.local.php'];
@@ -132,30 +136,28 @@ class RoboFile extends RoboTasks {
       // Check if settings file exist on nfs mount.
       // If a shared settings file exists, use that.
       foreach ($files as $file) {
-        if (file_exists($shared_folder . '/' . $file)) {
-          // If a settings file exists in the sites default, delete it.
-          if(file_exists($drupal_settings_folder . '/' . $file)) {
-            $fs->chmod($drupal_settings_folder . '/' . $file, 0777);
-            $fs->remove($drupal_settings_folder . '/' . $file);
-          }
-          // Create the symlink to the shared one.
-          $this->_symlink("${shared_folder}/${file}", "${drupal_settings_folder}/${file}");
-        }
+        $this->symlinkFolders("${shared_folder}/${file}", "$drupal_settings_folder/$file");
       }
 
       // Create the symlink to the files folder.
-      if (file_exists($shared_folder . '/files')) {
-        // If a settings file exists in the sites default, delete it.
-        if(file_exists($drupal_settings_folder . '/files') && !is_link($drupal_settings_folder . '/files')) {
-          $fs->chmod($drupal_settings_folder . '/files', 0777);
-          $fs->remove($drupal_settings_folder . '/files');
-          // Create the symlink to the shared files folder.
-        }
-        $this->_symlink("${shared_folder}/files", "${drupal_settings_folder}/files");
+      if (file_exists("$shared_folder/files")) {
+        $this->symlinkFolders("$shared_folder/files", "$drupal_settings_folder/files");
       }
 
       // Lock the sites/default folder.
       $fs->chmod($drupal_settings_folder, 0555);
+    }
+  }
+
+  protected function symlinkFolders($existing_folder, $folder) {
+    if (file_exists($existing_folder)) {
+      // If a settings file exists in the sites default, delete it.
+      if (file_exists($folder) && !is_link($folder)) {
+        $this->fs->chmod($folder, 0777);
+        $this->fs->remove($folder);
+      }
+
+      $this->_symlink($existing_folder, $folder);
     }
   }
 
@@ -165,7 +167,7 @@ class RoboFile extends RoboTasks {
    * @command project:install-update
    * @aliases piu
    */
-  public function projectInstallOrUpdate($options = ['force' => false]) {
+  public function projectInstallOrUpdate($options = ['force' => FALSE]) {
 
     // Initialize the filesystem.
     $this->initFileSystem();
@@ -188,10 +190,8 @@ class RoboFile extends RoboTasks {
    *
    * @option $force Force the installation.
    */
-  public function installConfig($options = ['force' => false]) {
-
+  public function installConfig($options = ['force' => FALSE]) {
     $fs = $this->fs;
-    $drupalRoot = $this->drupalRoot;
 
     $is_installed = (!$options['force'])
       ? $this->isInstalled()
@@ -200,14 +200,14 @@ class RoboFile extends RoboTasks {
     if (!$is_installed || $options['force']) {
 
       // Delete local.settings.php if it exists before install.
-      $settings_folder = $this->getLocalSettingsFolder();
-      if ($fs->exists($settings_folder . '/settings.local.php')) {
-        $fs->chmod($settings_folder . '/settings.local.php', 0777);
-        $fs->remove($settings_folder . '/settings.local.php');
-        $this->say("Deleted ${settings_folder}/settings.local.php file.");
+      $local_settings_file = $this->getLocalSettingsLocalFile();
+      if ($fs->exists($local_settings_file)) {
+        $fs->chmod($local_settings_file, 0777);
+        $fs->remove($local_settings_file);
+        $this->say("Deleted $local_settings_file file.");
       }
 
-      $this->statusMessage("Starting Drupal installation.", "ok");
+      $this->statusMessage('Starting Drupal installation.', 'ok');
       $this->getInstallTask()
         ->arg('--existing-config')
         ->siteInstall($this->config->get('site.profile'))
@@ -217,9 +217,11 @@ class RoboFile extends RoboTasks {
       // Rewrite the settings.
       $this->rewriteSettings();
 
-      $this->statusMessage("Installation finished.", 'ok');
+      $this->statusMessage('Installation finished.', 'ok');
     }
-    else $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.", "warn");
+    else {
+      $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.",'warn');
+    }
 
     // On installation, drupal only takes into account config in the config/sync dir.
     // So we need to import config so that config splits kick in.
@@ -230,13 +232,13 @@ class RoboFile extends RoboTasks {
    * Get installation task.
    */
   protected function getInstallTask() {
-    return $this->taskDrushStack($this->binDir . '/drush')
+    return $this->taskDrushStack($this->getDrushPath())
       ->arg("--root={$this->drupalRoot}")
       ->accountName($this->config->get('account.name'))
       ->accountMail($this->config->get('account.mail'))
       ->accountPass($this->config->get('account.password'))
       ->dbPrefix($this->config->get('database.prefix'))
-      ->dbUrl(sprintf("mysql://%s:%s@%s:%s/%s",
+      ->dbUrl(sprintf('mysql://%s:%s@%s:%s/%s',
         $this->env['DATABASE_USERNAME'],
         urlencode($this->env['DATABASE_PASSWORD']),
         $this->env['DATABASE_HOST'],
@@ -251,7 +253,7 @@ class RoboFile extends RoboTasks {
    * @aliases imc
    */
   public function importConfig() {
-    $this->taskDrushStack($this->binDir . '/drush')
+    $this->taskDrushStack($this->getDrushPath())
       ->exec('cr')
       ->exec('cache-clear drush')
       ->exec('updb')
@@ -268,7 +270,7 @@ class RoboFile extends RoboTasks {
    * @aliases exc
    */
   public function exportConfig() {
-    $this->taskDrushStack($this->binDir . '/drush')
+    $this->taskDrushStack($this->getDrushPath())
       ->exec('cr')
       ->exec('cache-clear drush')
       ->exec('cex -y')
@@ -277,9 +279,9 @@ class RoboFile extends RoboTasks {
   }
 
   /**
-   *
+   * Is Drupal instance installed.
    */
-  private function isInstalled() {
+  protected function isInstalled() {
 
     // Ensure the symlinks are in place.
     $this->initSymlinks();
@@ -292,7 +294,8 @@ class RoboFile extends RoboTasks {
       ->arg('--silent')
       ->arg('--raw')
       ->arg('--skip-column-names')
-      ->option('execute', "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = \"{$this->env['DATABASE_NAME']}\"")
+      ->option('execute',
+        "SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = \"{$this->env['DATABASE_NAME']}\"")
       ->silent(TRUE)
       ->printOutput(FALSE)
       ->run()
@@ -321,7 +324,7 @@ class RoboFile extends RoboTasks {
         'DATABASE_PREFIX' => 'database.prefix',
       ];
 
-      $content = "";
+      $content = '';
 
       if ($options['type'] == 'docker') {
         $content .= "USER_ID={$this->config->get('id.user')}\n";
@@ -331,13 +334,17 @@ class RoboFile extends RoboTasks {
 
       foreach ($settings as $key => $setting) {
         // We need the env vars on docker and other local environments.
-        if (!getenv('EFS_MOUNT_DIR'))
+        if (!getenv('EFS_MOUNT_DIR')) {
           $content .= "$key={$this->config->get($setting)}\n";
+        }
         // Don't override existing environment variables on aws.
-        elseif (getenv('EFS_MOUNT_DIR') && !getenv($key))
+        elseif (getenv('EFS_MOUNT_DIR') && !getenv($key)) {
           $content .= "$key={$this->config->get($setting)}\n";
-        else
-          $this->statusMessage("Environment variable \"${key}\" already exists, skipping...", "warn");
+        }
+        else {
+          $this->statusMessage("Environment variable \"${key}\" already exists, skipping...",
+            'warn');
+        }
       }
       if (!empty($content)) {
         $this->taskWriteToFile($file)->text($content)->run()->getMessage();
@@ -356,18 +363,17 @@ class RoboFile extends RoboTasks {
    * @aliases rs
    */
   public function rewriteSettings() {
-    require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
-    require_once $this->drupalRoot . '/core/includes/install.inc';
+    require_once "{$this->drupalRoot}/core/includes/bootstrap.inc";
+    require_once "{$this->drupalRoot}/core/includes/install.inc";
 
-    $source_folder = $this->projectRoot . '/resources/files';
-    $target_folder = $this->drupalRoot . '/sites/default';
-    $settings_folder = $this->getLocalSettingsFolder();
+    $settings_file = $this->getLocalSettingsFile();
+    $local_settings_file = $this->getLocalSettingsLocalFile();
 
     // Unlock the sites/default folder and settings file.
-    $this->fs->chmod($this->drupalRoot . '/sites/default', 0775);
-    $this->fs->chmod($this->drupalRoot . '/sites/default/settings.php', 0775);
-    if (file_exists($settings_folder . '/settings.local.php')) {
-      $this->fs->chmod($settings_folder . '/settings.local.php', 0777);
+    $this->fs->chmod($this->getSiteDefaultFolder(), 0775);
+    $this->fs->chmod($this->getSiteSettingsFile(), 0775);
+    if (file_exists($local_settings_file)) {
+      $this->fs->chmod($local_settings_file, 0777);
     }
 
     // Initialize Settings.
@@ -376,47 +382,49 @@ class RoboFile extends RoboTasks {
 
     if (!empty($hash)) {
       // Overwrite the settings.file.
-      $this->fs->remove($this->drupalRoot . '/sites/default/settings.php');
-      $this->_copy($source_folder . '/settings.php', $settings_folder . '/settings.php');
+      $this->fs->remove($this->getSiteSettingsFile());
+      $this->_copy($this->getResourceSettingsFile(), $settings_file);
 
       // Re-add the hash_salt to settings.php
       $settings['settings']['hash_salt'] = (object) [
-        'value'    => $hash,
+        'value' => $hash,
         'required' => TRUE,
       ];
 
-      drupal_rewrite_settings($settings, $settings_folder . '/settings.php');
+      $this->fs->chmod($settings_file, 0777);
+      drupal_rewrite_settings($settings, $settings_file);
     }
 
     // Write local settings if a file doesn't exist.
-    if (!file_exists($settings_folder . '/settings.local.php')) {
-      $this->_copy($source_folder . '/settings.local.php', $settings_folder . '/settings.local.php');
+    if (!file_exists($local_settings_file)) {
+      $this->_copy($this->getResourceLocalSettingsFile(), $local_settings_file);
       // Add the hash_salt copied from settings.php to settings.local.php
       if (!empty($settings)) {
-        drupal_rewrite_settings($settings, $settings_folder . '/settings.local.php');
+        $this->fs->chmod($local_settings_file, 0777);
+        drupal_rewrite_settings($settings, $local_settings_file);
       }
       // Write additional environment settings.
       $this->setCustomConfig();
     }
 
     // Reset the permissions to the proper state.
-    $this->fs->chmod($this->drupalRoot . '/sites/default', 0555);
-    $this->fs->chmod($settings_folder. '/settings.php', 0444);
-    $this->fs->chmod($settings_folder. '/settings.local.php', 0444);
+    $this->fs->chmod($this->getSiteDefaultFolder(), 0555);
+    $this->fs->chmod($settings_file, 0444);
+    $this->fs->chmod($local_settings_file, 0444);
   }
 
-  private function isAws() {
-    return getenv("EFS_MOUNT_DIR") !== FALSE;
+  protected function isAws() {
+    return getenv('EFS_MOUNT_DIR') !== FALSE;
   }
 
   // Define a place for the local settings file.
   // If we're on AWS, place it in the shared folder.
   // Otherwise just place it in the normal location (sites/default).
-  private function getLocalSettingsFolder() {
+  protected function getLocalSettingsFolder() {
     if ($this->isAws()) {
-      return getenv("EFS_MOUNT_DIR");
+      return getenv('EFS_MOUNT_DIR');
     }
-    return $this->drupalRoot . '/sites/default';
+    return $this->getSiteDefaultFolder();
   }
 
   /**
@@ -426,7 +434,7 @@ class RoboFile extends RoboTasks {
    * @aliases ti
    */
   public function themeInstall() {
-    $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
+    $path = $this->getThemePath();
     $this->taskNpmInstall()
       ->dir($path)
       ->run();
@@ -448,11 +456,10 @@ class RoboFile extends RoboTasks {
    * @aliases tw
    */
   public function themeWatch() {
-    $path = $this->drupalRoot . '/' . $this->config->get('theme.path');
     $this->taskExec('npm')
       ->arg('run')
       ->arg('watch')
-      ->dir($path)
+      ->dir($this->getThemePath())
       ->run();
   }
 
@@ -484,6 +491,7 @@ class RoboFile extends RoboTasks {
       $this->say('Running code sniffer...');
       $this->cs($paths);
     }
+
     if (in_array('unit', $op)) {
       $this->say('Running unit tests...');
       $this->put($paths);
@@ -503,8 +511,7 @@ class RoboFile extends RoboTasks {
    * @aliases put
    */
   public function put(array $paths) {
-    $this
-      ->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
+    $this->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
       ->run();
   }
 
@@ -540,8 +547,13 @@ class RoboFile extends RoboTasks {
     };
   }
 
-  public function userLogin($options = ['uid|u' => "1"]) {
-    $loginUrl = $this->taskExec($this->binDir . '/drush')
+  /**
+   * Login user.
+   *
+   * @param array $options
+   */
+  public function userLogin($options = ['uid|u' => '1']) {
+    $loginUrl = $this->taskExec($this->getDrushPath())
       ->arg('uli')
       ->option('--uri', $this->config->get('project.url'), '=')
       ->option('--root', $this->drupalRoot, '=')
@@ -555,8 +567,13 @@ class RoboFile extends RoboTasks {
 
   }
 
+  /**
+   * Rebuild cache.
+   *
+   * @throws \Robo\Exception\TaskException
+   */
   public function cacheRebuild() {
-    $this->taskDrushStack($this->binDir . '/drush')
+    $this->taskDrushStack($this->getDrushPath())
       ->drush('cache-rebuild')
       ->arg("--root={$this->drupalRoot}")
       ->silent(TRUE)
@@ -590,20 +607,20 @@ class RoboFile extends RoboTasks {
    * @aliases pscc
    */
   public function setCustomConfig($target_file = 'settings.local.php') {
-    $environment = getenv("ENVIRONMENT") ?? $this->config->get('project.environment');
-    $settings['settings'] = $this->config->get('environment.' . $environment . '.settings');
+    $environment = getenv('ENVIRONMENT') ?? $this->config->get('project.environment');
+    $settings['settings'] = $this->config->get("environment.$environment.settings");
     if (!empty($settings['settings'])) {
 
-      require_once $this->drupalRoot . '/core/includes/bootstrap.inc';
-      require_once $this->drupalRoot . '/core/includes/install.inc';
+      require_once "{$this->drupalRoot}/core/includes/bootstrap.inc";
+      require_once "{$this->drupalRoot}/core/includes/install.inc";
 
       $settings_folder = $this->getLocalSettingsFolder();
 
       // Initialize Settings.
-      Settings::initialize($this->drupalRoot, $settings_folder, $this->classLoader);
+      Settings::initialize($this->drupalRoot, $settings_folder,$this->classLoader);
       foreach ($settings['settings'] as $key => $setting) {
         if (is_array($setting)) {
-          foreach($setting as $k => $v) {
+          foreach ($setting as $k => $v) {
             $settings['settings'][$key][$k] = (object) [
               'value' => $v,
               'required' => TRUE,
@@ -618,7 +635,7 @@ class RoboFile extends RoboTasks {
         }
       }
 
-      drupal_rewrite_settings($settings, $settings_folder . '/' . $target_file);
+      drupal_rewrite_settings($settings, "$settings_folder/$target_file");
     }
     else {
       $this->say('No custom settings to add.');
@@ -628,7 +645,7 @@ class RoboFile extends RoboTasks {
   /**
    * Print a prettiefied message.
    */
-  private function statusMessage($text, $type) {
+  protected function statusMessage($text, $type) {
     $color_reset = "\033[0m";
     switch ($type) {
 
@@ -646,4 +663,94 @@ class RoboFile extends RoboTasks {
     }
     $this->say($color . $text . $color_reset);
   }
+
+  /**
+   * Gets Drush path.
+   *
+   * @return string
+   *   Drush path.
+   */
+  protected function getDrushPath() {
+    return "{$this->binDir}/drush";
+  }
+
+  /**
+   * Gets the theme path.
+   *
+   * @return string
+   */
+  protected function getThemePath() {
+    return "{$this->drupalRoot}/{$this->config->get('theme.path')}";
+  }
+
+  /**
+   * Gets site default folder.
+   *
+   * @return string
+   */
+  protected function getSiteDefaultFolder() {
+    return "{$this->drupalRoot}/sites/default";
+  }
+
+  /**
+   * Gets the default files folder.
+   *
+   * @return string
+   */
+  protected function getSiteDefaultFilesFolder() {
+    return "{$this->getSiteDefaultFolder()}/files";
+  }
+
+  /**
+   * Gets resource files folder.
+   *
+   * @return string
+   */
+  protected function getResourceFilesFolder() {
+    return "{$this->projectRoot}/resources/files";
+  }
+
+  /**
+   * @return string
+   */
+  protected function getResourceSettingsFile() {
+    return "{$this->getResourceFilesFolder()}/settings.php";
+  }
+
+  /**
+   * Gets settings.local.php file for the default folder.
+   *
+   * @return string
+   */
+  protected function getResourceLocalSettingsFile() {
+    return "{$this->getResourceFilesFolder()}/settings.local.php";
+  }
+
+  /**
+   * Gets settings.php file for the default folder.
+   *
+   * @return string
+   */
+  protected function getSiteSettingsFile() {
+    return "{$this->getSiteDefaultFilesFolder()}/settings.php";
+  }
+
+  /**
+   * Gets settings.local.php file for the local settings folder.
+   *
+   * @return string
+   */
+  protected function getLocalSettingsLocalFile() {
+    return "{$this->getLocalSettingsFolder()}/settings.local.php";
+  }
+
+  /**
+   * Gets settings.php file for the local settings folder.
+   *
+   * @return string
+   */
+  protected function getLocalSettingsFile() {
+    return "{$this->getLocalSettingsFolder()}/settings.php";
+  }
+
 }

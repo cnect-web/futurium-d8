@@ -9,3 +9,7 @@ manage group collections:
   title: 'Manage group collections'
   description: 'Allows to manage group collections.'
   restrict access: TRUE
+
+access group overview:
+  title: 'Access group overview'
+  description: 'Allows to access group overview page.'

@@ -1,0 +1,27 @@
+fut_group.add_collection:
+  route_name: 'fut_group.add_collection'
+  title: 'Add Collection'
+  appears_on:
+    - 'fut_group.manage_group_content.collections'
+
+
+fut_group.group_node_add:
+  deriver: '\Drupal\fut_group\Plugin\Derivative\GroupAddContentLocalTasks'
+  appears_on:
+    - 'fut_group.manage_group_content'
+
+# FOR NOW THIS ISN'T NEEDED (no user will create subgroups)
+# fut_group.subgroup_add_page:
+#   route_name: 'entity.group_content.subgroup_add_page'
+#   title: 'Create subgroup'
+#   appears_on:
+#     - 'fut_group.manage_group_content.subgroups'
+
+fut_group.group_add_member:
+  route_name: 'entity.group_content.add_form'
+  route_parameters:
+    plugin_id: 'group_membership'
+  class: '\Drupal\group\Plugin\Menu\LocalAction\WithDestination'
+  title: 'Add member'
+  appears_on:
+    - 'fut_group.manage_group.members'

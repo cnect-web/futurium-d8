@@ -24,7 +24,7 @@ class MediaExtractor {
    * @throws \Drupal\Core\TypedData\Exception\MissingDataException
    */
   public function getImageFromMedia(MediaInterface $media_entity, $image_style = 'fut_default_thumbnail') {
-
+    $image = NULL;
     if ($img_entity_list = $media_entity->get('field_media_image')) {
       if ($img_entity = $img_entity_list->first()) {
         if ($file_entity = $img_entity->get('entity')->getTarget()) {
@@ -40,11 +40,11 @@ class MediaExtractor {
             'src' => $image_src,
             'alt' => $alt,
           ];
-
-          return $image;
         }
       }
     }
+
+    return $image;
   }
 
 }
