@@ -90,16 +90,19 @@ fut_group.manage_group_content.library:
     _admin_route: TRUE
 
 fut_group.manage_group_content.collections:
-  path: '/group/{group}/manage/group-content/collections'
+  path: '/group/{group}/manage/group-content/collections/{collection}'
   defaults:
     _controller: '\Drupal\fut_group\Controller\GroupPageController::groupCollections'
     _title: 'Group collections'
+    collection: false
   requirements:
     _group_permission: 'manage group collections'
   options:
     parameters:
       group:
         type: 'entity:group'
+      collection:
+        type: 'collection'
     _admin_route: TRUE
 
 fut_group.manage_group_content.subgroups:

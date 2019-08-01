@@ -157,20 +157,44 @@ class GroupPageController extends ControllerBase {
    *
    * @param Drupal\group\Entity\Group $group
    *   The current group.
-   *
+   * @param mixed $collection
+   *   Collection Term ID or false (routing default).
    * @return array
    *   The renderable array.
    */
-  public function groupCollections(Group $group) {
+  public function groupCollections(Group $group, $collection) {
+    $collection_term = $this->entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'fut_collections', 'tid' => $collection]);
+    $collection_term = reset($collection_term);
+
+    $pots_collection_display = ($collection_term) ? 'block_contextual_collection' : 'block_no_collection';
+
+    $collections_list_title = $this->t('Collection List');
+    $posts_colletion_title =  ($collection_term) ? $this->t('@collection Posts',['@collection' => $collection_term->label()]) : $this->t('Posts with no collection');
+
     return [
-      'view' => [
+      'collection_list' => [
+        '#markup' => '<div class="collection-list-title">'. $collections_list_title .'</div>',
         '#type' => 'view',
+        '#title' => 'test',
         '#name' => 'fut_collections',
         '#display_id' => 'default',
         '#arguments' => [
           $group->id(),
         ],
       ],
+
+      'posts_collection' => [
+        '#markup' => '<div class="posts-collection-title">'. $posts_colletion_title .'</div>',
+        '#type' => 'view',
+        '#name' => 'fut_group_posts_collection',
+        '#display_id' => $pots_collection_display,
+        '#arguments' => [
+          $group->id(),
+          $collection
+        ],
+      ],
+
+
     ];
   }
 
