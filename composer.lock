@@ -382,13 +382,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/horaciolopesqq/installers",
-                "reference": "64dae6b068b645816500c195a5617e3a2f674daa"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/horaciolopesqq/installers/zipball/64dae6b068b645816500c195a5617e3a2f674daa",
-                "reference": "64dae6b068b645816500c195a5617e3a2f674daa",
-                "shasum": ""
+                "reference": "dc9b55e810bd29cc4f67071dd83fff7768bfc0e1"
             },
             "require": {
                 "composer-plugin-api": "^1.0"
@@ -499,10 +493,7 @@
                 "shopware",
                 "symfony"
             ],
-            "support": {
-                "source": "https://github.com/horaciolopesqq/installers/tree/v1.6.0"
-            },
-            "time": "2019-07-02T11:41:01+00:00"
+            "time": "2015-11-09T18:16:26+00:00"
         },
         {
             "name": "composer/semver",
