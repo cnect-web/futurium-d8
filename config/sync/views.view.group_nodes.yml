@@ -932,7 +932,7 @@ display:
       display_extenders: {  }
       path: group/%group/nodes
       menu:
-        type: tab
+        type: none
         title: Nodes
         description: ''
         expanded: false
@@ -940,8 +940,7 @@ display:
         weight: 25
         context: '0'
         menu_name: main
-        enabled: true
-      enabled: false
+      enabled: true
     cache_metadata:
       max-age: -1
       contexts:

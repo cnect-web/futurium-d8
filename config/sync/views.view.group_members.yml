@@ -719,7 +719,7 @@ display:
       display_extenders: {  }
       path: group/%group/members
       menu:
-        type: tab
+        type: none
         title: Members
         description: ''
         expanded: false
@@ -727,8 +727,7 @@ display:
         weight: 20
         context: '0'
         menu_name: main
-        enabled: true
-      enabled: false
+      enabled: true
     cache_metadata:
       max-age: -1
       contexts:
