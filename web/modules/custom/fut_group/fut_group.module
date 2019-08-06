@@ -150,7 +150,7 @@ function _fut_group_get_group_options() {
     $query->condition('fut_related_group', $group->id());
     $collection_items = Term::loadMultiple($query->execute());
     if ($collection_items) {
-      $options['0'] = t('- None -');
+      $options['_none'] = t('- None -');
       foreach ($collection_items as $collection_item) {
         $options[$collection_item->id()] = $collection_item->getName();
       }
