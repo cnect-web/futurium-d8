@@ -80,24 +80,25 @@ function fut_group_views_data_alter(array &$data) {
 }
 
 /**
- * Implements hook_group_insert().
+ * Implements hook_group_presave().
  */
-function fut_group_group_insert(Group $group) {
+function fut_group_group_presave(Group $group) {
   // Add default about navigation item.
   // @see #61
-  $paragraph = Paragraph::create([
-    'type' => 'fut_functional_navigation_link',
-    'fut_predefined_link' => 'about',
-  ]);
-  $paragraph->save();
+  if (empty($group->get('fut_navigation_menu')->referencedEntities())) {
+    $paragraph = Paragraph::create([
+      'type' => 'fut_functional_navigation_link',
+      'fut_predefined_link' => 'about',
+    ]);
+    $paragraph->save();
 
-  $group->fut_navigation_menu = [
-    [
-      'target_id' => $paragraph->id(),
-      'target_revision_id' => $paragraph->getRevisionId(),
-    ],
-  ];
-  $group->save();
+    $group->fut_navigation_menu = [
+      [
+        'target_id' => $paragraph->id(),
+        'target_revision_id' => $paragraph->getRevisionId(),
+      ],
+    ];
+  }
 }
 
 /**
