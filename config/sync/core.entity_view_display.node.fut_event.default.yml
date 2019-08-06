@@ -22,6 +22,7 @@ third_party_settings:
   field_group:
     group_meta_data:
       children:
+        - fut_event_date
         - fut_event_registration_url
         - fut_event_address
         - extra_field_event_map
@@ -45,7 +46,7 @@ bundle: fut_event
 mode: default
 content:
   extra_field_event_map:
-    weight: 7
+    weight: 3
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -59,7 +60,7 @@ content:
     type: entity_reference_revisions_entity_view
     region: content
   fut_event_address:
-    weight: 6
+    weight: 2
     label: above
     settings: {  }
     third_party_settings: {  }
@@ -76,7 +77,7 @@ content:
     type: daterange_default
     region: content
   fut_event_registration_url:
-    weight: 5
+    weight: 1
     label: above
     settings:
       trim_length: 80
