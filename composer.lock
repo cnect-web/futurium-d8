@@ -12242,12 +12242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/fut_sample_content.git",
-                "reference": "f2caa22d03f777aa7a564042b8cdd2e47ded35bd"
+                "reference": "ddead498cf9e9812374d27c21bf0186dfee97b9b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/f2caa22d03f777aa7a564042b8cdd2e47ded35bd",
-                "reference": "f2caa22d03f777aa7a564042b8cdd2e47ded35bd",
+                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/ddead498cf9e9812374d27c21bf0186dfee97b9b",
+                "reference": "ddead498cf9e9812374d27c21bf0186dfee97b9b",
                 "shasum": ""
             },
             "require": {
