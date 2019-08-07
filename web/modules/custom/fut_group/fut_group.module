@@ -85,7 +85,7 @@ function fut_group_views_data_alter(array &$data) {
 function fut_group_group_presave(Group $group) {
   // Add default about navigation item.
   // @see #61
-  if (empty($group->get('fut_navigation_menu')->referencedEntities())) {
+  if ($group->isNew() && empty($group->get('fut_navigation_menu')->referencedEntities())) {
     $paragraph = Paragraph::create([
       'type' => 'fut_functional_navigation_link',
       'fut_predefined_link' => 'about',
