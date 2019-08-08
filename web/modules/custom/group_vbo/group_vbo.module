@@ -1,0 +1,38 @@
+<?php
+
+/**
+ * @file
+ * Contains group_vbo.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function group_vbo_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the group_vbo module.
+    case 'help.page.group_vbo':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Group VBO provides a View field plugin and routes group aware.') . '</p>';
+      return $output;
+
+    default:
+  }
+}
+
+
+/**
+ * Implements hook_views_data_alter().
+ */
+function group_vbo_views_data_alter(array &$data) {
+    $data['views']['group_vbo_bulk_form'] = [
+      'title' => t('Group views bulk operations'),
+      'help' => t("Process entities returned by the view with Views Bulk Operations' actions."),
+      'field' => [
+        'id' => 'group_vbo_bulk_form',
+      ],
+    ];
+  }

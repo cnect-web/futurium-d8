@@ -109,7 +109,7 @@ class GroupPageController extends ControllerBase {
   }
 
   /**
-   * Display view "group_nodes".
+   * Display view "fut_group_posts_management".
    *
    * @param Drupal\group\Entity\Group $group
    *   The current group.
@@ -117,11 +117,33 @@ class GroupPageController extends ControllerBase {
    * @return array
    *   The renderable array.
    */
-  public function groupContent(Group $group) {
+  public function groupPosts(Group $group) {
     return [
       'view' => [
         '#type' => 'view',
-        '#name' => 'group_nodes',
+        '#name' => 'fut_group_posts_management',
+        '#display_id' => 'default',
+        '#arguments' => [
+          $group->id(),
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Display view "fut_group_events_management".
+   *
+   * @param Drupal\group\Entity\Group $group
+   *   The current group.
+   *
+   * @return array
+   *   The renderable array.
+   */
+  public function groupEvents(Group $group) {
+    return [
+      'view' => [
+        '#type' => 'view',
+        '#name' => 'fut_group_events_management',
         '#display_id' => 'default',
         '#arguments' => [
           $group->id(),
@@ -182,19 +204,6 @@ class GroupPageController extends ControllerBase {
           $group->id(),
         ],
       ],
-
-      'posts_collection' => [
-        '#markup' => '<div class="posts-collection-title">'. $posts_colletion_title .'</div>',
-        '#type' => 'view',
-        '#name' => 'fut_group_posts_collection',
-        '#display_id' => $pots_collection_display,
-        '#arguments' => [
-          $group->id(),
-          $collection
-        ],
-      ],
-
-
     ];
   }
 

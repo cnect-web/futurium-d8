@@ -1,0 +1,8 @@
+name: 'group_vbo'
+type: module
+description: 'Provides a View field plugin and routes group aware.'
+core: 8.x
+package: 'Views'
+dependencies:
+  - drupal:views_bulk_operations
+  - drupal:group

@@ -8,7 +8,8 @@ fut_group.add_collection:
 fut_group.group_node_add:
   deriver: '\Drupal\fut_group\Plugin\Derivative\GroupAddContentLocalTasks'
   appears_on:
-    - 'fut_group.manage_group_content'
+    - 'fut_group.manage_group_content.posts'
+    - 'fut_group.manage_group_content.events'
 
 # FOR NOW THIS ISN'T NEEDED (no user will create subgroups)
 # fut_group.subgroup_add_page:

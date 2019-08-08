@@ -18,6 +18,7 @@ use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\paragraphs\Entity\Paragraph;
 use Drupal\Core\Form\FormState;
+use Drupal\Core\Render\Markup;
 
 /**
  * Implements hook_help().
@@ -377,3 +378,38 @@ function _fut_group_check_permissions_by_collection($op, $collection_id, Group $
   return FALSE;
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fut_group_form_views_exposed_form_alter(&$form, FormStateInterface $form_state, $form_id){
+
+  // Hacky solution to filter posts per specific collection / any / none.
+  if ($form['#id'] == 'views-exposed-form-fut-group-posts-management-default') {
+    // Remove operator title.
+    unset($form['fut_collection_target_id_op']['#title']);
+    // Remove unnessessary options from operetor field.
+    $form['fut_collection_target_id_op']['#options'] = array_intersect_key($form['fut_collection_target_id_op']['#options'], array_flip(['or','empty']));
+
+    // Apply better wordign for operator.
+    $form['fut_collection_target_id_op']['#options']['or'] = \Drupal::translation()->translate('has collection');
+    $form['fut_collection_target_id_op']['#options']['empty'] = \Drupal::translation()->translate('no collection');
+
+
+    // show fut_collection_target_id only when correct operator is selected.
+    $form['fut_collection_target_id']['#states'] = [
+      'visible' => [
+        ':input[name="fut_collection_target_id_op"]' => ['value' => 'or'],
+      ],
+    ];
+
+    $form['fut_colletion_exposed_filter'] = [
+      '#type' => 'fieldset',
+      '#title' => \Drupal::translation()->translate('Collection'),
+      'fut_collection_target_id_op' => $form['fut_collection_target_id_op'],
+      'fut_collection_target_id' => $form['fut_collection_target_id'],
+    ];
+    // Remove original form elements.
+    unset($form['fut_collection_target_id_op']);
+    unset($form['fut_collection_target_id']);
+  }
+}
