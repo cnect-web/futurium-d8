@@ -378,3 +378,10 @@ function _fut_group_check_permissions_by_collection($op, $collection_id, Group $
   return FALSE;
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fut_group_form_group_fut_open_add_form_alter(&$form, $form_state, $form_id) {
+  // Change create group button.
+  $form['actions']['submit']['#value'] = t("Create Group");
+}
