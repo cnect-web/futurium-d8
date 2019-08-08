@@ -43,9 +43,6 @@ class ConfigureGroupAction extends ConfigureAction {
    */
   protected $routeMatch;
 
-
-
-
   /**
    * Constructor.
    *
@@ -70,9 +67,6 @@ class ConfigureGroupAction extends ConfigureAction {
     $this->routeMatch = $route_match;
 
   }
-
-
-
 
   /**
    * {@inheritdoc}

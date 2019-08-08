@@ -2,7 +2,6 @@
 
 namespace Drupal\group_vbo\Plugin\views\field;
 
-
 use Drupal\Core\Form\FormStateInterface;
 
 use Drupal\views_bulk_operations\Plugin\views\field\ViewsBulkOperationsBulkForm;
@@ -15,7 +14,6 @@ use Drupal\views_bulk_operations\Plugin\views\field\ViewsBulkOperationsBulkForm;
  * @ViewsField("group_vbo_bulk_form")
  */
 class GroupViewsBulkOperationsBulkForm extends ViewsBulkOperationsBulkForm {
-
 
   /**
    * Submit handler for the bulk form.
@@ -106,8 +104,6 @@ class GroupViewsBulkOperationsBulkForm extends ViewsBulkOperationsBulkForm {
       // Redirect if needed.
       if (!empty($redirect_route)) {
         $this->setTempstoreData($this->tempStoreData);
-
-
 
         $form_state->setRedirect($redirect_route, [
           'group' => $this->view->argument['gid']->value[0],

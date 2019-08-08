@@ -179,19 +179,12 @@ class GroupPageController extends ControllerBase {
    *
    * @param Drupal\group\Entity\Group $group
    *   The current group.
-   * @param mixed $collection
-   *   Collection Term ID or false (routing default).
+   *
    * @return array
    *   The renderable array.
    */
-  public function groupCollections(Group $group, $collection) {
-    $collection_term = $this->entityTypeManager()->getStorage('taxonomy_term')->loadByProperties(['vid' => 'fut_collections', 'tid' => $collection]);
-    $collection_term = reset($collection_term);
-
-    $pots_collection_display = ($collection_term) ? 'block_contextual_collection' : 'block_no_collection';
-
+  public function groupCollections(Group $group) {
     $collections_list_title = $this->t('Collection List');
-    $posts_colletion_title =  ($collection_term) ? $this->t('@collection Posts',['@collection' => $collection_term->label()]) : $this->t('Posts with no collection');
 
     return [
       'collection_list' => [
