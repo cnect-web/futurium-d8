@@ -4,6 +4,7 @@ namespace Drupal\fut_group\Controller;
 
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\group\Entity\Group;
+use Drupal\group\Entity\GroupInterface;
 use Drupal\taxonomy\Entity\Term;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
@@ -279,6 +280,25 @@ class GroupPageController extends ControllerBase {
         ],
       ],
     ];
+  }
+
+  /**
+   * Title callback for group add content pages.
+   *
+   * @param Drupal\group\Entity\Group $group
+   *   The current group.
+   *
+   * @return array
+   *   The renderable array.
+   */
+  public function addContentPageTitle(GroupInterface $group, $plugin_id) {
+    $plugin = $group->getGroupType()->getContentPlugin($plugin_id);
+    $nt = node_type_load($plugin->getEntityBundle());
+
+    return $this->t("@group_name: New @content_type",[
+      '@content_type' => $nt->label(),
+      '@group_name' => $group->label()
+    ]);
   }
 
 }

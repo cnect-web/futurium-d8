@@ -15,6 +15,10 @@ class RouteSubscriber extends RouteSubscriberBase {
    */
   protected function alterRoutes(RouteCollection $collection) {
 
+    if ($route = $collection->get('entity.group_content.create_form')) {
+      $route->setDefault('_title_callback', '\Drupal\fut_group\Controller\GroupPageController::addContentPageTitle');
+    }
+
     if ($route = $collection->get('view.fut_group_posts.page_group_posts')) {
       // Allow the views to have an optional argument.
       $route->setDefault('collection', 'all');
