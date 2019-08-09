@@ -293,7 +293,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.dgcnect.eu/web-team/blellow-d8-theme",
-                "reference": "e6856ea47c391b383c06701ac870eca3a3767d8c"
+                "reference": "faaabbfa3a9f04a38acdd3fb1485fb8b51e77720"
             },
             "require": {
                 "drupal/components": "^1.0",
@@ -12242,12 +12242,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/fut_sample_content.git",
-                "reference": "ddead498cf9e9812374d27c21bf0186dfee97b9b"
+                "reference": "25e7d0cd74c1f45ff4bb2927e61092b83e04c0c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/ddead498cf9e9812374d27c21bf0186dfee97b9b",
-                "reference": "ddead498cf9e9812374d27c21bf0186dfee97b9b",
+                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/25e7d0cd74c1f45ff4bb2927e61092b83e04c0c1",
+                "reference": "25e7d0cd74c1f45ff4bb2927e61092b83e04c0c1",
                 "shasum": ""
             },
             "require": {
