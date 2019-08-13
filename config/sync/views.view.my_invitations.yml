@@ -768,7 +768,7 @@ display:
       display_extenders: {  }
       path: user/%user/invitations
       menu:
-        type: none
+        type: tab
         title: 'My Invitations'
         description: 'User invitations to Groups'
         expanded: false
