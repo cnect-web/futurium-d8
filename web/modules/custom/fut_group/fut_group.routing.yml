@@ -179,3 +179,16 @@ fut_group.manage_group.member_requests:
       group:
         type: 'entity:group'
     _admin_route: TRUE
+
+fut_group.manage_group.member_invitations:
+  path: '/group/{group}/manage/group/invitations'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupInvitations'
+    _title: 'Manage Group Invitations'
+  requirements:
+    _group_permission: 'administer members'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE

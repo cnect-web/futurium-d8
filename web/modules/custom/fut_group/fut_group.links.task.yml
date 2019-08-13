@@ -83,3 +83,11 @@ fut_group.manage_group.member_requests:
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 40
+
+fut_group.manage_group.member_invitations:
+  route_name: 'fut_group.manage_group.member_invitations'
+  title: 'Manage Member Invitations'
+  description: 'Mange Member Invitations'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group'
+  weight: 50
