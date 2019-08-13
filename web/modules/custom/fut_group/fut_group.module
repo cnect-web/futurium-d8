@@ -376,4 +376,3 @@ function _fut_group_check_permissions_by_collection($op, $collection_id, Group $
 
   return FALSE;
 }
-
