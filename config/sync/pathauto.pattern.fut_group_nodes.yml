@@ -7,9 +7,9 @@ dependencies:
 id: fut_group_nodes
 label: 'Group nodes'
 type: 'canonical_entities:node'
-pattern: '[node:group:url]/content/[node:title]'
+pattern: '[node:group:url:path]/content/[node:title]'
 selection_criteria:
-  d0eea0a9-9d0b-4c7a-9db9-c983f3cd7581:
+  ea3bae6e-2861-4333-bbbc-7d0dcd917721:
     id: node_type
     bundles:
       fut_event: fut_event
@@ -17,7 +17,7 @@ selection_criteria:
     negate: false
     context_mapping:
       node: node
-    uuid: d0eea0a9-9d0b-4c7a-9db9-c983f3cd7581
+    uuid: ea3bae6e-2861-4333-bbbc-7d0dcd917721
 selection_logic: and
 weight: -5
 relationships: {  }
