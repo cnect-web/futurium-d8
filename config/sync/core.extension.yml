@@ -46,6 +46,7 @@ module:
   geocoder_geofield: 0
   geofield: 0
   ggroup: 0
+  ginvite: 0
   gnode: 0
   group: 0
   group_vbo: 0

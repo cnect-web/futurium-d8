@@ -307,4 +307,26 @@ class GroupPageController extends ControllerBase {
     ];
   }
 
+  /**
+   * Display view "group_invitations".
+   *
+   * @param Drupal\group\Entity\Group $group
+   *   The current group.
+   *
+   * @return array
+   *   The renderable array.
+   */
+  public function groupInvitations(Group $group) {
+    return [
+      'view' => [
+        '#type' => 'view',
+        '#name' => 'group_invitations',
+        '#display_id' => 'default',
+        '#arguments' => [
+          $group->id(),
+        ],
+      ],
+    ];
+  }
+
 }
