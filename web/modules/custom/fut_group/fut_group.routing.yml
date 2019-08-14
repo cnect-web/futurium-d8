@@ -63,10 +63,23 @@ fut_group.delete_collection:
       term:
         type: 'entity:taxonomy_term'
 
-fut_group.manage_group_content:
-  path: '/group/{group}/manage/group-content'
+fut_group.manage_group_content.posts:
+  path: '/group/{group}/manage/group-content/posts'
   defaults:
-    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupContent'
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupPosts'
+    _title: 'Group Content'
+  requirements:
+    _group_permission: 'Access group node overview'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group_content.events:
+  path: '/group/{group}/manage/group-content/events'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupEvents'
     _title: 'Group Content'
   requirements:
     _group_permission: 'Access group node overview'
@@ -172,6 +185,19 @@ fut_group.manage_group.member_requests:
   defaults:
     _controller: '\Drupal\fut_group\Controller\GroupPageController::groupRequests'
     _title: 'Manage Group Requests'
+  requirements:
+    _group_permission: 'administer members'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group.member_invitations:
+  path: '/group/{group}/manage/group/invitations'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupInvitations'
+    _title: 'Manage Group Invitations'
   requirements:
     _group_permission: 'administer members'
   options:

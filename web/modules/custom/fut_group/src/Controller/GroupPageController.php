@@ -109,7 +109,7 @@ class GroupPageController extends ControllerBase {
   }
 
   /**
-   * Display view "group_nodes".
+   * Display view "fut_group_posts_management".
    *
    * @param Drupal\group\Entity\Group $group
    *   The current group.
@@ -117,11 +117,33 @@ class GroupPageController extends ControllerBase {
    * @return array
    *   The renderable array.
    */
-  public function groupContent(Group $group) {
+  public function groupPosts(Group $group) {
     return [
       'view' => [
         '#type' => 'view',
-        '#name' => 'group_nodes',
+        '#name' => 'fut_group_posts_management',
+        '#display_id' => 'default',
+        '#arguments' => [
+          $group->id(),
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Display view "fut_group_events_management".
+   *
+   * @param Drupal\group\Entity\Group $group
+   *   The current group.
+   *
+   * @return array
+   *   The renderable array.
+   */
+  public function groupEvents(Group $group) {
+    return [
+      'view' => [
+        '#type' => 'view',
+        '#name' => 'fut_group_events_management',
         '#display_id' => 'default',
         '#arguments' => [
           $group->id(),
@@ -162,9 +184,13 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupCollections(Group $group) {
+    $collections_list_title = $this->t('Collection List');
+
     return [
-      'view' => [
+      'collection_list' => [
+        '#markup' => '<div class="collection-list-title">'. $collections_list_title .'</div>',
         '#type' => 'view',
+        '#title' => 'test',
         '#name' => 'fut_collections',
         '#display_id' => 'default',
         '#arguments' => [
@@ -273,6 +299,28 @@ class GroupPageController extends ControllerBase {
       'view' => [
         '#type' => 'view',
         '#name' => 'group_pending_members',
+        '#display_id' => 'default',
+        '#arguments' => [
+          $group->id(),
+        ],
+      ],
+    ];
+  }
+
+  /**
+   * Display view "group_invitations".
+   *
+   * @param Drupal\group\Entity\Group $group
+   *   The current group.
+   *
+   * @return array
+   *   The renderable array.
+   */
+  public function groupInvitations(Group $group) {
+    return [
+      'view' => [
+        '#type' => 'view',
+        '#name' => 'group_invitations',
         '#display_id' => 'default',
         '#arguments' => [
           $group->id(),

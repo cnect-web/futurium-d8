@@ -1,0 +1,40 @@
+uuid: 43af4865-355b-4a75-8a54-5562dcb1ce2b
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.group_content.fut_open-group_invitation.group_roles
+    - field.field.group_content.fut_open-group_invitation.invitation_status
+    - field.field.group_content.fut_open-group_invitation.invitee_mail
+    - group.content_type.fut_open-group_invitation
+id: group_content.fut_open-group_invitation.default
+targetEntityType: group_content
+bundle: fut_open-group_invitation
+mode: default
+content:
+  group_roles:
+    type: options_buttons
+    weight: 31
+    settings: {  }
+    third_party_settings: {  }
+    region: content
+  invitee_mail:
+    type: email_default
+    weight: -1
+    settings:
+      placeholder: example@example.com
+      size: 60
+    third_party_settings: {  }
+    region: content
+  langcode:
+    type: language_select
+    weight: 2
+    region: content
+    settings:
+      include_locked: true
+    third_party_settings: {  }
+hidden:
+  entity_id: true
+  invitation_status: true
+  path: true
+  uid: true
