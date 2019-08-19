@@ -153,6 +153,7 @@ parameters:
     - sftp
     - webcal
     - rtsp
+
    # Configure Cross-Site HTTP requests (CORS).
    # Read https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
    # for more information about the topic in general.
