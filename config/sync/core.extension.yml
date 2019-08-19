@@ -49,6 +49,7 @@ module:
   ginvite: 0
   gnode: 0
   group: 0
+  group_permissions: 0
   group_vbo: 0
   image: 0
   inline_entity_form: 0
