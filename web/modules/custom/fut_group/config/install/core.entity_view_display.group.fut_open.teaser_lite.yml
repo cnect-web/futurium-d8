@@ -2,27 +2,46 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_view_mode.group.teaser_lite
     - field.field.group.fut_open.fut_description
     - field.field.group.fut_open.fut_logo
     - field.field.group.fut_open.fut_navigation_menu
     - field.field.group.fut_open.fut_short_name
     - field.field.group.fut_open.fut_tags
     - group.type.fut_open
-id: group.fut_open.default
+    - image.style.fut_group_logo
+  module:
+    - image
+id: group.fut_open.teaser_lite
 targetEntityType: group
 bundle: fut_open
-mode: default
-content: {  }
+mode: teaser_lite
+content:
+  fut_logo:
+    type: image
+    weight: 1
+    region: content
+    label: hidden
+    settings:
+      image_style: fut_group_logo
+      image_link: ''
+    third_party_settings: {  }
+  label:
+    type: string
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
 hidden:
   changed: true
   created: true
   extra_field_featured_group_featured_content: true
   extra_field_join_group: true
   fut_description: true
-  fut_logo: true
   fut_navigation_menu: true
   fut_short_name: true
   fut_tags: true
-  label: true
   langcode: true
   uid: true

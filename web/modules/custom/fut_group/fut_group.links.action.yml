@@ -5,10 +5,22 @@ fut_group.add_collection:
     - 'fut_group.manage_group_content.collections'
 
 
-fut_group.group_node_add:
-  deriver: '\Drupal\fut_group\Plugin\Derivative\GroupAddContentLocalTasks'
+fut_group.group_node_add.posts:
+  # deriver: '\Drupal\fut_group\Plugin\Derivative\GroupAddContentLocalTasks' ## this might be handy in the future
+  route_name: 'entity.group_content.create_form'
+  group_content_enabler_plugin_id: 'group_node:fut_post'
+  group_content_enabler_plugin_label: 'Post'
+  class: '\Drupal\fut_group\Plugin\Menu\LocalAction\GroupAddNode'
   appears_on:
-    - 'fut_group.manage_group_content'
+    - 'fut_group.manage_group_content.posts'
+
+fut_group.group_node_add.events:
+  route_name: 'entity.group_content.create_form'
+  group_content_enabler_plugin_id: 'group_node:fut_event'
+  group_content_enabler_plugin_label: 'Event'
+  class: '\Drupal\fut_group\Plugin\Menu\LocalAction\GroupAddNode'
+  appears_on:
+    - 'fut_group.manage_group_content.events'
 
 # FOR NOW THIS ISN'T NEEDED (no user will create subgroups)
 # fut_group.subgroup_add_page:
@@ -25,3 +37,13 @@ fut_group.group_add_member:
   title: 'Add member'
   appears_on:
     - 'fut_group.manage_group.members'
+
+fut_group.invite_member:
+  route_name: 'entity.group_content.add_form'
+  route_parameters:
+    plugin_id: 'group_invitation'
+  class: '\Drupal\group\Plugin\Menu\LocalAction\WithDestination'
+  title: 'Invite member'
+  appears_on:
+    - 'fut_group.manage_group.members'
+    - 'fut_group.manage_group.member_invitations'

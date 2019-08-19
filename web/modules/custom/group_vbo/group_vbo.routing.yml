@@ -1,0 +1,49 @@
+group_vbo.views_bulk_operations.execute_batch:
+  path: '/group/{group}/views-bulk-operations/execute/{view_id}/{display_id}'
+  defaults:
+    _controller: '\Drupal\views_bulk_operations\Controller\ViewsBulkOperationsController::execute'
+    _title: 'Views Bulk Operations batch starter'
+  requirements:
+    _views_bulk_operation_access: 'TRUE'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+
+group_vbo.views_bulk_operations.update_selection:
+  path: '/group/{group}/views-bulk-operations/ajax/{view_id}/{display_id}'
+  defaults:
+    _controller: '\Drupal\views_bulk_operations\Controller\ViewsBulkOperationsController::updateSelection'
+    _title: 'Views Bulk Operations multipage AJAX'
+  requirements:
+    _views_bulk_operation_access: 'TRUE'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+
+group_vbo.views_bulk_operations.execute_configurable:
+  path: '/group/{group}/views-bulk-operations/configure/{view_id}/{display_id}'
+  defaults:
+    _form: '\Drupal\group_vbo\Form\ConfigureGroupAction'
+    _title: 'Group Views Bulk Operations configure step'
+  requirements:
+    _views_bulk_operation_access: 'TRUE'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+group_vbo.views_bulk_operations.confirm:
+  path: '/group/{group}/views-bulk-operations/confirm/{view_id}/{display_id}'
+  defaults:
+    _form: '\Drupal\views_bulk_operations\Form\ConfirmAction'
+    _title: 'Views Bulk Operations confirm execution'
+  requirements:
+    _views_bulk_operation_access: 'TRUE'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE

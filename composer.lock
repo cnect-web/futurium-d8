@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2bde81af26e2eb23bedaae2a014ea860",
+    "content-hash": "3d8cdb3e0566644d5a864487776435d1",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -293,7 +293,7 @@
             "source": {
                 "type": "git",
                 "url": "https://gitlab.dgcnect.eu/web-team/blellow-d8-theme",
-                "reference": "a71f1629c115c5c7b4c49c7d9e87a102c55cb6c3"
+                "reference": "faaabbfa3a9f04a38acdd3fb1485fb8b51e77720"
             },
             "require": {
                 "drupal/components": "^1.0",
@@ -306,7 +306,7 @@
                 "EUPL-1.2"
             ],
             "description": "Institutional Look and Feel for D8",
-            "time": "2019-07-12T14:36:27+00:00"
+            "time": "2019-07-31T11:49:30+00:00"
         },
         {
             "name": "cnect-web/group_permissions",
@@ -4280,7 +4280,8 @@
                     "Get a token of a node's parent group to create a pathauto pattern": "https://www.drupal.org/files/issues/group_add-node-group-tokens-2774827-24.patch",
                     "Media enabler": "https://www.drupal.org/files/issues/2019-03-01/media-enabler-2984315-22.patch",
                     "Group language settings are missing": "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
-                    "Can't translate group roles": "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch"
+                    "Can't translate group roles": "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch",
+                    "Behat group context": "./resources/patches/group.behat.inc.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -5518,6 +5519,76 @@
             ],
             "support": {
                 "source": "https://git.drupalcode.org/project/ui_patterns"
+            }
+        },
+        {
+            "name": "drupal/views_bulk_operations",
+            "version": "3.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/views_bulk_operations.git",
+                "reference": "8.x-3.2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_bulk_operations-8.x-3.2.zip",
+                "reference": "8.x-3.2",
+                "shasum": "8648525ff00f32aa0b3682c104630cc392d08dbc"
+            },
+            "require": {
+                "drupal/core": "~8.5"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-3.x": "3.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-3.2",
+                    "datestamp": "1559040784",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "Marcin Grabias",
+                    "homepage": "https://www.drupal.org/u/graber"
+                },
+                {
+                    "name": "Jon Pugh",
+                    "homepage": "https://www.drupal.org/user/17028"
+                },
+                {
+                    "name": "bojanz",
+                    "homepage": "https://www.drupal.org/user/86106"
+                },
+                {
+                    "name": "infojunkie",
+                    "homepage": "https://www.drupal.org/user/48424"
+                },
+                {
+                    "name": "joelpittet",
+                    "homepage": "https://www.drupal.org/user/160302"
+                }
+            ],
+            "description": "Adds an ability to perform bulk operations on selected entities from view results. Provides an API to create such operations.",
+            "homepage": "https://www.drupal.org/project/views_bulk_operations",
+            "support": {
+                "source": "https://git.drupalcode.org/project/views_bulk_operations",
+                "issues": "https://www.drupal.org/project/issues/views_bulk_operations?version=8.x",
+                "docs": "https://www.drupal.org/docs/8/modules/views-bulk-operations-vbo"
             }
         },
         {
@@ -7113,12 +7184,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/blellow_helper.git",
-                "reference": "0ff6cd229f9492630b25515c3d3e2891089719b1"
+                "reference": "f4605fa1f794d3175a6011e3d90f71771971ef11"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/0ff6cd229f9492630b25515c3d3e2891089719b1",
-                "reference": "0ff6cd229f9492630b25515c3d3e2891089719b1",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/f4605fa1f794d3175a6011e3d90f71771971ef11",
+                "reference": "f4605fa1f794d3175a6011e3d90f71771971ef11",
                 "shasum": ""
             },
             "require": {
@@ -7127,7 +7198,7 @@
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Additional functionality required by the Blellow Theme for Futurium D8 website",
-            "time": "2019-07-12T13:49:02+00:00"
+            "time": "2019-07-30T14:08:47+00:00"
         },
         {
             "name": "stack/builder",
@@ -12242,12 +12313,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/fut_sample_content.git",
-                "reference": "f2caa22d03f777aa7a564042b8cdd2e47ded35bd"
+                "reference": "25e7d0cd74c1f45ff4bb2927e61092b83e04c0c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/f2caa22d03f777aa7a564042b8cdd2e47ded35bd",
-                "reference": "f2caa22d03f777aa7a564042b8cdd2e47ded35bd",
+                "url": "https://api.github.com/repos/skounis/fut_sample_content/zipball/25e7d0cd74c1f45ff4bb2927e61092b83e04c0c1",
+                "reference": "25e7d0cd74c1f45ff4bb2927e61092b83e04c0c1",
                 "shasum": ""
             },
             "require": {
@@ -12256,7 +12327,7 @@
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Sample Content for Futurium D8",
-            "time": "2019-07-22T15:42:29+00:00"
+            "time": "2019-07-25T10:08:01+00:00"
         },
         {
             "name": "squizlabs/php_codesniffer",

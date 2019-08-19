@@ -1,0 +1,18 @@
+uuid: d2ae7b9c-e131-4995-8bb1-acd9c948c3ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - group.type.fut_open
+  module:
+    - ginvite
+    - user
+id: fut_open-group_invitation
+label: 'Open: Group Invitation'
+description: 'Creates invitations to group.'
+group_type: fut_open
+content_plugin: group_invitation
+plugin_config:
+  group_cardinality: 0
+  entity_cardinality: 0
+  use_creation_wizard: false
