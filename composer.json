@@ -130,7 +130,7 @@
                 "Cannot use relationship for rendered entity on Views": "https://www.drupal.org/files/issues/2019-03-15/2457999-189.patch"
             },
             "drupal/group": {
-                "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-06-15/port-subgroups-2736233-236.patch",
+                "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-08-14/port-subgroups-2736233-254.patch",
                 "Request membership feature": "https://www.drupal.org/files/issues/2019-03-11/group-request_membership_feature-2752603-88.patch",
                 "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
                 "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-07-09/group_membership_duplication-3016197-10.patch",
