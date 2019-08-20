@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7a60dd37fd569e6e7bb8ac2bc60bd089",
+    "content-hash": "ba2a49d0a924c2932ff50e47ffa8f01d",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -4303,8 +4303,7 @@
             "support": {
                 "source": "https://git.drupalcode.org/project/group",
                 "issues": "https://drupal.org/project/issues/group"
-            },
-            "time": "2019-07-18T13:22:12+00:00"
+            }
         },
         {
             "name": "drupal/honeypot",
