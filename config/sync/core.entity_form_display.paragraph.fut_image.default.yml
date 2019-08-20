@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.fut_image.fut_image
     - paragraphs.paragraphs_type.fut_image
   module:
+    - entity_browser_entity_form
     - inline_entity_form
 _core:
   default_config_hash: YxbuihMAWp6ELzj9k_YDK6dNFp5resTiXeIWV_-sCHo
@@ -27,7 +28,9 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
-    third_party_settings: {  }
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: fut_user_images
     type: inline_entity_form_complex
     region: content
 hidden:
