@@ -27,6 +27,7 @@
         "drupal/ctools": "^3.0",
         "drupal/entity_reference_revisions": "^1.0",
         "drupal/extra_field": "^1.0",
+        "drupal/entity_browser": "^2.2",
         "drupal/field_group": "^3.0",
         "drupal/fontawesome": "^2.1",
         "drupal/fontawesome_menu_icons": "^1.2",
@@ -131,7 +132,7 @@
             },
             "drupal/group": {
                 "Port Subgroup (ggroup) to the D8 version": "https://www.drupal.org/files/issues/2019-08-14/port-subgroups-2736233-254.patch",
-                "Request membership feature": "https://www.drupal.org/files/issues/2019-03-11/group-request_membership_feature-2752603-88.patch",
+                "Request membership feature": "https://www.drupal.org/files/issues/2019-07-29/group-request_membership_feature-2752603-120.patch",
                 "How to redirect to the owning group after adding a gnode?": "https://www.drupal.org/files/issues/2817109-by-rachel_norfolk-ericras-How-to-redir.patch",
                 "Wizard duplicates membership": "https://www.drupal.org/files/issues/2019-07-09/group_membership_duplication-3016197-10.patch",
                 "Get a token of a node's parent group to create a pathauto pattern" : "https://www.drupal.org/files/issues/group_add-node-group-tokens-2774827-24.patch",

@@ -6,6 +6,7 @@ dependencies:
     - field.field.paragraph.fut_document.fut_document
     - paragraphs.paragraphs_type.fut_document
   module:
+    - entity_browser_entity_form
     - inline_entity_form
 _core:
   default_config_hash: nv_xPyxMGVEKI3o26q0kTKogy4rPHXAh6sNIFbiIOyc
@@ -27,7 +28,9 @@ content:
       collapsible: false
       collapsed: false
       allow_duplicate: false
-    third_party_settings: {  }
+    third_party_settings:
+      entity_browser_entity_form:
+        entity_browser_id: fut_user_documents
     type: inline_entity_form_complex
     region: content
 hidden:

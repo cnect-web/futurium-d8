@@ -1,0 +1,31 @@
+uuid: 5d4f4a1a-3db9-437c-a083-fbfd2054a8eb
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.fut_user_media
+  module:
+    - views
+name: fut_user_images
+label: 'User''s images'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  d418471c-4f83-4542-9280-ea70c807649b:
+    settings:
+      view: fut_user_media
+      view_display: entity_browser_images
+      submit_text: 'Select images'
+      auto_select: false
+    uuid: d418471c-4f83-4542-9280-ea70c807649b
+    weight: 1
+    label: 'Select images'
+    id: view

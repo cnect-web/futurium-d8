@@ -1,0 +1,31 @@
+uuid: 002801cb-6a8d-4b26-bfee-4e4e5b63a375
+langcode: en
+status: true
+dependencies:
+  config:
+    - views.view.fut_user_media
+  module:
+    - views
+name: fut_user_documents
+label: 'User''s documents'
+display: modal
+display_configuration:
+  width: '650'
+  height: '500'
+  link_text: 'Select entities'
+  auto_open: false
+selection_display: no_display
+selection_display_configuration: {  }
+widget_selector: tabs
+widget_selector_configuration: {  }
+widgets:
+  1e30bcef-b54c-4259-9017-8e2d40fe9d6c:
+    settings:
+      view: fut_user_media
+      view_display: entity_browser_docs
+      submit_text: 'Select documents'
+      auto_select: false
+    uuid: 1e30bcef-b54c-4259-9017-8e2d40fe9d6c
+    weight: 1
+    label: 'Select documents'
+    id: view
