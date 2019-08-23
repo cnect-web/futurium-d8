@@ -1,0 +1,9 @@
+uuid: 3a337717-87ad-4552-b759-2d79152a7e88
+langcode: en
+status: true
+dependencies: {  }
+id: fut_banner
+label: Banner
+icon_uuid: null
+description: 'Add a banner.'
+behavior_plugins: {  }

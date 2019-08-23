@@ -41,7 +41,7 @@ function fut_group_help($route_name, RouteMatchInterface $route_match) {
 function fut_group_entity_type_build(array &$entity_types) {
   // We set fut_navigation form view mode. So, we can load as a separate form
   // in the custom page.
-  $view_modes = ['fut_navigation'];
+  $view_modes = ['fut_navigation', 'fut_layout'];
   $group = $entity_types['group'];
 
   foreach ($view_modes as $view_mode) {

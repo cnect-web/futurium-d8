@@ -1,0 +1,29 @@
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_banner_media
+    - media.type.fut_image
+    - media.type.fut_video
+    - paragraphs.paragraphs_type.fut_banner
+id: paragraph.fut_banner.fut_banner_media
+field_name: fut_banner_media
+entity_type: paragraph
+bundle: fut_banner
+label: 'Banner Media'
+description: "Media for banner.\r\nCould be either a image or a video."
+required: true
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:media'
+  handler_settings:
+    target_bundles:
+      fut_image: fut_image
+      fut_video: fut_video
+    sort:
+      field: _none
+    auto_create: false
+    auto_create_bundle: fut_image
+field_type: entity_reference

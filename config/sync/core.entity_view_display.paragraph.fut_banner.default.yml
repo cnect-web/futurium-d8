@@ -1,0 +1,55 @@
+uuid: 343b9f2b-67a0-44fa-890f-ec0ed5e5c669
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_banner.fut_banner_media
+    - field.field.paragraph.fut_banner.fut_label
+    - field.field.paragraph.fut_banner.fut_link
+    - field.field.paragraph.fut_banner.fut_text
+    - paragraphs.paragraphs_type.fut_banner
+  module:
+    - link
+    - text
+id: paragraph.fut_banner.default
+targetEntityType: paragraph
+bundle: fut_banner
+mode: default
+content:
+  fut_banner_media:
+    type: entity_reference_entity_view
+    weight: 0
+    label: hidden
+    settings:
+      view_mode: default
+      link: false
+    third_party_settings: {  }
+    region: content
+  fut_label:
+    weight: 1
+    label: hidden
+    settings:
+      link_to_entity: false
+    third_party_settings: {  }
+    type: string
+    region: content
+  fut_link:
+    weight: 3
+    label: hidden
+    settings:
+      trim_length: 80
+      url_only: false
+      url_plain: false
+      rel: ''
+      target: ''
+    third_party_settings: {  }
+    type: link
+    region: content
+  fut_text:
+    weight: 2
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
+    type: text_default
+    region: content
+hidden: {  }
