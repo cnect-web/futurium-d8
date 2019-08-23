@@ -50,8 +50,7 @@ function fut_paragraphs_theme_suggestions_paragraph_alter(array &$suggestions, a
       ->first()
       ->get('entity')
       ->getTarget()
-      ->getValue()
-    ;
+      ->getValue();
     $suggestions[] = "{$variables['theme_hook_original']}__{$paragraph->bundle()}__{$media->bundle()}";
     $suggestions[] = "{$variables['theme_hook_original']}__{$paragraph->bundle()}__{$variables['elements']['#view_mode']}__{$media->bundle()}";
   }
