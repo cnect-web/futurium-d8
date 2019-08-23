@@ -99,3 +99,11 @@ fut_group.manage_group.member_invitations:
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 50
+
+fut_group.manage_group.layout:
+  route_name: 'fut_group.manage_group.layout'
+  title: 'Manage Layout'
+  description: 'Mange group layout'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group'
+  weight: 60

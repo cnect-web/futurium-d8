@@ -205,3 +205,16 @@ fut_group.manage_group.member_invitations:
       group:
         type: 'entity:group'
     _admin_route: TRUE
+
+fut_group.manage_group.layout:
+  path: '/group/{group}/manage/group/layout'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::manageLayout'
+    _title: 'Manage Layout'
+  requirements:
+    _group_permission: 'edit group'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE

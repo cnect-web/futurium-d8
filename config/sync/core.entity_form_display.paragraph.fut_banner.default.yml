@@ -1,0 +1,62 @@
+uuid: c5b587d2-c3ef-4ca4-92c4-4bbd2529d122
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.fut_banner.fut_banner_media
+    - field.field.paragraph.fut_banner.fut_label
+    - field.field.paragraph.fut_banner.fut_link
+    - field.field.paragraph.fut_banner.fut_text
+    - paragraphs.paragraphs_type.fut_banner
+  module:
+    - inline_entity_form
+    - link
+    - text
+id: paragraph.fut_banner.default
+targetEntityType: paragraph
+bundle: fut_banner
+mode: default
+content:
+  fut_banner_media:
+    weight: 3
+    settings:
+      match_operator: CONTAINS
+      form_mode: default
+      override_labels: false
+      label_singular: ''
+      label_plural: ''
+      collapsible: false
+      collapsed: false
+      allow_new: true
+      allow_existing: false
+      allow_duplicate: false
+    third_party_settings: {  }
+    type: inline_entity_form_complex
+    region: content
+  fut_label:
+    weight: 0
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+    type: string_textfield
+    region: content
+  fut_link:
+    weight: 2
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+    type: link_default
+    region: content
+  fut_text:
+    weight: 1
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+    type: text_textarea
+    region: content
+hidden:
+  created: true
+  status: true

@@ -1,0 +1,10 @@
+uuid: 2d5b23bd-f27a-43f4-ab15-ce6414633442
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.fut_layout
+label: Layout
+targetEntityType: group
+cache: true

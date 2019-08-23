@@ -1,0 +1,52 @@
+uuid: 597ea4f3-6ca0-4e93-9443-0f0a86733c42
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.group.fut_banner
+    - group.type.fut_open
+    - paragraphs.paragraphs_type.fut_banner
+  module:
+    - entity_reference_revisions
+id: group.fut_open.fut_banner
+field_name: fut_banner
+entity_type: group
+bundle: fut_open
+label: Banner
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    negate: 0
+    target_bundles:
+      fut_banner: fut_banner
+    target_bundles_drag_drop:
+      fut_banner:
+        enabled: true
+        weight: 9
+      fut_document:
+        weight: 10
+        enabled: false
+      fut_functional_navigation_link:
+        weight: 11
+        enabled: false
+      fut_image:
+        weight: 12
+        enabled: false
+      fut_navigation_link:
+        weight: 13
+        enabled: false
+      fut_text:
+        weight: 14
+        enabled: false
+      fut_video:
+        weight: 15
+        enabled: false
+      webtools_uec:
+        weight: 16
+        enabled: false
+field_type: entity_reference_revisions

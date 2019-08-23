@@ -2,6 +2,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - core.entity_form_mode.group.fut_layout
     - field.field.group.fut_open.fut_banner
     - field.field.group.fut_open.fut_description
     - field.field.group.fut_open.fut_logo
@@ -10,26 +11,31 @@ dependencies:
     - field.field.group.fut_open.fut_tags
     - group.type.fut_open
   module:
-    - entity_reference_revisions
-id: group.fut_open.default
+    - paragraphs
+id: group.fut_open.fut_layout
 targetEntityType: group
 bundle: fut_open
-mode: default
+mode: fut_layout
 content:
   fut_banner:
-    type: entity_reference_revisions_entity_view
+    type: paragraphs
     weight: 0
     region: content
-    label: hidden
     settings:
-      view_mode: default
-      link: ''
+      title: Paragraph
+      title_plural: Paragraphs
+      edit_mode: open
+      closed_mode: summary
+      autocollapse: none
+      closed_mode_threshold: 0
+      add_mode: dropdown
+      form_display_mode: default
+      default_paragraph_type: ''
+      features:
+        duplicate: duplicate
+        collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
 hidden:
-  changed: true
-  created: true
-  extra_field_featured_group_featured_content: true
-  extra_field_join_group: true
   fut_description: true
   fut_logo: true
   fut_navigation_menu: true
@@ -37,4 +43,5 @@ hidden:
   fut_tags: true
   label: true
   langcode: true
+  path: true
   uid: true

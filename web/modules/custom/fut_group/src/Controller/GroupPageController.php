@@ -329,4 +329,18 @@ class GroupPageController extends ControllerBase {
     ];
   }
 
+  /**
+   * Manages layout settings of the group.
+   *
+   * @param \Drupal\group\Entity\Group $group
+   *   Group item.
+   *
+   * @return mixed
+   *   Form.
+   */
+  public function manageLayout(Group $group) {
+    return $this->entityFormBuilder()->getForm($group, 'fut_layout');
+  }
+
+
 }
