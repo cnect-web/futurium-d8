@@ -187,7 +187,7 @@
             "version": "1.12",
             "type": "drupal-module",
             "dist": {
-              "url": "https://github.com/cnect-web/group_permissions/archive/1.0.zip",
+              "url": "https://github.com/cnect-web/group_permissions/archive/1.12.zip",
               "type": "zip"
             }
           }
