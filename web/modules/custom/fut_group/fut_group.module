@@ -268,7 +268,7 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
 
   $collection_id = NULL;
   if (!empty($node->fut_collection->target_id)) {
-    $node->fut_collection->target_id;
+    $collection_id = $node->fut_collection->target_id;
   }
 
   // From this point on you need group to allow you to perform the operation.
