@@ -7,7 +7,7 @@
         "balbuf/drupal-libraries-installer": "^1.0",
         "boedah/robo-drush": "~4",
         "cnect-web/blellow": "dev-develop",
-        "cnect-web/group_permissions": "1.0",
+        "cnect-web/group_permissions": "1.12",
         "composer/installers": "dev-master as 1.6.0",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
@@ -184,7 +184,7 @@
           "type": "package",
           "package": {
             "name": "cnect-web/group_permissions",
-            "version": "1.0",
+            "version": "1.12",
             "type": "drupal-module",
             "dist": {
               "url": "https://github.com/cnect-web/group_permissions/archive/1.0.zip",
