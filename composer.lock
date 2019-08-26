@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "46f2f133fef0cf3f01cbe2d04094aa4e",
+    "content-hash": "bbc89774176b077164e0266d2f9cc2c7",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -307,15 +307,6 @@
             ],
             "description": "Institutional Look and Feel for D8",
             "time": "2019-08-26T11:43:10+00:00"
-        },
-        {
-            "name": "cnect-web/group_permissions",
-            "version": "1.12",
-            "dist": {
-                "type": "zip",
-                "url": "https://github.com/cnect-web/group_permissions/archive/1.0.zip"
-            },
-            "type": "drupal-module"
         },
         {
             "name": "commerceguys/addressing",
@@ -4397,6 +4388,35 @@
                 "issues": "https://drupal.org/project/issues/group"
             },
             "time": "2019-07-18T13:22:12+00:00"
+        },
+        {
+            "name": "drupal/group_permissions",
+            "version": "1.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cnect-web/group_permissions",
+                "reference": "d8ec7571ac9af9404c3407da104cc90b7369e873"
+            },
+            "require": {
+                "drupal/group": "~1.0"
+            },
+            "type": "drupal-module",
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Nikolay Lobachev",
+                    "homepage": "https://www.drupal.org/u/lobsterr",
+                    "role": "Maintainer"
+                }
+            ],
+            "description": "Group permissions provides custom permissions per group.",
+            "homepage": "https://github.com/cnect-web/group_permissions",
+            "support": {
+                "issues": "https://github.com/cnect-web/group_permissions/issues"
+            },
+            "time": "2019-08-26T14:33:52+00:00"
         },
         {
             "name": "drupal/honeypot",

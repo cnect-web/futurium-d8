@@ -7,7 +7,6 @@
         "balbuf/drupal-libraries-installer": "^1.0",
         "boedah/robo-drush": "~4",
         "cnect-web/blellow": "dev-develop",
-        "cnect-web/group_permissions": "1.12",
         "composer/installers": "dev-master as 1.6.0",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
@@ -34,6 +33,7 @@
         "drupal/geocoder": "^2.1",
         "drupal/geofield": "^1.1",
         "drupal/group": "1.x-dev",
+        "drupal/group_permissions": "1.12",
         "drupal/honeypot": "^1.29",
         "drupal/hook_event_dispatcher": "^1.25",
         "drupal/inline_entity_form": "^1.0",
@@ -181,16 +181,8 @@
           "type": "git"
         },
         {
-          "type": "package",
-          "package": {
-            "name": "cnect-web/group_permissions",
-            "version": "1.12",
-            "type": "drupal-module",
-            "dist": {
-              "url": "https://github.com/cnect-web/group_permissions/archive/1.0.zip",
-              "type": "zip"
-            }
-          }
+          "url" : "https://github.com/cnect-web/group_permissions",
+          "type": "git"
         }
     ]
 }
