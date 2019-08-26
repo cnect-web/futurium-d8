@@ -3,6 +3,7 @@ langcode: en
 status: true
 dependencies:
   config:
+    - field.field.group.fut_open.fut_banner
     - field.field.group.fut_open.fut_description
     - field.field.group.fut_open.fut_logo
     - field.field.group.fut_open.fut_navigation_menu
@@ -48,7 +49,7 @@ content:
     type: string_textfield
     region: content
   fut_tags:
-    weight: 7
+    weight: 6
     settings:
       match_operator: CONTAINS
       size: 60
@@ -78,5 +79,6 @@ content:
     settings: {  }
     third_party_settings: {  }
 hidden:
+  fut_banner: true
   fut_navigation_menu: true
   uid: true

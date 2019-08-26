@@ -1,0 +1,10 @@
+uuid: 52ec77ba-017c-4714-8a44-eb1763bac49e
+langcode: en
+status: true
+dependencies:
+  module:
+    - group
+id: group.teaser_lite
+label: 'Teaser Lite'
+targetEntityType: group
+cache: true

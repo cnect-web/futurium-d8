@@ -1,0 +1,21 @@
+uuid: f1d69d7f-2791-40f3-85bc-c923af3cc05a
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.paragraph.fut_text
+    - paragraphs.paragraphs_type.fut_banner
+  module:
+    - text
+id: paragraph.fut_banner.fut_text
+field_name: fut_text
+entity_type: paragraph
+bundle: fut_banner
+label: Text
+description: ''
+required: true
+translatable: true
+default_value: {  }
+default_value_callback: ''
+settings: {  }
+field_type: text_long
