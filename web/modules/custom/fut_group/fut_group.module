@@ -13,7 +13,8 @@ use Drupal\Core\Url;
 use Drupal\group\Entity\Group;
 use Drupal\group\Entity\GroupContent;
 use Drupal\group\Entity\GroupContentType;
-use Drupal\group_permissions\Entity\GroupPermission;
+use Drupal\group\Plugin\views\access\GroupPermission;
+use Drupal\group_permissions\Entity\GroupPermission as GroupPermissionEntity;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
 use Drupal\paragraphs\Entity\Paragraph;
@@ -125,7 +126,7 @@ function fut_group_field_widget_form_alter(
 }
 
 /**
- *
+ * Gets group collection options.
  */
 function _fut_group_get_group_options() {
   $options = [];
@@ -144,19 +145,59 @@ function _fut_group_get_group_options() {
   }
 
   if (!empty($group)) {
+    $group_roles = [];
+    $group_permission = GroupPermissionEntity::loadByGroup($group);
+    if ($group_permission) {
+      $custom_permissions = $group_permission->getPermissions()->first()->getValue();
+      if (!empty($custom_permissions)) {
+        // Get roles of the current user.
+        $group_roles = _fut_group_get_group_user_roles($group, \Drupal::currentUser());
+      }
+    }
+
     $query = \Drupal::entityQuery('taxonomy_term');
     $query->condition('vid', 'fut_collections');
     $query->condition('fut_related_group', $group->id());
     $collection_items = Term::loadMultiple($query->execute());
+
     if ($collection_items) {
       $options['_none'] = t('- None -');
       foreach ($collection_items as $collection_item) {
-        $options[$collection_item->id()] = $collection_item->getName();
+        $is_allowed = FALSE;
+        foreach ($group_roles as $role_name => $group_role) {
+          if (in_array("view {$collection_item->id()} collection", $custom_permissions[$role_name])) {
+            $is_allowed = TRUE;
+          }
+        }
+
+        if ($is_allowed) {
+          $options[$collection_item->id()] = $collection_item->getName();
+        }
       }
     }
   }
 
   return $options;
+}
+
+/**
+ * Get user roles in the group.
+ *
+ * @param Group $group
+ *   Group.
+ * @param AccountInterface $account
+ *   User.
+ */
+function _fut_group_get_group_user_roles($group, $account) {
+  $group_roles = [];
+  $member = $group->getMember($account);
+  if (!empty($member)) {
+    $group_roles = $member->getRoles();
+  }
+
+  $group_roles[$group->getGroupType()->getAnonymousRoleId()] = '';
+  $group_roles[$group->getGroupType()->getOutsiderRoleId()] = '';
+  return $group_roles;
 }
 
 /**
