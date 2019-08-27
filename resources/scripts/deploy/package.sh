@@ -28,8 +28,6 @@ zip --symlinks -x \
 --exclude=docker/\* \
 --exclude=tests/\* \
 --exclude=robo/\* \
-#--exclude=vendor \
-#--exclude=vendor/\* \
 --exclude=*\/node_modules/\* \
 --exclude=*\/.vscode/\* \
 --exclude=*\/tests/\* \
@@ -39,3 +37,6 @@ zip --symlinks -x \
 --exclude=web/sites/default/settings.local.php \
 --exclude=web/sites/default/files/* \
 -r ${PROJECT_NAME}.zip ./* ./.ebextensions
+
+#--exclude=vendor \
+#--exclude=vendor/\* \
