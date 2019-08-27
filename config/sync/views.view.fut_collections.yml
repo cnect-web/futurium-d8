@@ -133,7 +133,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: '<a href="/group/{{ raw_arguments.fut_related_group_target_id }}/edit-collection/{{ tid }}">Edit</a>'
+            text: '<a href="/group/{{ raw_arguments.fut_related_group_target_id }}/manage/group-content/edit-collection/{{ tid }}">Edit</a>'
             make_link: false
             path: ''
             absolute: true
@@ -182,7 +182,7 @@ display:
           exclude: true
           alter:
             alter_text: true
-            text: '<a href="/group/{{ raw_arguments.fut_related_group_target_id }}/delete-collection/{{ tid }}">Delete</a>'
+            text: '<a href="/group/{{ raw_arguments.fut_related_group_target_id }}/manage/group-content/delete-collection/{{ tid }}">Delete</a>'
             make_link: false
             path: '/group/{{ raw_arguments.fut_related_group_target_id }}/delete-collection/{{ tid }}'
             absolute: false
@@ -406,25 +406,6 @@ display:
           not: false
           plugin_id: numeric
       display_extenders: {  }
-    cache_metadata:
-      max-age: -1
-      contexts:
-        - 'languages:language_content'
-        - 'languages:language_interface'
-        - route
-        - route.group
-        - url
-        - user.group_permissions
-      tags: {  }
-  page:
-    display_plugin: page
-    id: page
-    display_title: Page
-    position: 1
-    display_options:
-      display_extenders: {  }
-      path: group/%group/collections
-      enabled: false
     cache_metadata:
       max-age: -1
       contexts:
