@@ -37,6 +37,30 @@ fut_group.manage_group_content.collections:
   parent_id: 'fut_group.manage_group_content'
   weight: 30
 
+fut_group.manage_group_content.add_collection:
+  route_name: 'fut_group.add_collection'
+  title: 'Add collection'
+  description: 'Add collection'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group_content'
+  weight: 30
+
+fut_group.manage_group_content.delete_collection:
+  route_name: 'fut_group.delete_collection'
+  title: 'Delete collection'
+  description: 'Delete collection'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group_content'
+  weight: 30
+
+fut_group.manage_group_content.edit_collection:
+  route_name: 'fut_group.edit_collection'
+  title: 'Edit collection'
+  description: 'Edit collection'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group_content'
+  weight: 30
+
 fut_group.manage_group_content.subgroups:
   route_name: 'fut_group.manage_group_content.subgroups'
   title: 'Subgroups'

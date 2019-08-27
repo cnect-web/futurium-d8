@@ -393,19 +393,12 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
  *   Result of the check.
  */
 function _fut_group_check_permissions_by_collection($op, $collection_id, Group $group, AccountInterface $account) {
-  $group_permission = GroupPermission::loadByGroup($group);
+  $group_permission = GroupPermissionEntity::loadByGroup($group);
   if ($group_permission) {
     $custom_permissions = $group_permission->getPermissions()->first()->getValue();
     if (!empty($custom_permissions)) {
       // Get roles of the current user.
-      $group_roles = [];
-      $member = $group->getMember($account);
-      if (!empty($member)) {
-        $group_roles = $member->getRoles();
-      }
-
-      $group_roles[$group->getGroupType()->getAnonymousRoleId()] = '';
-      $group_roles[$group->getGroupType()->getOutsiderRoleId()] = '';
+      $group_roles = _fut_group_get_group_user_roles($group, $account);
 
       foreach ($group_roles as $role_name => $group_role) {
         if (in_array("$op $collection_id collection", $custom_permissions[$role_name])) {
@@ -451,4 +444,10 @@ function fut_group_form_views_exposed_form_alter(&$form, FormStateInterface $for
     unset($form['fut_collection_target_id_op']);
     unset($form['fut_collection_target_id']);
   }
+}
+
+function fut_group_menu_local_tasks_alter(&$data, $route_name) {
+  unset($data['tabs'][1]['fut_group.manage_group_content.add_collection']);
+  unset($data['tabs'][1]['fut_group.manage_group_content.delete_collection']);
+  unset($data['tabs'][1]['fut_group.manage_group_content.edit_collection']);
 }
