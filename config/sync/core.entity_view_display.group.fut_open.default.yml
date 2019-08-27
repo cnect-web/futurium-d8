@@ -12,6 +12,7 @@ dependencies:
     - group.type.fut_open
   module:
     - entity_reference_revisions
+    - fut_group
 id: group.fut_open.default
 targetEntityType: group
 bundle: fut_open
@@ -26,6 +27,13 @@ content:
       view_mode: default
       link: ''
     third_party_settings: {  }
+  fut_navigation_menu:
+    type: fut_group_navigation_field_formatter
+    weight: 1
+    region: content
+    label: hidden
+    settings: {  }
+    third_party_settings: {  }
 hidden:
   changed: true
   created: true
@@ -33,7 +41,6 @@ hidden:
   extra_field_join_group: true
   fut_description: true
   fut_logo: true
-  fut_navigation_menu: true
   fut_short_name: true
   fut_tags: true
   label: true

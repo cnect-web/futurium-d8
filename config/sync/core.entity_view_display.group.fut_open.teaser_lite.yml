@@ -40,6 +40,7 @@ hidden:
   created: true
   extra_field_featured_group_featured_content: true
   extra_field_join_group: true
+  fut_banner: true
   fut_description: true
   fut_navigation_menu: true
   fut_short_name: true
