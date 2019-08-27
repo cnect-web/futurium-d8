@@ -37,9 +37,10 @@ class GroupPermissionsController extends ControllerBase {
   protected function getCollectionPermissions() {
     $permissions = [];
 
-    // Get all collections from all groups and prepare permissions for them.
-    $groups = $this->entityTypeManager()->getStorage('group')->loadMultiple();
-    foreach ($groups as $group) {
+    $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
+    $group = $request_extractor->getGroup();
+    if (!empty($group)) {
+
       // Get collections for the group.
       $collection_ids = \Drupal::entityQuery('taxonomy_term')
         ->condition('fut_related_group', $group->id())
