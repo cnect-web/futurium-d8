@@ -210,7 +210,7 @@ function fut_group_form_taxonomy_term_fut_collections_delete_form_alter(
 ) {
   $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
   if ($group = $request_extractor->getGroup()) {
-    $form['actions']['cancel']['#url'] = Url::fromRoute('view.fut_collections.page', [
+    $form['actions']['cancel']['#url'] = Url::fromRoute('fut_group.manage_group_content.collections', [
       'group' => $group->id(),
     ]);
   }
