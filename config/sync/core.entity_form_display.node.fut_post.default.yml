@@ -23,25 +23,25 @@ mode: default
 content:
   created:
     type: datetime_timestamp
-    weight: 10
+    weight: 6
     region: content
     settings: {  }
     third_party_settings: {  }
   fut_collection:
-    weight: 126
+    weight: 4
     settings: {  }
     third_party_settings: {  }
     type: options_select
     region: content
   fut_comments:
-    weight: 125
+    weight: 9
     settings: {  }
     third_party_settings: {  }
     type: comment_default
     region: content
   fut_content:
     type: entity_reference_paragraphs
-    weight: 123
+    weight: 2
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -52,7 +52,7 @@ content:
     third_party_settings: {  }
     region: content
   fut_post_image:
-    weight: 122
+    weight: 1
     settings:
       form_mode: default
       label_singular: ''
@@ -68,7 +68,7 @@ content:
     type: inline_entity_form_complex
     region: content
   fut_tags:
-    weight: 124
+    weight: 3
     settings:
       match_operator: CONTAINS
       size: 60
@@ -78,14 +78,14 @@ content:
     region: content
   langcode:
     type: language_select
-    weight: 2
+    weight: 12
     region: content
     settings:
       include_locked: true
     third_party_settings: {  }
   path:
     type: path
-    weight: 30
+    weight: 10
     region: content
     settings: {  }
     third_party_settings: {  }
@@ -93,26 +93,26 @@ content:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 15
+    weight: 7
     region: content
     third_party_settings: {  }
   status:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 120
+    weight: 13
     region: content
     third_party_settings: {  }
   sticky:
     type: boolean_checkbox
     settings:
       display_label: true
-    weight: 16
+    weight: 8
     region: content
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: -5
+    weight: 0
     region: content
     settings:
       size: 60
@@ -128,7 +128,7 @@ content:
     region: content
     third_party_settings: {  }
   url_redirects:
-    weight: 50
+    weight: 11
     region: content
     settings: {  }
     third_party_settings: {  }
