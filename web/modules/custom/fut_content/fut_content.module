@@ -93,13 +93,17 @@ function fut_content_field_widget_form_alter(&$element, \Drupal\Core\Form\FormSt
   if (isset($element['#ief_id'])) {
     if (isset($element['actions'])) {
       foreach ($element['actions'] as $k => &$button) {
-        $pos = strpos($k, 'ief_');
-        if ($pos === 0) {
-          $old_string = str_replace('media', '', $button['#value']->__toString());
+        if (strpos($k, 'ief_') === 0) {
+          $old_string = str_replace(' media', '', $button['#value']->__toString());
           if ($element['#title'] == 'Post Image') {
             $element['#title'] = t("Image");
           }
-          $button['#value'] = t("$old_string @type_singular", ['@type_singular' => $element['#title']]);
+
+          $old_string = ($old_string == 'Add existing')
+            ? 'Use existing'
+            : $old_string;
+
+          $button['#value'] = t("@action @type_singular", ['@action' => $old_string, '@type_singular' => $element['#title']]);
         }
       }
     }
@@ -110,7 +114,7 @@ function fut_content_field_widget_form_alter(&$element, \Drupal\Core\Form\FormSt
  * Implements hook_field_widget_multivalue_form_alter().
  */
 function fut_content_field_widget_multivalue_form_alter(&$elements, $form_state, $context) {
-  if (isset($elements['#paragraphs_widget'])) {
+  if ($context['widget']->getPluginId() == 'entity_reference_paragraphs') {
     foreach ($elements['add_more'] as $key => &$button) {
       if (isset($button['#value'])) {
         $button['#value'] = t("@type", $button['#value']->getArguments());
