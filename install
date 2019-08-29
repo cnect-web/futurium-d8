@@ -78,12 +78,12 @@ COMMAND=$([ "$ENVIRONMENT" == "development" ] && echo "composer install" || echo
 
 # Install.
 if [ $INSTALLATION_TYPE == "docker" ]; then
-  docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -it -e HOME="/tmp" -e COMPOSER_HOME="/tmp" -v $(pwd):/var/www/html $PHP_IMAGE $COMMAND \
+  docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -i -e HOME="/tmp" -e COMPOSER_HOME="/tmp" -v $(pwd):/var/www/html $PHP_IMAGE $COMMAND \
   && docker-compose -f docker/docker-compose.yml up -d \
   && sleep 10 \
   && docker exec -u ${USER_ID} php bin/robo piu $FORCE
   # Create an alias to open a tty in the php container.
-  alias "dshp=docker exec -u 1000 -it php bash"
+  alias "dshp=docker exec -u 1000 -i php bash"
 else
   $COMMAND
   ./vendor/bin/robo piu $FORCE
