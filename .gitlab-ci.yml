@@ -10,6 +10,7 @@ stages:
 PHPCS:
   stage: test
   script:
+    - whoami
     - cp config.yml.dist config.yml
     - bash install --force
     - docker exec -u 1000 php ./bin/robo qa -z cs

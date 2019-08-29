@@ -2,6 +2,7 @@
 #Usage:
 # ./install [FORCE INSTALL] [REBUILD CONTAINERS] [DOCKER_PHP_IMAGE]
 # Overridable vars.
+whomai
 FORCE=${1:-no}
 REBUILD_CONTAINERS=${2:-no}
 PHP_IMAGE=${3:-horaciolopesqq/phpnode}
@@ -31,7 +32,7 @@ then
   RUNNING_CONTAINERS=$(docker ps -q)
   if [ ! -z "$RUNNING_CONTAINERS" ]
   then
-    docker kill $RUNNING_CONTAINERS #> /dev/null 2>&1
+    docker kill $RUNNING_CONTAINERS > /dev/null 2>&1
   fi
 
   # Generate a temporary php.ini file.
