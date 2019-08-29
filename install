@@ -42,6 +42,14 @@ then
     -e COMPOSER_HOME="/tmp" \
     -e COMPOSER_MEMORY_LIMIT=-1 \
     -v $(pwd):/var/www/html \
+    $PHP_IMAGE composer clear-cache )
+
+  ( docker run --user ${USER_ID}:${GROUP_ID} \
+    --name php_install --rm -i \
+    -e HOME="/tmp" \
+    -e COMPOSER_HOME="/tmp" \
+    -e COMPOSER_MEMORY_LIMIT=-1 \
+    -v $(pwd):/var/www/html \
     $PHP_IMAGE composer install )
 
   ( docker run --user ${USER_ID}:${GROUP_ID} \
