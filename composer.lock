@@ -382,7 +382,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/horaciolopesqq/installers",
-                "reference": "dc9b55e810bd29cc4f67071dd83fff7768bfc0e1"
+                "reference": "ea78ab665e7a5ef4341d87f631e36b474e7cfb93"
             },
             "require": {
                 "composer-plugin-api": "^1.0"
