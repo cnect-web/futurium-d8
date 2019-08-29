@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "513bbb5a7e38b557139f95e289151a7c",
+    "content-hash": "492ebe9b94037348fb99827abef1a894",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -6667,48 +6667,6 @@
             "time": "2019-08-12T20:17:41+00:00"
         },
         {
-            "name": "nuvoleweb/robo-config",
-            "version": "0.2.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nuvoleweb/robo-config.git",
-                "reference": "ce4c3285f2cbc692d96f5f2d57eb2c5068aeadd2"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nuvoleweb/robo-config/zipball/ce4c3285f2cbc692d96f5f2d57eb2c5068aeadd2",
-                "reference": "ce4c3285f2cbc692d96f5f2d57eb2c5068aeadd2",
-                "shasum": ""
-            },
-            "require": {
-                "consolidation/robo": "~1"
-            },
-            "require-dev": {
-                "drupal/coder": "^8.2",
-                "phpro/grumphp": "^0.11.4",
-                "phpunit/phpunit": "^5"
-            },
-            "type": "robo-tasks",
-            "autoload": {
-                "psr-4": {
-                    "NuvoleWeb\\Robo\\Task\\Config\\": "src",
-                    "NuvoleWeb\\Robo\\Tests\\": "tests"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Antonio De Marco",
-                    "email": "antonio@nuvole.org"
-                }
-            ],
-            "description": "CI/developer-friendly configuration processor for Robo.",
-            "time": "2018-08-22T06:38:44+00:00"
-        },
-        {
             "name": "openeuropa/ecl-twig-loader",
             "version": "0.1.2",
             "source": {
@@ -7592,16 +7550,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "12940f20a816c978860fa4925b3f1bbb27e9ac46"
+                "reference": "4510f04e70344d70952566e4262a0b11df39cb10"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/12940f20a816c978860fa4925b3f1bbb27e9ac46",
-                "reference": "12940f20a816c978860fa4925b3f1bbb27e9ac46",
+                "url": "https://api.github.com/repos/symfony/console/zipball/4510f04e70344d70952566e4262a0b11df39cb10",
+                "reference": "4510f04e70344d70952566e4262a0b11df39cb10",
                 "shasum": ""
             },
             "require": {
@@ -7660,7 +7618,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-24T14:46:41+00:00"
+            "time": "2019-08-26T07:52:58+00:00"
         },
         {
             "name": "symfony/css-selector",
@@ -7717,16 +7675,16 @@
         },
         {
             "name": "symfony/debug",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/debug.git",
-                "reference": "bc977cb2681d75988ab2d53d14c4245c6c04f82f"
+                "reference": "0b600300918780001e2821db77bc28b677794486"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/debug/zipball/bc977cb2681d75988ab2d53d14c4245c6c04f82f",
-                "reference": "bc977cb2681d75988ab2d53d14c4245c6c04f82f",
+                "url": "https://api.github.com/repos/symfony/debug/zipball/0b600300918780001e2821db77bc28b677794486",
+                "reference": "0b600300918780001e2821db77bc28b677794486",
                 "shasum": ""
             },
             "require": {
@@ -7769,7 +7727,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-23T08:39:19+00:00"
+            "time": "2019-08-20T13:31:17+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -7901,16 +7859,16 @@
         },
         {
             "name": "symfony/event-dispatcher",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "f18fdd6cc7006441865e698420cee26bac94741f"
+                "reference": "3e922c4c3430b9de624e8a285dada5e61e230959"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/f18fdd6cc7006441865e698420cee26bac94741f",
-                "reference": "f18fdd6cc7006441865e698420cee26bac94741f",
+                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/3e922c4c3430b9de624e8a285dada5e61e230959",
+                "reference": "3e922c4c3430b9de624e8a285dada5e61e230959",
                 "shasum": ""
             },
             "require": {
@@ -7960,20 +7918,20 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-25T07:45:31+00:00"
+            "time": "2019-08-23T08:05:57+00:00"
         },
         {
             "name": "symfony/filesystem",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/filesystem.git",
-                "reference": "70adda061ef83bb7def63a17953dc41f203308a7"
+                "reference": "00e3a6ddd723b8bcfe4f2a1b6f82b98eeeb51516"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/filesystem/zipball/70adda061ef83bb7def63a17953dc41f203308a7",
-                "reference": "70adda061ef83bb7def63a17953dc41f203308a7",
+                "url": "https://api.github.com/repos/symfony/filesystem/zipball/00e3a6ddd723b8bcfe4f2a1b6f82b98eeeb51516",
+                "reference": "00e3a6ddd723b8bcfe4f2a1b6f82b98eeeb51516",
                 "shasum": ""
             },
             "require": {
@@ -8010,20 +7968,20 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-23T09:29:17+00:00"
+            "time": "2019-08-20T13:31:17+00:00"
         },
         {
             "name": "symfony/finder",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/finder.git",
-                "reference": "1e762fdf73ace6ceb42ba5a6ca280be86082364a"
+                "reference": "1fcad80b440abcd1451767349906b6f9d3961d37"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/finder/zipball/1e762fdf73ace6ceb42ba5a6ca280be86082364a",
-                "reference": "1e762fdf73ace6ceb42ba5a6ca280be86082364a",
+                "url": "https://api.github.com/repos/symfony/finder/zipball/1fcad80b440abcd1451767349906b6f9d3961d37",
+                "reference": "1fcad80b440abcd1451767349906b6f9d3961d37",
                 "shasum": ""
             },
             "require": {
@@ -8059,7 +8017,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2019-06-28T08:02:59+00:00"
+            "time": "2019-08-14T09:39:58+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -8496,16 +8454,16 @@
         },
         {
             "name": "symfony/process",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/process.git",
-                "reference": "d129c017e8602507688ef2c3007951a16c1a8407"
+                "reference": "d822cb654000a95b7855362c0d5b127f6a6d8baa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/process/zipball/d129c017e8602507688ef2c3007951a16c1a8407",
-                "reference": "d129c017e8602507688ef2c3007951a16c1a8407",
+                "url": "https://api.github.com/repos/symfony/process/zipball/d822cb654000a95b7855362c0d5b127f6a6d8baa",
+                "reference": "d822cb654000a95b7855362c0d5b127f6a6d8baa",
                 "shasum": ""
             },
             "require": {
@@ -8541,7 +8499,7 @@
             ],
             "description": "Symfony Process Component",
             "homepage": "https://symfony.com",
-            "time": "2019-05-30T15:47:52+00:00"
+            "time": "2019-08-26T07:52:58+00:00"
         },
         {
             "name": "symfony/psr-http-message-bridge",
@@ -8996,16 +8954,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.4.30",
+            "version": "v3.4.31",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "051d045c684148060ebfc9affb7e3f5e0899d40b"
+                "reference": "3dc414b7db30695bae671a1d86013d03f4ae9834"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/051d045c684148060ebfc9affb7e3f5e0899d40b",
-                "reference": "051d045c684148060ebfc9affb7e3f5e0899d40b",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/3dc414b7db30695bae671a1d86013d03f4ae9834",
+                "reference": "3dc414b7db30695bae671a1d86013d03f4ae9834",
                 "shasum": ""
             },
             "require": {
@@ -9051,7 +9009,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2019-07-24T13:01:31+00:00"
+            "time": "2019-08-20T13:31:17+00:00"
         },
         {
             "name": "twig/extensions",
@@ -10392,6 +10350,9 @@
                         "status": "not-covered",
                         "message": "Alpha releases are not covered by Drupal security advisories."
                     }
+                },
+                "patches_applied": {
+                    "Handle exceptions during import": "https://www.drupal.org/files/issues/2019-05-29/3057880-handleexceptions.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",
@@ -10470,6 +10431,9 @@
                     "services": {
                         "drush.services.yml": "^9"
                     }
+                },
+                "patches_applied": {
+                    "Pass logger to parent": "https://www.drupal.org/files/issues/2019-07-08/passloggertoparent-3066432.patch"
                 }
             },
             "notification-url": "https://packages.drupal.org/8/downloads",

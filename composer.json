@@ -54,7 +54,6 @@
         "drupal/views_bulk_operations": "^3.2",
         "drush/drush": "^9.0",
         "harvesthq/chosen": "^1.8",
-        "nuvoleweb/robo-config": "^0.2",
         "openeuropa/ecl-twig-loader": "~0.1",
         "skounis/blellow_helper": "dev-master",
         "twig/extensions": "^1.5",

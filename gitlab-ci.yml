@@ -10,16 +10,14 @@ stages:
 PHPCS:
   stage: test
   script:
-    - cp .docker/.env.dist .env
-    - .docker/props-gen.sh
-    - docker-compose up -d
-    - docker exec -u 1000 php composer install
-    - docker exec -u 1000 php ./toolkit/robo qa -z cs
+    - cp config.yml.dist config.yml
+    - bash install --force
+    - docker exec -u 1000 php ./bin/robo qa -z cs
   only:
     refs:
       - merge_requests
     variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "ci_tests"
   tags:
     - shell
 
@@ -27,13 +25,13 @@ Behat:
   stage: test
   script:
     - cp config.yml.dist config.yml
-    - bash install.sh --force
-    - docker exec -u 1000 php ./toolkit/robo bt
+    - bash install --force
+    - docker exec -u 1000 php ./bin/robo bt
   only:
     refs:
       - merge_requests
     variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "ci_tests"
   tags:
     - shell
 
@@ -41,8 +39,7 @@ Create artifact:
   stage: package
   script:
     - cp config.yml.dist config.yml
-    - docker-compose up -d
-    - docker exec -u 1000 php composer install --no-dev
+    - bash install --force
     - docker exec -u 1000 php ./bin/robo ti
     - docker exec -u 1000 php ./bin/robo rp ${CI_PROJECT_NAME}-${CI_BUILD_TAG}
   artifacts:
