@@ -34,6 +34,7 @@
         "drupal/geocoder": "^2.1",
         "drupal/geofield": "^1.1",
         "drupal/group": "1.x-dev",
+        "drupal/group_permissions": "1.12",
         "drupal/honeypot": "^1.29",
         "drupal/hook_event_dispatcher": "^1.25",
         "drupal/inline_entity_form": "^1.0",
@@ -182,16 +183,8 @@
           "type": "git"
         },
         {
-          "type": "package",
-          "package": {
-            "name": "cnect-web/group_permissions",
-            "version": "1.0",
-            "type": "drupal-module",
-            "dist": {
-              "url": "https://github.com/cnect-web/group_permissions/archive/1.0.zip",
-              "type": "zip"
-            }
-          }
+          "url" : "https://github.com/cnect-web/group_permissions",
+          "type": "git"
         }
     ]
 }
