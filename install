@@ -31,7 +31,7 @@ then
   RUNNING_CONTAINERS=$(docker ps -q)
   if [ ! -z "$RUNNING_CONTAINERS" ]
   then
-    docker kill $RUNNING_CONTAINERS > /dev/null 2>&1
+    docker kill $RUNNING_CONTAINERS #> /dev/null 2>&1
   fi
 
   # Generate a temporary php.ini file.
