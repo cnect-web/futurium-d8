@@ -17,7 +17,7 @@ PHPCS:
     refs:
       - merge_requests
     variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "ci_tests"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "refactor"
   tags:
     - shell
 
@@ -31,7 +31,7 @@ Behat:
     refs:
       - merge_requests
     variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "ci_tests"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "refactor"
   tags:
     - shell
 
