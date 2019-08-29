@@ -29,7 +29,7 @@ if [ -f ".env" ] && [[ $FORCE == "--force" ]]; then rm -rf .env ; fi
 if [ $INSTALLATION_TYPE == "docker" ]
 then
   echo "Using ${BOLD}Docker Compose${NORMAL}."
-  RUNNING_CONTAINERS=$(docker ps -q)
+  RUNNING_CONTAINERS=$(docker ps -aq)
   if [ ! -z "$RUNNING_CONTAINERS" ]
   then
     docker kill $RUNNING_CONTAINERS > /dev/null 2>&1
