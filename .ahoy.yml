@@ -10,7 +10,7 @@ commands:
 
   run-behat:
     cmd: "docker exec -u 1000 -it php ./bin/robo bt"
-    usage: Stop the docker-compose containers.
+    usage: Run behat tests.
 
 #  vup:
 #    cmd: "vagrant up"
