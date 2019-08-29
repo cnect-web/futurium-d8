@@ -11,7 +11,7 @@ PHPCS:
   stage: test
   script:
     - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode composer install
-    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo qa -z cs"
+    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo qa -z cs
   only:
     refs:
       - merge_requests
