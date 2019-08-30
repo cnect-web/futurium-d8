@@ -13,7 +13,6 @@ use Drupal\Core\Url;
 use Drupal\group\Entity\Group;
 use Drupal\group\Entity\GroupContent;
 use Drupal\group\Entity\GroupContentType;
-use Drupal\group\Plugin\views\access\GroupPermission;
 use Drupal\group_permissions\Entity\GroupPermission as GroupPermissionEntity;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
@@ -151,18 +150,23 @@ function _fut_group_get_group_options() {
       $group_content_items = GroupContent::loadByEntity($node);
       if (!empty($group_content_items)) {
         $group_content = reset($group_content_items);
-        $group = $group_content->getGroup()->id();
+        $group = $group_content->getGroup();
       }
     }
+  }
 
+  if (!empty($group)) {
     $group_roles = [];
     $custom_permissions = [];
     $group_permission = GroupPermissionEntity::loadByGroup($group);
     if ($group_permission) {
-      $custom_permissions = $group_permission->getPermissions()->first()->getValue();
+      $custom_permissions = $group_permission->getPermissions()
+        ->first()
+        ->getValue();
       if (!empty($custom_permissions)) {
         // Get roles of the current user.
-        $group_roles = _fut_group_get_group_user_roles($group, \Drupal::currentUser());
+        $group_roles = _fut_group_get_group_user_roles($group,
+          \Drupal::currentUser());
       }
     }
 
@@ -171,7 +175,9 @@ function _fut_group_get_group_options() {
     $query->condition('fut_related_group', $group->id());
     $collection_items = Term::loadMultiple($query->execute());
 
-    $by_pass_access = \Drupal::currentUser()->hasPermission('bypass group access') || \Drupal::currentUser()->hasPermission('manage group collections');
+    $by_pass_access = \Drupal::currentUser()
+        ->hasPermission('bypass group access') || \Drupal::currentUser()
+        ->hasPermission('manage group collections');
 
     if ($collection_items) {
       $options['_none'] = t('- None -');
@@ -179,7 +185,8 @@ function _fut_group_get_group_options() {
         if (!$by_pass_access) {
           $is_allowed = FALSE;
           foreach ($group_roles as $role_name => $group_role) {
-            if (in_array("view {$collection_item->id()} collection", $custom_permissions[$role_name])) {
+            if (in_array("view {$collection_item->id()} collection",
+              $custom_permissions[$role_name])) {
               $is_allowed = TRUE;
             }
           }
