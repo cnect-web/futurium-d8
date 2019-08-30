@@ -8,3 +8,8 @@ Feature: Site is installed
 
     Given I am on the homepage
     Then I see the text "Futurium"
+
+  Scenario: Verify that failing tests lead to failed job.
+
+    Given I am on the homepage
+    Then I see the text "A random piece of text not on the page fo'sho"
