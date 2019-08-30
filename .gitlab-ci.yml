@@ -10,8 +10,8 @@ stages:
 PHPCS:
   stage: test
   script:
-    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode composer install || exit 1
-    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo qa -z cs || exit 1
+    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode composer install
+    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo qa -z cs
   allow_failure: true
   only:
     refs:
@@ -41,9 +41,9 @@ Create artifact:
   stage: package
   script:
     - cp config.yml.dist config.yml
-    - bash install --force
-    - docker exec -u 1000 php ./bin/robo ti
-    - docker exec -u 1000 php ./bin/robo rp ${CI_PROJECT_NAME}-${CI_BUILD_TAG}
+    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode composer install --no-dev
+    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo ti -o "theme.path: web/themes/contrib/blellow"
+    - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo rp ${CI_PROJECT_NAME}-${CI_BUILD_TAG}
   after_script:
     - chmod -R 0777 .
   artifacts:
