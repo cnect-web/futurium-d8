@@ -23,7 +23,7 @@ use Drupal\Core\Site\Settings;
 /**
  * Class RoboFile.
  */
-class RoboFile extends RoboTasks implements TaskInterface {
+class RoboFile extends RoboTasks {
 
   use \Boedah\Robo\Task\Drush\loadTasks;
 
@@ -58,10 +58,6 @@ class RoboFile extends RoboTasks implements TaskInterface {
       $dotenv->load();
       $this->env = getenv();
     }
-  }
-
-  public function run() {
-
   }
 
   /**
@@ -545,20 +541,27 @@ class RoboFile extends RoboTasks implements TaskInterface {
     $paths = explode(',', $options['path']);
 
     if (in_array('cs', $op)) {
-      $this->say('Running code sniffer...');
-      $this->cs($paths);
+      $result = $this->cs($paths);
+      if (!$result->wasSuccessful()) {
+        return $result;
+      }
     }
 
     if (in_array('unit', $op)) {
-      $this->say('Running unit tests...');
-      $this->put($paths);
+      $result = $this->put($paths);
+      if (!$result->wasSuccessful()) {
+        return $result;
+      }
     }
 
     if (in_array('behat', $op)) {
-      $this->say('Running behat tests...');
-      $this->behat($paths);
+      $result = $this->behat($paths);
+      if (!$result->wasSuccessful()) {
+        return $result;
+      }
     }
 
+    return $result;
   }
 
   /**
@@ -568,7 +571,7 @@ class RoboFile extends RoboTasks implements TaskInterface {
    * @aliases put
    */
   public function put(array $paths) {
-    $this->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
+    return $this->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
       ->run();
   }
 
@@ -579,14 +582,9 @@ class RoboFile extends RoboTasks implements TaskInterface {
    * @aliases cs
    */
   public function cs(array $paths) {
-    if ($this
+    return $this
       ->taskExec('bin/phpcs --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
-      ->run()
-      ->wasSuccessful()
-    ) {
-      return Robo\Result::success($this, 'Codesniff passed.');
-    };
-    return Robo\Result::error($this, 'Codesniff failed.');
+      ->run();
   }
 
   /**
@@ -596,14 +594,9 @@ class RoboFile extends RoboTasks implements TaskInterface {
    * @aliases bt
    */
   public function behat() {
-    if ($this
+    return $this
       ->taskExec('bin/behat -c tests/behat.yml')
-      ->run()
-      ->wasSuccessful()
-    ) {
-      return Robo\Result::success($this, 'Behat tests passed.');
-    };
-    return Robo\Result::error($this, 'Behat tests failed.');
+      ->run();
   }
 
   /**
