@@ -38,12 +38,11 @@ Behat:
 
 Create artifact:
   stage: package
-  script:
-    - >
-      cp config.yml.dist config.yml
-      docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode composer install --no-dev
-      docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo ti -o "theme.path: web/themes/contrib/blellow"
-      docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo rp ${CI_PROJECT_NAME}-${CI_BUILD_TAG}
+  script: |-
+    cp config.yml.dist config.yml
+    docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode composer install --no-dev
+    docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo ti -o "theme.path: web/themes/contrib/blellow"
+    docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo rp ${CI_PROJECT_NAME}-${CI_BUILD_TAG}
   after_script:
     - chmod -R 0777 .
   artifacts:
