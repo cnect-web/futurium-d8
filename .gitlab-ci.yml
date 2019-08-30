@@ -45,7 +45,7 @@ Create artifact:
     - docker exec -u 1000 php ./bin/robo rp ${CI_PROJECT_NAME}-${CI_BUILD_TAG}
   artifacts:
     paths:
-    - ${CI_PROJECT_NAME}-${CI_BUILD_TAG}.tgz
+    - ${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip
   only:
     - tags
   tags:
@@ -56,10 +56,10 @@ Create release:
   image: python:3
   script:
     - pip3 install gitlab-release
-    - gitlab-release --link-artifact *.tgz
+    - gitlab-release --link-artifact *.zip
   artifacts:
     paths:
-      - ./*.tgz
+      - ./*.zip
   only:
     - tags
   tags:
