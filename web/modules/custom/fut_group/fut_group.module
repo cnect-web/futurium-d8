@@ -125,13 +125,13 @@ function fut_group_field_widget_form_alter(
 
   // Alter entity reference field when creating a "subgroup" group_content.
   if (!empty($field_definition)
-    && $element["#entity_type"] == 'group_content'
+    && $element['#entity_type'] == 'group_content'
     && $field_definition->getName() == 'entity_id'
     && $field_definition->getType() == 'entity_reference'
   ) {
     if ($element['target_id']['#target_type'] == 'group') {
       // Use custom plugin to list groups without relationship to other groups.
-      $element["target_id"]["#selection_handler"] = 'fut_group:group_one_level';
+      $element['target_id']['#selection_handler'] = 'fut_group:group_one_level';
     }
   }
 }
