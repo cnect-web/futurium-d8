@@ -7,6 +7,7 @@
 
 use Robo\Tasks as RoboTasks;
 use Robo\Config\Config;
+use Robo\Contract\TaskInterface;
 use Consolidation\Config\Loader\YamlConfigLoader;
 use Consolidation\Config\Loader\ConfigProcessor;
 use Symfony\Component\Console\Command\Command;
@@ -22,7 +23,7 @@ use Drupal\Core\Site\Settings;
 /**
  * Class RoboFile.
  */
-class RoboFile extends RoboTasks {
+class RoboFile extends RoboTasks implements TaskInterface {
 
   use \Boedah\Robo\Task\Drush\loadTasks;
 
@@ -57,6 +58,10 @@ class RoboFile extends RoboTasks {
       $dotenv->load();
       $this->env = getenv();
     }
+  }
+
+  public function run() {
+
   }
 
   /**
@@ -579,8 +584,9 @@ class RoboFile extends RoboTasks {
       ->run()
       ->wasSuccessful()
     ) {
-      $this->say('Code sniffer finished.');
+      return Robo\Result::success($this, 'Codesniff passed.');
     };
+    return Robo\Result::error($this, 'Codesniff failed.');
   }
 
   /**
@@ -595,8 +601,9 @@ class RoboFile extends RoboTasks {
       ->run()
       ->wasSuccessful()
     ) {
-      $this->say('Behat finished.');
+      return Robo\Result::success($this, 'Behat tests passed.');
     };
+    return Robo\Result::error($this, 'Behat tests failed.');
   }
 
   /**
@@ -803,12 +810,6 @@ class RoboFile extends RoboTasks {
    */
   protected function getLocalSettingsFile() {
     return "{$this->getLocalSettingsFolder()}/settings.php";
-  }
-
-  public function dumpConfig() {
-
-
-    var_dump($this->config->export());//get('theme.path'));
   }
 
 }
