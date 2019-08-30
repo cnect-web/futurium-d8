@@ -2,7 +2,6 @@
 #Usage:
 # ./install [FORCE INSTALL] [REBUILD CONTAINERS] [DOCKER_PHP_IMAGE]
 # Overridable vars.
-whoami
 FORCE=${1:-no}
 REBUILD_CONTAINERS=${2:-no}
 PHP_IMAGE=${3:-horaciolopesqq/phpnode}
