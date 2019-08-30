@@ -4,8 +4,7 @@ stages:
   - test
   - package
   - release
-#  - packer
-#  - deploy
+  - deploy
 
 PHPCS:
   stage: test
@@ -69,25 +68,28 @@ Create release:
   tags:
     - docker
 
-#Packer:
-#  stage: packer
-#  script:
-#    - >
-#      packer build
-#      -var "platform_version=${PLATFORM_PACKAGE_VERSION}"
-#      -var "gitlab_private_token=${PRIVATE_TOKEN}"
-#      -var "tag=${CI_BUILD_TAG}"
-#      packer.json
-#  only:
-#    - tags
-#  tags:
-#    - shell
+Upload to S3:
+  stage: deploy
+  script:
+    - >
+      RELEASE=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $GITLAB_URL/$GITLAB_API/projects/$GITLAB_PROJECT_ID/releases | jq -r ".[0].tag_name")
+      ARTIFACT_URL=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $GITLAB_URL/$GITLAB_API/projects/$GITLAB_PROJECT_ID/releases | jq -r ".[0].description" | cut -d "(" -f2 | cut -d ")" -f1)
+      curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $ARTIFACT_URL --output /tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip
+      aws s3 cp “/tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip” s3://$S3_BUCKET_NAME/
+  only:
+    - tags
+  tags:
+    - shell
 
-#Aws:
-#  stage: deploy
-#  script:
-#    - ./scripts/aws/rotate_lcfg.sh ${PRODUCTION_STACK_NAME} ${CI_PROJECT_NAME}
-#  only:
-#    - tags
-#  tags:
-#    - shell
+Deploy to Stage:
+  stage: deploy
+  script:
+    - >
+      aws elasticbeanstalk create-application-version \
+      --application-name="$APPLICATION_NAME"
+      --version-label="${CI_BUILD_TAG}"
+      --source-bundle="{\"S3Bucket\": \"$S3_BUCKET_NAME\",\"S3Key\": \"${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip\"}"
+  only:
+    - tags
+  tags:
+    - shell
