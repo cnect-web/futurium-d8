@@ -72,11 +72,10 @@ CreateRelease:
 UploadToS3:
   stage: release_package
   script:
-    - >
       RELEASE=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $CI_API_V4_URL/projects/$CI_PROJECT_ID/releases | jq -r ".[0].tag_name");
       ARTIFACT_URL=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $CI_API_V4_URL/projects/$CI_PROJECT_ID/releases | jq -r ".[0].description" | cut -d "(" -f2 | cut -d ")" -f1);
       curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $ARTIFACT_URL --output /tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip;
-      aws s3 cp “/tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip” s3://$S3_BUCKET_NAME/;
+      aws s3 cp "/tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip" s3://$S3_BUCKET_NAME/;
   only:
     - tags
   dependencies:
