@@ -11,6 +11,8 @@ variables:
   APPLICATION_NAME: "FuturiumD8"
   AWS_REGION: "eu-west-2"
   S3_BUCKET_NAME: "futuriumd8-release-bucket"
+  STAGING_ENVIRONMENT: FuturiumD8-Staging
+  PRODUCTION_ENVIRONMENT: FuturiumD8-Production
 
 PHPCS:
   stage: test
@@ -89,15 +91,31 @@ UploadToS3:
   tags:
     - shell
 
+CreateEBAppVersion:
+  stage: deploy
+  script:
+    - >
+      aws --region ${AWS_REGION} elasticbeanstalk create-application-version
+      --application-name="${APPLICATION_NAME}"
+      --version-label="${CI_BUILD_TAG}"
+      --source-bundle S3Bucket="${S3_BUCKET_NAME}",S3Key="${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip"
+  dependencies:
+    - UploadToS3
+  only:
+    - tags
+  tags:
+    - shell
+
 DeployToStage:
   stage: deploy
   script:
-    - aws --region ${AWS_REGION} elasticbeanstalk create-application-version \
-        --application-name="${APPLICATION_NAME}" \
-        --version-label="${CI_BUILD_TAG}" \
-        --source-bundle S3Bucket="${S3_BUCKET_NAME}",S3Key="${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip"
+    - >
+      aws --region ${AWS_REGION} elasticbeanstalk update-environment
+      --application-name ${APPLICATION_NAME}
+      --environment-name ${STAGING_ENVIRONMENT}
+      --version-label ${CI_BUILD_TAG}
   dependencies:
-    - UploadToS3
+    - CreateEBAppVersion
   only:
     - tags
   tags:
