@@ -88,10 +88,10 @@ DeployToStage:
   stage: deploy
   script:
     - >
-      aws elasticbeanstalk create-application-version \
+      aws --region eu-west-2 elasticbeanstalk create-application-version \
       --application-name="$APPLICATION_NAME"
       --version-label="${CI_BUILD_TAG}"
-      --source-bundle="{\"S3Bucket\": \"$S3_BUCKET_NAME\",\"S3Key\": \"${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip\"}"
+      --source-bundle S3Bucket="${S3_BUCKET_NAME}",S3Key="${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip"
   dependencies:
     - UploadToS3
   only:
