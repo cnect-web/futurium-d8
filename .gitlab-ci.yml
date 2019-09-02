@@ -12,8 +12,9 @@ variables:
   APPLICATION_NAME: "FuturiumD8"
   AWS_REGION: "eu-west-2"
   S3_BUCKET_NAME: "futuriumd8-release-bucket"
-  STAGING_ENVIRONMENT: FuturiumD8-Staging
-  PRODUCTION_ENVIRONMENT: FuturiumD8-Production
+  STAGING_ENVIRONMENT: "FuturiumD8-Staging"
+  PRODUCTION_ENVIRONMENT: "FuturiumD8-Production"
+  THEME_PATH: "themes/contrib/blellow"
 
 PHPCS:
   stage: test
@@ -51,7 +52,7 @@ CreateArtifact:
     - cp config.yml.dist config.yml
     - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode composer install --no-dev
     - >
-      docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo ti -o "theme.path: themes/contrib/blellow"
+      docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo ti -o "theme.path: $THEME_PATH"
     - docker run --user 1000:1000 --name php_cs --rm -i -v $(pwd):/var/www/html horaciolopesqq/phpnode ./bin/robo rp ${CI_PROJECT_NAME}-${CI_BUILD_TAG}
   after_script:
     - chmod -R 0777 .
