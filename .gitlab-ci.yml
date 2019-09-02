@@ -5,6 +5,7 @@ stages:
   - package
   - release
   - release_package
+  - create_version
   - deploy
 
 variables:
@@ -92,7 +93,7 @@ UploadToS3:
     - shell
 
 CreateEBAppVersion:
-  stage: deploy
+  stage: create_version
   script:
     - >
       aws --region ${AWS_REGION} elasticbeanstalk create-application-version
