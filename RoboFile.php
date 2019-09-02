@@ -641,15 +641,7 @@ class RoboFile extends RoboTasks {
    * @option $force Force the installation.
    */
   public function releasePackage($archive_name = NULL) {
-    // Enforce composer --no-dev
-    $this->taskComposerInstall()
-      ->noDev()
-      ->run();
-
     $this->_exec("./resources/scripts/deploy/package.sh ${archive_name}");
-
-    $this->taskComposerInstall()
-      ->run();
   }
 
   /**
