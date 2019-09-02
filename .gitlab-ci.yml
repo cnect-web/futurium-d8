@@ -7,6 +7,11 @@ stages:
   - release_package
   - deploy
 
+variables:
+  APPLICATION_NAME: "FuturiumD8"
+  AWS_REGION: "eu-west-2"
+  S3_BUCKET_NAME: "futuriumd8-release-bucket"
+
 PHPCS:
   stage: test
   script:
@@ -17,7 +22,7 @@ PHPCS:
     refs:
       - merge_requests
     variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "refactor"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
   tags:
     - shell
 
@@ -31,7 +36,7 @@ Behat:
     refs:
       - merge_requests
     variables:
-      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "refactor"
+      - $CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "develop"
   after_script:
     - chmod -R 0777 .
   tags:
@@ -87,11 +92,10 @@ UploadToS3:
 DeployToStage:
   stage: deploy
   script:
-    - >
-      aws --region eu-west-2 elasticbeanstalk create-application-version \
-      --application-name="$APPLICATION_NAME"
-      --version-label="${CI_BUILD_TAG}"
-      --source-bundle S3Bucket="${S3_BUCKET_NAME}",S3Key="${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip"
+    - aws --region ${AWS_REGION} elasticbeanstalk create-application-version \
+        --application-name="${APPLICATION_NAME}" \
+        --version-label="${CI_BUILD_TAG}" \
+        --source-bundle S3Bucket="${S3_BUCKET_NAME}",S3Key="${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip"
   dependencies:
     - UploadToS3
   only:
