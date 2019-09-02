@@ -36,7 +36,7 @@ Behat:
   tags:
     - shell
 
-Create artifact:
+CreateArtifact:
   stage: package
   script:
     - cp config.yml.dist config.yml
@@ -54,7 +54,7 @@ Create artifact:
   tags:
     - shell
 
-Create release:
+CreateRelease:
   stage: release
   image: python:3
   script:
@@ -68,30 +68,33 @@ Create release:
   tags:
     - docker
 
-Upload to S3:
+UploadToS3:
   stage: deploy
   script:
     - >
-      printenv
-      RELEASE=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $GITLAB_URL/$GITLAB_API/projects/$GITLAB_PROJECT_ID/releases | jq -r ".[0].tag_name")
-      ARTIFACT_URL=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $GITLAB_URL/$GITLAB_API/projects/$GITLAB_PROJECT_ID/releases | jq -r ".[0].description" | cut -d "(" -f2 | cut -d ")" -f1)
-      curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $ARTIFACT_URL --output /tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip
-      aws s3 cp “/tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip” s3://$S3_BUCKET_NAME/
+      printenv;
+      RELEASE=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $GITLAB_URL/$GITLAB_API/projects/$GITLAB_PROJECT_ID/releases | jq -r ".[0].tag_name");
+      ARTIFACT_URL=$(curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $GITLAB_URL/$GITLAB_API/projects/$GITLAB_PROJECT_ID/releases | jq -r ".[0].description" | cut -d "(" -f2 | cut -d ")" -f1);
+      curl -Ls -H "PRIVATE-TOKEN: $PRIVATE_TOKEN" $ARTIFACT_URL --output /tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip;
+      aws s3 cp “/tmp/${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip” s3://$S3_BUCKET_NAME/;
   only:
     - tags
   dependencies:
-    - Create release
+    - CreateRelease
   tags:
     - shell
 
-Deploy to Stage:
+DeployToStage:
   stage: deploy
   script:
     - >
+      printenv;
       aws elasticbeanstalk create-application-version \
       --application-name="$APPLICATION_NAME"
       --version-label="${CI_BUILD_TAG}"
       --source-bundle="{\"S3Bucket\": \"$S3_BUCKET_NAME\",\"S3Key\": \"${CI_PROJECT_NAME}-${CI_BUILD_TAG}.zip\"}"
+  dependencies:
+    - UploadToS3
   only:
     - tags
   tags:
