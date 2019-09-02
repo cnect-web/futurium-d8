@@ -4,6 +4,7 @@ stages:
   - test
   - package
   - release
+  - release_package
   - deploy
 
 PHPCS:
@@ -69,7 +70,7 @@ CreateRelease:
     - docker
 
 UploadToS3:
-  stage: deploy
+  stage: release_package
   script:
     - >
       printenv;
