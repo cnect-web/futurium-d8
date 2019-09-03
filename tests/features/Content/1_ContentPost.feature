@@ -15,7 +15,11 @@ Feature: Content Post
     When I go to "/group/broadband-networks"
     And I expand operations menu
     And I click "Add Post"
-    Then I break
+    Then I fill in "edit-title-0-value" with "Broadband Good Practices"
+    Then I fill in wysiwyg on field "edit-fut-content-0-subform-fut-text-0-value" with "This is an example"
+    And I press the "Save" button
+    Then I go to "/group/broadband-networks/content/broadband-good-practices"
+    And I should see "Broadband Good Practices"
 
 
 
