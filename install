@@ -28,34 +28,36 @@ if [ -f ".env" ] && [[ $FORCE == "--force" ]]; then rm -rf .env ; fi
 if [ $INSTALLATION_TYPE == "docker" ]
 then
   echo "Using ${BOLD}Docker Compose${NORMAL}."
-  RUNNING_CONTAINERS=$(docker ps -q)
+  RUNNING_CONTAINERS=$(docker ps -aq)
   if [ ! -z "$RUNNING_CONTAINERS" ]
   then
     docker kill $RUNNING_CONTAINERS > /dev/null 2>&1
   fi
 
-  # Generate a temporary php.ini file.
-  echo "memory_limit=-1" > php.ini
-
   # We need robo to set up the environment.
   ( docker run --user ${USER_ID}:${GROUP_ID} \
-    --name php_install --rm -it \
+    --name php_install --rm -i \
     -e HOME="/tmp" \
     -e COMPOSER_HOME="/tmp" \
+    -e COMPOSER_MEMORY_LIMIT=-1 \
     -v $(pwd):/var/www/html \
-    -v $(pwd)/php.ini:/usr/local/etc/php/conf.d/php_overrides.ini \
+    $PHP_IMAGE composer clear-cache )
+
+  ( docker run --user ${USER_ID}:${GROUP_ID} \
+    --name php_install --rm -i \
+    -e HOME="/tmp" \
+    -e COMPOSER_HOME="/tmp" \
+    -e COMPOSER_MEMORY_LIMIT=-1 \
+    -v $(pwd):/var/www/html \
     $PHP_IMAGE composer install )
 
   ( docker run --user ${USER_ID}:${GROUP_ID} \
-    --name php_install --rm -it \
+    --name php_install --rm -i \
     -e HOME="/tmp" \
     -e COMPOSER_HOME="/tmp" \
+    -e COMPOSER_MEMORY_LIMIT=-1 \
     -v $(pwd):/var/www/html \
-    -v $(pwd)/php.ini:/usr/local/etc/php/conf.d/php_overrides.ini \
     $PHP_IMAGE ./bin/robo pse --type docker )
-
-  # Delete temporary php.ini file.
-  rm -rf php.ini
 
 else
   # No docker, install on bare metal.
@@ -78,12 +80,12 @@ COMMAND=$([ "$ENVIRONMENT" == "development" ] && echo "composer install" || echo
 
 # Install.
 if [ $INSTALLATION_TYPE == "docker" ]; then
-  docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -it -e HOME="/tmp" -e COMPOSER_HOME="/tmp" -v $(pwd):/var/www/html $PHP_IMAGE $COMMAND \
+  docker run --user ${USER_ID}:${GROUP_ID} --name php_install --rm -i -e HOME="/tmp" -e COMPOSER_HOME="/tmp" -v $(pwd):/var/www/html $PHP_IMAGE $COMMAND \
   && docker-compose -f docker/docker-compose.yml up -d \
   && sleep 10 \
   && docker exec -u ${USER_ID} php bin/robo piu $FORCE
   # Create an alias to open a tty in the php container.
-  alias "dshp=docker exec -u 1000 -it php bash"
+  alias "dshp=docker exec -u 1000 -i php bash"
 else
   $COMMAND
   ./vendor/bin/robo piu $FORCE
