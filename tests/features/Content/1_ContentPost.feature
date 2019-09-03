@@ -13,7 +13,8 @@ Feature: Content Post
 
   Scenario: Verify that authenticated user can create a node of type Post.
     When I go to "/group/broadband-networks"
-    And I expand operations menu with "dropbutton-multiple" class
+    And I expand operations menu
+    And I click "Add Post"
     Then I break
 
 

@@ -24,16 +24,10 @@ class FeatureContext extends RawMinkContext implements Context
     /**
      * Expand Group operations menu.
      *
-     * @When I expand operations menu with :class class
+     * @When I expand operations menu
      */
-    public function iExpandOperationsMenu($class)
+    public function iExpandOperationsMenu()
     {
-      $session = $this->getSession();
-      $page = $session->getPage();
-      $element = $page->findAll('css', $class);
-
-      if (NULL === $element) {
-        throw new \InvalidArgumentException(sprintf('Could not evaluate CSS: "%s"', $class));
-      }
+      $this->getSession()->evaluateScript('jQuery(".dropbutton-multiple").addClass("open")');
     }
 }
