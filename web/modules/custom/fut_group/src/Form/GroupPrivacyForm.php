@@ -105,7 +105,7 @@ class GroupPrivacyForm extends FormBase {
 
       $plugins = $group_type->getInstalledContentPlugins();
       foreach ($plugins as $plugin) {
-        if ($plugin->getEntityTypeId() == 'node') {
+        if ($plugin->getEntityTypeId() == 'node' || $plugin->getEntityTypeId() == 'group') {
           $this->removeArrayValue($custom_permissions, $role_id, "view {$plugin->getPluginId()} entity");
         }
       }
@@ -143,7 +143,7 @@ class GroupPrivacyForm extends FormBase {
 
       $plugins = $group_type->getInstalledContentPlugins();
       foreach ($plugins as $plugin) {
-        if ($plugin->getEntityTypeId() == 'node') {
+        if ($plugin->getEntityTypeId() == 'node' || $plugin->getEntityTypeId() == 'group') {
           $this->addArrayValue($custom_permissions, $role_id, "view {$plugin->getPluginId()} entity");
         }
       }
@@ -171,13 +171,13 @@ class GroupPrivacyForm extends FormBase {
   }
 
   protected function removeArrayValue(&$permissions, $role_id, $permission) {
-    if (($key = array_search($permission, $permissions[$role_id])) !== false) {
+    if (!empty($permissions[$role_id]) && ($key = array_search($permission, $permissions[$role_id])) !== false) {
       unset($permissions[$role_id][$key]);
     }
   }
 
   protected function addArrayValue(&$permissions, $role_id, $permission) {
-    if (($key = array_search($permission, $permissions[$role_id])) == false) {
+    if (empty($permissions[$role_id]) || ($key = array_search($permission, $permissions[$role_id])) == false) {
       $permissions[$role_id][] = $permission;
     }
   }
