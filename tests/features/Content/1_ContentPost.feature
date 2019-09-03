@@ -11,16 +11,21 @@ Feature: Content Post
       | fut_description    | fut_text:fut_text:Bla Bla, Yada Yada |
     And I am a member of the current group
 
-  Scenario: Verify that authenticated user can create a node of type Post.
+  Scenario: Verify that authenticated user can create and edit a node of type Post.
     When I go to "/group/broadband-networks"
     And I expand operations menu
     And I click "Add Post"
     Then I fill in "edit-title-0-value" with "Broadband Good Practices"
     Then I fill in wysiwyg on field "edit-fut-content-0-subform-fut-text-0-value" with "This is an example"
     And I press the "Save" button
-    Then I go to "/group/broadband-networks/content/broadband-good-practices"
-    And I should see "Broadband Good Practices"
-
-
+    When I go to "/group/broadband-networks/content/broadband-good-practices"
+    Then I should see "Broadband Good Practices"
+    And I should see "This is an example"
+    When I click "Edit"
+    And I fill in "edit-title-0-value" with "Broadband Good Practices Edited"
+    And I fill in wysiwyg on field "edit-fut-content-0-subform-fut-text-0-value" with "This is an example edited"
+    And I press the "Save" button
+    Then I should see "Broadband Good Practices Edited"
+    And I should see "This is an example edited"
 
 
