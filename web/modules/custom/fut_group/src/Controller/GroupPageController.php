@@ -304,4 +304,17 @@ class GroupPageController extends ControllerBase {
     return $this->entityFormBuilder()->getForm($group, 'fut_layout');
   }
 
+  /**
+   * Manages group privacy.
+   *
+   * @param \Drupal\group\Entity\Group $group
+   *   Group item.
+   *
+   * @return mixed
+   *   Form.
+   */
+  public function privacy(Group $group) {
+    return $this->entityFormBuilder()->getForm($group, 'fut_layout');
+  }
+
 }

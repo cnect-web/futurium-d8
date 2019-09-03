@@ -220,3 +220,16 @@ fut_group.manage_group.layout:
       group:
         type: 'entity:group'
     _admin_route: TRUE
+
+fut_group.manage_group.privacy:
+  path: '/group/{group}/manage/group/privacy'
+  defaults:
+    _form: '\Drupal\fut_group\Form\GroupPrivacyForm'
+    _title: 'Privacy'
+  requirements:
+    _group_permission: 'edit group'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE

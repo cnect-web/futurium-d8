@@ -131,3 +131,11 @@ fut_group.manage_group.layout:
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 60
+
+fut_group.manage_group.privacy:
+  route_name: 'fut_group.manage_group.privacy'
+  title: 'Manage privacy'
+  description: 'Manage group privacy'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group'
+  weight: 70
