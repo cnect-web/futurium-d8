@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d4fbd57c038d38feada871f22f5612b5",
+    "content-hash": "dee1507e56b88bcd9a6775c6748f9718",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -382,7 +382,7 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/horaciolopesqq/installers",
-                "reference": "dc9b55e810bd29cc4f67071dd83fff7768bfc0e1"
+                "reference": "ea78ab665e7a5ef4341d87f631e36b474e7cfb93"
             },
             "require": {
                 "composer-plugin-api": "^1.0"
@@ -12780,8 +12780,8 @@
     ],
     "aliases": [
         {
-            "alias": "v1.5.0",
-            "alias_normalized": "1.5.0.0",
+            "alias": "v1.6.0",
+            "alias_normalized": "1.6.0.0",
             "version": "9999999-dev",
             "package": "composer/installers"
         },

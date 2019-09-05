@@ -8,7 +8,7 @@
         "boedah/robo-drush": "~4",
         "cnect-web/blellow": "dev-develop",
         "cnect-web/group_permissions": "1.0",
-        "composer/installers": "dev-master#dc9b55e810bd29cc4f67071dd83fff7768bfc0e1 as v1.5.0",
+        "composer/installers": "dev-master#ea78ab665e7a5ef4341d87f631e36b474e7cfb93 as v1.6.0",
         "cweagans/composer-patches": "^1.6",
         "drupal-composer/drupal-scaffold": "^2.2",
         "drupal/address": "^1.6",

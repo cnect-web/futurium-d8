@@ -7,6 +7,7 @@
 
 use Robo\Tasks as RoboTasks;
 use Robo\Config\Config;
+use Robo\Contract\TaskInterface;
 use Consolidation\Config\Loader\YamlConfigLoader;
 use Consolidation\Config\Loader\ConfigProcessor;
 use Symfony\Component\Console\Command\Command;
@@ -540,8 +541,10 @@ class RoboFile extends RoboTasks {
     $paths = explode(',', $options['path']);
 
     if (in_array('cs', $op)) {
-      $this->say('Running code sniffer...');
-      $this->cs($paths);
+      $result = $this->cs($paths);
+      if (!$result->wasSuccessful()) {
+        return $result;
+      }
     }
 
     if (in_array('cb', $op)) {
@@ -550,15 +553,20 @@ class RoboFile extends RoboTasks {
     }
 
     if (in_array('unit', $op)) {
-      $this->say('Running unit tests...');
-      $this->put($paths);
+      $result = $this->put($paths);
+      if (!$result->wasSuccessful()) {
+        return $result;
+      }
     }
 
     if (in_array('behat', $op)) {
-      $this->say('Running behat tests...');
-      $this->behat($paths);
+      $result = $this->behat($paths);
+      if (!$result->wasSuccessful()) {
+        return $result;
+      }
     }
 
+    return $result;
   }
 
   /**
@@ -568,7 +576,7 @@ class RoboFile extends RoboTasks {
    * @aliases put
    */
   public function put(array $paths) {
-    $this->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
+    return $this->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
       ->run();
   }
 
@@ -595,13 +603,9 @@ class RoboFile extends RoboTasks {
    * @aliases cs
    */
   public function cs(array $paths) {
-    if ($this
+    return $this
       ->taskExec('bin/phpcs --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
-      ->run()
-      ->wasSuccessful()
-    ) {
-      $this->say('Code sniffer finished.');
-    };
+      ->run();
   }
 
   /**
@@ -611,13 +615,9 @@ class RoboFile extends RoboTasks {
    * @aliases bt
    */
   public function behat() {
-    if ($this
+    return $this
       ->taskExec('bin/behat -c tests/behat.yml')
-      ->run()
-      ->wasSuccessful()
-    ) {
-      $this->say('Behat finished.');
-    };
+      ->run();
   }
 
   /**
@@ -662,15 +662,7 @@ class RoboFile extends RoboTasks {
    * @option $force Force the installation.
    */
   public function releasePackage($archive_name = NULL) {
-    // Enforce composer --no-dev
-    $this->taskComposerInstall()
-      ->noDev()
-      ->run();
-
     $this->_exec("./resources/scripts/deploy/package.sh ${archive_name}");
-
-    $this->taskComposerInstall()
-      ->run();
   }
 
   /**
@@ -824,12 +816,6 @@ class RoboFile extends RoboTasks {
    */
   protected function getLocalSettingsFile() {
     return "{$this->getLocalSettingsFolder()}/settings.php";
-  }
-
-  public function dumpConfig() {
-
-
-    var_dump($this->config->export());//get('theme.path'));
   }
 
 }
