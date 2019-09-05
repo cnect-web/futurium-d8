@@ -4,11 +4,11 @@ description: 'Futurium content module contains content related configurations.'
 core: 8.x
 package: 'Futurium'
 dependencies:
-  - comment
-  - fut_paragraphs
-  - fut_collection
-  - node
-  - single_datetime
-  - taxonomy
-  - extra_field
-  - webtools_geofield_formatter
+  - drupal:comment
+  - drupal:fut_paragraphs
+  - drupal:fut_collection
+  - drupal:node
+  - drupal:single_datetime
+  - drupal:taxonomy
+  - drupal:extra_field
+  - drupal:webtools_geofield_formatter

@@ -4,6 +4,8 @@ namespace Drupal\fut_group;
 
 use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\node\Entity\Node;
+use Drupal\group\Entity\Group;
 use Drupal\group\Entity\GroupContent;
 
 /**
@@ -40,49 +42,70 @@ class RequestEntityExtractor {
   protected $routeMatch;
 
   /**
+   * Node getter.
+   *
    * @return Drupal\node\Entity\Node
+   *   A node entity.
    */
   public function getNode() {
     return $this->node;
   }
 
   /**
+   * Node setter.
+   *
    * @param \Drupal\node\Entity\Node $node
+   *   A node entity.
    */
-  public function setNode($node) {
+  public function setNode(Node $node) {
     $this->node = $node;
   }
 
   /**
+   * Group getter.
+   *
    * @return \Drupal\group\Entity\Group
+   *   A Group entity.
    */
   public function getGroup() {
     return $this->group;
   }
 
   /**
+   * Group setter.
+   *
    * @param \Drupal\group\Entity\Group $group
+   *   A Group entity.
    */
-  public function setGroup($group) {
+  public function setGroup(Group $group) {
     $this->group = $group;
   }
 
   /**
+   * The group content.
+   *
    * @return \Drupal\group\Entity\GroupContent
+   *   A GroupContent entity.
    */
   public function getGroupContent() {
     return $this->groupContent;
   }
 
   /**
+   * Group content setter.
+   *
    * @param \Drupal\group\Entity\GroupContent $groupContent
+   *   A GroupContent entity.
    */
-  public function setGroupContent($groupContent) {
+  public function setGroupContent(GroupContent $groupContent) {
     $this->groupContent = $groupContent;
   }
 
   /**
+   * Route match getter.
+   *
    * @return \Drupal\Core\Routing\RouteMatchInterface
+   *   A RouteMatchInterface object.
    */
   public function getRouteMatch() {
     return $this->routeMatch;
@@ -91,26 +114,17 @@ class RequestEntityExtractor {
   /**
    * Constructs a new FutPageHeaderBlock object.
    *
-   * @param array $configuration
-   *   A configuration array containing information about the plugin instance.
-   * @param string $plugin_id
-   *   The plugin_id for the plugin instance.
-   * @param string $plugin_definition
-   *   The plugin implementation definition.
    * @param \Drupal\Core\Routing\RouteMatchInterface $route_match
    *   The route match.
-   * @param \Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder $breadcrumb_builder
-   *   The breadcrumb builder service.
-   * @param \Drupal\Core\Extension\ModuleHandlerInterface $module_handler
-   *   The module handler.
-   * @param \Drupal\Core\Config\ConfigFactoryInterface $config_factory
-   *   The factory for configuration objects.
    */
   public function __construct(RouteMatchInterface $route_match) {
     $this->routeMatch = $route_match;
     $this->extractEntities();
   }
 
+  /**
+   * Extract entities.
+   */
   private function extractEntities() {
     foreach ($this->routeMatch->getParameters() as $parameter) {
       if ($parameter instanceof EntityInterface) {

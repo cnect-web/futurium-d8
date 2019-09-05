@@ -2,13 +2,37 @@
 
 namespace Drupal\fut_group\Controller;
 
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
-use Drupal\taxonomy\Entity\Term;
+use Drupal\Core\Entity\Query\QueryFactory;
 
 /**
  * Group permissions controller.
  */
 class GroupPermissionsController extends ControllerBase {
+
+  /**
+   * Drupal\Core\Entity\Query\QueryFactory definition.
+   *
+   * @var Drupal\Core\Entity\Query\QueryFactory
+   */
+  protected $entityQuery;
+
+  /**
+   * {@inheritdoc}
+   */
+  public function __construct(QueryFactory $entityQuery) {
+    $this->entityQuery = $entityQuery;
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public static function create(ContainerInterface $container) {
+    return new static(
+      $container->get('entity.query')
+    );
+  }
 
   /**
    * Returns custom group permissions.
@@ -41,12 +65,16 @@ class GroupPermissionsController extends ControllerBase {
     $groups = $this->entityTypeManager()->getStorage('group')->loadMultiple();
     foreach ($groups as $group) {
       // Get collections for the group.
-      $collection_ids = \Drupal::entityQuery('taxonomy_term')
+      $collection_ids = $this->entityQuery->get('taxonomy_term')
         ->condition('fut_related_group', $group->id())
         ->execute();
 
       foreach ($collection_ids as $collection_id) {
-        $collection = Term::load($collection_id);
+        $collection = $this
+          ->entityTypeManager()
+          ->getStorage('taxonomy_term')
+          ->load($collection_id);
+
         $operations = [
           'view' => 'View',
           'update' => 'Edit',
@@ -76,7 +104,7 @@ class GroupPermissionsController extends ControllerBase {
    * Get collection specific permission item.
    *
    * @param array $permissions
-   *   Permissions
+   *   Permissions.
    * @param string $section
    *   Permission section.
    * @param string $title
@@ -84,7 +112,7 @@ class GroupPermissionsController extends ControllerBase {
    * @param array $title_arguments
    *   Title arguments.
    * @param string $operation
-   *   Operation to be performed
+   *   Operation to be performed.
    * @param int $collection_id
    *   Collection id.
    * @param int $gid
@@ -98,6 +126,5 @@ class GroupPermissionsController extends ControllerBase {
       'section' => $section,
     ];
   }
-
 
 }

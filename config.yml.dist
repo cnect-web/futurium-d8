@@ -41,7 +41,7 @@ id:
 #  path: themes/contrib/theme_name
 
 # Here you can specify environment overrides.
-#environment:
+environment:
 #  development:
 #    settings:
 #      memcache:
@@ -57,7 +57,8 @@ id:
 #        proxy:
 #          http: "http://username:password@host:port"
 #          https: "http://username:password@host:port"
-#  staging:
-#    settings:
-#      trusted_host_patterns:
-#        - "staging.site.tld"
+  staging:
+    settings:
+      trusted_host_patterns:
+        - "futuriumd8-staging.xmd2xtiztc.eu-west-2.elasticbeanstalk.com"
+        - "futuriumd8-staging.dgcnect.eu"

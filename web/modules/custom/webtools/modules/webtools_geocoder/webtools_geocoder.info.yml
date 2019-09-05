@@ -2,6 +2,6 @@ name: 'Webtools Geocoder'
 type: module
 description: 'EC Webtools Geocoder Provider'
 dependencies:
-  - geocoder_address
+  - drupal:geocoder_address
 core: 8.x
 package: 'Webtools'

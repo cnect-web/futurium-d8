@@ -1,0 +1,42 @@
+<?php
+
+/**
+ * @file
+ * Contains aws_info.install.
+ */
+
+use GuzzleHttp\Exception\RequestException;
+
+/**
+ * Implements hook_requirements().
+ *
+ * Show some AWS related information on status report page.
+ * See https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/ec2-instance-metadata.html.
+ */
+function aws_info_requirements($phase) {
+  $requirements = [];
+
+  if ($phase == 'runtime') {
+    $url = "http://169.254.169.254/latest/meta-data/instance-id";
+    $client = \Drupal::httpClient();
+    try {
+      $response = $client->get($url);
+      $data = $response->getBody();
+
+      if (getenv('ENVIRONMENT')) {
+        $environment = ucfirst(getenv('ENVIRONMENT'));
+      }
+
+      $requirements['aws_info'] = [
+        'title' => t('AWS Info'),
+        'value' => t('Environment: @environment', ['@environment' => $environment]),
+        'description' => t('Instance ID: @instance_id', ['@instance_id' => $data]),
+      ];
+    }
+    catch (RequestException $e) {
+      watchdog_exception('aws_info', $e);
+    }
+  }
+
+  return $requirements;
+}

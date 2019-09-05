@@ -544,6 +544,11 @@ class RoboFile extends RoboTasks {
       $this->cs($paths);
     }
 
+    if (in_array('cb', $op)) {
+      $this->say('Running code beautifier...');
+      $this->cb($paths);
+    }
+
     if (in_array('unit', $op)) {
       $this->say('Running unit tests...');
       $this->put($paths);
@@ -565,6 +570,22 @@ class RoboFile extends RoboTasks {
   public function put(array $paths) {
     $this->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
       ->run();
+  }
+
+  /**
+   * Run phpcbf.
+   *
+   * @command tools:cb
+   * @aliases cb
+   */
+  public function cb(array $paths) {
+    if ($this
+      ->taskExec('bin/phpcbf --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
+      ->run()
+      ->wasSuccessful()
+    ) {
+      $this->say('Code beautifier finished.');
+    };
   }
 
   /**

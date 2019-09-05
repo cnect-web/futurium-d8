@@ -4,9 +4,9 @@ description: 'Futurium Group module contains group related configurations.'
 core: 8.x
 package: 'Futurium'
 dependencies:
-  - fut_content
-  - fut_collection
-  - group
-  - gnode
-  - ggroup
-  - paragraphs
+  - drupal:fut_content
+  - drupal:fut_collection
+  - drupal:group
+  - drupal:gnode
+  - drupal:ggroup
+  - drupal:paragraphs

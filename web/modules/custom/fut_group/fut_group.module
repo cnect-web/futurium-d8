@@ -126,7 +126,7 @@ function fut_group_field_widget_form_alter(
 }
 
 /**
- *
+ * Helper function to return group collection items as #options.
  */
 function _fut_group_get_group_options() {
   $options = [];
@@ -204,7 +204,7 @@ function fut_group_form_taxonomy_term_fut_collections_form_alter(
 }
 
 /**
- *
+ * Helper function to redirect user after creating a collection.
  */
 function _fut_group_form_taxonomy_term_fut_collections_submit(array $form, FormState $form_state) {
   $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');

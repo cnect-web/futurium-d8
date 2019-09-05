@@ -1,4 +1,4 @@
-@api
+@api @javascript
 Feature: Collection
   As a developer
   I want to know if the collection functionalities are working
@@ -19,4 +19,3 @@ Feature: Collection
     And I press "Save"
     Then I should see "My test Collection"
 
-    

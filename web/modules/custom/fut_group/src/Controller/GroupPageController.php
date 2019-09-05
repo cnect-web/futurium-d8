@@ -189,7 +189,7 @@ class GroupPageController extends ControllerBase {
 
     return [
       'collection_list' => [
-        '#markup' => '<div class="collection-list-title">'. $collections_list_title .'</div>',
+        '#markup' => '<div class="collection-list-title">' . $collections_list_title . '</div>',
         '#type' => 'view',
         '#title' => 'test',
         '#name' => 'fut_collections',
@@ -313,11 +313,14 @@ class GroupPageController extends ControllerBase {
    */
   public function addContentPageTitle(GroupInterface $group, $plugin_id) {
     $plugin = $group->getGroupType()->getContentPlugin($plugin_id);
-    $nt = node_type_load($plugin->getEntityBundle());
 
-    return $this->t("@group_name: New @content_type",[
+    $nt = $this->entityTypeManager()
+      ->getStorage('node_type')
+      ->load($plugin->getEntityBundle());
+
+    return $this->t("@group_name: New @content_type", [
       '@content_type' => $nt->label(),
-      '@group_name' => $group->label()
+      '@group_name' => $group->label(),
     ]);
   }
 
@@ -355,4 +358,5 @@ class GroupPageController extends ControllerBase {
   public function manageLayout(Group $group) {
     return $this->entityFormBuilder()->getForm($group, 'fut_layout');
   }
+
 }

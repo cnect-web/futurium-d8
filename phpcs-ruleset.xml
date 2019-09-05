@@ -14,5 +14,10 @@
     <exclude-pattern>node_modules/</exclude-pattern>
 
     <!-- Exclude some file extensions. -->
-    <exclude-pattern>*\.(md|css|js)$</exclude-pattern>
+    <exclude-pattern>*\.(md|txt|css|js)$</exclude-pattern>
+
+    <!-- Exclude unused private method sniff in some files. -->
+    <rule ref="DrupalPractice.Objects.UnusedPrivateMethod.UnusedMethod">
+        <exclude-pattern>ValueObject/*ValueObject.php</exclude-pattern>
+    </rule>
 </ruleset>

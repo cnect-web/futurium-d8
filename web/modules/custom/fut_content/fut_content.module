@@ -5,6 +5,7 @@
  * Contains fut_content.module.
  */
 
+use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 
 /**
@@ -64,10 +65,6 @@ function fut_content_preprocess_node(array &$variables) {
 
 }
 
-function fut_content_form_alter($form, $fs, $form_id) {
-  //ksm($form_id);
-}
-
 /**
  * Implements hook_form_FORM_ID_alter().
  */
@@ -76,7 +73,7 @@ function fut_content_form_node_fut_post_form_alter(&$form, $form_state) {
   $form['advanced_expand'] = [
     '#type' => 'details',
     '#title' => t('More options'),
-    '#weight' => 9998
+    '#weight' => 9998,
   ];
   $form['advanced_expand']['advanced'] = $form['advanced'];
   unset($form['advanced']);
@@ -85,11 +82,11 @@ function fut_content_form_node_fut_post_form_alter(&$form, $form_state) {
 }
 
 /**
- * @param $element
- * @param \Drupal\Core\Form\FormStateInterface $form_state
- * @param $context
+ * Implements hook_field_widget_form_alter().
+ *
+ * Alter the IEF widget button labels.
  */
-function fut_content_field_widget_form_alter(&$element, \Drupal\Core\Form\FormStateInterface $form_state, $context) {
+function fut_content_field_widget_form_alter(&$element, FormStateInterface $form_state, $context) {
   if (isset($element['#ief_id'])) {
     if (isset($element['actions'])) {
       foreach ($element['actions'] as $k => &$button) {
@@ -115,7 +112,7 @@ function fut_content_field_widget_form_alter(&$element, \Drupal\Core\Form\FormSt
  */
 function fut_content_field_widget_multivalue_form_alter(&$elements, $form_state, $context) {
   if ($context['widget']->getPluginId() == 'entity_reference_paragraphs') {
-    foreach ($elements['add_more'] as $key => &$button) {
+    foreach ($elements['add_more'] as &$button) {
       if (isset($button['#value'])) {
         $button['#value'] = t("@type", $button['#value']->getArguments());
       }
@@ -123,6 +120,9 @@ function fut_content_field_widget_multivalue_form_alter(&$elements, $form_state,
   }
 }
 
+/**
+ * Implements hook_paragraphs_widget_actions_alter().
+ */
 function fut_content_paragraphs_widget_actions_alter(array &$widget_actions, array &$context) {
   foreach ($widget_actions['actions'] as $widget_action_key => $widget_action) {
     array_unshift($widget_actions['dropdown_actions'], $widget_action);

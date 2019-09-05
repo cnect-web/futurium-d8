@@ -58,10 +58,8 @@ class SetCollection extends ViewsBulkOperationsActionBase implements ViewsBulkOp
       '#options' => _fut_group_get_group_options(),
     ];
 
-
     return $form;
   }
-
 
   /**
    * {@inheritdoc}

@@ -4,4 +4,4 @@ description: 'Module provides Futurium custom blocks'
 core: 8.x
 package: 'Futurium'
 dependencies:
-  - fut_group
+  - drupal:fut_group

@@ -3,47 +3,46 @@ type: module
 description: 'Futurium core module contains main dependencies and generic configuration'
 core: 8.x
 package: 'Futurium'
-version: 0.1
 dependencies:
 # Standard profile - Core modules
-  - automated_cron
-  - big_pipe
-  - block
-  - block_content
-  - breakpoint
-  - ckeditor
-  - config
-  - comment
-  - contextual
-  - contact
-  - dblog
-  - dynamic_page_cache
-  - datetime
-  - editor
-  - file
-  - image
-  - menu_link_content
-  - node
-  - options
-  - path
-  - page_cache
-  - quickedit
-  - rdf
-  - search
-  - taxonomy
-  - toolbar
-  - views
+  - drupal:automated_cron
+  - drupal:big_pipe
+  - drupal:block
+  - drupal:block_content
+  - drupal:breakpoint
+  - drupal:ckeditor
+  - drupal:config
+  - drupal:comment
+  - drupal:contextual
+  - drupal:contact
+  - drupal:dblog
+  - drupal:dynamic_page_cache
+  - drupal:datetime
+  - drupal:editor
+  - drupal:file
+  - drupal:image
+  - drupal:menu_link_content
+  - drupal:node
+  - drupal:options
+  - drupal:path
+  - drupal:page_cache
+  - drupal:quickedit
+  - drupal:rdf
+  - drupal:search
+  - drupal:taxonomy
+  - drupal:toolbar
+  - drupal:views
 # Other core modules
-  - config_translation
-  - language
-  - locale
+  - drupal:config_translation
+  - drupal:language
+  - drupal:locale
 # Contributed modules
-  - admin_toolbar
-  - chosen
-  - config_readonly
-  - config_split
-  - paragraphs
-  - pathauto
-  - permissions_filter
-  - redirect
-  - token
+  - drupal:admin_toolbar
+  - drupal:chosen
+  - drupal:config_readonly
+  - drupal:config_split
+  - drupal:paragraphs
+  - drupal:pathauto
+  - drupal:permissions_filter
+  - drupal:redirect
+  - drupal:token

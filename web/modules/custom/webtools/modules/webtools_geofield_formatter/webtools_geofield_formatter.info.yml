@@ -4,4 +4,4 @@ description: 'Provides formatter to display geofield as a map using webtools map
 core: 8.x
 package: 'Webtools'
 dependencies:
-  - geofield
+  - drupal:geofield
