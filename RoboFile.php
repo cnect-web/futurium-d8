@@ -541,7 +541,7 @@ class RoboFile extends RoboTasks {
     $paths = explode(',', $options['path']);
 
     if (in_array('cs', $op)) {
-      $result = $this->cs($paths);
+      $result = $this->codeSniff($paths);
       if (!$result->wasSuccessful()) {
         return $result;
       }
