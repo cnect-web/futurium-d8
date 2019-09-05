@@ -13,3 +13,6 @@ manage group collections:
 access group overview:
   title: 'Access group overview'
   description: 'Allows to access group overview page.'
+
+administer group comments:
+  title: 'Administer group comments'

@@ -195,6 +195,21 @@ class GroupPageController extends ControllerBase {
   }
 
   /**
+   * Display view "fut_group_comments".
+   *
+   * @param Drupal\group\Entity\Group $group
+   *   The current group.
+   *
+   * @return array
+   *   The renderable array.
+   */
+  public function groupComments(Group $group) {
+    return $this->getViewArray('fut_group_comments', [
+      $group->id(),
+    ]);
+  }
+
+  /**
    * Display group overview.
    *
    * @param Drupal\group\Entity\Group $group
