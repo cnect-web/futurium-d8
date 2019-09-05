@@ -4,19 +4,27 @@ status: true
 dependencies:
   config:
     - core.entity_view_mode.group.fut_teaser
+    - field.field.group.fut_open.fut_banner
     - field.field.group.fut_open.fut_description
     - field.field.group.fut_open.fut_logo
     - field.field.group.fut_open.fut_navigation_menu
     - field.field.group.fut_open.fut_short_name
     - field.field.group.fut_open.fut_tags
     - group.type.fut_open
+    - image.style.fut_group_logo
   module:
     - fut_paragraphs
+    - image
 id: group.fut_open.fut_teaser
 targetEntityType: group
 bundle: fut_open
 mode: fut_teaser
 content:
+  extra_field_join_group:
+    weight: 3
+    region: content
+    settings: {  }
+    third_party_settings: {  }
   fut_description:
     type: fut_summary_field_formatter
     weight: 2
@@ -28,20 +36,28 @@ content:
       wordsafe: true
       ellipsis: true
     third_party_settings: {  }
+  fut_logo:
+    type: image
+    weight: 0
+    region: content
+    label: hidden
+    settings:
+      image_style: fut_group_logo
+      image_link: content
+    third_party_settings: {  }
   label:
     label: hidden
     type: string
-    weight: 0
+    weight: 1
     region: content
     settings:
-      link_to_entity: false
+      link_to_entity: true
     third_party_settings: {  }
 hidden:
   changed: true
   created: true
   extra_field_featured_group_featured_content: true
-  extra_field_join_group: true
-  fut_logo: true
+  fut_banner: true
   fut_navigation_menu: true
   fut_short_name: true
   fut_tags: true

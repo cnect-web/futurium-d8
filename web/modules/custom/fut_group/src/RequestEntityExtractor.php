@@ -156,11 +156,11 @@ class RequestEntityExtractor {
               }
 
               // Set Group if it exists.
-              if (!empty($group_content)) {
-                if (!empty($this->getGroup())) {
-                  $this->setGroupContent($group_content->getGroup());
-                }
-              }
+              //if (!empty($group_content)) {
+              //  if (!empty($this->getGroup())) {
+              //    $this->setGroupContent($group_content->getGroup());
+              //  }
+              //}
             }
             break;
         }

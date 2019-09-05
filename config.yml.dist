@@ -40,6 +40,10 @@ id:
 #theme:
 #  path: themes/contrib/theme_name
 
+#behat:
+#  config: tests/behat.yml
+#  tags: "@wip"
+
 # Here you can specify environment overrides.
 environment:
 #  development:
@@ -61,4 +65,3 @@ environment:
     settings:
       trusted_host_patterns:
         - "futuriumd8-staging.xmd2xtiztc.eu-west-2.elasticbeanstalk.com"
-        - "futuriumd8-staging.dgcnect.eu"

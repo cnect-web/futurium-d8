@@ -36,6 +36,7 @@ content:
         collapse_edit_all: collapse_edit_all
     third_party_settings: {  }
 hidden:
+  fut_banner: true
   fut_logo: true
   fut_navigation_menu: true
   fut_short_name: true

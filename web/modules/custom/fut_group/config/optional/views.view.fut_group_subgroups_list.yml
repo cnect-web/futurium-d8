@@ -204,6 +204,7 @@ display:
         link_display: false
         link_url: false
       link_url: ''
+      block_hide_empty: true
     cache_metadata:
       max-age: -1
       contexts:

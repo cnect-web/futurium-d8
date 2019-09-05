@@ -119,16 +119,9 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupPosts(Group $group) {
-    return [
-      'view' => [
-        '#type' => 'view',
-        '#name' => 'fut_group_posts_management',
-        '#display_id' => 'default',
-        '#arguments' => [
-          $group->id(),
-        ],
-      ],
-    ];
+    return $this->getViewArray('fut_group_posts_management', [
+      $group->id(),
+    ]);
   }
 
   /**
@@ -141,16 +134,9 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupEvents(Group $group) {
-    return [
-      'view' => [
-        '#type' => 'view',
-        '#name' => 'fut_group_events_management',
-        '#display_id' => 'default',
-        '#arguments' => [
-          $group->id(),
-        ],
-      ],
-    ];
+    return $this->getViewArray('fut_group_events_management', [
+      $group->id(),
+    ]);
   }
 
   /**
@@ -163,16 +149,9 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupLibrary(Group $group) {
-    return [
-      'view' => [
-        '#type' => 'view',
-        '#name' => 'fut_group_library',
-        '#display_id' => 'default',
-        '#arguments' => [
-          $group->id(),
-        ],
-      ],
-    ];
+    return $this->getViewArray('fut_group_library', [
+      $group->id(),
+    ]);
   }
 
   /**
@@ -189,7 +168,7 @@ class GroupPageController extends ControllerBase {
 
     return [
       'collection_list' => [
-        '#markup' => '<div class="collection-list-title">' . $collections_list_title . '</div>',
+        '#markup' => '<h3 class="collection-list-title">' . $collections_list_title . '</h3>',
         '#type' => 'view',
         '#title' => 'test',
         '#name' => 'fut_collections',
@@ -211,16 +190,9 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupSubgroups(Group $group) {
-    return [
-      'view' => [
-        '#type' => 'view',
-        '#name' => 'subgroups',
-        '#display_id' => 'default',
-        '#arguments' => [
-          $group->id(),
-        ],
-      ],
-    ];
+    return $this->getViewArray('subgroups', [
+      $group->id(),
+    ]);
   }
 
   /**
@@ -274,16 +246,9 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupMembers(Group $group) {
-    return [
-      'view' => [
-        '#type' => 'view',
-        '#name' => 'group_members',
-        '#display_id' => 'default',
-        '#arguments' => [
-          $group->id(),
-        ],
-      ],
-    ];
+    return $this->getViewArray('group_members', [
+      $group->id(),
+    ]);
   }
 
   /**
@@ -296,16 +261,9 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupRequests(Group $group) {
-    return [
-      'view' => [
-        '#type' => 'view',
-        '#name' => 'group_pending_members',
-        '#display_id' => 'default',
-        '#arguments' => [
-          $group->id(),
-        ],
-      ],
-    ];
+    return $this->getViewArray('group_pending_members', [
+      $group->id(),
+    ]);
   }
 
   /**
@@ -334,14 +292,21 @@ class GroupPageController extends ControllerBase {
    *   The renderable array.
    */
   public function groupInvitations(Group $group) {
+    return $this->getViewArray('group_invitations', [
+      $group->id(),
+    ]);
+  }
+
+  /**
+   * Get a view render array.
+   */
+  private function getViewArray($name, array $arguments = []) {
     return [
       'view' => [
         '#type' => 'view',
-        '#name' => 'group_invitations',
+        '#name' => $name,
         '#display_id' => 'default',
-        '#arguments' => [
-          $group->id(),
-        ],
+        '#arguments' => $arguments,
       ],
     ];
   }
@@ -356,6 +321,19 @@ class GroupPageController extends ControllerBase {
    *   Form.
    */
   public function manageLayout(Group $group) {
+    return $this->entityFormBuilder()->getForm($group, 'fut_layout');
+  }
+
+  /**
+   * Manages group privacy.
+   *
+   * @param \Drupal\group\Entity\Group $group
+   *   Group item.
+   *
+   * @return mixed
+   *   Form.
+   */
+  public function privacy(Group $group) {
     return $this->entityFormBuilder()->getForm($group, 'fut_layout');
   }
 

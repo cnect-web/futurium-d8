@@ -79,7 +79,7 @@ class RoboFile extends RoboTasks {
    * @param \Symfony\Component\Console\Input\Input $input
    *   Input object.
    *
-   * @hook pre-init
+   * @hook init
    */
   public function initializeConfiguration(Input $input) {
     // Initialize configuration objects.
@@ -548,8 +548,10 @@ class RoboFile extends RoboTasks {
     }
 
     if (in_array('cb', $op)) {
-      $this->say('Running code beautifier...');
-      $this->cb($paths);
+      $result = $this->cb($paths);
+      if (!$result->wasSuccessful()) {
+        return $result;
+      }
     }
 
     if (in_array('unit', $op)) {
@@ -572,11 +574,11 @@ class RoboFile extends RoboTasks {
   /**
    * Run unit tests.
    *
-   * @command tools:put
-   * @aliases put
+   * @command tests:ut
+   * @aliases ut
    */
-  public function put(array $paths) {
-    return $this->taskExec('sudo php ./bin/run-tests.sh --color --keep-results --suppress-deprecations --types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional" --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths))
+  public function ut(array $paths) {
+    return $this->taskExec('php web/core/scripts/run-tests.sh --color --keep-results --suppress-deprecations --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths) . ' PHPUnit')
       ->run();
   }
 
@@ -584,25 +586,21 @@ class RoboFile extends RoboTasks {
    * Run phpcbf.
    *
    * @command tools:cb
-   * @aliases cb
+   * @aliases tcb
    */
-  public function cb(array $paths) {
-    if ($this
+  public function codeBeautifier(array $paths) {
+    return $this
       ->taskExec('bin/phpcbf --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
-      ->run()
-      ->wasSuccessful()
-    ) {
-      $this->say('Code beautifier finished.');
-    };
+      ->run();
   }
 
   /**
    * Run code sniffer.
    *
-   * @command tools:code-sniff
-   * @aliases cs
+   * @command tests:code-sniff
+   * @aliases tcs
    */
-  public function cs(array $paths) {
+  public function codeSniff(array $paths) {
     return $this
       ->taskExec('bin/phpcs --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
       ->run();
@@ -611,12 +609,22 @@ class RoboFile extends RoboTasks {
   /**
    * Run Behat tests.
    *
-   * @command tools:behat
-   * @aliases bt
+   * @command tests:behat
+   * @aliases tbt
    */
   public function behat() {
+
+    $command = 'bin/behat';
+    if ($config = $this->config->get('behat.config')) {
+      $command .= ' -c ' . $config;
+    }
+
+    if ($tags = $this->config->get('behat.tags')) {
+      $command .= ' --tags=' . $tags;
+    }
+
     return $this
-      ->taskExec('bin/behat -c tests/behat.yml')
+      ->taskExec($command)
       ->run();
   }
 

@@ -12,6 +12,13 @@ use Drupal\Core\Entity\Query\QueryFactory;
 class GroupPermissionsController extends ControllerBase {
 
   /**
+   * Drupal\fut_group\RequestEntityExtractor definition.
+   *
+   * @var Drupal\fut_group\RequestEntityExtractor
+   */
+  protected $entityExtractor;
+
+  /**
    * Drupal\Core\Entity\Query\QueryFactory definition.
    *
    * @var Drupal\Core\Entity\Query\QueryFactory
@@ -21,8 +28,9 @@ class GroupPermissionsController extends ControllerBase {
   /**
    * {@inheritdoc}
    */
-  public function __construct(QueryFactory $entityQuery) {
+  public function __construct(QueryFactory $entityQuery, RequestEntityExtractor $entityExtractor) {
     $this->entityQuery = $entityQuery;
+    $this->entityExtractor = $entityExtractor;
   }
 
   /**
@@ -30,7 +38,8 @@ class GroupPermissionsController extends ControllerBase {
    */
   public static function create(ContainerInterface $container) {
     return new static(
-      $container->get('entity.query')
+      $container->get('entity.query'),
+      $container->get('fut_group.request_entity_extractor')
     );
   }
 
@@ -61,9 +70,9 @@ class GroupPermissionsController extends ControllerBase {
   protected function getCollectionPermissions() {
     $permissions = [];
 
-    // Get all collections from all groups and prepare permissions for them.
-    $groups = $this->entityTypeManager()->getStorage('group')->loadMultiple();
-    foreach ($groups as $group) {
+    $group = $this->request_extractor->getGroup();
+    if (!empty($group)) {
+
       // Get collections for the group.
       $collection_ids = $this->entityQuery->get('taxonomy_term')
         ->condition('fut_related_group', $group->id())
@@ -76,9 +85,9 @@ class GroupPermissionsController extends ControllerBase {
           ->load($collection_id);
 
         $operations = [
-          'view' => 'View',
-          'update' => 'Edit',
-          'delete' => 'Delete',
+          'view' => 'View nodes for ',
+          'update' => 'Edit nodes for ',
+          'delete' => 'Delete nodes for ',
         ];
         foreach ($operations as $operation => $operation_name) {
           $title_arguments = [
