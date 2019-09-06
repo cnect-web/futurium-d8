@@ -548,7 +548,7 @@ class RoboFile extends RoboTasks {
     }
 
     if (in_array('cb', $op)) {
-      $result = $this->cb($paths);
+      $result = $this->codeBeautifier($paths);
       if (!$result->wasSuccessful()) {
         return $result;
       }
