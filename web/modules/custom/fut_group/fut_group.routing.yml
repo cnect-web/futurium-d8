@@ -33,7 +33,6 @@ fut_group.add_collection:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.edit_collection:
   path: '/group/{group}/manage/group-content/edit-collection/{term}'
@@ -48,7 +47,6 @@ fut_group.edit_collection:
         type: 'entity:group'
       term:
         type: 'entity:taxonomy_term'
-    _admin_route: TRUE
 
 fut_group.delete_collection:
   path: '/group/{group}/manage/group-content/delete-collection/{term}'
@@ -63,7 +61,6 @@ fut_group.delete_collection:
         type: 'entity:group'
       term:
         type: 'entity:taxonomy_term'
-    _admin_route: TRUE
 
 fut_group.manage_group_content.posts:
   path: '/group/{group}/manage/group-content/posts'
@@ -76,7 +73,6 @@ fut_group.manage_group_content.posts:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group_content.events:
   path: '/group/{group}/manage/group-content/events'
@@ -89,7 +85,6 @@ fut_group.manage_group_content.events:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group_content.library:
   path: '/group/{group}/manage/group-content/library'
@@ -102,7 +97,6 @@ fut_group.manage_group_content.library:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group_content.collections:
   path: '/group/{group}/manage/group-content/collections'
@@ -115,7 +109,6 @@ fut_group.manage_group_content.collections:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group_content.subgroups:
   path: '/group/{group}/manage/group-content/subgroups'
@@ -128,7 +121,6 @@ fut_group.manage_group_content.subgroups:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group_content.comments:
   path: '/group/{group}/manage/group-content/comments'
@@ -141,7 +133,6 @@ fut_group.manage_group_content.comments:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group:
   path: '/group/{group}/manage/group'
@@ -154,7 +145,6 @@ fut_group.manage_group:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group.edit:
   path: '/group/{group}/manage/group/edit'
@@ -167,7 +157,6 @@ fut_group.manage_group.edit:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group.navigation:
   path: '/group/{group}/manage/group/navigation'
@@ -180,7 +169,6 @@ fut_group.manage_group.navigation:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group.members:
   path: '/group/{group}/manage/group/members'
@@ -193,7 +181,6 @@ fut_group.manage_group.members:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group.member_requests:
   path: '/group/{group}/manage/group/requests'
@@ -206,7 +193,6 @@ fut_group.manage_group.member_requests:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group.member_invitations:
   path: '/group/{group}/manage/group/invitations'
@@ -219,7 +205,6 @@ fut_group.manage_group.member_invitations:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group.layout:
   path: '/group/{group}/manage/group/layout'
@@ -232,7 +217,6 @@ fut_group.manage_group.layout:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
 
 fut_group.manage_group.privacy:
   path: '/group/{group}/manage/group/privacy'
@@ -245,4 +229,3 @@ fut_group.manage_group.privacy:
     parameters:
       group:
         type: 'entity:group'
-    _admin_route: TRUE
