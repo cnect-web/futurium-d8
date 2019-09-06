@@ -5,6 +5,7 @@ namespace Drupal\fut_group\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\Core\Controller\ControllerBase;
 use Drupal\Core\Entity\Query\QueryFactory;
+use Drupal\fut_group\RequestEntityExtractor;
 
 /**
  * Group permissions controller.
@@ -70,7 +71,7 @@ class GroupPermissionsController extends ControllerBase {
   protected function getCollectionPermissions() {
     $permissions = [];
 
-    $group = $this->request_extractor->getGroup();
+    $group = $this->entityExtractor->getGroup();
     if (!empty($group)) {
 
       // Get collections for the group.
