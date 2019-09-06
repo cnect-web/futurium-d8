@@ -538,3 +538,18 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
   }
 
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
+  switch ($form_id) {
+    case 'group_content_fut_open-group_membership_group-leave_form':
+      // Change the cancel link url to group page instead of membership.
+      $group = $form_state->getFormObject()->getEntity()->getGroup();
+      $form['actions']['cancel']['#url'] = Url::fromRoute('entity.group.canonical', [
+        'group' => $group->id(),
+      ]);
+      break;
+  }
+}
