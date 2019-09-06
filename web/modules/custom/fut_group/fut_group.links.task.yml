@@ -7,7 +7,7 @@ fut_group.manage_group_content:
 
 fut_group.manage_group_content.posts:
   route_name: 'fut_group.manage_group_content.posts'
-  title: 'Posts Overview'
+  title: 'Posts'
   description: 'Mange Group Content'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
@@ -15,7 +15,7 @@ fut_group.manage_group_content.posts:
 
 fut_group.manage_group_content.events:
   route_name: 'fut_group.manage_group_content.events'
-  title: 'Events Overview'
+  title: 'Events'
   description: 'Mange Group Content'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
@@ -23,7 +23,7 @@ fut_group.manage_group_content.events:
 
 fut_group.manage_group_content.comments:
   route_name: 'fut_group.manage_group_content.comments'
-  title: 'Comments Overview'
+  title: 'Comments'
   description: 'Mange group comments'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
