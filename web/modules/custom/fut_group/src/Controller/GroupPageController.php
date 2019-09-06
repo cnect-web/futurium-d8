@@ -167,7 +167,7 @@ class GroupPageController extends ControllerBase {
 
     return [
       'collection_list' => [
-        '#markup' => '<h3 class="collection-list-title">'. $collections_list_title .'</h3>',
+        '#markup' => '<h3 class="collection-list-title">' . $collections_list_title . '</h3>',
         '#type' => 'view',
         '#title' => 'test',
         '#name' => 'fut_collections',
@@ -295,6 +295,9 @@ class GroupPageController extends ControllerBase {
     ]);
   }
 
+  /**
+   *
+   */
   private function getViewArray($name, array $arguments = []) {
     return [
       'view' => [
