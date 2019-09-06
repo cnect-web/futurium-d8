@@ -71,7 +71,7 @@ fut_group.manage_group_content.posts:
     _controller: '\Drupal\fut_group\Controller\GroupPageController::groupPosts'
     _title: 'Group Content'
   requirements:
-    _group_permission: 'Access group node overview'
+    _group_permission: 'access group_node overview'
   options:
     parameters:
       group:
@@ -84,7 +84,7 @@ fut_group.manage_group_content.events:
     _controller: '\Drupal\fut_group\Controller\GroupPageController::groupEvents'
     _title: 'Group Content'
   requirements:
-    _group_permission: 'Access group node overview'
+    _group_permission: 'access group_node overview'
   options:
     parameters:
       group:
@@ -124,6 +124,19 @@ fut_group.manage_group_content.subgroups:
     _title: 'Group Subgroups'
   requirements:
     _group_permission: 'Access subgroup overview'
+  options:
+    parameters:
+      group:
+        type: 'entity:group'
+    _admin_route: TRUE
+
+fut_group.manage_group_content.comments:
+  path: '/group/{group}/manage/group-content/comments'
+  defaults:
+    _controller: '\Drupal\fut_group\Controller\GroupPageController::groupComments'
+    _title: 'Group Content'
+  requirements:
+    _group_permission: 'administer group comments'
   options:
     parameters:
       group:

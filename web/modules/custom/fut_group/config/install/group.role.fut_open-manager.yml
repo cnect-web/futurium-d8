@@ -12,7 +12,9 @@ group_type: fut_open
 permissions_ui: true
 permissions:
   - 'access content overview'
+  - 'access group overview'
   - 'access group_node overview'
+  - 'administer group comments'
   - 'administer members'
   - 'create group_node:fut_event content'
   - 'create group_node:fut_event entity'
@@ -28,6 +30,7 @@ permissions:
   - 'delete own group_node:fut_post entity'
   - 'edit group'
   - 'leave group'
+  - 'manage group collections'
   - 'manage group navigation'
   - 'update any group_node:fut_event content'
   - 'update any group_node:fut_event entity'
