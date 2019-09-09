@@ -408,6 +408,9 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
   return AccessResult::neutral();
 }
 
+/**
+ * Helper function to return custom permissions of a group.
+ */
 function _fut_group_check_custom_group_permissions(Group $group) {
   $group_permission = GroupPermissionEntity::loadByGroup($group);
   $custom_permissions = [];
@@ -420,13 +423,13 @@ function _fut_group_check_custom_group_permissions(Group $group) {
   return $custom_permissions;
 }
 
-    /**
+/**
  * Checks permissions for collection.
  *
  * @param string $permission
  *   Permission.
  * @param array $custom_permissions
- *   Custom permissions
+ *   Custom permissions.
  * @param \Drupal\group\Entity\Group $group
  *   Group.
  * @param \Drupal\Core\Session\AccountInterface $account
