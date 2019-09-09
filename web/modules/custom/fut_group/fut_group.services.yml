@@ -12,3 +12,7 @@ services:
     class: Drupal\fut_group\Routing\RouteSubscriber
     tags:
       - { name: event_subscriber }
+  fut_group.group.join.route_subscriber:
+    class: Drupal\fut_group\Routing\GroupJoinRouteSubscriber
+    tags:
+      - { name: event_subscriber }

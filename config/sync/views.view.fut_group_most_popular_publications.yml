@@ -164,7 +164,20 @@ display:
           granularity: second
       title: 'Most popular publications'
       header: {  }
-      footer: {  }
+      footer:
+        area:
+          id: area
+          table: views
+          field: area
+          relationship: none
+          group_type: group
+          admin_label: ''
+          empty: false
+          tokenize: true
+          content:
+            value: '<a href="/group/{{ arguments.group_id_depth }}/posts">See all</a>'
+            format: fut_basic_html
+          plugin_id: text
       empty: {  }
       relationships:
         group_content:
@@ -220,7 +233,7 @@ display:
       display_extenders: {  }
       link_url: 'group/{{ arguments.group_id_depth }}/posts/'
       link_display: custom_url
-      use_more: true
+      use_more: false
       use_more_always: true
       use_more_text: 'See all'
     cache_metadata:
