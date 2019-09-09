@@ -33,7 +33,7 @@
         "drupal/geocoder": "^2.1",
         "drupal/geofield": "^1.1",
         "drupal/group": "1.x-dev",
-        "drupal/group_permissions": "1.12",
+        "drupal/group_permissions": "1.13",
         "drupal/honeypot": "^1.29",
         "drupal/hook_event_dispatcher": "^1.25",
         "drupal/inline_entity_form": "^1.0",
@@ -67,7 +67,7 @@
         "behat/behat": "^3.4",
         "behat/mink": "1.7.x-dev",
         "behat/mink-goutte-driver": "^1.2",
-        "behat/mink-selenium2-driver": "^1.3",
+        "behat/mink-selenium2-driver": "1.3.x-dev",
         "drupal/config_devel": "^1.2",
         "drupal/default_content_deploy": "^1.0@alpha",
         "drupal/devel": "^2.0",
@@ -140,7 +140,9 @@
                 "Group language settings are missing" : "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
                 "Can't translate group roles" : "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch",
                 "Behat group context": "./resources/patches/group.behat.inc.patch",
-                "Site admin or Group admin should be able to invite users to the group": "https://www.drupal.org/files/issues/2019-08-30/ginvite_module_port-2801603-91.patch"
+                "Site admin or Group admin should be able to invite users to the group": "https://www.drupal.org/files/issues/2019-08-30/ginvite_module_port-2801603-91.patch",
+                "Statically cache gnode_node_grants()": "https://www.drupal.org/files/issues/2019-01-31/gnode-access-grants-3029849-2.patch",
+                "Statically cache loadByEntity()": "https://www.drupal.org/files/issues/2019-01-31/gnode-loadbyentity-3029878-2.patch"
             },
             "drupal/inline_entity_form": {
                 "Remove revision log messages from other entities than nodes": "https://www.drupal.org/files/issues/2018-03-23/remove_revision_log_message-2927884-2.patch"
@@ -183,6 +185,18 @@
         {
           "url" : "https://github.com/cnect-web/group_permissions",
           "type": "git"
+        },
+        {
+          "type": "package",
+          "package": {
+            "name": "behat/mink-selenium2-driver",
+            "version": "1.3.x-dev",
+            "type": "mink-driver",
+            "dist": {
+              "url": "https://github.com/LOBsTerr/MinkSelenium2Driver/archive/1.3.x-dev.zip",
+              "type": "zip"
+            }
+          }
         }
     ]
 }

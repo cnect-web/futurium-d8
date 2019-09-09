@@ -16,4 +16,5 @@ permissions:
   - 'post comments'
   - 'search content'
   - 'skip comment approval'
+  - 'use text format fut_basic_html'
   - 'view media'

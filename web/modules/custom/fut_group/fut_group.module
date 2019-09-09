@@ -7,13 +7,13 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\group\Entity\Group;
 use Drupal\group\Entity\GroupContent;
 use Drupal\group\Entity\GroupContentType;
-use Drupal\group\Plugin\views\access\GroupPermission;
 use Drupal\group_permissions\Entity\GroupPermission as GroupPermissionEntity;
 use Drupal\node\NodeInterface;
 use Drupal\taxonomy\Entity\Term;
@@ -123,6 +123,18 @@ function fut_group_field_widget_form_alter(
   if (!empty($field_definition) && $field_definition->getName() == 'fut_collection') {
     $element['#options'] = _fut_group_get_group_options();
   }
+
+  // Alter entity reference field when creating a "subgroup" group_content.
+  if (!empty($field_definition)
+    && $element['#entity_type'] == 'group_content'
+    && $field_definition->getName() == 'entity_id'
+    && $field_definition->getType() == 'entity_reference'
+  ) {
+    if ($element['target_id']['#target_type'] == 'group') {
+      // Use custom plugin to list groups without relationship to other groups.
+      $element['target_id']['#selection_handler'] = 'fut_group:group_one_level';
+    }
+  }
 }
 
 /**
@@ -139,18 +151,23 @@ function _fut_group_get_group_options() {
       $group_content_items = GroupContent::loadByEntity($node);
       if (!empty($group_content_items)) {
         $group_content = reset($group_content_items);
-        $group = $group_content->getGroup()->id();
+        $group = $group_content->getGroup();
       }
     }
+  }
 
+  if (!empty($group)) {
     $group_roles = [];
     $custom_permissions = [];
     $group_permission = GroupPermissionEntity::loadByGroup($group);
     if ($group_permission) {
-      $custom_permissions = $group_permission->getPermissions()->first()->getValue();
+      $custom_permissions = $group_permission->getPermissions()
+        ->first()
+        ->getValue();
       if (!empty($custom_permissions)) {
         // Get roles of the current user.
-        $group_roles = _fut_group_get_group_user_roles($group, \Drupal::currentUser());
+        $group_roles = _fut_group_get_group_user_roles($group,
+          \Drupal::currentUser());
       }
     }
 
@@ -159,7 +176,9 @@ function _fut_group_get_group_options() {
     $query->condition('fut_related_group', $group->id());
     $collection_items = Term::loadMultiple($query->execute());
 
-    $by_pass_access = \Drupal::currentUser()->hasPermission('bypass group access') || \Drupal::currentUser()->hasPermission('manage group collections');
+    $by_pass_access = \Drupal::currentUser()
+        ->hasPermission('bypass group access') || \Drupal::currentUser()
+        ->hasPermission('manage group collections');
 
     if ($collection_items) {
       $options['_none'] = t('- None -');
@@ -167,7 +186,8 @@ function _fut_group_get_group_options() {
         if (!$by_pass_access) {
           $is_allowed = FALSE;
           foreach ($group_roles as $role_name => $group_role) {
-            if (in_array("view {$collection_item->id()} collection", $custom_permissions[$role_name])) {
+            if (in_array("view {$collection_item->id()} collection",
+              $custom_permissions[$role_name])) {
               $is_allowed = TRUE;
             }
           }
@@ -319,13 +339,16 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
     $collection_id = $node->fut_collection->target_id;
   }
 
+  $custom_permissions = _fut_group_check_custom_group_permissions($group);
+  $has_collection_permissions = !empty($collection_id) && !empty($custom_permissions);
+
   // From this point on you need group to allow you to perform the operation.
   switch ($op) {
     case 'view':
       foreach ($groups as $group) {
         // Check collection first.
-        if (!empty($collection_id)) {
-          if (_fut_group_check_permissions_by_collection($op, $collection_id, $group, $account)) {
+        if ($has_collection_permissions) {
+          if (_fut_group_check_permissions_by_collection("$op $collection_id collection", $custom_permissions, $group, $account)) {
             return AccessResult::allowed();
           }
           else {
@@ -334,14 +357,14 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
         }
         else {
           if ($node->isPublished()) {
-            if ($group->hasPermission("view $plugin_id entity", $account)) {
+            if ($group->hasPermission("$op $plugin_id entity", $account)) {
               return AccessResult::allowed();
             }
             else {
               return AccessResult::forbidden();
             }
           }
-          elseif ($group->hasPermission("view unpublished $plugin_id entity",
+          elseif ($group->hasPermission("$op unpublished $plugin_id entity",
             $account)) {
             return AccessResult::allowed();
           }
@@ -355,8 +378,8 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
     case 'update':
     case 'delete':
       // Check collection first.
-      if (!empty($collection_id)) {
-        if (_fut_group_check_permissions_by_collection($op, $collection_id, $group, $account)) {
+      if ($has_collection_permissions) {
+        if (_fut_group_check_permissions_by_collection("$op $collection_id collection", $custom_permissions, $group, $account)) {
           return AccessResult::allowed();
         }
         else {
@@ -384,13 +407,25 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
   return AccessResult::neutral();
 }
 
-/**
+function _fut_group_check_custom_group_permissions(Group $group) {
+  $group_permission = GroupPermissionEntity::loadByGroup($group);
+  $custom_permissions = [];
+  if ($group_permission) {
+    $custom_permissions = $group_permission->getPermissions()
+      ->first()
+      ->getValue();
+  }
+
+  return $custom_permissions;
+}
+
+    /**
  * Checks permissions for collection.
  *
- * @param string $op
- *   Operation.
- * @param int $collection_id
- *   Collection id.
+ * @param string $permission
+ *   Permission.
+ * @param array $custom_permissions
+ *   Custom permissions
  * @param \Drupal\group\Entity\Group $group
  *   Group.
  * @param \Drupal\Core\Session\AccountInterface $account
@@ -399,18 +434,15 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
  * @return bool
  *   Result of the check.
  */
-function _fut_group_check_permissions_by_collection($op, $collection_id, Group $group, AccountInterface $account) {
-  $group_permission = GroupPermissionEntity::loadByGroup($group);
-  if ($group_permission) {
-    $custom_permissions = $group_permission->getPermissions()->first()->getValue();
-    if (!empty($custom_permissions)) {
-      // Get roles of the current user.
-      $group_roles = _fut_group_get_group_user_roles($group, $account);
+function _fut_group_check_permissions_by_collection($permission, array $custom_permissions, Group $group, AccountInterface $account) {
 
-      foreach ($group_roles as $role_name => $group_role) {
-        if (in_array("$op $collection_id collection", $custom_permissions[$role_name])) {
-          return TRUE;
-        }
+  if (!empty($custom_permissions)) {
+    // Get roles of the current user.
+    $group_roles = _fut_group_get_group_user_roles($group, $account);
+
+    foreach ($group_roles as $role_name => $group_role) {
+      if (in_array($permission, $custom_permissions[$role_name])) {
+        return TRUE;
       }
     }
   }
@@ -457,4 +489,67 @@ function fut_group_menu_local_tasks_alter(&$data, $route_name) {
   unset($data['tabs'][1]['fut_group.manage_group_content.add_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.delete_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.edit_collection']);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account){
+
+  // We do not care about create / view. (these ones are system wide).
+  if (!in_array($operation, ['update', 'delete'])) {
+    return AccessResult::neutral();
+  }
+
+  $referenced_entities = $entity->referencedEntities();
+
+  foreach ($referenced_entities as $referenced_entity) {
+    if ($referenced_entity instanceof NodeInterface) {
+      $parent_node = $referenced_entity;
+      break;
+    }
+  }
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  $group_content = $entity_type_manager
+    ->getStorage('group_content')
+    ->loadByEntity($parent_node);
+  $group_content = reset($group_content);
+
+  if (empty($group_content)) {
+    return AccessResult::neutral();
+  }
+
+  // We need the group to check if account has permission.
+  $group = $group_content->getGroup();
+
+  switch ($operation) {
+    case 'update':
+    case 'delete':
+      if ($group->hasPermission("administer group comments", $account)) {
+        return AccessResult::allowed();
+      }
+      break;
+
+    default:
+      return AccessResult::neutral();
+      break;
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
+  switch ($form_id) {
+    case 'group_content_fut_open-group_membership_group-leave_form':
+      // Change the cancel link url to group page instead of membership.
+      $group = $form_state->getFormObject()->getEntity()->getGroup();
+      $form['actions']['cancel']['#url'] = Url::fromRoute('entity.group.canonical', [
+        'group' => $group->id(),
+      ]);
+      break;
+  }
 }

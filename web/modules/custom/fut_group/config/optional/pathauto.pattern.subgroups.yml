@@ -1,14 +1,13 @@
-uuid: d56af693-a11e-408f-a7a9-2a34bbd2358b
 langcode: en
 status: true
 dependencies:
   module:
     - group
-id: fut_groups
-label: Groups
+id: subgroups
+label: Subgroups
 type: 'canonical_entities:group'
-pattern: 'group/[group:title]'
+pattern: 'group/[group:group:title]/[group:title]'
 selection_criteria: {  }
 selection_logic: and
-weight: -7
+weight: -8
 relationships: {  }

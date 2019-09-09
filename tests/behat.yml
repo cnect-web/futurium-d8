@@ -12,13 +12,14 @@ default:
        - Drupal\DrupalExtension\Context\MailContext
        - Drupal\DrupalExtension\Context\RandomContext
   extensions:
-    Behat\MinkExtension:
+    Drupal\MinkExtension:
       base_url: 'http://web'
       browser_name: 'chrome'
       goutte: ~
       selenium2:
         wd_host: 'http://selenium:4444/wd/hub'
         browser: 'chrome'
+        capabilities: {"proxy":{"proxyType":"direct"}}
       javascript_session: 'selenium2'
       files_path: '/var/www/html/web'
     Drupal\DrupalExtension:

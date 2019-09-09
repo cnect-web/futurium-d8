@@ -167,7 +167,7 @@ class GroupPageController extends ControllerBase {
 
     return [
       'collection_list' => [
-        '#markup' => '<h3 class="collection-list-title">'. $collections_list_title .'</h3>',
+        '#markup' => '<h3 class="collection-list-title">' . $collections_list_title . '</h3>',
         '#type' => 'view',
         '#title' => 'test',
         '#name' => 'fut_collections',
@@ -190,6 +190,21 @@ class GroupPageController extends ControllerBase {
    */
   public function groupSubgroups(Group $group) {
     return $this->getViewArray('subgroups', [
+      $group->id(),
+    ]);
+  }
+
+  /**
+   * Display view "fut_group_comments".
+   *
+   * @param Drupal\group\Entity\Group $group
+   *   The current group.
+   *
+   * @return array
+   *   The renderable array.
+   */
+  public function groupComments(Group $group) {
+    return $this->getViewArray('fut_group_comments', [
       $group->id(),
     ]);
   }
@@ -280,6 +295,15 @@ class GroupPageController extends ControllerBase {
     ]);
   }
 
+  /**
+   * Prepares view renderable array.
+   *
+   * @param string $name
+   *   The view machine name.
+   * @param array $arguments
+   *   Arguments to view aka Contextual filters.
+   *
+   */
   private function getViewArray($name, array $arguments = []) {
     return [
       'view' => [
@@ -301,6 +325,19 @@ class GroupPageController extends ControllerBase {
    *   Form.
    */
   public function manageLayout(Group $group) {
+    return $this->entityFormBuilder()->getForm($group, 'fut_layout');
+  }
+
+  /**
+   * Manages group privacy.
+   *
+   * @param \Drupal\group\Entity\Group $group
+   *   Group item.
+   *
+   * @return mixed
+   *   Form.
+   */
+  public function privacy(Group $group) {
     return $this->entityFormBuilder()->getForm($group, 'fut_layout');
   }
 

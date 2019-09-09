@@ -12,7 +12,9 @@ audience: member
 group_type: fut_open
 permissions_ui: true
 permissions:
+  - 'access group overview'
   - 'access group_node overview'
+  - 'administer group comments'
   - 'administer members'
   - 'create group_node:fut_event entity'
   - 'create group_node:fut_post entity'
