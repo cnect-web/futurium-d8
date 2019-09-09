@@ -49,6 +49,7 @@ class GroupPermissionsController extends ControllerBase {
       foreach ($collection_ids as $collection_id) {
         $collection = Term::load($collection_id);
         $operations = [
+          'create' => 'Create nodes for ',
           'view' => 'View nodes for ',
           'update' => 'Edit nodes for ',
           'delete' => 'Delete nodes for ',
