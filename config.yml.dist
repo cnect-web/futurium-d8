@@ -45,7 +45,7 @@ id:
 #  tags: "@wip"
 
 # Here you can specify environment overrides.
-environment:
+#environment:
 #  development:
 #    settings:
 #      memcache:
@@ -61,7 +61,7 @@ environment:
 #        proxy:
 #          http: "http://username:password@host:port"
 #          https: "http://username:password@host:port"
-  staging:
-    settings:
-      trusted_host_patterns:
-        - "futuriumd8-staging.xmd2xtiztc.eu-west-2.elasticbeanstalk.com"
+#  staging:
+#    settings:
+#      trusted_host_patterns:
+#        - "some.random.domain.com"
