@@ -7,6 +7,7 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Access\AccessResult;
+use Drupal\Core\Entity\EntityInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
@@ -488,4 +489,67 @@ function fut_group_menu_local_tasks_alter(&$data, $route_name) {
   unset($data['tabs'][1]['fut_group.manage_group_content.add_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.delete_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.edit_collection']);
+}
+
+/**
+ * Implements hook_ENTITY_TYPE_access().
+ */
+function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account){
+
+  // We do not care about create / view. (these ones are system wide).
+  if (!in_array($operation, ['update', 'delete'])) {
+    return AccessResult::neutral();
+  }
+
+  $referenced_entities = $entity->referencedEntities();
+
+  foreach ($referenced_entities as $referenced_entity) {
+    if ($referenced_entity instanceof NodeInterface) {
+      $parent_node = $referenced_entity;
+      break;
+    }
+  }
+
+  $entity_type_manager = \Drupal::entityTypeManager();
+
+  $group_content = $entity_type_manager
+    ->getStorage('group_content')
+    ->loadByEntity($parent_node);
+  $group_content = reset($group_content);
+
+  if (empty($group_content)) {
+    return AccessResult::neutral();
+  }
+
+  // We need the group to check if account has permission.
+  $group = $group_content->getGroup();
+
+  switch ($operation) {
+    case 'update':
+    case 'delete':
+      if ($group->hasPermission("administer group comments", $account)) {
+        return AccessResult::allowed();
+      }
+      break;
+
+    default:
+      return AccessResult::neutral();
+      break;
+  }
+
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ */
+function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
+  switch ($form_id) {
+    case 'group_content_fut_open-group_membership_group-leave_form':
+      // Change the cancel link url to group page instead of membership.
+      $group = $form_state->getFormObject()->getEntity()->getGroup();
+      $form['actions']['cancel']['#url'] = Url::fromRoute('entity.group.canonical', [
+        'group' => $group->id(),
+      ]);
+      break;
+  }
 }
