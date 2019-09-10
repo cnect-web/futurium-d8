@@ -86,6 +86,7 @@ class GroupPermissionsController extends ControllerBase {
           ->load($collection_id);
 
         $operations = [
+          'create' => 'Create nodes for ',
           'view' => 'View nodes for ',
           'update' => 'Edit nodes for ',
           'delete' => 'Delete nodes for ',
