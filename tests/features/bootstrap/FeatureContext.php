@@ -49,4 +49,32 @@ class FeatureContext extends RawMinkContext implements Context
       $this->getSession()
         ->executeScript("window.CKEDITOR.instances[\"$fieldid\"].setData(\"$value\");");
     }
+
+  /**
+   * @When I scroll :elementId into view
+   */
+    public function scrollIntoView($elementId) {
+      $function = <<<JS
+(function(){
+   var elem = document.getElementById("$elementId");
+   elem.scrollIntoView(false);
+})()
+JS;
+      try {
+        $this->getSession()->executeScript($function);
+      }
+      catch(Exception $e) {
+        throw new \Exception("ScrollIntoView failed");
+      }
+    }
+
+  /**
+   * Fills in specified field with date
+   *
+   * @When I fill field date :field with :value
+   */
+  public function fillDateField($field, $value)
+  {
+
+  }
 }
