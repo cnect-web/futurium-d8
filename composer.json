@@ -156,6 +156,9 @@
             },
             "drupal/default_content_deploy": {
                 "Pass logger to parent": "https://www.drupal.org/files/issues/2019-07-08/passloggertoparent-3066432.patch"
+            },
+            "drupal/coder": {
+                "Allow private method __construct() in UnusedPrivateMethodSniff":"https://www.drupal.org/files/issues/2019-09-09/private_constructor-3079227-5.patch"
             }
         }
     },
