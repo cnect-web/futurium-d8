@@ -319,7 +319,6 @@ class GroupPageController extends ControllerBase {
    *   The view machine name.
    * @param array $arguments
    *   Arguments to view aka Contextual filters.
-   *
    */
   private function getViewArray($name, array $arguments = []) {
     return [

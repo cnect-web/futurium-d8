@@ -509,7 +509,7 @@ function fut_group_menu_local_tasks_alter(&$data, $route_name) {
 /**
  * Implements hook_ENTITY_TYPE_access().
  */
-function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account){
+function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account) {
 
   // We do not care about create / view. (these ones are system wide).
   if (!in_array($operation, ['update', 'delete'])) {
@@ -549,7 +549,6 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
 
     default:
       return AccessResult::neutral();
-      break;
   }
 
 }
@@ -557,7 +556,7 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
+function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   switch ($form_id) {
     case 'group_content_fut_open-group_membership_group-leave_form':
       // Change the cancel link url to group page instead of membership.
