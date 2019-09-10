@@ -159,6 +159,9 @@
             },
             "drupal/coder": {
                 "Allow private method __construct() in UnusedPrivateMethodSniff":"https://www.drupal.org/files/issues/2019-09-09/private_constructor-3079227-5.patch"
+            },
+            "drupal/drupal-driver": {
+                "Add a Daterange field handler": "./resources/patches/DaterangeHandler.patch"
             }
         }
     },

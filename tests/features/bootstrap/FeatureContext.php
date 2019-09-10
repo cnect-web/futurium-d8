@@ -5,11 +5,13 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Mink\Exception\ExpectationException;
+use Drupal\DrupalExtension\Context\RawDrupalContext;
+use Behat\Behat\Context\SnippetAcceptingContext;
 
 /**
  * Defines application features from the specific context.
  */
-class FeatureContext extends RawMinkContext implements Context
+class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
 {
     /**
      * Initializes context.
@@ -49,4 +51,25 @@ class FeatureContext extends RawMinkContext implements Context
       $this->getSession()
         ->executeScript("window.CKEDITOR.instances[\"$fieldid\"].setData(\"$value\");");
     }
+
+    /**
+     * @Given the following content type :content_type
+     */
+    public function theFollowingContentType($content_type, TableNode $table) {
+      $node = (object) $table->getRowsHash();
+      $node->type = $content_type;
+      $saved = $this->nodeCreate($node);
+      $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
+    }
+
+    /**
+     * @Given the following content type :content_type in group :group_name
+     */
+    public function theFollowingContentType($content_type, $group_name, TableNode $table) {
+      $node = (object) $table->getRowsHash();
+      $node->type = $content_type;
+      $saved = $this->nodeCreate($node);
+      $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
+    }
+
 }
