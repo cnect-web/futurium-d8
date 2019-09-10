@@ -65,10 +65,11 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     /**
      * @Given the following content type :content_type in group :group_name
      */
-    public function theFollowingContentType($content_type, $group_name, TableNode $table) {
+    public function theFollowingContentTypeInGroup($content_type, $group_name, TableNode $table) {
       $node = (object) $table->getRowsHash();
       $node->type = $content_type;
       $saved = $this->nodeCreate($node);
+      // @todo: add to group.
       $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
     }
 
