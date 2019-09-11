@@ -67,7 +67,7 @@
         "behat/behat": "^3.4",
         "behat/mink": "1.7.x-dev",
         "behat/mink-goutte-driver": "^1.2",
-        "behat/mink-selenium2-driver": "1.3.x-dev",
+        "behat/mink-selenium2-driver": "dev-master as 1.3.x-dev",
         "drupal/config_devel": "^1.2",
         "drupal/default_content_deploy": "^1.0@alpha",
         "drupal/devel": "^2.0",
@@ -188,18 +188,6 @@
         {
           "url" : "https://github.com/cnect-web/group_permissions",
           "type": "git"
-        },
-        {
-          "type": "package",
-          "package": {
-            "name": "behat/mink-selenium2-driver",
-            "version": "1.3.x-dev",
-            "type": "mink-driver",
-            "dist": {
-              "url": "https://github.com/LOBsTerr/MinkSelenium2Driver/archive/1.3.x-dev.zip",
-              "type": "zip"
-            }
-          }
         }
     ]
 }
