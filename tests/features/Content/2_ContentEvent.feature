@@ -9,12 +9,11 @@ Feature: Content Event
       | label                     | Broadband networks                   |
       | fut_short_name            | Group Name                           |
       | fut_description           | fut_text:fut_text:Bla Bla, Yada Yada |
-    And "fut_event" content:
+    And the following content type "fut_event"
       | title                     | Reducing pollution in 2016 Meeting    |
       | fut_event_date:value      | 2019-09-10T13:41:45                   |
       | fut_event_date:end_value  | 2019-09-10T13:41:46                   |
     And I am a member of the current group
-
 
   Scenario: Verify that authenticated user can create and edit a node of type Event.
     When I go to "/group/broadband-networks"
