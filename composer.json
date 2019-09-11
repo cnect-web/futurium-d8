@@ -33,7 +33,7 @@
         "drupal/geocoder": "^2.1",
         "drupal/geofield": "^1.1",
         "drupal/group": "1.x-dev",
-        "drupal/group_permissions": "1.13",
+        "drupal/group_permissions": "1.14",
         "drupal/honeypot": "^1.29",
         "drupal/hook_event_dispatcher": "^1.25",
         "drupal/inline_entity_form": "^1.0",
