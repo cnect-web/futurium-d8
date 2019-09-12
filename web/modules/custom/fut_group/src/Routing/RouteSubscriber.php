@@ -31,7 +31,7 @@ class RouteSubscriber extends RouteSubscriberBase {
     }
 
     if ($route = $collection->get('group_permissions.override_group_permissions')) {
-      // Change the group permissions form under 'Manage'.
+      // Put the group permissions form under 'Manage'.
       $route->setPath("/group/{group}/manage/group/permissions");
     }
   }
