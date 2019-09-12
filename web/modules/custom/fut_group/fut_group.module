@@ -553,3 +553,23 @@ function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
       break;
   }
 }
+
+/**
+ * Implements hook_entity_create_access().
+ *
+ * @see \Drupal\workspaces\EntityAccess
+ */
+function fut_group_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
+  $extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
+  if ($extractor->getRouteMatch()->getRouteName() == 'entity.group_content.create_form' && isset($context['entity_type_id']) && $context['entity_type_id'] == 'media') {
+    $plugin_id = $extractor->getRouteMatch()->getParameter('plugin_id');
+    $group = $extractor->getGroup();
+    if (!empty($group) && !empty($plugin_id)) {
+      if ($group->hasPermission("create $plugin_id entity", $account)) {
+        return AccessResult::allowed();
+      }
+    }
+  }
+
+  return AccessResult::neutral();
+}
