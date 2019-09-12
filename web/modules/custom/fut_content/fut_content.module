@@ -7,6 +7,9 @@
 
 use Drupal\Core\Form\FormStateInterface;
 use Drupal\Core\Routing\RouteMatchInterface;
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\group\Entity\GroupContent;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 /**
  * Implements hook_help().
@@ -127,5 +130,86 @@ function fut_content_paragraphs_widget_actions_alter(array &$widget_actions, arr
   foreach ($widget_actions['actions'] as $widget_action_key => $widget_action) {
     array_unshift($widget_actions['dropdown_actions'], $widget_action);
     unset($widget_actions['actions'][$widget_action_key]);
+  }
+}
+
+/**
+ * Implements hook_entity_presave().
+ */
+function fut_content_entity_presave(EntityInterface $entity) {
+  // Content should be unpublished if group is public and
+  // user doesn't have a special role (editor, moderator, manager).
+  // Might need some additional logic, like checking if a user has
+  // reached a threshold of published content.
+  switch ($entity->getEntityTypeId()) {
+    case 'node':
+      $emails = [];
+      $entity_author = $entity->getOwner();
+      $entity_author_id = $entity_author->id();
+      if ($entity->id()) {
+        $groups_content = GroupContent::loadByEntity($entity);
+        if ($groups_content) {
+
+          $created_by_special_member = FALSE;
+          $group_content = array_shift($groups_content);
+          $group = $group_content->getGroup();
+          $special_members = $group->getMembers([
+            'fut_open-editor',
+            'fut_open-moderator',
+            'fut_open-manager',
+          ]);
+
+          foreach ($special_members as $membership) {
+            $user = $membership->getUser();
+            $emails[] = $user->getEmail();
+            if ($entity_author_id == $user->id()) {
+              $created_by_special_member = TRUE;
+            }
+          }
+
+          // If the post was unpublished, redirect to group,
+          // warn the user, and notify moderators.
+          if (!$created_by_special_member) {
+            $entity->setPublished(FALSE);
+            \Drupal::messenger()->addMessage(t('The content is awaiting review by a moderator.'), 'warning');
+
+            $mailManager = \Drupal::service('plugin.manager.mail');
+            $module = 'fut_content';
+            $key = 'new_post_needs_moderation';
+            $to = implode($emails, ', ');
+
+            $params['subject'] = t("New post was created on @group", ['@group' => $group->label()]);
+            $params['body'][] = t("@author has created a new @type in @group.", [
+              '@group' => $group->label(),
+              '@type' => $entity->type->entity->label(),
+              '@author' => $entity_author->label(),
+            ]);
+            $params['body'][] = t("<a href='@url'>Click here to view the content</a>.", [
+              '@url' => $entity->toUrl()->setAbsolute()->toString(),
+            ]);
+
+            $params['langcode'] = $langcode = \Drupal::currentUser()->getPreferredLangcode() ?? 'en';
+            $mailManager->mail($module, $key, $to, $langcode, $params, NULL, TRUE);
+
+            // Redirect to the group homepage.
+            $response = new RedirectResponse($group->url());
+            $response->send();
+
+          }
+        }
+      }
+      break;
+  }
+}
+
+/**
+ * Implements hook_mail().
+ */
+function fut_content_mail($key, &$message, $params) {
+  switch ($key) {
+    case 'new_post_needs_moderation':
+      $message['subject'] = $params['subject'];
+      $message['body'] = $params['body'];
+      break;
   }
 }
