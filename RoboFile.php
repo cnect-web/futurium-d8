@@ -555,7 +555,7 @@ class RoboFile extends RoboTasks {
     }
 
     if (in_array('unit', $op)) {
-      $result = $this->put($paths);
+      $result = $this->ut($paths);
       if (!$result->wasSuccessful()) {
         return $result;
       }
@@ -579,18 +579,6 @@ class RoboFile extends RoboTasks {
    */
   public function ut(array $paths) {
     return $this->taskExec('php web/core/scripts/run-tests.sh --color --keep-results --suppress-deprecations --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths) . ' PHPUnit')
-      ->run();
-  }
-
-  /**
-   * Run phpcbf.
-   *
-   * @command tools:cb
-   * @aliases tcb
-   */
-  public function codeBeautifier(array $paths) {
-    return $this
-      ->taskExec('bin/phpcbf --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
       ->run();
   }
 
@@ -625,6 +613,18 @@ class RoboFile extends RoboTasks {
 
     return $this
       ->taskExec($command)
+      ->run();
+  }
+
+  /**
+   * Run phpcbf.
+   *
+   * @command tools:cb
+   * @aliases tcb
+   */
+  public function codeBeautifier(array $paths) {
+    return $this
+      ->taskExec('bin/phpcbf --standard=phpcs-ruleset.xml ' . implode(' ', $paths))
       ->run();
   }
 
