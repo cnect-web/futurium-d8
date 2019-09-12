@@ -12,7 +12,12 @@ audience: member
 group_type: fut_open
 permissions_ui: true
 permissions:
+  - 'create group_node:fut_event entity'
+  - 'create group_node:fut_post entity'
+  - 'delete own group_node:fut_event entity'
   - 'leave group'
+  - 'update own group_node:fut_event entity'
+  - 'update own group_node:fut_post entity'
   - 'view group'
   - 'view group_node:fut_event entity'
   - 'view group_node:fut_post entity'
