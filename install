@@ -76,7 +76,7 @@ fi
 
 # Load environment vars.
 export $(egrep -v '^#' .env | xargs)
-COMMAND=$([ "$ENVIRONMENT" == "development" ] && echo "composer install" || echo "composer install --no-dev")
+COMMAND="composer install"
 
 # Install.
 if [ $INSTALLATION_TYPE == "docker" ]; then
