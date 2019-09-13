@@ -495,7 +495,6 @@ function fut_group_menu_local_tasks_alter(&$data, $route_name) {
   unset($data['tabs'][0]['group_permissions.link.group_permissions']);
   unset($data['tabs'][0]['group.edit_form']);
   unset($data['tabs'][0]['group.delete_form']);
-  unset($data['tabs'][0]['fut_group.manage_group_content']);
   unset($data['tabs'][0]['group.content']);
 }
 
