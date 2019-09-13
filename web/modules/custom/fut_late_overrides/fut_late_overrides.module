@@ -1,0 +1,24 @@
+<?php
+
+/**
+ * @file
+ * Contains fut_late_overrides.module.
+ */
+
+use Drupal\Core\Routing\RouteMatchInterface;
+
+/**
+ * Implements hook_help().
+ */
+function fut_late_overrides_help($route_name, RouteMatchInterface $route_match) {
+  switch ($route_name) {
+    // Main module help for the fut_late_overrides module.
+    case 'help.page.fut_late_overrides':
+      $output = '';
+      $output .= '<h3>' . t('About') . '</h3>';
+      $output .= '<p>' . t('Futurium Late Overrides') . '</p>';
+      return $output;
+
+    default:
+  }
+}

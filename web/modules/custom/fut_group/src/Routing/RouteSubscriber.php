@@ -29,6 +29,11 @@ class RouteSubscriber extends RouteSubscriberBase {
       // Allow the views to have an optional argument.
       $route->setDefault('collection', 'all');
     }
+
+    if ($route = $collection->get('group_permissions.override_group_permissions')) {
+      // Put the group permissions form under 'Manage'.
+      $route->setPath("/group/{group}/manage/group/permissions");
+    }
   }
 
 }
