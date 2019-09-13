@@ -1,0 +1,5 @@
+name: 'fut_late_overrides'
+type: module
+description: 'Overrides that are supposed to run last go here'
+core: 8.x
+package: 'Futurium'
