@@ -1,0 +1,22 @@
+uuid: 1884884b-d775-4f2c-af4a-107f8a4800f9
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - blellow
+_core:
+  default_config_hash: qMN9nT5tRk-AqEWePnlgChCeFk5TJqhSMgbtYR-69Eg
+id: blellow_main_page_content
+theme: blellow
+region: content
+weight: 3
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  provider: system
+  label_display: '0'
+visibility: {  }

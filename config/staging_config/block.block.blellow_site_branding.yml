@@ -1,0 +1,25 @@
+uuid: 392f43d5-f1b6-4a17-9afd-8dc4e418e6ff
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - blellow
+_core:
+  default_config_hash: nabJYYVQ1FnHw_w9qhJhz-Huw2nWRpTYucErH6X5358
+id: blellow_site_branding
+theme: blellow
+region: site_header
+weight: -5
+provider: null
+plugin: system_branding_block
+settings:
+  id: system_branding_block
+  label: 'Site branding'
+  provider: system
+  label_display: '0'
+  use_site_logo: true
+  use_site_name: true
+  use_site_slogan: false
+visibility: {  }

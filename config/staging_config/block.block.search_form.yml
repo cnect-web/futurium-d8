@@ -1,0 +1,22 @@
+uuid: 349c7709-5940-40fa-9175-fa5944a53955
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - blellow
+_core:
+  default_config_hash: _4dVcxyLQ6CA1C3B9kf7mga1WG8dPiXCho6CX0wrCHM
+id: search_form
+theme: blellow
+region: site_header
+weight: -3
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form'
+  provider: search
+  label_display: '0'
+visibility: {  }

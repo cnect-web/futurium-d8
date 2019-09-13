@@ -1,0 +1,31 @@
+uuid: d8164152-5fd1-4b92-bc14-43eb0d7570d5
+langcode: en
+status: true
+dependencies:
+  module:
+    - blellow_helper
+    - node
+  theme:
+    - blellow
+_core:
+  default_config_hash: HL-VXCqbehpc2HN_fl7bpw3w0YCZoJo1EK2QBX4ijOM
+id: newsletter_block
+theme: blellow
+region: sidebar_second
+weight: 0
+provider: null
+plugin: cnect_newsletter
+settings:
+  id: cnect_newsletter
+  label: 'Newsletter block'
+  provider: blellow_helper
+  label_display: '0'
+visibility:
+  node_type:
+    id: node_type
+    bundles:
+      fut_event: fut_event
+      fut_post: fut_post
+    negate: false
+    context_mapping:
+      node: '@node.node_route_context:node'

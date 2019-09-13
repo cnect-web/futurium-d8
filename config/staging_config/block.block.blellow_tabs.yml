@@ -1,0 +1,22 @@
+uuid: 0b53e549-77ee-4c0b-9ee9-495b0de2eca5
+langcode: en
+status: true
+dependencies:
+  theme:
+    - blellow
+_core:
+  default_config_hash: MtCEo9cvcldCPYxAMm7xQanPqRi2p6dfdzRJl49b5wg
+id: blellow_tabs
+theme: blellow
+region: content
+weight: 1
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: Tabs
+  provider: core
+  label_display: '0'
+  primary: true
+  secondary: true
+visibility: {  }
