@@ -1,0 +1,22 @@
+uuid: b922f57f-f6c4-4fcb-84ed-7110c62835d6
+langcode: en
+status: true
+dependencies:
+  module:
+    - blellow_helper
+  theme:
+    - blellow
+_core:
+  default_config_hash: '-nujh5UsZtUXBKQYhVvmJ02fOwpz7ucBwMRvEAUCpZs'
+id: select_langulages_block
+theme: blellow
+region: site_header
+weight: -4
+provider: null
+plugin: cnect_select_languages
+settings:
+  id: cnect_select_languages
+  label: 'Select Langulages block'
+  provider: blellow_helper
+  label_display: '0'
+visibility: {  }

@@ -1,0 +1,20 @@
+uuid: 9030e82b-14fe-434b-8883-9d0c7903e82d
+langcode: en
+status: true
+dependencies:
+  theme:
+    - blellow
+_core:
+  default_config_hash: nMEn_-wakRQ3hACEgEVk5TULK-UVxcjsPl4S1W7HSIQ
+id: primary_admin_actions
+theme: blellow
+region: content
+weight: 2
+provider: null
+plugin: local_actions_block
+settings:
+  id: local_actions_block
+  label: 'Primary admin actions'
+  provider: core
+  label_display: '0'
+visibility: {  }
