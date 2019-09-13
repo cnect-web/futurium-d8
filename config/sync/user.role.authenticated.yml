@@ -13,6 +13,7 @@ permissions:
   - 'access content'
   - 'access shortcuts'
   - 'access site-wide contact form'
+  - 'access user profiles'
   - 'create fut_document media'
   - 'create fut_image media'
   - 'create fut_video media'
