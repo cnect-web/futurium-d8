@@ -40,7 +40,6 @@ module:
   fut_content: 0
   fut_core: 0
   fut_group: 0
-  fut_late_overrides: 1000
   fut_media: 0
   fut_paragraphs: 0
   geocoder: 0
@@ -94,6 +93,7 @@ module:
   views: 10
   paragraphs: 11
   minimal: 1000
+  fut_late_overrides: 1001
 theme:
   stable: 0
   classy: 0
