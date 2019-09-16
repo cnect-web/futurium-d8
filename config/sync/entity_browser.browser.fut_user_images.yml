@@ -23,9 +23,9 @@ widgets:
     settings:
       view: fut_user_media
       view_display: entity_browser_images
-      submit_text: 'Select images'
+      submit_text: 'Select image(s)'
       auto_select: false
     uuid: d418471c-4f83-4542-9280-ea70c807649b
     weight: 1
-    label: 'Select images'
+    label: 'Select image(s)'
     id: view

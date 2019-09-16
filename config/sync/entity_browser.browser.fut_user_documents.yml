@@ -12,7 +12,7 @@ display: modal
 display_configuration:
   width: '650'
   height: '500'
-  link_text: 'Select documents'
+  link_text: 'Select document(s)'
   auto_open: false
 selection_display: no_display
 selection_display_configuration: {  }
@@ -27,5 +27,5 @@ widgets:
       auto_select: false
     uuid: 1e30bcef-b54c-4259-9017-8e2d40fe9d6c
     weight: 1
-    label: 'Select documents'
+    label: 'Select document(s)'
     id: view
