@@ -1,4 +1,4 @@
-uuid: d2ae7b9c-e131-4995-8bb1-acd9c948c3ac
+uuid: 1c28a564-5638-482c-8f14-a960c0c0b645
 langcode: en
 status: true
 dependencies:
@@ -16,3 +16,5 @@ plugin_config:
   group_cardinality: 0
   entity_cardinality: 0
   use_creation_wizard: false
+  invitation_subject: 'You have a pending group invitation'
+  invitation_body: "Hi there!\r\n\r\n[current-user:name] has invited you to become a member of the group [group:title] on [site:name].\r\nIf you wish to accept the invitation, you need to create an account first.\r\n\r\nPlease visit the following address in order to do so: [group_content:register_link]\r\nKind regards,\r\nThe [site:name] team"
