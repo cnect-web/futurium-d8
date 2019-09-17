@@ -16,28 +16,4 @@ Feature: Content Event
     And I am a member of the current group
 
   Scenario: Verify that authenticated user can create and edit a node of type Event.
-    When I go to "/group/broadband-networks"
-    And I expand operations menu
-    And I click "Add Event"
-    Then I fill in "edit-title-0-value" with "Upcoming 5G event"
-    #When I scroll "edit-fut-event-date-0" into view
-    And I fill in "edit-fut-event-date-0-value" with "2019-09-26 12:00:00"
-    Then I fill in wysiwyg on field "edit-fut-content-0-subform-fut-text-0-value" with "This is an example"
-    Then I press the "Save" button
-    And I go to "/group/broadband-networks/content/upcoming-5g-event"
-    Then I break
-    #Then I should see "Upcoming 5G event"
-    #Then I break
-    #And I should see "This is an example"
-    #When I click "Edit"
-    #And I fill in "edit-title-0-value" with "Upcoming 5G event edited"
-    #And I fill in wysiwyg on field "edit-fut-content-0-subform-fut-text-0-value" with "This is an example edited"
-    #And I press the "Save" button
-    #Then I should see "Upcoming 5G event edited"
-    #And I should see "This is an example edited"
-
-  #Scenario: Test
-  #  Given I am viewing a "fut_post":
-  #    | title                                         | Pippo  |
-  #    | edit-fut-content-0-subform-fut-text-0-value   | Pluto  |
-  #  Then I break
+    Then I should see "Reducing pollution in 2016 Meeting"
