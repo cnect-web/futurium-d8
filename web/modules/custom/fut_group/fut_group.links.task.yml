@@ -126,7 +126,7 @@ fut_group.manage_group.member_requests:
 
 fut_group.manage_group.member_invitations:
   route_name: 'view.group_invitations.page_1'
-  title: 'Manage Member Invitations'
+  title: 'Member Invitations'
   description: 'Mange Member Invitations'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
