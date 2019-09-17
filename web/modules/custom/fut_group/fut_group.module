@@ -489,6 +489,11 @@ function fut_group_menu_local_tasks_alter(&$data, $route_name) {
   unset($data['tabs'][1]['fut_group.manage_group_content.add_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.delete_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.edit_collection']);
+  // Remove tab provided by ginvite invitations view.
+  unset($data['tabs'][0]['views_view:view.group_invitations.page_1']);
+  // Hide tab, this local taks exists to keep tabs context.
+  unset($data['tabs'][1]['fut_group.manage_group.invite_members']);
+
 }
 
 /**
@@ -543,6 +548,8 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
  * Implements hook_form_FORM_ID_alter().
  */
 function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
+  // var_dump($form_id);
+  // var_dump($form);
   switch ($form_id) {
     case 'group_content_fut_open-group_membership_group-leave_form':
       // Change the cancel link url to group page instead of membership.
@@ -552,4 +559,12 @@ function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
       ]);
       break;
   }
+}
+
+/**
+ * Implements hook_menu_local_actions_alter().
+ */
+function fut_group_menu_local_actions_alter(&$local_actions) {
+  // Hide "Invite member" link we just keep "Invite members".
+  unset($local_actions['ginvite.invite_member']);
 }

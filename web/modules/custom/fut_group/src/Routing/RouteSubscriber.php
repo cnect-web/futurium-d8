@@ -29,6 +29,20 @@ class RouteSubscriber extends RouteSubscriberBase {
       // Allow the views to have an optional argument.
       $route->setDefault('collection', 'all');
     }
+
+    if ($route = $collection->get('view.group_invitations.page_1')) {
+      // Here we alter this route in order to send user to our custom path,
+      // in order to keep our custom local taks after bulk invite batch is complete.
+      $invitations_route = $collection->get('fut_group.manage_group.member_invitations');
+      $fut_custom_path = $invitations_route->getPath();
+      $fut_custom_title = $invitations_route->getDefault('_title');
+
+      $route->setPath($fut_custom_path);
+      $route->setDefaults([
+        '_title' => $fut_custom_title,
+        '_controller' => '\Drupal\fut_group\Controller\GroupPageController::groupInvitations',
+      ]);
+    }
   }
 
 }
