@@ -51,12 +51,12 @@ class RouteSubscriber extends RouteSubscriberBase {
 
     if ($route = $collection->get('view.fut_my_contributions.page_my_contributions')) {
       // Add custom access handler to only allow users to see their own contributions.
-      $route->setRequirement('_custom_access','\Drupal\fut_group\Access\UserProfileAccessCheck::access');
+      $route->setRequirement('_custom_access', '\Drupal\fut_group\Access\UserProfileAccessCheck::access');
     }
 
     if ($route = $collection->get('view.my_invitations.page_1')) {
       // Add custom access handler to only allow users to see their own invites.
-      $route->setRequirement('_custom_access','\Drupal\fut_group\Access\UserProfileAccessCheck::access');
+      $route->setRequirement('_custom_access', '\Drupal\fut_group\Access\UserProfileAccessCheck::access');
     }
 
   }
