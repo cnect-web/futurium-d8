@@ -177,8 +177,8 @@ function _fut_group_get_group_options() {
     $collection_items = Term::loadMultiple($query->execute());
 
     $by_pass_access = \Drupal::currentUser()
-        ->hasPermission('bypass group access') || \Drupal::currentUser()
-        ->hasPermission('manage group collections');
+      ->hasPermission('bypass group access') || \Drupal::currentUser()
+      ->hasPermission('manage group collections');
 
     if ($collection_items) {
       $options['_none'] = t('- None -');
@@ -209,12 +209,12 @@ function _fut_group_get_group_options() {
 /**
  * Get user roles in the group.
  *
- * @param Group $group
+ * @param \Drupal\group\Entity\Group $group
  *   Group.
- * @param AccountInterface $account
+ * @param Drupal\Core\Session\AccountInterface $account
  *   User.
  */
-function _fut_group_get_group_user_roles($group, $account) {
+function _fut_group_get_group_user_roles(Group $group, AccountInterface $account) {
   $group_roles = [];
   $member = $group->getMember($account);
 
@@ -271,7 +271,7 @@ function fut_group_form_taxonomy_term_fut_collections_form_alter(
 }
 
 /**
- *
+ * Helper function to submit a collection.
  */
 function _fut_group_form_taxonomy_term_fut_collections_submit(array $form, FormState $form_state) {
   $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
@@ -407,6 +407,12 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
   return AccessResult::neutral();
 }
 
+/**
+ * Helper function to check custom group permissions.
+ *
+ * @param \Drupal\group\Entity\Group $group
+ *   Group.
+ */
 function _fut_group_check_custom_group_permissions(Group $group) {
   $group_permission = GroupPermissionEntity::loadByGroup($group);
   $custom_permissions = [];
@@ -419,13 +425,13 @@ function _fut_group_check_custom_group_permissions(Group $group) {
   return $custom_permissions;
 }
 
-    /**
+/**
  * Checks permissions for collection.
  *
  * @param string $permission
  *   Permission.
  * @param array $custom_permissions
- *   Custom permissions
+ *   Custom permissions.
  * @param \Drupal\group\Entity\Group $group
  *   Group.
  * @param \Drupal\Core\Session\AccountInterface $account
@@ -506,7 +512,7 @@ function fut_group_menu_local_tasks_alter(&$data, $route_name) {
 /**
  * Implements hook_ENTITY_TYPE_access().
  */
-function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account){
+function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account) {
 
   // We do not care about create / view. (these ones are system wide).
   if (!in_array($operation, ['update', 'delete'])) {
@@ -546,7 +552,6 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
 
     default:
       return AccessResult::neutral();
-      break;
   }
 
 }
@@ -554,7 +559,7 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
+function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id) {
   // var_dump($form_id);
   // var_dump($form);
   switch ($form_id) {
