@@ -1,0 +1,32 @@
+uuid: a5ba47d8-15cc-4172-94c0-3231a4ec6d9d
+langcode: en
+status: true
+dependencies:
+  config:
+    - system.menu.main
+  module:
+    - system
+  theme:
+    - blellow
+_core:
+  default_config_hash: 5KPQBpCn42fKzX0bLLwV2-VGdDjAeyGR0KWimD_ZH9Q
+id: blellow_main_navigation
+theme: blellow
+region: navigation
+weight: 0
+provider: null
+plugin: 'system_menu_block:main'
+settings:
+  id: 'system_menu_block:main'
+  label: 'Main navigation'
+  provider: system
+  label_display: '0'
+  level: 1
+  depth: 0
+  expand_all_items: false
+visibility:
+  request_path:
+    id: request_path
+    pages: "/group\r\n/group/*"
+    negate: true
+    context_mapping: {  }
