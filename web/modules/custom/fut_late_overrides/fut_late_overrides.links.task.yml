@@ -1,0 +1,6 @@
+group_permissions.link.group_permissions:
+  route_name: 'group_permissions.override_group_permissions'
+  title: 'Permissions'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group'
+  weight: 10

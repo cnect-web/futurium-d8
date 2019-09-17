@@ -1,0 +1,30 @@
+uuid: edfd8043-1d8c-4161-ba80-c8d494becd80
+langcode: en
+status: true
+dependencies:
+  module:
+    - blellow_helper
+    - user
+  theme:
+    - blellow
+_core:
+  default_config_hash: P8CYKrKnCI88L3dI92VZ7QHLFsnRVmwYryalwB96kXI
+id: joinfuturium_anon_block
+theme: blellow
+region: content_side
+weight: 0
+provider: null
+plugin: cnect_join_futurium
+settings:
+  id: cnect_join_futurium
+  label: 'Join Futurium block'
+  provider: blellow_helper
+  label_display: '0'
+visibility:
+  user_role:
+    id: user_role
+    roles:
+      anonymous: anonymous
+    negate: false
+    context_mapping:
+      user: '@user.current_user_context:current_user'

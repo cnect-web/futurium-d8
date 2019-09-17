@@ -43,6 +43,11 @@ class RouteSubscriber extends RouteSubscriberBase {
         '_controller' => '\Drupal\fut_group\Controller\GroupPageController::groupInvitations',
       ]);
     }
+
+    if ($route = $collection->get('group_permissions.override_group_permissions')) {
+      // Put the group permissions form under 'Manage'.
+      $route->setPath("/group/{group}/manage/group/permissions");
+    }
   }
 
 }

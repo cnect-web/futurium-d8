@@ -1,14 +1,14 @@
 fut_group.manage_group_content:
   route_name: 'fut_group.manage_group_content.posts'
-  title: 'Group Content'
-  description: 'Mange Group Content'
+  title: 'Content'
+  description: 'Manage Group Content'
   base_route: 'entity.group.canonical'
   weight: 100
 
 fut_group.manage_group_content.posts:
   route_name: 'fut_group.manage_group_content.posts'
   title: 'Posts'
-  description: 'Mange Group Content'
+  description: 'Manage Group Content'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
   weight: 0
@@ -16,7 +16,7 @@ fut_group.manage_group_content.posts:
 fut_group.manage_group_content.events:
   route_name: 'fut_group.manage_group_content.events'
   title: 'Events'
-  description: 'Mange Group Content'
+  description: 'Manage Group Content'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
   weight: 10
@@ -24,7 +24,7 @@ fut_group.manage_group_content.events:
 fut_group.manage_group_content.comments:
   route_name: 'fut_group.manage_group_content.comments'
   title: 'Comments'
-  description: 'Mange group comments'
+  description: 'Manage group comments'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
   weight: 20
@@ -32,7 +32,7 @@ fut_group.manage_group_content.comments:
 fut_group.manage_group_content.library:
   route_name: 'fut_group.manage_group_content.library'
   title: 'Library'
-  description: 'Mange library'
+  description: 'Manage library'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
   weight: 30
@@ -40,7 +40,7 @@ fut_group.manage_group_content.library:
 fut_group.manage_group_content.collections:
   route_name: 'fut_group.manage_group_content.collections'
   title: 'Collections'
-  description: 'Mange collections'
+  description: 'Manage collections'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
   weight: 40
@@ -72,22 +72,22 @@ fut_group.manage_group_content.edit_collection:
 fut_group.manage_group_content.subgroups:
   route_name: 'fut_group.manage_group_content.subgroups'
   title: 'Subgroups'
-  description: 'Mange subgroups'
+  description: 'Manage subgroups'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
   weight: 40
 
 fut_group.manage_group:
   route_name: 'fut_group.manage_group'
-  title: 'Group Management'
-  description: 'Mange Group and Members'
+  title: 'Management'
+  description: 'Manage Group and Members'
   base_route: 'entity.group.canonical'
   weight: 110
 
 fut_group.manage_group.overview:
   route_name: 'fut_group.manage_group'
   title: 'Overview'
-  description: 'Mange Group and Members'
+  description: 'Manage Group and Members'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 0
@@ -102,24 +102,24 @@ fut_group.manage_group.edit:
 
 fut_group.manage_group.navigation:
   route_name: 'fut_group.manage_group.navigation'
-  title: 'Manage Navigation'
-  description: 'Mange Group navigation'
+  title: 'Navigation'
+  description: 'Manage Group navigation'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 20
 
 fut_group.manage_group.members:
   route_name: 'fut_group.manage_group.members'
-  title: 'Manage Members'
-  description: 'Mange Group members'
+  title: 'Members'
+  description: 'Manage Group members'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 30
 
 fut_group.manage_group.member_requests:
   route_name: 'fut_group.manage_group.member_requests'
-  title: 'Manage Member Requets'
-  description: 'Mange Member Requests'
+  title: 'Membership Requests'
+  description: 'Manage Member Requests'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 40
@@ -142,15 +142,15 @@ fut_group.manage_group.invite_members:
 
 fut_group.manage_group.layout:
   route_name: 'fut_group.manage_group.layout'
-  title: 'Manage Layout'
-  description: 'Mange group layout'
+  title: 'Layout'
+  description: 'Manage group layout'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 60
 
 fut_group.manage_group.privacy:
   route_name: 'fut_group.manage_group.privacy'
-  title: 'Manage privacy'
+  title: 'Privacy'
   description: 'Manage group privacy'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
