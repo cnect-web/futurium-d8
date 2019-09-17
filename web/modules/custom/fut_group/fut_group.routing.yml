@@ -198,7 +198,7 @@ fut_group.manage_group.member_invitations:
   path: '/group/{group}/manage/group/invitations'
   defaults:
     _controller: '\Drupal\fut_group\Controller\GroupPageController::groupInvitations'
-    _title: 'Manage Group Invitations'
+    _title: 'Group Invitations'
   requirements:
     _group_permission: 'administer members'
   options:

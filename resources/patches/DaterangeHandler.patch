@@ -1,0 +1,27 @@
+diff --git a/src/Drupal/Driver/Fields/Drupal8/DaterangeHandler.php b/src/Drupal/Driver/Fields/Drupal8/DaterangeHandler.php
+index e69de29..19b5d22 100644
+--- a/src/Drupal/Driver/Fields/Drupal8/DaterangeHandler.php
++++ b/src/Drupal/Driver/Fields/Drupal8/DaterangeHandler.php
+@@ -0,0 +1,22 @@
++<?php
++namespace Drupal\Driver\Fields\Drupal8;
++/**
++ * Daterange field handler for Drupal 8.
++ */
++class DaterangeHandler extends AbstractHandler {
++  /**
++   * {@inheritdoc}
++   */
++  public function expand($values) {
++    $return = [];
++    foreach ($values as $value) {
++      $start = str_replace(' ', 'T', $value['value']);
++      $end = str_replace(' ', 'T', $value['end_value']);
++      $return[] = [
++        'value' => $start,
++        'end_value' => $end,
++      ];
++    }
++    return $return;
++  }
++}
