@@ -89,4 +89,33 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
       ->evaluateScript("document.getElementById(\"$locator\").value = '$value'");
   }
 
+  /**
+   * @Then I click on widget :name input
+   */
+  public function iClickOnWidgetInput($name) {
+    $this->getSession()
+      ->getPage()
+      ->find('named', array('button', $name))
+      ->click();
+  }
+
+  /**
+   * @When I scroll :elementId into view
+   */
+  public function scrollIntoView($elementId) {
+    $function = <<<JS
+(function(){
+  var elem = document.getElementById("$elementId");
+  elem.scrollIntoView(false);
+})()
+JS;
+    try {
+      $this->getSession()->executeScript($function);
+    }
+    catch(Exception $e) {
+      throw new \Exception("ScrollIntoView failed");
+    }
+  }
+
 }
+
