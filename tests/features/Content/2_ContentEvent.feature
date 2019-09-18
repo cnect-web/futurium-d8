@@ -16,4 +16,12 @@ Feature: Content Event
     And I am a member of the current group
 
   Scenario: Verify that authenticated user can create and edit a node of type Event.
-    Then I should see "Reducing pollution in 2016 Meeting"
+    When I go to "/group/broadband-networks"
+    And I expand operations menu
+    And I click "Add Event"
+    Then I fill in "edit-title-0-value" with "Broadband Good Practices"
+    Then I fill datetime field "edit-fut-event-date-0-end-value" with "2020-09-10 13:41:45"
+    Then I fill in wysiwyg on field "edit-fut-content-0-subform-fut-text-0-value" with "This is an example"
+    Then I press the "Save" button
+    Then I go to "/group/broadband-networks/content/broadband-good-practices"
+    Then I should see "Broadband Good Practices"

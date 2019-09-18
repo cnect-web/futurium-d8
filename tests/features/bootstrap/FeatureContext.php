@@ -73,4 +73,20 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
     $this->getSession()->visit($this->locatePath('/node/' . $saved->nid));
   }
 
+  /**
+   * @Then I fill datetime field :locator with :value
+   */
+  public function iFillDateTimeField($locator, $value) {
+    $el = $this->getSession()->getPage()->findField($locator);
+    if (empty($el)) {
+      throw new ExpectationException('Could not find DateTime with locator: ' . $locator, $this->getSession());
+    }
+    $fieldid = $el->getAttribute('id');
+    if (empty($fieldid)) {
+      throw new Exception('Could not find an id for field with locator: ' . $locator);
+    }
+    $this->getSession()
+      ->evaluateScript("document.getElementById(\"$locator\").value = '$value'");
+  }
+
 }
