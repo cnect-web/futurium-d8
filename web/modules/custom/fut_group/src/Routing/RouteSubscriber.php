@@ -32,7 +32,8 @@ class RouteSubscriber extends RouteSubscriberBase {
 
     if ($route = $collection->get('view.group_invitations.page_1')) {
       // Here we alter this route in order to send user to our custom path,
-      // in order to keep our custom local taks after bulk invite batch is complete.
+      // in order to keep our custom local task,
+      // after bulk invite batch is complete.
       $invitations_route = $collection->get('fut_group.manage_group.member_invitations');
       $fut_custom_path = $invitations_route->getPath();
       $fut_custom_title = $invitations_route->getDefault('_title');
@@ -48,6 +49,17 @@ class RouteSubscriber extends RouteSubscriberBase {
       // Put the group permissions form under 'Manage'.
       $route->setPath("/group/{group}/manage/group/permissions");
     }
+
+    if ($route = $collection->get('view.fut_my_contributions.page_my_contributions')) {
+      // Allow users to see only their own contributions.
+      $route->setRequirement('_custom_access', '\Drupal\fut_group\Access\UserProfileAccessCheck::access');
+    }
+
+    if ($route = $collection->get('view.my_invitations.page_1')) {
+      // Add custom access handler to only allow users to see their own invites.
+      $route->setRequirement('_custom_access', '\Drupal\fut_group\Access\UserProfileAccessCheck::access');
+    }
+
   }
 
 }
