@@ -11,7 +11,8 @@ folder: ../config/staging_config
 module:
   stage_file_proxy: 0
   aws_info: 0
-theme: {  }
+theme:
+  blellow: 0
 blacklist: {  }
 graylist:
   - system.logging

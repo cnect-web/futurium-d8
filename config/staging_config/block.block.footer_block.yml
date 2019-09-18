@@ -1,0 +1,22 @@
+uuid: b5217d16-8f01-4290-8d02-daf66dbc2035
+langcode: en
+status: true
+dependencies:
+  module:
+    - blellow_helper
+  theme:
+    - blellow
+_core:
+  default_config_hash: Kim5T3-Y8tpV-lu3O-_JP9Yl3q9aLf_3J6gZNGR4408
+id: footer_block
+theme: blellow
+region: footer
+weight: 0
+provider: null
+plugin: cnect_footer
+settings:
+  id: cnect_footer
+  label: 'Footer block'
+  provider: blellow_helper
+  label_display: '0'
+visibility: {  }

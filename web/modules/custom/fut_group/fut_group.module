@@ -177,8 +177,8 @@ function _fut_group_get_group_options() {
     $collection_items = Term::loadMultiple($query->execute());
 
     $by_pass_access = \Drupal::currentUser()
-        ->hasPermission('bypass group access') || \Drupal::currentUser()
-        ->hasPermission('manage group collections');
+      ->hasPermission('bypass group access') || \Drupal::currentUser()
+      ->hasPermission('manage group collections');
 
     if ($collection_items) {
       $options['_none'] = t('- None -');
@@ -209,12 +209,12 @@ function _fut_group_get_group_options() {
 /**
  * Get user roles in the group.
  *
- * @param Group $group
+ * @param \Drupal\group\Entity\Group $group
  *   Group.
- * @param AccountInterface $account
+ * @param Drupal\Core\Session\AccountInterface $account
  *   User.
  */
-function _fut_group_get_group_user_roles($group, $account) {
+function _fut_group_get_group_user_roles(Group $group, AccountInterface $account) {
   $group_roles = [];
   $member = $group->getMember($account);
 
@@ -271,7 +271,7 @@ function fut_group_form_taxonomy_term_fut_collections_form_alter(
 }
 
 /**
- *
+ * Helper function to submit a collection.
  */
 function _fut_group_form_taxonomy_term_fut_collections_submit(array $form, FormState $form_state) {
   $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
@@ -407,6 +407,12 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
   return AccessResult::neutral();
 }
 
+/**
+ * Helper function to check custom group permissions.
+ *
+ * @param \Drupal\group\Entity\Group $group
+ *   Group.
+ */
 function _fut_group_check_custom_group_permissions(Group $group) {
   $group_permission = GroupPermissionEntity::loadByGroup($group);
   $custom_permissions = [];
@@ -419,13 +425,13 @@ function _fut_group_check_custom_group_permissions(Group $group) {
   return $custom_permissions;
 }
 
-    /**
+/**
  * Checks permissions for collection.
  *
  * @param string $permission
  *   Permission.
  * @param array $custom_permissions
- *   Custom permissions
+ *   Custom permissions.
  * @param \Drupal\group\Entity\Group $group
  *   Group.
  * @param \Drupal\Core\Session\AccountInterface $account
@@ -485,16 +491,28 @@ function fut_group_form_views_exposed_form_alter(&$form, FormStateInterface $for
   }
 }
 
+/**
+ * Implements hook_menu_local_tasks_alter().
+ */
 function fut_group_menu_local_tasks_alter(&$data, $route_name) {
   unset($data['tabs'][1]['fut_group.manage_group_content.add_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.delete_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.edit_collection']);
+  // Remove tab provided by ginvite invitations view.
+  unset($data['tabs'][0]['views_view:view.group_invitations.page_1']);
+  // Hide tab, this local taks exists to keep tabs context.
+  unset($data['tabs'][1]['fut_group.manage_group.invite_members']);
+
+  unset($data['tabs'][0]['group_permissions.link.group_permissions']);
+  unset($data['tabs'][0]['group.edit_form']);
+  unset($data['tabs'][0]['group.delete_form']);
+  unset($data['tabs'][0]['group.content']);
 }
 
 /**
  * Implements hook_ENTITY_TYPE_access().
  */
-function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account){
+function fut_group_comment_access(EntityInterface $entity, $operation, AccountInterface $account) {
 
   // We do not care about create / view. (these ones are system wide).
   if (!in_array($operation, ['update', 'delete'])) {
@@ -534,7 +552,6 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
 
     default:
       return AccessResult::neutral();
-      break;
   }
 
 }
@@ -542,7 +559,9 @@ function fut_group_comment_access(EntityInterface $entity, $operation, AccountIn
 /**
  * Implements hook_form_FORM_ID_alter().
  */
-function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
+function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id) {
+  // var_dump($form_id);
+  // var_dump($form);
   switch ($form_id) {
     case 'group_content_fut_open-group_membership_group-leave_form':
       // Change the cancel link url to group page instead of membership.
@@ -552,4 +571,32 @@ function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id){
       ]);
       break;
   }
+}
+
+/**
+ * Implements hook_menu_local_actions_alter().
+ */
+function fut_group_menu_local_actions_alter(&$local_actions) {
+  // Hide "Invite member" link we just keep "Invite members".
+  unset($local_actions['ginvite.invite_member']);
+}
+
+/**
+ * Implements hook_entity_create_access().
+ *
+ * @see \Drupal\workspaces\EntityAccess
+ */
+function fut_group_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
+  $extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
+  if ($extractor->getRouteMatch()->getRouteName() == 'entity.group_content.create_form' && isset($context['entity_type_id']) && $context['entity_type_id'] == 'media') {
+    $plugin_id = $extractor->getRouteMatch()->getParameter('plugin_id');
+    $group = $extractor->getGroup();
+    if (!empty($group) && !empty($plugin_id)) {
+      if ($group->hasPermission("create $plugin_id entity", $account)) {
+        return AccessResult::allowed();
+      }
+    }
+  }
+
+  return AccessResult::neutral();
 }
