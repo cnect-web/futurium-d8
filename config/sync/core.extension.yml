@@ -7,6 +7,7 @@ module:
   block: 0
   block_content: 0
   breakpoint: 0
+  cas: 0
   chosen: 0
   chosen_lib: 0
   ckeditor: 0
@@ -30,6 +31,7 @@ module:
   entity_browser: 0
   entity_browser_entity_form: 0
   entity_reference_revisions: 0
+  externalauth: 0
   extra_field: 0
   field: 0
   field_group: 0
@@ -40,7 +42,6 @@ module:
   fut_content: 0
   fut_core: 0
   fut_group: 0
-  fut_late_overrides: 1000
   fut_media: 0
   fut_paragraphs: 0
   geocoder: 0
@@ -63,6 +64,7 @@ module:
   media: 0
   menu_ui: 0
   node: 0
+  oe_authentication: 0
   options: 0
   page_cache: 0
   path: 0
@@ -93,6 +95,7 @@ module:
   pathauto: 1
   views: 10
   paragraphs: 11
+  fut_late_overrides: 1000
   minimal: 1000
 theme:
   stable: 0

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fb676a005639c80a9cc4b6de3bc22422",
+    "content-hash": "b8711cff58b41fb171f99f3f06b5b8d4",
     "packages": [
         {
             "name": "alchemy/zippy",
@@ -306,7 +306,7 @@
                 "EUPL-1.2"
             ],
             "description": "Institutional Look and Feel for D8",
-            "time": "2019-09-11T09:50:04+00:00"
+            "time": "2019-09-16T11:02:19+00:00"
         },
         {
             "name": "commerceguys/addressing",
@@ -2574,6 +2574,80 @@
             }
         },
         {
+            "name": "drupal/cas",
+            "version": "1.5.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/cas.git",
+                "reference": "8.x-1.5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/cas-8.x-1.5.zip",
+                "reference": "8.x-1.5",
+                "shasum": "e9060d973d69247862d71e2230762cb3147ae946"
+            },
+            "require": {
+                "drupal/core": "~8.0",
+                "drupal/externalauth": "*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.5",
+                    "datestamp": "1553185984",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                },
+                "drush": {
+                    "services": {
+                        "drush.services.yml": "^9"
+                    }
+                },
+                "patches_applied": {
+                    "https://www.drupal.org/project/cas/issues/3047390": "https://www.drupal.org/files/issues/2019-04-12/3047390_2.patch"
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "authors": [
+                {
+                    "name": "David Metzler",
+                    "homepage": "https://www.drupal.org/u/metzlerd",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Brian Osborne",
+                    "homepage": "https://www.drupal.org/u/bkosborne",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "Tim Yale",
+                    "homepage": "https://www.drupal.org/u/yalet",
+                    "role": "Maintainer"
+                },
+                {
+                    "name": "See other contributors",
+                    "homepage": "https://www.drupal.org/node/78967/committers",
+                    "role": "contributor"
+                }
+            ],
+            "description": "Provides CAS authentication for Drupal.",
+            "homepage": "http://drupal.org/project/cas",
+            "support": {
+                "source": "http://cgit.drupalcode.org/cas",
+                "issues": "http://drupal.org/project/issues/cas",
+                "irc": "irc://irc.freenode.org/drupal-contribute"
+            }
+        },
+        {
             "name": "drupal/chosen",
             "version": "2.8.0",
             "source": {
@@ -3925,6 +3999,61 @@
             }
         },
         {
+            "name": "drupal/externalauth",
+            "version": "1.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupalcode.org/project/externalauth.git",
+                "reference": "8.x-1.1"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/externalauth-8.x-1.1.zip",
+                "reference": "8.x-1.1",
+                "shasum": "171d8482df27aa66cb1b389bad4c711edd58136d"
+            },
+            "require": {
+                "drupal/core": "~8.0"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-1.x": "1.x-dev"
+                },
+                "drupal": {
+                    "version": "8.x-1.1",
+                    "datestamp": "1521730685",
+                    "security-coverage": {
+                        "status": "covered",
+                        "message": "Covered by Drupal's security advisory policy"
+                    }
+                }
+            },
+            "notification-url": "https://packages.drupal.org/8/downloads",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "rgristroph",
+                    "homepage": "https://www.drupal.org/user/516442"
+                },
+                {
+                    "name": "snufkin",
+                    "homepage": "https://www.drupal.org/user/58645"
+                },
+                {
+                    "name": "svendecabooter",
+                    "homepage": "https://www.drupal.org/user/35369"
+                }
+            ],
+            "description": "Helper module to authenticate users using an external site / service and storing identification details",
+            "homepage": "https://www.drupal.org/project/externalauth",
+            "support": {
+                "source": "https://git.drupalcode.org/project/externalauth"
+            }
+        },
+        {
             "name": "drupal/extra_field",
             "version": "1.0.0",
             "source": {
@@ -4365,8 +4494,8 @@
                     "Group language settings are missing": "https://www.drupal.org/files/issues/2019-02-27/group_type_language_settings-3036272-2.patch",
                     "Can't translate group roles": "https://www.drupal.org/files/issues/2019-03-07/group_role_translations-3014651-3.patch",
                     "Behat group context": "./resources/patches/group.behat.inc.patch",
-                    "Site admin or Group admin should be able to invite users to the group": "https://www.drupal.org/files/issues/2019-01-31/gnode-access-grants-3029849-2.patch",
-                    "Statically cache gnode_node_grants()": "https://www.drupal.org/files/issues/2019-08-12/ginvite_module_port-2801603-88.patch",
+                    "Site admin or Group admin should be able to invite users to the group": "https://www.drupal.org/files/issues/2019-09-17/ginvite_module_port-2801603-95.patch",
+                    "Statically cache gnode_node_grants()": "https://www.drupal.org/files/issues/2019-01-31/gnode-access-grants-3029849-2.patch",
                     "Statically cache loadByEntity()": "https://www.drupal.org/files/issues/2019-01-31/gnode-loadbyentity-3029878-2.patch"
                 }
             },
@@ -6742,6 +6871,81 @@
             "time": "2018-09-27T12:44:45+00:00"
         },
         {
+            "name": "openeuropa/oe_authentication",
+            "version": "1.0.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/openeuropa/oe_authentication.git",
+                "reference": "26765cfde9ed112144c849980eac0e6ecb1beb4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/openeuropa/oe_authentication/zipball/26765cfde9ed112144c849980eac0e6ecb1beb4a",
+                "reference": "26765cfde9ed112144c849980eac0e6ecb1beb4a",
+                "shasum": ""
+            },
+            "require": {
+                "drupal/cas": "^1.5",
+                "drupal/core": "^8.7",
+                "php": "^7.1"
+            },
+            "require-dev": {
+                "composer/installers": "~1.5",
+                "consolidation/annotated-command": "^2.8.2",
+                "consolidation/robo": "~1.4",
+                "drupal-composer/drupal-scaffold": "~2.2",
+                "drupal/config_devel": "~1.2",
+                "drupal/console": "~1.0",
+                "drupal/devel": "~1.2",
+                "drupal/drupal-extension": "~4.0",
+                "drush/drush": "~9.0@stable",
+                "egulias/email-validator": "^1.2.1 || ^2.0",
+                "nikic/php-parser": "~3.0",
+                "openeuropa/behat-transformation-context": "~0.1",
+                "openeuropa/code-review": "~1.0.0-alpha4",
+                "openeuropa/drupal-core-require-dev": "^8.7",
+                "openeuropa/task-runner": "~1.0-beta4",
+                "phpunit/phpunit": "~6.0",
+                "symfony/browser-kit": "~3.0||~4.0",
+                "symfony/dom-crawler": "~3.4"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "composer-exit-on-patch-failure": true,
+                "enable-patching": true,
+                "patches": {
+                    "drupal/cas": {
+                        "https://www.drupal.org/project/cas/issues/3047390": "https://www.drupal.org/files/issues/2019-04-12/3047390_2.patch"
+                    }
+                },
+                "installer-paths": {
+                    "build/core": [
+                        "type:drupal-core"
+                    ],
+                    "build/profiles/contrib/{$name}": [
+                        "type:drupal-profile"
+                    ],
+                    "build/modules/contrib/{$name}": [
+                        "type:drupal-module"
+                    ],
+                    "build/themes/contrib/{$name}": [
+                        "type:drupal-theme"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Drupal\\oe_authentication\\": "./src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "EUPL-1.2"
+            ],
+            "description": "Authentication against the OpenEuropa Authentication service.",
+            "time": "2019-05-15T09:39:56+00:00"
+        },
+        {
             "name": "paragonie/random_compat",
             "version": "v9.99.99",
             "source": {
@@ -7314,7 +7518,7 @@
             "type": "drupal-module",
             "notification-url": "https://packagist.org/downloads/",
             "description": "Additional functionality required by the Blellow Theme for Futurium D8 website",
-            "time": "2019-08-07T14:53:21+00:00"
+            "time": "2019-09-18T11:00:00+00:00"
         },
         {
             "name": "stack/builder",
@@ -10576,6 +10780,9 @@
             "extra": {
                 "branch-alias": {
                     "dev-master": "2.0.x-dev"
+                },
+                "patches_applied": {
+                    "Add a Daterange field handler": "./resources/patches/DaterangeHandler.patch"
                 }
             },
             "autoload": {
