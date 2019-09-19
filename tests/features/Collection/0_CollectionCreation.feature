@@ -6,7 +6,7 @@ Feature: Collection
   Background:
     Given I am logged in as a user with the administrator role
     Given a group of type "fut_open"
-      | label              | Insert Group Name Here 2             |
+      | label              | Insert Group Name Here               |
       | fut_short_name     | Group Name                           |
       | fut_description    | fut_text:fut_text:Bla Bla, Yada Yada |
 
