@@ -90,9 +90,6 @@
         "sort-packages": true
     },
     "autoload": {
-        "psr-4": {
-            "fut\\Robo\\": "robo"
-        },
         "classmap": [
             "resources/scripts/composer/ScriptHandler.php"
         ]
