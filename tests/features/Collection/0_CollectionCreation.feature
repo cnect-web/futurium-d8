@@ -11,7 +11,7 @@ Feature: Collection
       | fut_description    | fut_text:fut_text:Bla Bla, Yada Yada |
 
   Scenario: Verify that I can create a collection.
-    Given I go to "/group/insert-group-name-here-2"
+    Given I go to "/group/insert-group-name-here"
     When I click "Content" in the "content" region
     Then I click "Collections"
     Then I click "Add Collection"
