@@ -17,9 +17,16 @@ class GroupPrivacyForm extends FormBase {
   /**
    * Group.
    *
-   * @var \Drupal\group\Entity\Group
+   * @var \Drupal\group\Entity\Group;
    */
   protected $group;
+
+  /**
+   * GroupPermission.
+   *
+   * @var \Drupal\group_permissions\Entity\GroupPermission;
+   */
+  protected $groupPermission;
 
   /**
    * {@inheritdoc}
@@ -82,43 +89,68 @@ class GroupPrivacyForm extends FormBase {
       '#submit' => [[$this, 'publicSubmit']],
     ];
 
+
     return $form;
+  }
+
+  protected function getGroupPermission() {
+    if (empty( $this->groupPermission)) {
+      $this->groupPermission = GroupPermission::loadByGroup($this->group);
+      if (empty( $this->groupPermission)) {
+        $this->groupPermission = GroupPermission::create([
+          'gid' => $this->group->id(),
+          'permissions' => [],
+        ]);
+      }
+    }
+
+    return $this->groupPermission;
+  }
+
+  protected function alterCustomPermissions($action) {
+    $group_type = $this->group->getGroupType();
+    $custom_permissions = $this->getGroupPermission()->getPermissions()->first()->getValue();
+    $roles = $this->getGroupNonMemberRoles($group_type);
+    foreach ($roles as $role_id => $role) {
+      $custom_permissions[$role_id] = $role->getPermissions();
+      if ($action == 'remove') {
+        $this->removeArrayValue($custom_permissions, $role_id, 'view group');
+      }
+      else {
+        $this->addArrayValue($custom_permissions, $role_id, 'view group');
+      }
+
+      $plugins = $group_type->getInstalledContentPlugins();
+      foreach ($plugins as $plugin) {
+        if ($plugin->getEntityTypeId() == 'node' || $plugin->getEntityTypeId() == 'group') {
+          if ($action == 'remove') {
+            $this->removeArrayValue($custom_permissions, $role_id,
+              "view {$plugin->getPluginId()} entity");
+          }
+          else {
+            $this->addArrayValue($custom_permissions, $role_id,
+              "view {$plugin->getPluginId()} entity");
+          }
+        }
+      }
+    }
+
+    return $this->getGroupPermission()->setPermissions($custom_permissions);
   }
 
   /**
    * {@inheritdoc}
    */
-  public function privateSubmit(array &$form, FormStateInterface $form_state) {
-    $group_type = $this->group->getGroupType();
-    $group_permission = GroupPermission::loadByGroup($this->group);
-
-    $custom_permissions = [];
-    if (!empty($group_permission)) {
-      $custom_permissions = $group_permission->getPermissions()->first()->getValue();
-    }
-
-    $roles = $this->getGroupNonMemberRoles($group_type);
-
-    foreach ($roles as $role_id => $role) {
-      $this->removeArrayValue($custom_permissions, $role_id, 'view group');
-
-      $plugins = $group_type->getInstalledContentPlugins();
-      foreach ($plugins as $plugin) {
-        if ($plugin->getEntityTypeId() == 'node' || $plugin->getEntityTypeId() == 'group') {
-          $this->removeArrayValue($custom_permissions, $role_id, "view {$plugin->getPluginId()} entity");
-        }
-      }
-    }
-
-    $group_permission->setPermissions($custom_permissions);
-    $violations = $group_permission->validate();
+  function privateSubmit(array &$form, FormStateInterface $form_state) {
+    $this->alterCustomPermissions('remove');
+    $violations = $this->getGroupPermission()->validate();
     if (count($violations) == 0) {
-      $group_permission->save();
+      $this->getGroupPermission()->save();
       $this->messenger()->addMessage($this->t('Group is private now.'));
     }
     else {
       foreach ($violations as $violation) {
-        $this->messenger()->addError($this->t('@message', ['@message' => $violation->getMessage()]));
+        $this->messenger()->addError($this->t($violation->getMessage()));
       }
     }
   }
@@ -126,44 +158,20 @@ class GroupPrivacyForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function publicSubmit(array &$form, FormStateInterface $form_state) {
-    $group_type = $this->group->getGroupType();
-    $group_permission = GroupPermission::loadByGroup($this->group);
-
-    $custom_permissions = [];
-    if (!empty($group_permission)) {
-      $custom_permissions = $group_permission->getPermissions()->first()->getValue();
-    }
-
-    $roles = $this->getGroupNonMemberRoles($group_type);
-
-    foreach ($roles as $role_id => $role) {
-      $this->addArrayValue($custom_permissions, $role_id, 'view group');
-
-      $plugins = $group_type->getInstalledContentPlugins();
-      foreach ($plugins as $plugin) {
-        if ($plugin->getEntityTypeId() == 'node' || $plugin->getEntityTypeId() == 'group') {
-          $this->addArrayValue($custom_permissions, $role_id, "view {$plugin->getPluginId()} entity");
-        }
-      }
-    }
-
-    $group_permission->setPermissions($custom_permissions);
-    $violations = $group_permission->validate();
+  function publicSubmit(array &$form, FormStateInterface $form_state) {
+    $this->alterCustomPermissions('add');
+    $violations = $this->getGroupPermission()->validate();
     if (count($violations) == 0) {
-      $group_permission->save();
+      $this->getGroupPermission()->save();
       $this->messenger()->addMessage($this->t('Group is public now.'));
     }
     else {
       foreach ($violations as $violation) {
-        $this->messenger()->addError('@message', ['@message' => $violation->getMessage()]);
+        $this->messenger()->addError($this->t($violation->getMessage()));
       }
     }
   }
 
-  /**
-   * Get group non-member roles.
-   */
   protected function getGroupNonMemberRoles($group_type) {
     $storage = $this->entityTypeManager->getStorage('group_role');
     $roles = $storage->loadSynchronizedByGroupTypes([$group_type->id()]);
@@ -172,20 +180,14 @@ class GroupPrivacyForm extends FormBase {
     return $roles;
   }
 
-  /**
-   * Remove value from array.
-   */
   protected function removeArrayValue(&$permissions, $role_id, $permission) {
-    if (!empty($permissions[$role_id]) && ($key = array_search($permission, $permissions[$role_id])) !== FALSE) {
+    if (!empty($permissions[$role_id]) && ($key = array_search($permission, $permissions[$role_id])) !== false) {
       unset($permissions[$role_id][$key]);
     }
   }
 
-  /**
-   * Add value to array.
-   */
   protected function addArrayValue(&$permissions, $role_id, $permission) {
-    if (empty($permissions[$role_id]) || (array_search($permission, $permissions[$role_id])) == FALSE) {
+    if (empty($permissions[$role_id]) || ($key = array_search($permission, $permissions[$role_id])) == false) {
       $permissions[$role_id][] = $permission;
     }
   }
@@ -193,7 +195,7 @@ class GroupPrivacyForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  public function submitForm(array &$form, FormStateInterface $form_state) {
+  function submitForm(array &$form, FormStateInterface $form_state) {
 
   }
 

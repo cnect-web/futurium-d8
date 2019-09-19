@@ -125,9 +125,17 @@ fut_group.manage_group.member_requests:
   weight: 40
 
 fut_group.manage_group.member_invitations:
-  route_name: 'fut_group.manage_group.member_invitations'
-  title: 'Invites'
-  description: 'Manage Member Invitations'
+  route_name: 'view.group_invitations.page_1'
+  title: 'Member Invitations'
+  description: 'Mange Member Invitations'
+  base_route: 'entity.group.canonical'
+  parent_id: 'fut_group.manage_group'
+  weight: 50
+
+fut_group.manage_group.invite_members:
+  route_name: 'ginvite.invitation.bulk'
+  title: 'Invite members'
+  description: 'Invite members'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group'
   weight: 50

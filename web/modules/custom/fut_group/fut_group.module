@@ -212,7 +212,7 @@ function _fut_group_get_group_options() {
  *
  * @param \Drupal\group\Entity\Group $group
  *   Group.
- * @param \Drupal\Core\Session\AccountInterface $account
+ * @param Drupal\Core\Session\AccountInterface $account
  *   User.
  */
 function _fut_group_get_group_user_roles(Group $group, AccountInterface $account) {
@@ -409,7 +409,10 @@ function fut_group_node_access(NodeInterface $node, $op, AccountInterface $accou
 }
 
 /**
- * Helper function to return custom permissions of a group.
+ * Helper function to check custom group permissions.
+ *
+ * @param \Drupal\group\Entity\Group $group
+ *   Group.
  */
 function _fut_group_check_custom_group_permissions(Group $group) {
   $group_permission = GroupPermissionEntity::loadByGroup($group);
@@ -504,6 +507,11 @@ function fut_group_menu_local_tasks_alter(&$data, $route_name) {
   unset($data['tabs'][1]['fut_group.manage_group_content.add_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.delete_collection']);
   unset($data['tabs'][1]['fut_group.manage_group_content.edit_collection']);
+  // Remove tab provided by ginvite invitations view.
+  unset($data['tabs'][0]['views_view:view.group_invitations.page_1']);
+  // Hide tab, this local taks exists to keep tabs context.
+  unset($data['tabs'][1]['fut_group.manage_group.invite_members']);
+
   unset($data['tabs'][0]['group_permissions.link.group_permissions']);
   unset($data['tabs'][0]['group.edit_form']);
   unset($data['tabs'][0]['group.delete_form']);
@@ -570,6 +578,14 @@ function fut_group_form_alter(&$form, FormStateInterface $form_state, $form_id) 
       ]);
       break;
   }
+}
+
+/**
+ * Implements hook_menu_local_actions_alter().
+ */
+function fut_group_menu_local_actions_alter(&$local_actions) {
+  // Hide "Invite member" link we just keep "Invite members".
+  unset($local_actions['ginvite.invite_member']);
 }
 
 /**
