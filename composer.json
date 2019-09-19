@@ -76,7 +76,7 @@
         "drupal/drupal-extension": "v4.0.0beta2",
         "drupal/search_kint": "^1.0",
         "guzzlehttp/guzzle": "^6.0@dev",
-        "horaciolopesqq/docker": "0.0.7",
+        "horaciolopesqq/docker": "<0.1",
         "skounis/fut_default_content": "dev-master",
         "skounis/fut_sample_content": "dev-master",
         "webflo/drupal-core-require-dev": "~8.4"
