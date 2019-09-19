@@ -1,17 +1,17 @@
-@api
+@api @javascript
 Feature: Collection
   As a developer
   I want to know if the collection functionalities are working
 
   Background:
     Given a group of type "fut_open"
-      | label              | Insert Group Name Here 2             |
+      | label              | Insert Group Name Here               |
       | fut_short_name     | Group Name                           |
       | fut_description    | fut_text:fut_text:Bla Bla, Yada Yada |
 
   Scenario: Verify that I can create a collection.
     Given I am logged in as a user with the administrator role
-    Given I go to "/group/insert-group-name-here-2"
+    Given I go to "/group/insert-group-name-here"
     Then I click "Group Content"
     And I click "Collections"
     Then I click "Add Collection"
