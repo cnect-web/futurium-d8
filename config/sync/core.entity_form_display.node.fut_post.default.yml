@@ -28,10 +28,10 @@ content:
     settings: {  }
     third_party_settings: {  }
   fut_collection:
-    weight: 4
+    weight: 0
     settings: {  }
     third_party_settings: {  }
-    type: options_select
+    type: options_buttons
     region: content
   fut_comments:
     weight: 9
@@ -41,7 +41,7 @@ content:
     region: content
   fut_content:
     type: entity_reference_paragraphs
-    weight: 2
+    weight: 3
     settings:
       title: Paragraph
       title_plural: Paragraphs
@@ -52,7 +52,7 @@ content:
     third_party_settings: {  }
     region: content
   fut_post_image:
-    weight: 1
+    weight: 2
     settings:
       form_mode: default
       label_singular: ''
@@ -68,7 +68,7 @@ content:
     type: inline_entity_form_complex
     region: content
   fut_tags:
-    weight: 3
+    weight: 4
     settings:
       match_operator: CONTAINS
       size: 60
@@ -112,7 +112,7 @@ content:
     third_party_settings: {  }
   title:
     type: string_textfield
-    weight: 0
+    weight: 1
     region: content
     settings:
       size: 60
