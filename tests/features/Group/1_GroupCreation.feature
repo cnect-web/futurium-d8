@@ -1,4 +1,4 @@
-@api @javascript @eric
+@api @javascript
 Feature: Test Groups
   I want to know if groups can be created.
 
