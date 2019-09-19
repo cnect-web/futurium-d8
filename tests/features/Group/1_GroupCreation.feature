@@ -1,8 +1,9 @@
-@api @javascript
+@api @javascript @eric
 Feature: Test Groups
   I want to know if groups can be created.
 
   Background:
+    Given I am logged in as a user with the administrator role
     Given a group of type "fut_open"
        | label              | Insert Group Name Here               |
        | fut_short_name     | Group Name                           |
