@@ -1,0 +1,4 @@
+fut_core.user.logout:
+  weight: 10
+  menu_name: account
+  class: Drupal\fut_core\Plugin\Menu\FutLoginLogoutMenuLink
