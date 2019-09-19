@@ -7300,12 +7300,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/skounis/blellow_helper.git",
-                "reference": "05627a1b089736968578c2c4d4889694368c7210"
+                "reference": "5457e197f480a094ccfa78d935e21dd5672c9247"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/05627a1b089736968578c2c4d4889694368c7210",
-                "reference": "05627a1b089736968578c2c4d4889694368c7210",
+                "url": "https://api.github.com/repos/skounis/blellow_helper/zipball/5457e197f480a094ccfa78d935e21dd5672c9247",
+                "reference": "5457e197f480a094ccfa78d935e21dd5672c9247",
                 "shasum": ""
             },
             "require": {
