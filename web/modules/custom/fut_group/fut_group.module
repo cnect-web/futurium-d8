@@ -181,7 +181,6 @@ function _fut_group_get_group_options() {
         ->hasPermission('manage group collections');
 
     if ($collection_items) {
-      $options['_none'] = t('- None -');
       foreach ($collection_items as $collection_item) {
         if (!$by_pass_access) {
           $is_allowed = FALSE;
@@ -197,8 +196,16 @@ function _fut_group_get_group_options() {
         }
 
         if ($is_allowed) {
-          $options[$collection_item->id()] = $collection_item->getName();
+          $label = $collection_item->getName();
+          if (!empty($collection_item->get('fut_description')->value)) {
+            $label .= " ({$collection_item->get('fut_description')->value})";
+          }
+          $options[$collection_item->id()] = $label;
         }
+      }
+
+      if (!empty($options)) {
+        $options['_none'] = t('No type');
       }
     }
   }
