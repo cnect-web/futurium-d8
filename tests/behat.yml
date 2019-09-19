@@ -33,6 +33,7 @@ default:
         success_message_selector: '.messages.status'
         logged_in_selector: '.user-logged-in'
       region_map:
+        content: ".region-content"
       drush:
         alias: 'default'
         binary: '/var/www/html/bin/drush'

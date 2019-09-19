@@ -1,0 +1,9 @@
+langcode: en
+welcome_title: Welcome on Futurium
+welcome_body: Futurium is a platform dedicated to Europeans discussing EU policies. Feel free to join any - or many of the groups of this platform. You can browse the groups without registering, but for leaving a comment or for liking you need to be a registered user.
+welcome_call: Learn more about Futurium
+welcome_target: user/login
+join_title: Join Futurium
+join_body: Have an idea for Europe? You have a community that drives European-wide agenda? Want to promote an initiative on a European level? Join us at Futurium!
+join_call: Sign up with EU Login
+join_target: user/login

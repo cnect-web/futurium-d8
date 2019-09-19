@@ -123,6 +123,9 @@ function fut_group_field_widget_form_alter(
 
   if (!empty($field_definition) && $field_definition->getName() == 'fut_collection') {
     $element['#options'] = _fut_group_get_group_options();
+    if (empty($element['#options'])) {
+      $element['#access'] = FALSE;
+    }
   }
 
   // Alter entity reference field when creating a "subgroup" group_content.
@@ -143,46 +146,35 @@ function fut_group_field_widget_form_alter(
  */
 function _fut_group_get_group_options() {
   $options = [];
-  $request_extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
-  $group = $request_extractor->getGroup();
-  if (!empty($group)) {
-    // Load group from node.
-    $node = $request_extractor->getNode();
-    if ($node) {
-      $group_content_items = GroupContent::loadByEntity($node);
-      if (!empty($group_content_items)) {
-        $group_content = reset($group_content_items);
-        $group = $group_content->getGroup();
-      }
-    }
-  }
+  $group = \Drupal::getContainer()->get('fut_group.request_entity_extractor')->getGroup();
 
   if (!empty($group)) {
-    $group_roles = [];
-    $custom_permissions = [];
-    $group_permission = GroupPermissionEntity::loadByGroup($group);
-    if ($group_permission) {
-      $custom_permissions = $group_permission->getPermissions()
-        ->first()
-        ->getValue();
-      if (!empty($custom_permissions)) {
-        // Get roles of the current user.
-        $group_roles = _fut_group_get_group_user_roles($group,
-          \Drupal::currentUser());
-      }
-    }
-
+    $current_user = \Drupal::currentUser();
+    // Get collections for current group.
     $query = \Drupal::entityQuery('taxonomy_term');
     $query->condition('vid', 'fut_collections');
     $query->condition('fut_related_group', $group->id());
     $collection_items = Term::loadMultiple($query->execute());
 
-    $by_pass_access = \Drupal::currentUser()
-      ->hasPermission('bypass group access') || \Drupal::currentUser()
-      ->hasPermission('manage group collections');
-
     if ($collection_items) {
-      $options['_none'] = t('- None -');
+
+      // Get custom permissions to check collections.
+      $group_roles = [];
+      $custom_permissions = [];
+      $group_permission = GroupPermissionEntity::loadByGroup($group);
+      if ($group_permission) {
+        $custom_permissions = $group_permission->getPermissions()
+          ->first()
+          ->getValue();
+        if (!empty($custom_permissions)) {
+          // Get roles of the current user.
+          $group_roles = _fut_group_get_group_user_roles($group, $current_user);
+        }
+      }
+
+      // if a user has specific permissions we show all collections.
+      $by_pass_access = $current_user->hasPermission('bypass group access') ||
+        $current_user->hasPermission('manage group collections');
       foreach ($collection_items as $collection_item) {
         if (!$by_pass_access) {
           $is_allowed = FALSE;
@@ -197,9 +189,19 @@ function _fut_group_get_group_options() {
           $is_allowed = TRUE;
         }
 
+        // User has access to this collection.
         if ($is_allowed) {
-          $options[$collection_item->id()] = $collection_item->getName();
+          $label = $collection_item->getName();
+          if (!empty($collection_item->get('fut_description')->value)) {
+            $label .= " ({$collection_item->get('fut_description')->value})";
+          }
+          $options[$collection_item->id()] = $label;
         }
+      }
+
+      // We won't display field if there are no options.
+      if (!empty($options)) {
+        $options['_none'] = t('No type');
       }
     }
   }
