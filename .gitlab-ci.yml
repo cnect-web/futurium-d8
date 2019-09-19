@@ -12,6 +12,7 @@ variables:
   APPLICATION_NAME: "FuturiumD8"
   AWS_REGION: "eu-west-2"
   S3_BUCKET_NAME: "futuriumd8-release-bucket"
+  TEST_ENVIRONMENT: "FuturiumD8-Tests"
   STAGING_ENVIRONMENT: "FuturiumD8-Staging"
   PRODUCTION_ENVIRONMENT: "FuturiumD8-Production"
   THEME_PATH: "themes/contrib/blellow"
@@ -108,13 +109,13 @@ CreateEBAppVersion:
   tags:
     - shell
 
-DeployToStage:
+DeployToTest:
   stage: deploy
   script:
     - >
       aws --region ${AWS_REGION} elasticbeanstalk update-environment
       --application-name ${APPLICATION_NAME}
-      --environment-name ${STAGING_ENVIRONMENT}
+      --environment-name ${TEST_ENVIRONMENT}
       --version-label ${CI_BUILD_TAG}
   dependencies:
     - CreateEBAppVersion
@@ -122,3 +123,18 @@ DeployToStage:
     - tags
   tags:
     - shell
+
+#DeployToStage:
+#  stage: deploy
+#  script:
+#    - >
+#      aws --region ${AWS_REGION} elasticbeanstalk update-environment
+#      --application-name ${APPLICATION_NAME}
+#      --environment-name ${STAGING_ENVIRONMENT}
+#      --version-label ${CI_BUILD_TAG}
+#  dependencies:
+#    - CreateEBAppVersion
+#  only:
+#    - tags
+#  tags:
+#    - shell
