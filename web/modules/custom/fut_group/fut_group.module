@@ -171,7 +171,7 @@ function _fut_group_get_group_options() {
         }
       }
 
-      // if a user has specific permissions we show all collections.
+      // If a user has specific permissions we show all collections.
       $by_pass_access = $current_user->hasPermission('bypass group access') ||
         $current_user->hasPermission('manage group collections');
       foreach ($collection_items as $collection_item) {
