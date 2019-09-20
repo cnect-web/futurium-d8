@@ -170,7 +170,7 @@ class RoboFile extends RoboTasks {
     if (!$fs->exists($this->getSiteDefaultFilesFolder())) {
       $oldmask = umask(0);
       if ($this->isAws()) {
-        $this->symlinkFolders($filesFolder, $this->getSiteDefaultFilesFolder());
+        $this->_symlink($filesFolder, $this->getSiteDefaultFilesFolder());
         $this->say("Created a symlink to {$filesFolder} in {$this->getSiteDefaultFilesFolder()}");
       }
       else {
