@@ -166,12 +166,20 @@ class RoboFile extends RoboTasks {
     $fs->chmod($this->getSiteDefaultFolder(), 0755);
 
     // Create the files directory with chmod 0777
+    $filesFolder = $this->getLocalSettingsFolder() . '/files';
     if (!$fs->exists($this->getSiteDefaultFilesFolder())) {
       $oldmask = umask(0);
-      $fs->mkdir($this->getSiteDefaultFilesFolder(), 0777);
+      if ($this->isAws()) {
+        $this->symlinkFolders($filesFolder, $this->getSiteDefaultFilesFolder());
+        $this->say("Created a symlink to {$filesFolder} in {$this->getSiteDefaultFilesFolder()}");
+      }
+      else {
+        $fs->mkdir($filesFolder, 0777);
+        $this->say("Created a {$filesFolder} directory with chmod 0777");
+      }
       umask($oldmask);
-      $this->say("Created a {$this->getSiteDefaultFilesFolder()} directory with chmod 0777");
     }
+
   }
 
   /**
@@ -195,11 +203,6 @@ class RoboFile extends RoboTasks {
       // If a shared settings file exists, use that.
       foreach ($files as $file) {
         $this->symlinkFolders("${shared_folder}/${file}", "$drupal_settings_folder/$file");
-      }
-
-      // Create the symlink to the files folder.
-      if (file_exists("$shared_folder/files")) {
-        $this->symlinkFolders("$shared_folder/files", "$drupal_settings_folder/files");
       }
 
       // Lock the sites/default folder.
