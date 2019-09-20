@@ -17,14 +17,14 @@ class GroupPrivacyForm extends FormBase {
   /**
    * Group.
    *
-   * @var \Drupal\group\Entity\Group;
+   * @var \Drupal\group\Entity\Group
    */
   protected $group;
 
   /**
    * GroupPermission.
    *
-   * @var \Drupal\group_permissions\Entity\GroupPermission;
+   * @var \Drupal\group_permissions\Entity\GroupPermission
    */
   protected $groupPermission;
 
@@ -89,14 +89,16 @@ class GroupPrivacyForm extends FormBase {
       '#submit' => [[$this, 'publicSubmit']],
     ];
 
-
     return $form;
   }
 
+  /**
+   * Something.
+   */
   protected function getGroupPermission() {
-    if (empty( $this->groupPermission)) {
+    if (empty($this->groupPermission)) {
       $this->groupPermission = GroupPermission::loadByGroup($this->group);
-      if (empty( $this->groupPermission)) {
+      if (empty($this->groupPermission)) {
         $this->groupPermission = GroupPermission::create([
           'gid' => $this->group->id(),
           'permissions' => [],
@@ -107,6 +109,9 @@ class GroupPrivacyForm extends FormBase {
     return $this->groupPermission;
   }
 
+  /**
+   * Alter something.
+   */
   protected function alterCustomPermissions($action) {
     $group_type = $this->group->getGroupType();
     $custom_permissions = $this->getGroupPermission()->getPermissions()->first()->getValue();
@@ -141,7 +146,7 @@ class GroupPrivacyForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  function privateSubmit(array &$form, FormStateInterface $form_state) {
+  public function privateSubmit(array &$form, FormStateInterface $form_state) {
     $this->alterCustomPermissions('remove');
     $violations = $this->getGroupPermission()->validate();
     if (count($violations) == 0) {
@@ -150,7 +155,7 @@ class GroupPrivacyForm extends FormBase {
     }
     else {
       foreach ($violations as $violation) {
-        $this->messenger()->addError($this->t($violation->getMessage()));
+        $this->messenger()->addError($this->t('@message', ['@message' => $violation->getMessage()]));
       }
     }
   }
@@ -158,7 +163,7 @@ class GroupPrivacyForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  function publicSubmit(array &$form, FormStateInterface $form_state) {
+  public function publicSubmit(array &$form, FormStateInterface $form_state) {
     $this->alterCustomPermissions('add');
     $violations = $this->getGroupPermission()->validate();
     if (count($violations) == 0) {
@@ -167,11 +172,14 @@ class GroupPrivacyForm extends FormBase {
     }
     else {
       foreach ($violations as $violation) {
-        $this->messenger()->addError($this->t($violation->getMessage()));
+        $this->messenger()->addError($this->t('@message', ['@message' => $violation->getMessage()]));
       }
     }
   }
 
+  /**
+   * Get non-member roles from group type.
+   */
   protected function getGroupNonMemberRoles($group_type) {
     $storage = $this->entityTypeManager->getStorage('group_role');
     $roles = $storage->loadSynchronizedByGroupTypes([$group_type->id()]);
@@ -180,14 +188,20 @@ class GroupPrivacyForm extends FormBase {
     return $roles;
   }
 
+  /**
+   * Remove a value from an array.
+   */
   protected function removeArrayValue(&$permissions, $role_id, $permission) {
-    if (!empty($permissions[$role_id]) && ($key = array_search($permission, $permissions[$role_id])) !== false) {
+    if (!empty($permissions[$role_id]) && ($key = array_search($permission, $permissions[$role_id])) !== FALSE) {
       unset($permissions[$role_id][$key]);
     }
   }
 
+  /**
+   * Add a value to an array.
+   */
   protected function addArrayValue(&$permissions, $role_id, $permission) {
-    if (empty($permissions[$role_id]) || ($key = array_search($permission, $permissions[$role_id])) == false) {
+    if (empty($permissions[$role_id]) || (array_search($permission, $permissions[$role_id])) == FALSE) {
       $permissions[$role_id][] = $permission;
     }
   }
@@ -195,7 +209,7 @@ class GroupPrivacyForm extends FormBase {
   /**
    * {@inheritdoc}
    */
-  function submitForm(array &$form, FormStateInterface $form_state) {
+  public function submitForm(array &$form, FormStateInterface $form_state) {
 
   }
 
