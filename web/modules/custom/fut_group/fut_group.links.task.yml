@@ -29,21 +29,13 @@ fut_group.manage_group_content.comments:
   parent_id: 'fut_group.manage_group_content'
   weight: 20
 
-fut_group.manage_group_content.library:
-  route_name: 'fut_group.manage_group_content.library'
-  title: 'Library'
-  description: 'Manage library'
-  base_route: 'entity.group.canonical'
-  parent_id: 'fut_group.manage_group_content'
-  weight: 30
-
 fut_group.manage_group_content.collections:
   route_name: 'fut_group.manage_group_content.collections'
   title: 'Collections'
   description: 'Manage collections'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
-  weight: 40
+  weight: 30
 
 fut_group.manage_group_content.add_collection:
   route_name: 'fut_group.add_collection'
@@ -51,7 +43,7 @@ fut_group.manage_group_content.add_collection:
   description: 'Add collection'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
-  weight: 50
+  weight: 40
 
 fut_group.manage_group_content.delete_collection:
   route_name: 'fut_group.delete_collection'
@@ -59,7 +51,7 @@ fut_group.manage_group_content.delete_collection:
   description: 'Delete collection'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
-  weight: 30
+  weight: 40
 
 fut_group.manage_group_content.edit_collection:
   route_name: 'fut_group.edit_collection'
@@ -67,7 +59,7 @@ fut_group.manage_group_content.edit_collection:
   description: 'Edit collection'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
-  weight: 30
+  weight: 40
 
 fut_group.manage_group_content.subgroups:
   route_name: 'fut_group.manage_group_content.subgroups'
@@ -75,7 +67,7 @@ fut_group.manage_group_content.subgroups:
   description: 'Manage subgroups'
   base_route: 'entity.group.canonical'
   parent_id: 'fut_group.manage_group_content'
-  weight: 40
+  weight: 50
 
 fut_group.manage_group:
   route_name: 'fut_group.manage_group'
