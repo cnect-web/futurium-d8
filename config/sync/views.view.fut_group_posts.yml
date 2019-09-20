@@ -670,6 +670,7 @@ display:
         use_more_text: false
         footer: false
         relationships: false
+        access: false
       filters:
         status:
           value: '1'
@@ -841,16 +842,19 @@ display:
           entity_type: group_content
           plugin_id: group_content_to_entity
       block_hide_empty: true
+      access:
+        type: perm
+        options:
+          perm: 'access content'
     cache_metadata:
       max-age: -1
       contexts:
         - 'languages:language_content'
         - 'languages:language_interface'
-        - route.group
         - url
         - user
-        - user.group_permissions
         - 'user.node_grants:view'
+        - user.permissions
       tags: {  }
   page_group_posts:
     display_plugin: page
