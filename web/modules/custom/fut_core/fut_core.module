@@ -22,3 +22,25 @@ function fut_core_help($route_name, RouteMatchInterface $route_match) {
     default:
   }
 }
+
+/**
+ * Implements hook_install()
+ */
+function fut_core_install() {
+  $config_factory = \Drupal::configFactory();
+
+  // Change field prefix for all fields fut_.
+  $config_factory->getEditable('field_ui.settings')
+    ->set('field_prefix', 'fut_')
+    ->save();
+}
+
+/**
+ * Implements hook_uninstall()
+ */
+function fut_core_uninstall() {
+  // Revert field prefix for all fields fut_.
+  \Drupal::configFactory()->getEditable('field_ui.settings')
+    ->set('field_prefix', 'field_')
+    ->save();
+}
