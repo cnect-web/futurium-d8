@@ -40,5 +40,10 @@ function fut_blocks_theme() {
         'node' => NULL,
       ],
     ],
+    'create_content_link_block' => [
+      'variables' => [
+        'link' => NULL,
+      ],
+    ]
   ];
 }
