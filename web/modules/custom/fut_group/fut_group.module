@@ -12,6 +12,7 @@ use Drupal\Core\Routing\RouteMatchInterface;
 use Drupal\Core\Session\AccountInterface;
 use Drupal\Core\Url;
 use Drupal\group\Entity\Group;
+use Drupal\group\Entity\GroupContent;
 use Drupal\group\Entity\GroupContentType;
 use Drupal\group_permissions\Entity\GroupPermission as GroupPermissionEntity;
 use Drupal\node\NodeInterface;
@@ -587,13 +588,25 @@ function fut_group_menu_local_actions_alter(&$local_actions) {
  *
  * @see \Drupal\workspaces\EntityAccess
  */
-function fut_group_entity_create_access(AccountInterface $account, array $context, $entity_bundle) {
+function fut_group_media_create_access(AccountInterface $account, array $context, $entity_bundle) {
   $extractor = \Drupal::getContainer()->get('fut_group.request_entity_extractor');
-  if ($extractor->getRouteMatch()->getRouteName() == 'entity.group_content.create_form' && isset($context['entity_type_id']) && $context['entity_type_id'] == 'media') {
+
+  // Group content form.
+  if ($extractor->getRouteMatch()->getRouteName() == 'entity.group_content.create_form') {
     $plugin_id = $extractor->getRouteMatch()->getParameter('plugin_id');
     $group = $extractor->getGroup();
     if (!empty($group) && !empty($plugin_id)) {
       if ($group->hasPermission("create $plugin_id entity", $account)) {
+        return AccessResult::allowed();
+      }
+    }
+  }
+
+  // Node edit form.
+  if ($extractor->getRouteMatch()->getRouteName() == 'entity.node.edit_form') {
+    $node = $extractor->getNode();
+    foreach (GroupContent::loadByEntity($node) as $group_content) {
+      if ($group_content->getGroup()->hasPermission("create group_node:{$node->getType()} entity", $account)) {
         return AccessResult::allowed();
       }
     }
