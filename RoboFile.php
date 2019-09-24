@@ -16,10 +16,11 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\Input;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Filesystem\Filesystem;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Yaml\Yaml;
 
+use Drupal\Core\DrupalKernel;
 use Drupal\Core\Site\Settings;
-
 use DrupalFinder\DrupalFinder;
 
 use Dotenv\Dotenv;
@@ -563,7 +564,7 @@ class RoboFile extends RoboTasks {
     }
 
     if (in_array('unit', $op)) {
-      $result = $this->ut($paths);
+      $result = $this->put($paths);
       if (!$result->wasSuccessful()) {
         return $result;
       }
@@ -585,8 +586,100 @@ class RoboFile extends RoboTasks {
    * @command tests:ut
    * @aliases ut
    */
-  public function ut(array $paths) {
-    return $this->taskExec('php web/core/scripts/run-tests.sh --color --keep-results --suppress-deprecations --concurrency "36" --repeat "1" --directory ' . implode(' ', $paths) . ' PHPUnit')
+  public function put(array $paths) {
+
+    $command[] = 'php';
+    $command[] = 'web/core/scripts/run-tests.sh';
+    $command[] = '--url ' . $this->config->get("project.url");
+    $command[] = '--php php';
+    $command[] = '--color';
+    $command[] = '--keep-results';
+    $command[] = '--concurrency "36"';
+    $command[] = '--repeat "1"';
+    $command[] = '--verbose';
+    $command[] = '--suppress-deprecations';
+    $command[] = '--sqlite';
+    $command[] = '--types "Simpletest,PHPUnit-Unit,PHPUnit-Kernel,PHPUnit-Functional"';
+
+    if (!isset($paths) || empty($paths)) {
+      $command[] = '--all';
+    }
+    else {
+      $replacements = array(
+        'web/' => '',
+        '/web/' => '/'
+      );
+
+      $paths = str_replace(
+        array_keys($replacements),
+        array_values($replacements),
+        $paths
+      );
+
+      $command[] = '--directory ' . implode(",", $paths);
+    }
+
+    $task = implode(' ', $command);
+
+    return $this
+      ->taskExec($task)
+      ->run();
+  }
+
+  private function getEnabledModulesPath() {
+
+    $this->bootstrapDrupal();
+
+    $paths = [];
+
+    $module_handler = \Drupal::moduleHandler();
+    $modules = $module_handler->getModuleList();
+    foreach ($modules as $module) {
+      $paths[] = $module->getPath();
+    }
+
+    return $paths;
+  }
+
+  /**
+   * Helper.
+   *
+   * Bootstraps Drupal.
+   */
+  private function bootstrapDrupal() {
+    require_once "{$this->drupalRoot}/core/includes/bootstrap.inc";
+
+    $autoloader = require_once $this->drupalRoot . '/autoload.php';
+    $kernel = new DrupalKernel('prod', $autoloader);
+    $kernel::bootEnvironment();
+    $site_path = $this->drupalRoot;
+    $kernel->setSitePath($site_path);
+    $settings_folder = $this->getLocalSettingsFolder();
+    Settings::initialize($this->drupalRoot, 'sites/default', $this->classLoader);
+    $kernel->boot();
+  }
+
+
+  /**
+   * Clean unit tests.
+   *
+   * @command tests:utc
+   * @aliases utc
+   */
+  public function putc() {
+
+    $command[] = 'php';
+    $command[] = 'web/core/scripts/run-tests.sh';
+    $command[] = '--php php';
+    $command[] = '--url ' . $this->config->get("project.url");
+    $command[] = '--sqlite';
+    $command[] = '--verbose';
+    $command[] = '--clean';
+
+    $task = implode(' ', $command);
+
+    return $this
+      ->taskExec($task)
       ->run();
   }
 
@@ -698,7 +791,7 @@ class RoboFile extends RoboTasks {
       $settings_folder = $this->getLocalSettingsFolder();
 
       // Initialize Settings.
-      Settings::initialize($this->drupalRoot, $settings_folder,$this->classLoader);
+      Settings::initialize($this->drupalRoot, $settings_folder, $this->classLoader);
       foreach ($settings['settings'] as $key => $setting) {
         if (is_array($setting)) {
           foreach ($setting as $k => $v) {
