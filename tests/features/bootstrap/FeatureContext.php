@@ -95,7 +95,7 @@ class FeatureContext extends RawDrupalContext implements SnippetAcceptingContext
   public function iClickOnWidgetInput($name) {
     $this->getSession()
       ->getPage()
-      ->find('named', array('button', $name))
+      ->find('named', array('link_or_button', $name))
       ->click();
   }
 
