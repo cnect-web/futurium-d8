@@ -11,6 +11,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Drupal\fut_group\Breadcrumb\GroupBreadcrumbBuilder;
 use Drupal\Core\Config\ConfigFactoryInterface;
 use Drupal\fut_group\RequestEntityExtractor;
+use Drupal\Core\Cache\Cache;
 
 /**
  * Provides a 'FutPageHeaderBlock' block.
@@ -181,6 +182,13 @@ class FutPageHeaderBlock extends BlockBase implements ContainerFactoryPluginInte
 
       return $group_operations;
     }
+  }
+
+  /**
+   * {@inheritdoc}
+   */
+  public function getCacheContexts() {
+    return Cache::mergeContexts(parent::getCacheContexts(), ['url.path']);
   }
 
 }
