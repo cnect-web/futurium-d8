@@ -34,6 +34,7 @@ default:
         logged_in_selector: '.user-logged-in'
       region_map:
         content: ".region-content"
+        tabs: ".tabs"
       drush:
         alias: 'default'
         binary: '/var/www/html/bin/drush'
