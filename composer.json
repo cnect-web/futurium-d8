@@ -124,7 +124,8 @@
         "patches": {
             "enable-patching" : true,
             "drupal/core": {
-                "LanguageNegotiator::updateConfiguration() is passed a NULL": "https://www.drupal.org/files/issues/2019-02-28/language-2718657-17.patch"
+                "LanguageNegotiator::updateConfiguration() is passed a NULL": "https://www.drupal.org/files/issues/2019-02-28/language-2718657-17.patch",
+                "Compiling the container from outside the application root fails": "https://www.drupal.org/files/issues/2018-10-17/3007298-2.patch"
             },
             "drupal/views": {
                 "Cannot use relationship for rendered entity on Views": "https://www.drupal.org/files/issues/2019-03-15/2457999-189.patch"
