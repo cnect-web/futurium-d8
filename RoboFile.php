@@ -319,6 +319,7 @@ class RoboFile extends RoboTasks {
       ->exec('cache-clear drush')
       ->exec('updb')
       ->exec('cim -y')
+      ->exec('entup -y')
       ->exec('cr')
       ->silent(TRUE)
       ->printOutput(FALSE)

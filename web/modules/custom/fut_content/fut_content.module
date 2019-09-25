@@ -38,7 +38,7 @@ function fut_content_preprocess_node(array &$variables) {
 
   $output = [];
   $output[] = [
-    '#theme' => 'markup',
+    '#type' => 'markup',
     '#markup' => \Drupal::service('date.formatter')->format($created, 'custom', 'j F Y'),
   ];
 
