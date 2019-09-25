@@ -236,9 +236,11 @@ class RoboFile extends RoboTasks {
 
     // If the website is installed and we're not forcing the install,
     // just import the config.
-    (!$this->isInstalled() || $options['force'])
-      ? $this->installConfig($options)
-      : $this->importConfig();
+    if (!$this->isInstalled() || $options['force']) {
+      $this->installConfig($options);
+    }
+
+    $this->importConfig();
 
     // Initialize the symlinks.
     $this->initSymLinks();
@@ -285,9 +287,6 @@ class RoboFile extends RoboTasks {
       $this->statusMessage("Drupal is already installed.\n   Use --force to install anyway.",'warn');
     }
 
-    // On installation, drupal only takes into account config in the config/sync dir.
-    // So we need to import config so that config splits kick in.
-    $this->importConfig();
   }
 
   /**
@@ -322,6 +321,7 @@ class RoboFile extends RoboTasks {
       ->exec('cim -y')
       ->exec('cr')
       ->silent(TRUE)
+      ->printOutput(FALSE)
       ->run();
   }
 
@@ -337,6 +337,8 @@ class RoboFile extends RoboTasks {
       ->exec('cache-clear drush')
       ->exec('cex -y')
       ->exec('cr')
+      ->silent(TRUE)
+      ->printOutput(FALSE)
       ->run();
   }
 
