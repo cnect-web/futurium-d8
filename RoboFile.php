@@ -314,12 +314,16 @@ class RoboFile extends RoboTasks {
    * @aliases imc
    */
   public function importConfig() {
+
     $this->taskDrushStack($this->getDrushPath())
+      ->exec('sset system.maintenance_mode TRUE')
       ->exec('cr')
       ->exec('cache-clear drush')
       ->exec('updb')
       ->exec('cim -y')
       ->exec('cr')
+      ->exec('sset system.maintenance_mode FALSE')
+      ->run()
       ->silent(TRUE)
       ->printOutput(FALSE)
       ->run();
