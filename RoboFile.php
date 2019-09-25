@@ -323,7 +323,6 @@ class RoboFile extends RoboTasks {
       ->exec('cim -y')
       ->exec('cr')
       ->exec('sset system.maintenance_mode FALSE')
-      ->run()
       ->silent(TRUE)
       ->printOutput(FALSE)
       ->run();
