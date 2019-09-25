@@ -9,7 +9,6 @@ label: 'Staging Config'
 description: ''
 folder: ../config/staging_config
 module:
-  stage_file_proxy: 0
   aws_info: 0
   default_content: 0
   fut_default_content: 0
