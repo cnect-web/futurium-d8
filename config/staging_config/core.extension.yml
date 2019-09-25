@@ -1,4 +1,10 @@
 module:
+  aws_info: 0
+  default_content: 0
+  fut_default_content: 0
+  fut_sample_content: 0
+  hal: 0
+  serialization: 0
   address: 0
   admin_toolbar: 0
   automated_cron: 0
