@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * @file
+ * Install, update and uninstall functions for the fut_content module.
+ */
+
+/**
+ * Update field fut_event_coordinates.
+ */
+function fut_content_update_8001() {
+  $fieldStorages = \Drupal::entityManager()
+    ->getFieldStorageDefinitions('node');
+  \Drupal::entityDefinitionUpdateManager()
+    ->installFieldStorageDefinition('fut_event_coordinates', 'node', 'node', $fieldStorages['fut_event_coordinates']);
+}
